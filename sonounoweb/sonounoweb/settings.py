@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Static Dir and Static root needs to be different
 
-STATICFILES_DIRS = ['/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla/static']
+STATICFILES_DIRS = [str(BASE_DIR) + '/sonounoweb/plantilla/static']
 
 # Application definition
 
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'sonounoweb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla"],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

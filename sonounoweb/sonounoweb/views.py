@@ -1,9 +1,13 @@
+from pathlib import Path
+
 from django.http import HttpResponse
 from django.template import Template, Context
 
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 def index (request):
-	plantillaExterna = open ('/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla/index.html')
+	plantillaExterna = open (str(BASE_DIR) + '/sonounoweb/plantilla/index.html')
 	template = Template (plantillaExterna.read())
 	plantillaExterna.close()
 	contexto = Context()
@@ -11,7 +15,7 @@ def index (request):
 	return HttpResponse (documento)
 	
 def sonido (request):
-	plantillaExterna = open ('/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla/sonido.html')
+	plantillaExterna = open (str(BASE_DIR) + '/sonounoweb/plantilla/sonido.html')
 	template = Template (plantillaExterna.read())
 	plantillaExterna.close()
 	contexto = Context()
@@ -19,7 +23,7 @@ def sonido (request):
 	return HttpResponse (documento)
 	
 def grafico (request):
-	plantillaExterna = open ('/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla/grafico.html')
+	plantillaExterna = open (str(BASE_DIR) + '/sonounoweb/plantilla/grafico.html')
 	template = Template (plantillaExterna.read())
 	plantillaExterna.close()
 	contexto = Context()
@@ -27,7 +31,7 @@ def grafico (request):
 	return HttpResponse (documento)
 	
 def funciones_matematicas (request):
-	plantillaExterna = open ('/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla/funciones_matematicas.html')
+	plantillaExterna = open (str(BASE_DIR) + '/sonounoweb/plantilla/funciones_matematicas.html')
 	template = Template (plantillaExterna.read())
 	plantillaExterna.close()
 	contexto = Context()
@@ -35,7 +39,7 @@ def funciones_matematicas (request):
 	return HttpResponse (documento)
 		
 def inicio (request):
-	plantillaExterna = open ('/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla/inicio.html')
+	plantillaExterna = open (str(BASE_DIR) + '/sonounoweb/plantilla/inicio.html')
 	template = Template (plantillaExterna.read())
 	plantillaExterna.close()
 	contexto = Context()
@@ -43,7 +47,7 @@ def inicio (request):
 	return HttpResponse (documento)
 	
 def ayuda (request):
-	plantillaExterna = open ('/home/belen/Escritorio/projects/sonounoweb/sonounoweb/plantilla/ayuda.html')
+	plantillaExterna = open (str(BASE_DIR) + '/sonounoweb/plantilla/ayuda.html')
 	template = Template (plantillaExterna.read())
 	plantillaExterna.close()
 	contexto = Context()
