@@ -1,3 +1,4 @@
+# una vez implementada la app se borrará este archivo
 from pathlib import Path
 
 from django.http import HttpResponse

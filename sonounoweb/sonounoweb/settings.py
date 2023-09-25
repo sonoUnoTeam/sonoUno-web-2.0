@@ -35,6 +35,7 @@ STATICFILES_DIRS = [str(BASE_DIR) + '/sonounoweb/plantilla/static']
 # Application definition
 
 INSTALLED_APPS = [
+    'sonif1D.apps.Sonif1DConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
