@@ -26,10 +26,13 @@ from sonounoweb.views import ayuda
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import include, path
 
 
 urlpatterns = [
+    path("sonif1D/", include("sonif1D.urls")),
     path('admin/', admin.site.urls),
+    # de aquí en adelante se borrará
     path('index', index),
     path('sonido', sonido),
     path('grafico', grafico),
