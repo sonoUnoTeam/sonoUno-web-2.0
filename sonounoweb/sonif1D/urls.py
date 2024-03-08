@@ -16,4 +16,8 @@ urlpatterns = [
     path("grafico", views.grafico, name="grafico"),
     # ex: /sonif1D/funciones_matematicas
     path("funciones_matematicas", views.funciones_matematicas, name="funciones_matematicas"),
+
+    path("test", views.test, name="test"),
+
+    path("test2", views.test2, name="test2"),
 ]

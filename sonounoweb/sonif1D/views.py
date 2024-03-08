@@ -1,3 +1,6 @@
+from django.conf.urls.static import static
+from django.conf import settings
+
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
@@ -21,3 +24,9 @@ def grafico(request):
 
 def funciones_matematicas(request):
     return render(request, "sonif1D/funciones_matematicas.html")
+
+def test(request):
+    return render(request, "sonif1D/test.html")
+
+def test2(request):
+    return render(request, "sonif1D/test2.html")
