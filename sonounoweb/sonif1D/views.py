@@ -15,12 +15,6 @@ import numpy as np
 
 matplotlib.use('Agg')
 
-#Local import
-from sonounolib.data_export.data_export import DataExport
-from sonounolib.data_import.data_import import DataImport
-from sonounolib.sound_module.simple_sound import simpleSound
-from sonounolib.data_transform.predef_math_functions import PredefMathFunctions
-
 def index(request):
     return render(request,"sonif1D/index.html")
 
@@ -54,6 +48,7 @@ def test(request):
     return render(request, "sonif1D/test.html")
 
 def test2(request):
+#<<<<<<< HEAD
     plt.plot(range(10))
     fig = plt.gcf()
     buf = io.BytesIO()
@@ -62,3 +57,6 @@ def test2(request):
     string = base64.b64encode(buf.read())
     uri = urllib.parse.quote(string)
     return render(request, 'sonif1D/test2.html', {'data':uri})
+#=======
+ #   return render(request, "sonif1D/test2.html")
+#>>>>>>> b117a07b7f252f0696a681f024f783e78fb924fd
