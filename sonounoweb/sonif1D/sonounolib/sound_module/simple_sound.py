@@ -6,7 +6,7 @@ import numpy as np
 import pygame
 import wave
 from scipy import signal
-from data_export.data_export import DataExport as eErr
+#from data_export.data_export import DataExport as eErr
 import os
 
 #Reproductor de sonido raw
@@ -244,7 +244,7 @@ class reproductorRaw (object):
 class simpleSound(object):
     def __init__(self):
         #instancia de la clase DataExport para imprimir los print y los errores en los archivos correspondientes
-        self.expErrSs = eErr(False)
+        #self.expErrSs = eErr(False)
         #Se instancia la clase que se genera el sonido usando PyGame.
         self.reproductor = reproductorRaw()
     #Éste método modifica el valor para producir la nota y lo envía a la clase reproductorMidi
@@ -258,7 +258,8 @@ class simpleSound(object):
                 # no generaba error, se deja por las dudas.
                 self.reproductor.pitch(0)
         except Exception as e:
-            self.expErrSs.writeexception(e)
+            #self.expErrSs.writeexception(e)
+            print(e)
         #En un futuro se puede pedir confirmación al método pitch y devolverla.
     #Aquí se genera el archivo de salida con el sonido, por el momento no depende del tempo seleccionado.
 
@@ -292,7 +293,8 @@ class simpleSound(object):
                 #output_file.close()
 
         except Exception as e:
-            self.expErrSs.writeexception(e)
+            #self.expErrSs.writeexception(e)
+            print(e)
         #Finalmente se guarda el la ruta seleccionada.
         # try:
         #     #MidiFileOut.write_Track(path, localTrack)

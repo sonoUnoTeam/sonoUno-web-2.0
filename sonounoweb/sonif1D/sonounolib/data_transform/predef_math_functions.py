@@ -9,7 +9,7 @@ Created on Dec 12 2017
 
 import numpy as np
 
-from data_export.data_export import DataExport
+#from data_export.data_export import DataExport
 
 
 class PredefMathFunctions(object):
@@ -22,7 +22,7 @@ class PredefMathFunctions(object):
         """
         # DataExport instance to save the error and messages on the output
         # and error files.
-        self._export_error_info = DataExport()
+        #self._export_error_info = DataExport()
     
     def normalize(self, data_x, data_y, init=0):
 
@@ -51,7 +51,8 @@ class PredefMathFunctions(object):
                     / (np.nanmax(data_y)-np.nanmin(data_y)))
             return data_x, new_y, True
         except Exception as Error:
-            self._export_error_info.writeexception(Error)
+            #self._export_error_info.writeexception(Error)
+            print(Error)
             return data_x, data_y, False
     
     def square(self, x, y):
@@ -72,7 +73,8 @@ class PredefMathFunctions(object):
             new_y = np.square(y)
             return x, new_y, True
         except Exception as Error:
-            self._export_error_info.writeexception(Error)
+            #self._export_error_info.writeexception(Error)
+            print(Error)
             return x, y, False
     
     def squareroot(self, x, y):
@@ -88,7 +90,8 @@ class PredefMathFunctions(object):
             new_y = np.sqrt(y)
             return x, new_y, True
         except Exception as Error:
-            self._export_error_info.writeexception(Error)
+            #self._export_error_info.writeexception(Error)
+            print(Error)
             return x, y, False
         
     def logarithm(self, x, y):
@@ -111,7 +114,8 @@ class PredefMathFunctions(object):
             new_y = np.where(np.isposinf(new_y), 1, new_y)
             return x, new_y, True
         except Exception as Error:
-            self._export_error_info.writeexception(Error)
+            #self._export_error_info.writeexception(Error)
+            print(Error)
             return x, y, False
     
     def average(self, x, y, pointsnumber):
@@ -144,7 +148,8 @@ class PredefMathFunctions(object):
                     conter = 0
                     sumvalue = 0
         except Exception as Error:
-            self._export_error_info.writeexception(Error)
+            #self._export_error_info.writeexception(Error)
+            print(Error)
             return x, y, False
         try:
             if conter != 0:
@@ -158,12 +163,14 @@ class PredefMathFunctions(object):
                 conter = 0
                 sumvalue = 0
         except Exception as Error:
-            self._export_error_info.writeexception(Error)
+            #self._export_error_info.writeexception(Error)
+            print(Error)
             return x, y, False
         try:
             new_y = ((new_y - np.nanmin(new_y)) 
                 / (np.nanmax(new_y) - np.nanmin(new_y)))
             return x, new_y, True
         except Exception as Error:
-            self._export_error_info.writeexception(Error)
+            #self._export_error_info.writeexception(Error)
+            print(Error)
             return x, y, False

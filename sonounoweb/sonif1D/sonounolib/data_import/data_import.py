@@ -11,8 +11,7 @@ import numpy as np
 import pandas as pd
 # import wx
 
-from data_export.data_export import DataExport
-
+#from data_export.data_export import DataExport
 
 class DataImport(object):
 
@@ -25,7 +24,7 @@ class DataImport(object):
         """        
         # The class DataExport is instantiated to print the messages and 
         # errors.
-        self._export_error_info = DataExport()
+        #self._export_error_info = DataExport()
         # Parameters initialization with setter methods
         self.set_datafilename('')
         
@@ -100,12 +99,14 @@ class DataImport(object):
                 msg = 'Cannot open the txt file, this is an IO Error. \
                     Check the error file for more information.'
                 #wx.LogError(msg)
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             except Exception as Error:
                 msg = 'Cannot open the txt file. Check the error file for \
                     more information.'
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             # Check if the data are imported in the right way, if not try to
             # import as space separated.
@@ -115,7 +116,8 @@ class DataImport(object):
                 if data.shape[1] < 2:
                     msg = 'Check the delimiter on the data, txt separator \
                         must be "\t" or " ".'
-                    self._export_error_info.printoutput(msg)
+                    #self._export_error_info.printoutput(msg)
+                    print(msg)
                     return None, False, msg
         elif filetype == 'csv':
             try:
@@ -125,12 +127,14 @@ class DataImport(object):
                 msg = 'Cannot open the csv file, this is an IO Error. \
                     Check the error file for more information.'
                 #wx.LogError(msg)
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             except Exception as Error:
                 msg = 'Cannot open the txt file. Check the error file for \
                     more information.'
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             # Check if the data are imported in the right way, if not try to
             # import as ; separated.
@@ -140,11 +144,13 @@ class DataImport(object):
                 if data.shape[1] < 2:
                     msg = 'Check the delimiter on the data, csv separator \
                         must be "," or ";".'
-                    self._export_error_info.printoutput(msg)
+                    #self._export_error_info.printoutput(msg)
+                    print(msg)
                     return None, False, msg
         else:
             msg = 'The data type provided is unknow.'
-            self._export_error_info.printoutput(msg)
+            #self._export_error_info.printoutput(msg)
+            print(msg)
             return None, False, msg
         # If the data are imported correctly, continue checking the columns
         # names.
@@ -175,7 +181,7 @@ class DataImportColumns (object):
         """
         # The class DataExport is instantiated to print the messages and 
         # errors.
-        self._export_error_info = DataExport()
+        #self._export_error_info = DataExport()
         # Parameters initialization with setter methods
         self.set_datafilename('')
         
@@ -210,12 +216,14 @@ class DataImportColumns (object):
                 msg = 'Cannot open the txt file, this is an IO Error. \
                     Check the error file for more information.'
                 #wx.LogError(msg)
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             except Exception as Error:
                 msg = 'Cannot open the txt file. Check the error file for \
                     more information.'
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             # Check if the data are imported in the right way, if not try to
             # import as space separated.
@@ -225,7 +233,8 @@ class DataImportColumns (object):
                 if data.shape[1] < 2:
                     msg = 'Check the delimiter on the data, txt separator \
                         must be "\t" or " ".'
-                    self._export_error_info.printoutput(msg)
+                    #self._export_error_info.printoutput(msg)
+                    print(msg)
                     return None, False, msg
         elif filetype == 'csv':
             try:
@@ -235,12 +244,14 @@ class DataImportColumns (object):
                 msg = 'Cannot open the csv file, this is an IO Error. \
                     Check the error file for more information.'
                 #wx.LogError(msg)
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             except Exception as Error:
                 msg = 'Cannot open the txt file. Check the error file for \
                     more information.'
-                self._export_error_info.writeexception(Error)
+                #self._export_error_info.writeexception(Error)
+                print(Error)
                 return None, False, msg
             # Check if the data are imported in the right way, if not try to
             # import as ; separated.
@@ -250,11 +261,13 @@ class DataImportColumns (object):
                 if data.shape[1] < 2:
                     msg = 'Check the delimiter on the data, csv separator \
                         must be "," or ";".'
-                    self._export_error_info.printoutput(msg)
+                    #self._export_error_info.printoutput(msg)
+                    print(msg)
                     return None, False, msg
         else:
             msg = 'The data type provided is unknow.'
-            self._export_error_info.printoutput(msg)
+            #self._export_error_info.printoutput(msg)
+            print(msg)
             return None, False, msg
         # If the data are imported correctly, continue checking the columns
         # names.
