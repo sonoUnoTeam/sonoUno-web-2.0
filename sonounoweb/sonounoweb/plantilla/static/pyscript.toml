@@ -1,0 +1,7 @@
+<<<<<<< HEAD
+name = "Pandas"
+packages = ["matplotlib","pandas", "data_export"]
+=======
+name = "Matplotlib"
+packages = ["matplotlib"]
+>>>>>>> b117a07b7f252f0696a681f024f783e78fb924fd

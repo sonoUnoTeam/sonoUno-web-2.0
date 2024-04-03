@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+tp7v=sjir%6@7qa8dc!$g1$%!z!97+ij4&j*9dig5u2cg(jmz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Static Dir and Static root needs to be different
 

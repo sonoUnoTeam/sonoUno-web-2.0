@@ -7,6 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sonoUno web</title>
+
+    <!-- PyScript CSS -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <!-- This script tag bootstraps PyScript -->
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <!-- CSS for examples -->
+    <link rel="stylesheet" href="./assets/css/examples.css" />
+
     <!-- Bootstrap: -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS Personal: -->
@@ -121,6 +129,8 @@
                         
                         <div class="chart-container my-3">
                             <!-- Aquí puedes colocar tu gráfico con Java -->
+                            <div id="mpl"></div>
+                            <img src="data:image/png;base64,{{ data }}" alt="">
                             <!-- Por ejemplo: <canvas id="myChart"></canvas> -->
                         </div>
                         <h5 for="customRange3" class="text-left">Posición del eje X</h5>
