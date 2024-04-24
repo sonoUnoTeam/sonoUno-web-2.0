@@ -59,7 +59,18 @@ def grafico(request):
     _simplesound.reproductor.set_min_freq(300)
     _simplesound.reproductor.set_max_freq(1500)
 
+    # Ordenada to plot the red line
+    minval = float(np.abs(data_float.loc[:,1]).min())
+    maxval = float(np.abs(data_float.loc[:,1]).max())
+    ordenada = np.array([minval, maxval])
+
     for i in range (1, data_float.loc[:,0].size):
+        # Update the plot
+        if not i == 1:
+            line = red_line.pop(0)
+            line.remove()
+        abscisa = np.array([float(data_float.loc[i,0]), float(data_float.loc[i,0])])
+        red_line = plt.plot(abscisa, ordenada, 'r')
         # Make the sound
         _simplesound.reproductor.set_waveform('sine')
         _simplesound.make_sound(y[i], 1)
