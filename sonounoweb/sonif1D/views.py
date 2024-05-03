@@ -6,6 +6,9 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 
+import os 
+os.environ['MPLCONFIGDIR'] = os.getcwd() + "/configs/"
+
 import matplotlib
 import matplotlib.pyplot as plt
 import io
