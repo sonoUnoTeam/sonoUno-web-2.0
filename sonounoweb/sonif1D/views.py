@@ -100,7 +100,6 @@ def test(request):
     return render(request, "sonif1D/test.html")
 
 def test2(request):
-#<<<<<<< HEAD
     plt.plot(range(10))
     fig = plt.gcf()
     buf = io.BytesIO()
@@ -109,6 +108,4 @@ def test2(request):
     string = base64.b64encode(buf.read())
     uri = urllib.parse.quote(string)
     return render(request, 'sonif1D/test2.html', {'data':uri})
-#=======
- #   return render(request, "sonif1D/test2.html")
-#>>>>>>> b117a07b7f252f0696a681f024f783e78fb924fd
+
