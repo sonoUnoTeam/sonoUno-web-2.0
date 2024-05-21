@@ -13,9 +13,9 @@ urlpatterns = [
     # ex: /sonif1D/ayuda
     path("ayuda", views.ayuda, name="ayuda"),
     # ex: /sonif1D/sonido
-    path("sonido", views.sonido, name="sonido"),
+    path("sonido", views.sonify_seno, name="sonido"),
     # ex: /sonif1D/grafico
-    path("grafico", views.grafico, name="grafico"),
+    path("grafico", views.plot_seno, name="grafico"),
     # ex: /sonif1D/funciones_matematicas
     path("funciones_matematicas", views.funciones_matematicas, name="funciones_matematicas"),
 
