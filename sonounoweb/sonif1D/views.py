@@ -17,7 +17,7 @@ import os
 #Local import
 from .sonounolib.data_export.data_export import DataExport
 from .sonounolib.data_import.data_import import DataImport
-from .sonounolib.sound_module.simple_sound import simpleSound
+#from .sonounolib.sound_module.simple_sound import simpleSound
 from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
 
 matplotlib.use('Agg')
@@ -36,7 +36,7 @@ def sonido(request):
 
 def grafico(request):
     _dataimport = DataImport()
-    _simplesound = simpleSound()
+#    _simplesound = simpleSound()
     _math = PredefMathFunctions()
     path = os.getcwd() + '/sonif1D/sample_data/decrease.txt'
     data, status, msg = _dataimport.set_arrayfromfile(path, 'txt')
@@ -53,21 +53,21 @@ def grafico(request):
     x, y, status = _math.normalize(data_float.loc[:,0], data_float.loc[:,1], init=1)
 
     # Sound configurations, predefined at the moment
-    _simplesound.reproductor.set_continuous()
-    _simplesound.reproductor.set_waveform('celesta')
-    _simplesound.reproductor.set_time_base(0.05)
-    _simplesound.reproductor.set_min_freq(300)
-    _simplesound.reproductor.set_max_freq(1500)
+#    _simplesound.reproductor.set_continuous()
+#    _simplesound.reproductor.set_waveform('celesta')
+#    _simplesound.reproductor.set_time_base(0.05)
+#    _simplesound.reproductor.set_min_freq(300)
+#    _simplesound.reproductor.set_max_freq(1500)
 
     for i in range (1, data_float.loc[:,0].size):
         # Make the sound
-        _simplesound.reproductor.set_waveform('sine')
-        _simplesound.make_sound(y[i], 1)
+#        _simplesound.reproductor.set_waveform('sine')
+#        _simplesound.make_sound(y[i], 1)
         plt.pause(0.001)
 
     # Save sound
     wav_name = path[:-4] + '_sound.wav'
-    _simplesound.save_sound(wav_name, data_float.loc[:,0], y, init=1)
+#    _simplesound.save_sound(wav_name, data_float.loc[:,0], y, init=1)
 
     #xpoints = np.array([1, 2, 6, 8])
     #ypoints = np.array([3, 8, 1, 10])
