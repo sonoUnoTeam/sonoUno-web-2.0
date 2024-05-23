@@ -38,7 +38,8 @@ def grafico(request):
     _dataimport = DataImport()
 #    _simplesound = simpleSound()
     _math = PredefMathFunctions()
-    path = os.getcwd() + '/sonif1D/sample_data/decrease.txt'
+    #path = os.getcwd() + '/sonif1D/sample_data/decrease.txt'
+    path = '/home/jcasado/webapp/sonoUno-web-2.0/sonounoweb/sonif1D/sample_data/decrease.txt'
     data, status, msg = _dataimport.set_arrayfromfile(path, 'txt')
 
     if data.shape[1]<2:
