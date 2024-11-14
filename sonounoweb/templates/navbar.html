@@ -1,0 +1,44 @@
+ <!-- BARRA DE NAVEGACIÓN -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'inicio' %}">
+            <h3>sonoUno web</h3>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- Botones de la barra de navegación -->
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Abrir</button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <li><a class="dropdown-item" href="">Archivo .csv</a></li>
+                        <li><a class="dropdown-item" href="">Archivo .WAV</a></li>
+                        <li><a class="dropdown-item" href="">Marcadores .CSV</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Guardar</button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                        <li><a class="dropdown-item" href="">Sonido</a></li>
+                        <li><a class="dropdown-item" href="">Gráfico</a></li>
+                        <li><a class="dropdown-item" href="">Marcadores</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Datos</button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'decrease.txt' %}">Decrease</a></li>
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'sinusoidal.txt' %}">Sinusoidal</a></li>
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'growing.txt' %}">Growing</a></li>
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'square.txt' %}">Square</a></li>
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'triangular.txt' %}">Triangular</a></li>
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'glitch.txt' %}">Glitch</a></li>
+                    </ul>
+                </div>                    
+                <li class="nav-item"><a class="btn btn-dark text-white" href="{% url 'sonif1D:ayuda' %}">Ayuda</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

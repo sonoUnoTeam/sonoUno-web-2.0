@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}sonoUno web{% endblock %}</title>
+     <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+    <!-- CSS Personal -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+   <!-- Se incluye la navbar -->
+   {% include 'navbar.html' %}
+    <div class="container my-4">
+        <!-- Se incluye mensajes -->
+        {% include 'message.html' %}  
+    </div>
+    
+    <div class="container my-3">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8">
+                <!-- Featured blog post-->
+                <div class="card mb-4">
+                    <div class="card-body">
+    
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                              <input type="text" class="form-control" placeholder="Nombre del gráfico" aria-label="Nombre del gráfico">
+                            </div>
+    
+                            <div class="col-sm">
+                                <button id="playStopButton" class="btn btn-secondary3">
+                                    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                                    </svg>
+                                    <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pause-fill visually-hidden" viewBox="0 0 16 16">
+                                        <path d="M5.5 3.5A.5.5 0 0 1 6 4v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                    <p class="visually-hidden">Play</p>                        
+                                </button>
+                            </div>
+
+                            <div class="col-sm"> <!--stop-->
+                                <button class="btn btn-secondary3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
+                                    <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z"/>
+                                  </svg></button>
+                            </div>
+                            <div class="col-sm"> <!--undo-->
+                                <button class="btn btn-secondary3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
+                                    <path d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"/>
+                                  </svg></button>
+                            </div>
+                            <div class="col-sm"> <!--reset-->
+                                <button class="btn btn-secondary3"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                                  </svg>
+                                </button>
+                            </div>
+                        </div>
+                        {% if grafico_base64 %}
+                            <img id="graficoImg" src="data:image/png;base64,{{ grafico_base64 }}" alt="Gráfico" style="max-width: 100%; height: auto; object-fit: contain;" />
+                        {% else %}
+                            <img id="graficoImg" alt="Gráfico" style="max-width: 100%; height: auto; object-fit: contain;" />
+                        {% endif %}
+                        
+                        <audio id="audioPlayer">
+                            <source id="audioSource" src="" type="audio/wav">
+                            Tu navegador no soporta la reproducción de audio.
+                        </audio>                                                
+
+                        <h5 for="customRange2" class="text-left">Posición del eje X</h5>
+                        <input type="range" class="form-range" min="0" max="10000" value="0" id="customRange2">
+
+                        <h5 for="customRange3" class="text-left">Tempo</h5>
+                        <input type="range" class="form-range" min="30" max="200" value="120" id="customRange3">
+
+                    </div>
+                </div>
+            </div>
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtener elementos del DOM
+            const imgElement = document.getElementById('graficoImg');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const customRange2 = document.getElementById('customRange2'); // Posición eje X
+            const tempoSlider = document.getElementById('customRange3'); // Tempo slider
+            const playStopButton = document.getElementById('playStopButton');
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+    
+            // Obtener valores base64 del contexto Django
+            const graficoBase64 = "{{ grafico_base64|default:'' }}";
+            const audioBase64 = "{{ audio_base64|default:'' }}";
+    
+            // Manejo del gráfico
+            if (graficoBase64) {
+                localStorage.setItem('grafico_base64', graficoBase64);
+                console.log("Gráfico guardado en localStorage.");
+            } else {
+                const graficoBase64DesdeStorage = localStorage.getItem('grafico_base64');
+                if (graficoBase64DesdeStorage) {
+                    imgElement.src = "data:image/png;base64," + graficoBase64DesdeStorage;
+                    imgElement.style.display = "block";
+                    console.log("Gráfico cargado desde localStorage.");
+                } else {
+                    console.log("No hay gráfico disponible.");
+                }
+            }
+    
+            // Manejo del audio
+            if (audioBase64) {
+                localStorage.setItem('audio_base64', audioBase64);
+                console.log("Audio guardado en localStorage.");
+            } else {
+                const audioBase64DesdeStorage = localStorage.getItem('audio_base64');
+                if (audioBase64DesdeStorage) {
+                    const audioSource = audioPlayer.querySelector('source');
+                    if (audioSource) {
+                        audioSource.src = "data:audio/wav;base64," + audioBase64DesdeStorage;
+                        audioPlayer.load();
+                        console.log("Audio cargado desde localStorage.");
+                    } else {
+                        console.error("No se encontró el elemento <source> dentro de <audio>.");
+                    }
+                } else {
+                    console.log("No hay audio disponible.");
+                }
+            }
+    
+            // Sincronizar posición del audio con slider
+            audioPlayer.addEventListener("timeupdate", function() {
+                const audioDuration = audioPlayer.duration || 0;
+                const currentTime = audioPlayer.currentTime || 0;
+                customRange2.value = (currentTime / audioDuration) * 10000;
+            });
+    
+            customRange2.addEventListener("input", function() {
+                const positionPercent = customRange2.value / 10000;
+                audioPlayer.currentTime = positionPercent * (audioPlayer.duration || 0);
+            });
+    
+            // Ajustar el tempo del audio
+            tempoSlider.addEventListener("input", function() {
+                audioPlayer.playbackRate = tempoSlider.value / 100;
+            });
+            
+            playStopButton.addEventListener('click', function() {
+                if (audioPlayer.paused || audioPlayer.ended) {
+                    audioPlayer.play();
+                    playIcon.classList.add('visually-hidden');
+                    pauseIcon.classList.remove('visually-hidden');
+                } else {
+                    audioPlayer.pause();
+                    playIcon.classList.remove('visually-hidden');
+                    pauseIcon.classList.add('visually-hidden');
+                }
+            });
+
+            // Restablecer al ícono de play cuando el audio termina
+            audioPlayer.addEventListener('ended', function() {
+                playIcon.classList.remove('visually-hidden');
+                pauseIcon.classList.add('visually-hidden');
+            });
+        });
+    </script>
+    
+   
+</body>
+</html>

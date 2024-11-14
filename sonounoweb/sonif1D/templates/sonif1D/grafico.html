@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Contenido de la pagina: LADO DERECHO (NO TOCAR)-->
+<div class="col-lg-4">
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="dropdown-center">
+                <div class="d-grid gap-2">
+                <button class="btn btn-secondary btn-lg dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  CONFIGURACIONES
+                </button>
+                <ul class="dropdown-menu">
+                  <nav>
+                      <a href="{% url 'sonif1D:sonido' %}">
+                          <button class="btn btn-secondary4 my-4"> SONIDO </button>
+                      </a>
+                  </nav>   
+                  <nav>
+                      <a href="{% url 'sonif1D:grafico' %}">
+                          <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
+                      </a>
+                  </nav>   
+                  <nav>
+                      <a href="{% url 'sonif1D:funciones_matematicas' %}">
+                          <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
+                      </a>
+                  </nav>   
+              </ul>
+              
+              
+              
+              </div>
+            </div>
+        </div>
+
+  <!-- CADA CONFIGURACION VA ACA-->           
+        <div class="card-body">
+            <div class="row">
+                <h4 class="text-center">GRÁFICO </h4>
+    
+                    <div class="list-unstyled">
+                        <h5 class="text-left">CONFIGURACIONES GENERALES</h5>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Grilla
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Escala de grises
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Rotar eje X
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Rotar eje Y
+                            </label>
+                        </div>
+                            <h5 class="text-left my-2">COLOR</h5>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                Azul
+                              </label>
+                            </div>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                  <label class="form-check-label" for="flexRadioDefault1">
+                                    Rojo
+                                  </label>
+                              </div>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                  <label class="form-check-label" for="flexRadioDefault1">
+                                    Verde
+                                  </label>
+                              </div>
+                        </div>
+                          </div>
+                          <h5 class="text-left my-2">ESTILO DE LÍNEA</h5>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="RadioDefault" id="RadioDefault2" checked>
+                            <label class="form-check-label" for="RadioDefault2">
+                              Sólida
+                            </label>
+                          </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioDefault" id="RadioDefault1">
+                                <label class="form-check-label" for="RadioDefault1">
+                                  Punto
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioDefault" id="RadioDefault1">
+                                <label class="form-check-label" for="RadioDefault1">
+                                  Guión-punto
+                                </label>
+                            </div>
+
+                              
+                          </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
