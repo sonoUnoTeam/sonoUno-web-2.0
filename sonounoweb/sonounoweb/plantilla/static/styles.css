@@ -52,5 +52,7 @@ body{
    }
 
    #audioPlayer {
-    display: none; /* Oculta el reproductor de audio */
+    display: block ;
+    visibility: visible;
+    opacity: 1;
 }

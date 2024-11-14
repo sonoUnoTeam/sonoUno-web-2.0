@@ -75,10 +75,10 @@
                             <img id="graficoImg" alt="Gráfico" style="max-width: 100%; height: auto; object-fit: contain;" />
                         {% endif %}
                         
-                        <audio id="audioPlayer">
+                        <audio id="audioPlayer" controls>
                             <source id="audioSource" src="" type="audio/wav">
                             Tu navegador no soporta la reproducción de audio.
-                        </audio>                                                
+                        </audio>                                               
 
                         <h5 for="customRange2" class="text-left">Posición del eje X</h5>
                         <input type="range" class="form-range" min="0" max="10000" value="0" id="customRange2">
@@ -127,6 +127,15 @@
             if (audioBase64) {
                 localStorage.setItem('audio_base64', audioBase64);
                 console.log("Audio guardado en localStorage.");
+                 // Actualiza el reproductor inmediatamente después de guardar
+                const audioSource = audioPlayer.querySelector('source');
+                if (audioSource) {
+                    audioSource.src = "data:audio/wav;base64," + audioBase64;
+                    audioPlayer.load(); // Recarga el reproductor con la nueva fuente
+                    console.log("Audio cargado desde el contexto actual.");
+                } else {
+                    console.error("No se encontró el elemento <source> dentro de <audio>.");
+                }
             } else {
                 const audioBase64DesdeStorage = localStorage.getItem('audio_base64');
                 if (audioBase64DesdeStorage) {
@@ -160,17 +169,26 @@
                 audioPlayer.playbackRate = tempoSlider.value / 100;
             });
             
-            playStopButton.addEventListener('click', function() {
+            playStopButton.addEventListener('click', async function() {
+            try {
                 if (audioPlayer.paused || audioPlayer.ended) {
-                    audioPlayer.play();
+                    await audioPlayer.play(); // Reproduce solo si está pausado o terminado
                     playIcon.classList.add('visually-hidden');
                     pauseIcon.classList.remove('visually-hidden');
                 } else {
-                    audioPlayer.pause();
+                    audioPlayer.pause(); // Pausa si se está reproduciendo
                     playIcon.classList.remove('visually-hidden');
                     pauseIcon.classList.add('visually-hidden');
                 }
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.warn("Interrupción controlada: se pausó antes de que la reproducción comenzara.");
+                } else {
+                    console.error("Error al reproducir o pausar el audio:", error);
+                }
+            }
             });
+
 
             // Restablecer al ícono de play cuando el audio termina
             audioPlayer.addEventListener('ended', function() {
