@@ -14,11 +14,8 @@ import pandas as pd
 import numpy as np
 import os
 from django.contrib import messages
-import tempfile
 import wave
-import struct
 import pygame
-from scipy import signal
 import time
 
 #Local import
@@ -28,6 +25,7 @@ from .sonounolib.data_import.data_import import DataImport
 from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
 from io import BytesIO
 import base64
+from .forms import ArchivoForm
 
 matplotlib.use('Agg')
 
@@ -45,86 +43,23 @@ def sonido(request):
     return render(request, 'sonif1D/sonido.html')
 
 def grafico(request):
-    _dataimport = DataImport()
-    # _simplesound = simpleSound()
-    _math = PredefMathFunctions()
-    #path = os.getcwd() + '/sonif1D/sample_data/decrease.txt'
-    path = os.path.join(settings.BASE_DIR, '/sonif1D/sample_data/decrease.txt')
-    data, status, msg = _dataimport.set_arrayfromfile(path, 'txt')
-
-    if data is None or data.shape[1] < 2:
-        return render(request, 'sonif1D/grafico.html')
-
-    # Turn to float
-    data_float = data.iloc[1:, :].astype(float)
-
-    plt.plot(data_float.loc[:,0], data_float.loc[:,1], label='Graphic Test')
-
-    # Normalize the data to sonify
-    x, y, status = _math.normalize(data_float.loc[:,0], data_float.loc[:,1], init=1)
-
-    # Sound configurations, predefined at the moment
-#    _simplesound.reproductor.set_continuous()
-#    _simplesound.reproductor.set_waveform('celesta')
-#    _simplesound.reproductor.set_time_base(0.05)
-#    _simplesound.reproductor.set_min_freq(300)
-#    _simplesound.reproductor.set_max_freq(1500)
-
-    for i in range (1, data_float.loc[:,0].size):
-        # Make the sound
-#        _simplesound.reproductor.set_waveform('sine')
-#        _simplesound.make_sound(y[i], 1)
-        plt.pause(0.001)
-
-    # Save sound
-    wav_name = path[:-4] + '_sound.wav'
-#    _simplesound.save_sound(wav_name, data_float.loc[:,0], y, init=1)
-
-    #xpoints = np.array([1, 2, 6, 8])
-    #ypoints = np.array([3, 8, 1, 10])
-
-    #plt.plot(xpoints, ypoints, label='Graphic Test')
-    fig = plt.gcf()
-    buf = io.BytesIO()
-    fig.savefig(buf,format='png')
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    uri = urllib.parse.quote(string)
-    plt.close()
-    return render(request, 'sonif1D/grafico.html', {'data':uri})
+    return render(request, 'sonif1D/grafico.html')
 
 def funciones_matematicas(request):
     return render(request, 'sonif1D/funciones_matematicas.html')
-
 
 def mostrar_grafico(request, nombre_archivo):
     # Ruta al archivo txt dentro de la carpeta sample_data
     ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'sonif1D', 'sample_data', nombre_archivo)
 
-    # Cargar datos desde el archivo .txt
-    try:
-        data = np.loadtxt(ruta_archivo)  # Carga los datos del archivo
-    except Exception as e:
+    data = cargar_archivo(ruta_archivo) # Cargar los datos del archivo
+
+    if data is None:
         messages.error(request, "Sin gráfico disponible o archivo no encontrado.")
-        return render(request, 'sonif1D/index.html')  # Asegúrate de que esta plantilla exista
+        return render(request, 'sonif1D/index.html')
 
-    # Crear el gráfico
-    plt.figure(figsize=(10, 5))
-    plt.plot(data[:, 0], data[:, 1])
-    plt.title(f'Gráfico de {nombre_archivo}')
-    plt.xlabel('X')
-    plt.ylabel('Y')
-
-    # Guardar el gráfico en un objeto BytesIO
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    plt.close()
-    buffer.seek(0)
-
-    # Codificar la imagen en base64 para usarla en HTML
-    grafico_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
-
-    audio_base64 = generar_auido_base64(data, request)  #Aqui intento llamar una función que no está definida
+    grafico_base64 = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
+    audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
     # Enviar la imagen y el audio en base64 a la plantilla
     context = {
@@ -133,6 +68,84 @@ def mostrar_grafico(request, nombre_archivo):
     }
     return render(request, 'sonif1D/grafico.html', context)
 
+# Función para cargar los datos desde un archivo .txt o .csv
+def cargar_archivo(ruta_archivo):
+    try:
+        if ruta_archivo.endswith('.csv'):
+            data = np.loadtxt(ruta_archivo, delimiter=',')
+        else:
+            data = np.loadtxt(ruta_archivo)
+        
+        # Verificar que los datos sean una matriz con al menos dos columnas
+        if data.ndim != 2 or data.shape[1] < 2:
+            return None
+        
+        return data
+    except Exception as e:
+        return None
+
+
+def cargar_datos_desde_contenido(contenido):
+    """
+    Procesa los datos desde un string en memoria y retorna un array de NumPy.
+    """
+    try:
+        # Convertir el contenido en un formato procesable (lista de líneas)
+        lines = contenido.splitlines()
+        
+        # Convertir las líneas a un array de NumPy
+        data = np.array([list(map(float, line.split(','))) for line in lines if line.strip()])
+        return data
+    except Exception as e:
+        print(f"Error procesando datos: {e}")
+        return None
+
+# Vista para importar un archivo y generar el gráfico y el audio
+def importar_archivo(request):
+    if request.method == 'POST':
+        form = ArchivoForm(request.POST, request.FILES)
+        if form.is_valid():
+            archivo = request.FILES['archivo']
+            
+            # Leer el contenido del archivo cargado
+            contenido = archivo.read().decode('utf-8')
+
+            # Procesar el contenido como una lista de líneas o directamente
+            data = cargar_datos_desde_contenido(contenido)
+            
+            if data is None:
+                messages.error(request, "El archivo no contiene datos válidos.")
+                return render(request, 'sonif1D/index.html', {'form': form})
+
+            grafico_base64 = generar_grafico(data, archivo.name)
+            audio_base64 = generar_auido_base64(data, request)
+            
+            context = {
+                'grafico_base64': grafico_base64,
+                'audio_base64': audio_base64,
+            }
+            return render(request, 'sonif1D/grafico.html', context)
+    else:
+        form = ArchivoForm()
+
+    return render(request, 'sonif1D/import_archivo.html', {'form': form})
+
+# Función para generar el gráfico en base64
+def generar_grafico(data, nombre_archivo):
+    plt.figure(figsize=(10, 5))
+    plt.plot(data[:, 0], data[:, 1])
+    plt.title(f'Gráfico de {nombre_archivo}')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    plt.close()
+    buffer.seek(0)
+    
+    grafico_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8') # Codifica la imagen en base64
+
+    return grafico_base64
 
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request):

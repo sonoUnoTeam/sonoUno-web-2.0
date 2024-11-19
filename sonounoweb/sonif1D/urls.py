@@ -21,4 +21,6 @@ urlpatterns = [
     path("funciones_matematicas", views.funciones_matematicas, name="funciones_matematicas"),
     
     path('grafico/<str:nombre_archivo>/', mostrar_grafico, name='mostrar_grafico'),
+    
+    path('import_archivo/', views.importar_archivo, name='importar_archivo'),
 ]

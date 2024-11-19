@@ -11,11 +11,11 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Botones de la barra de navegación -->
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Abrir</button>
+                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Importar</button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" href="">Archivo .csv</a></li>
-                        <li><a class="dropdown-item" href="">Archivo .WAV</a></li>
-                        <li><a class="dropdown-item" href="">Marcadores .CSV</a></li>
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:importar_archivo' %}">Archivo .csv </a></li>
+                         <!-- <li><a class="dropdown-item" href="">Archivo .WAV</a></li>
+                        <li><a class="dropdown-item" href="">Marcadores .CSV</a></li>  -->
                     </ul>
                 </div>
                 <div class="btn-group" role="group">
