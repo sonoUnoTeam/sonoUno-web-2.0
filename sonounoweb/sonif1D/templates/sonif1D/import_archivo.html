@@ -35,7 +35,7 @@
         <!-- CADA CONFIGURACIÓN VA AQUÍ -->
         <div class="card-body">
             <div class="row">
-                <h4 class="text-center">Cargar un archivo CSV </h4>
+                <h4 class="text-center">Cargar un archivo CSV o TXT </h4>
                 
                 <!-- Formulario para cargar archivo -->
                 <div class="list-unstyled">
@@ -45,9 +45,9 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="id_file" class="form-label">Archivo</label>
-                            <input type="file" name="file" id="id_file" class="form-control">
+                            <input type="file" name="archivo" id="id_file" class="form-control">
                         </div>
-
+                    
                         <!-- Botón de carga -->
                         <div class="form-group text-center mt-4">
                             <button type="submit" class="btn btn-primary">Cargar</button>

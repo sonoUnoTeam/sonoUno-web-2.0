@@ -1,31 +1,33 @@
-from django.conf.urls.static import static
-from django.conf import settings
-
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.template import loader
-from django.urls import reverse
+import base64
+import io
+import json
+import os
+import time
+import urllib
+import re
 
 import matplotlib
 import matplotlib.pyplot as plt
-import io
-import urllib, base64
-import pandas as pd
 import numpy as np
-import os
-from django.contrib import messages
-import wave
+import pandas as pd
 import pygame
-import time
+import wave
+from PIL import Image
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import messages
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.template import loader
+from django.urls import reverse
+from io import BytesIO, StringIO
 
-#Local import
+from .forms import ArchivoForm, ConfiguracionGraficoForm
 from .sonounolib.data_export.data_export import DataExport
 from .sonounolib.data_import.data_import import DataImport
-#from .sonounolib.sound_module.simple_sound import simpleSound
 from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
-from io import BytesIO
-import base64
-from .forms import ArchivoForm
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
 
 matplotlib.use('Agg')
 
@@ -42,33 +44,77 @@ def ayuda(request):
 def sonido(request):
     return render(request, 'sonif1D/sonido.html')
 
-def grafico(request):
-    return render(request, 'sonif1D/grafico.html')
-
 def funciones_matematicas(request):
     return render(request, 'sonif1D/funciones_matematicas.html')
 
+# Función para mostrar un gráfico de un archivo cargado
 def mostrar_grafico(request, nombre_archivo):
     # Ruta al archivo txt dentro de la carpeta sample_data
     ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'sonif1D', 'sample_data', nombre_archivo)
 
     data = cargar_archivo(ruta_archivo) # Cargar los datos del archivo
-
+    data_json = numpy_to_json(data) # Convertir los datos a JSON
+    
     if data is None:
         messages.error(request, "Sin gráfico disponible o archivo no encontrado.")
         return render(request, 'sonif1D/index.html')
-
+    
+    form = ConfiguracionGraficoForm()  # Crear un formulario de configuración de gráfico
     grafico_base64 = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
     audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
     # Enviar la imagen y el audio en base64 a la plantilla
     context = {
+        'form': form,
         'grafico_base64': grafico_base64,
         'audio_base64': audio_base64,
+        'data_json': data_json,
     }
     return render(request, 'sonif1D/grafico.html', context)
 
-# Función para cargar los datos desde un archivo .txt o .csv
+# Vista para configurar y mostrar un gráfico
+class GraficoView(FormView):
+    template_name = 'sonif1D/grafico.html'
+    form_class = ConfiguracionGraficoForm
+    success_url = reverse_lazy('sonif1D:grafico')
+
+    def form_valid(self, form):
+        # Procesar los datos del formulario
+        name_grafic = form.cleaned_data['name_grafic']
+        name_eje_x = form.cleaned_data['name_eje_x']
+        name_eje_y = form.cleaned_data['name_eje_y']
+        grilla = form.cleaned_data['grilla']
+        escala_grises = form.cleaned_data['escala_grises']
+        rotar_eje_x = form.cleaned_data['rotar_eje_x']
+        rotar_eje_y = form.cleaned_data['rotar_eje_y']
+        estilo_linea = form.cleaned_data['estilo_linea']
+        color_linea = form.cleaned_data['color_linea']
+
+        # Obtener los datos en json del formulario
+        data_json = self.request.POST.get('data_json')
+
+        if not data_json:
+            messages.error(self.request, "No se encontraron datos para generar el gráfico.")
+            return self.render_to_response(self.get_context_data(form=form))
+
+        # Transformar los datos de json a numpy
+        data = json_to_numpy(data_json)
+        if data is None:
+            messages.error(self.request, "Error al cargar los datos del gráfico.")
+            return self.render_to_response(self.get_context_data(form=form))
+
+        new_grafico_base64 = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, rotar_eje_x, rotar_eje_y, estilo_linea, color_linea)
+      
+        # Enviar la imagen y el audio en base64 a la plantilla
+        context = self.get_context_data(form=form)
+        context['grafico_base64'] = new_grafico_base64
+        return self.render_to_response(context)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Error al validar el formulario.")
+        return self.render_to_response(self.get_context_data(form=form))
+
+# Función para cargar los datos desde un archivo .txt o .csv a un array de NumPy
 def cargar_archivo(ruta_archivo):
     try:
         if ruta_archivo.endswith('.csv'):
@@ -84,7 +130,7 @@ def cargar_archivo(ruta_archivo):
     except Exception as e:
         return None
 
-
+# Función para cargar los datos desde un string en memoria a un array de NumPy
 def cargar_datos_desde_contenido(contenido):
     """
     Procesa los datos desde un string en memoria y retorna un array de NumPy.
@@ -93,57 +139,117 @@ def cargar_datos_desde_contenido(contenido):
         # Convertir el contenido en un formato procesable (lista de líneas)
         lines = contenido.splitlines()
         
-        # Convertir las líneas a un array de NumPy
-        data = np.array([list(map(float, line.split(','))) for line in lines if line.strip()])
-        return data
+        # Detectar el delimitador (puede ser coma, tabulación, espacio múltiple, etc.)
+        delimitadores = [',', '\t', r'\s+']
+        for delim in delimitadores:
+            try:
+                # Intentar convertir las líneas a un array de NumPy
+                data = np.array([list(map(float, re.split(delim, line))) for line in lines if line.strip()])
+                return data
+            except ValueError:
+                continue
+        
+        # Si no se pudo convertir con ninguno de los delimitadores
+        raise ValueError("No se pudo determinar el delimitador o los datos no son válidos.")
     except Exception as e:
         print(f"Error procesando datos: {e}")
         return None
 
 # Vista para importar un archivo y generar el gráfico y el audio
-def importar_archivo(request):
-    if request.method == 'POST':
-        form = ArchivoForm(request.POST, request.FILES)
-        if form.is_valid():
-            archivo = request.FILES['archivo']
-            
+class ImportarArchivoView(FormView):
+    template_name = 'sonif1D/import_archivo.html'
+    form_class = ArchivoForm
+    success_url = reverse_lazy('sonif1D:index')
+
+    def form_valid(self, form):
+        archivo = self.request.FILES['archivo']
+        nombre_archivo = archivo.name.lower()
+        
+        # Verificar la extensión del archivo
+        if nombre_archivo.endswith('.csv') or nombre_archivo.endswith('.txt'):
             # Leer el contenido del archivo cargado
             contenido = archivo.read().decode('utf-8')
 
             # Procesar el contenido como una lista de líneas o directamente
             data = cargar_datos_desde_contenido(contenido)
-            
+            data_json = numpy_to_json(data) # Convertir los datos a JSON
+
             if data is None:
-                messages.error(request, "El archivo no contiene datos válidos.")
-                return render(request, 'sonif1D/index.html', {'form': form})
+                messages.error(self.request, "El archivo no contiene datos válidos.")
+                return self.render_to_response(self.get_context_data(form=form), template_name='sonif1D/index.html')
 
             grafico_base64 = generar_grafico(data, archivo.name)
-            audio_base64 = generar_auido_base64(data, request)
+            audio_base64 = generar_auido_base64(data, self.request)
             
-            context = {
+            context = self.get_context_data(form=form)
+            context.update({
                 'grafico_base64': grafico_base64,
                 'audio_base64': audio_base64,
-            }
-            return render(request, 'sonif1D/grafico.html', context)
-    else:
-        form = ArchivoForm()
+                'data_json': data_json,
+            })
+            return self.render_to_response(context, template_name='sonif1D/index.html')
+        else:
+            messages.error(self.request, "Formato de archivo no soportado. Por favor, sube un archivo CSV o TXT.")
+            return self.render_to_response(self.get_context_data(form=form))
 
-    return render(request, 'sonif1D/import_archivo.html', {'form': form})
+    def form_invalid(self, form):
+        print(form.errors)
+        return self.render_to_response(self.get_context_data(form=form))
 
-# Función para generar el gráfico en base64
-def generar_grafico(data, nombre_archivo):
+    def render_to_response(self, context, **response_kwargs):
+        template_name = response_kwargs.pop('template_name', self.template_name)
+        return self.response_class(
+            request=self.request,
+            template=template_name,
+            context=context,
+            using=self.template_engine,
+        )
+
+#Función para convertir un array de NumPy a una cadena JSON
+def numpy_to_json(data):
+    return json.dumps(data.tolist())
+
+#Función para convertir una cadena JSON a un array de NumPy
+def json_to_numpy(json_str):
+    try:
+        # Convertir la cadena JSON a una lista de Python
+        data_list = json.loads(json_str)
+        # Convertir la lista de Python a un array de NumPy
+        numpy_array = np.array(data_list)
+        return numpy_array
+    except json.JSONDecodeError as e:
+        print(f"Error al decodificar JSON: {e}")
+        return None
+    
+# Función para generar el gráfico en base64 con configuraciones
+def generar_grafico(data, name_grafic=False, name_eje_x =False, name_eje_y =False, grilla=False, escala_grises=False, rotar_eje_x=False, rotar_eje_y=False, estilo_linea='solid', color_linea='blue'):
+    # Verificar que data es un array de NumPy
+    if not isinstance(data, np.ndarray):
+        raise ValueError("El parámetro 'data' debe ser un array de NumPy")
+    
     plt.figure(figsize=(10, 5))
-    plt.plot(data[:, 0], data[:, 1])
-    plt.title(f'Gráfico de {nombre_archivo}')
-    plt.xlabel('X')
-    plt.ylabel('Y')
+    plt.plot(data[:, 0], data[:, 1], linestyle=estilo_linea, color=color_linea)
+    if name_eje_x:
+        plt.xlabel(name_eje_x)
+    if name_eje_y:    
+        plt.ylabel(name_eje_y)
+    if name_grafic:
+        plt.title(name_grafic)
+    if grilla:
+        plt.grid(True)
+    if escala_grises:
+        plt.gray()
+    if rotar_eje_x:
+        plt.xticks(rotation=90)
+    if rotar_eje_y:
+        plt.yticks(rotation=90)
 
-    buffer = BytesIO()
+    buffer = BytesIO()  # Crear un buffer de Bytes para guardar la imagen
     plt.savefig(buffer, format='png')
     plt.close()
-    buffer.seek(0)
-    
-    grafico_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8') # Codifica la imagen en base64
+    buffer.seek(0)  # Mover el cursor al inicio del buffer
+
+    grafico_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')  # Codifica la imagen en base64
 
     return grafico_base64
 
@@ -164,7 +270,6 @@ def generar_auido_base64(data, request):
         messages.error(request, f"Error al generar el archivo de audio: {e}")
         return None
         
-    
 
 class reproductorRaw (object):
     def __init__ (self,

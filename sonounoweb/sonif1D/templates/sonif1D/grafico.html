@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
-<!-- Contenido de la pagina: LADO DERECHO (NO TOCAR)-->
+<!-- Contenido de la pagina: LADO DERECHO -->
 <div class="col-lg-4">
     <div class="card mb-4">
         <div class="card-header">
@@ -39,80 +40,90 @@
         <div class="card-body">
             <div class="row">
                 <h4 class="text-center">GRÁFICO </h4>
-    
-                    <div class="list-unstyled">
-                        <h5 class="text-left">CONFIGURACIONES GENERALES</h5>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Grilla
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Escala de grises
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Rotar eje X
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Rotar eje Y
-                            </label>
+                <h5 class="text-left">CONFIGURACIONES GENERALES</h5>
+                <form id="configForm" method="post" action="{% url 'sonif1D:grafico' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="{{ form.name_grafic.id_for_label }}">Nombre del Gráfico</label>
+                            {{ form.name_grafic|add_class:"form-control" }}
                         </div>
-                            <h5 class="text-left my-2">COLOR</h5>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                              <label class="form-check-label" for="flexRadioDefault2">
-                                Azul
-                              </label>
-                            </div>
-                              <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                    Rojo
-                                  </label>
-                              </div>
-                              <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                    Verde
-                                  </label>
-                              </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.name_eje_x.id_for_label }}">Nombre del Eje X</label>
+                            {{ form.name_eje_x|add_class:"form-control" }}
                         </div>
-                          </div>
-                          <h5 class="text-left my-2">ESTILO DE LÍNEA</h5>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="RadioDefault" id="RadioDefault2" checked>
-                            <label class="form-check-label" for="RadioDefault2">
-                              Sólida
-                            </label>
-                          </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioDefault" id="RadioDefault1">
-                                <label class="form-check-label" for="RadioDefault1">
-                                  Punto
-                                </label>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.name_eje_y.id_for_label }}">Nombre del Eje Y</label>
+                            {{ form.name_eje_y|add_class:"form-control" }}
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="form-check">
+                                    {{ form.grilla|add_class:"form-check-input" }}
+                                    <label class="form-check-label" for="{{ form.grilla.id_for_label }}">{{ form.grilla.label }}</label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioDefault" id="RadioDefault1">
-                                <label class="form-check-label" for="RadioDefault1">
-                                  Guión-punto
-                                </label>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="form-check">
+                                    {{ form.escala_grises|add_class:"form-check-input" }}
+                                    <label class="form-check-label" for="{{ form.escala_grises.id_for_label }}">{{ form.escala_grises.label }}</label>
+                                </div>
                             </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="form-check">
+                                    {{ form.rotar_eje_x|add_class:"form-check-input" }}
+                                    <label class="form-check-label" for="{{ form.rotar_eje_x.id_for_label }}">{{ form.rotar_eje_x.label }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="form-check">
+                                    {{ form.rotar_eje_y|add_class:"form-check-input" }}
+                                    <label class="form-check-label" for="{{ form.rotar_eje_y.id_for_label }}">{{ form.rotar_eje_y.label }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="text-left my-2">ESTILO DE LÍNEA</h5>
+                        <div class="form-group">
+                            {{ form.estilo_linea }}
+                        </div>
+                        
+                        <h5 class="text-left my-2">COLOR DE LÍNEA</h5>
+                        <div class="form-group">
+                            {{ form.color_linea }}
+                        </div>
 
-                              
-                          </div>
+                        <!-- Campos ocultos para los datos en base64 -->
+                        <input type="hidden" name="data_json" id="data_json">
+
+                        <!-- Botón para guardar los cambios -->
+                        <div class="form-group mt-3 text-center">
+                            <button class="btn btn-secondary btn-sm" type="submit" onclick="setBase64Data()">
+                                Guardar cambios
+                            </button>
+                        </div>
                     </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+  function setBase64Data() {
+      document.getElementById('data_json').value = localStorage.getItem('data_json');
+  }
+</script>
 {% endblock %}

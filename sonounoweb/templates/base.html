@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,13 +34,13 @@
                 <!-- Featured blog post-->
                 <div class="card mb-4">
                     <div class="card-body">
-    
+
                         <div class="row g-3">
                             <div class="col-sm-6">
                               <input type="text" class="form-control" placeholder="Nombre del gráfico" aria-label="Nombre del gráfico">
                             </div>
     
-                            <div class="col-sm">
+                            <div class="col-sm"> <!--play/stop-->
                                 <button id="playStopButton" class="btn btn-secondary3">
                                     <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
                                         <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
@@ -70,18 +71,12 @@
                                 </button>
                             </div>
                         </div>
-                        {% if grafico_base64 %}
-                        <img id="graficoImg" src="data:image/png;base64,{{ grafico_base64 }}" alt="Gráfico" style="max-width: 100%; height: auto; object-fit: contain;" />
-                        {% else %}
-                            <div class="chart-container my-3">
-                                <!-- Aquí puedes colocar tu gráfico con Java -->
-                                <div id="mpl"></div>
-                                <img src="data:image/png;base64,{{ data }}" alt="">
-                                <!-- Por ejemplo: <canvas id="myChart"></canvas> -->
-                            </div>                        
-                        {% endif %}
                         
-                        <audio id="audioPlayer" controls>
+                        <!-- Gráfico  -->
+                        <img id="graficoImg" src="data:image/png;base64,{{ grafico_base64 }}" alt="" style="max-width: 100%; height: auto; object-fit: contain;" />
+                        
+                        <!-- Reproductor de audio -->
+                        <audio id="audioPlayer" >
                             <source id="audioSource" src="" type="audio/wav">
                             Tu navegador no soporta la reproducción de audio.
                         </audio>                                               
@@ -104,7 +99,7 @@
             // Obtener elementos del DOM
             const imgElement = document.getElementById('graficoImg');
             const audioPlayer = document.getElementById('audioPlayer');
-            const customRange2 = document.getElementById('customRange2'); // Posición eje X
+            const sliderX = document.getElementById('customRange2'); // Posición eje X
             const tempoSlider = document.getElementById('customRange3'); // Tempo slider
             const playStopButton = document.getElementById('playStopButton');
             const playIcon = document.getElementById('playIcon');
@@ -113,21 +108,28 @@
             // Obtener valores base64 del contexto Django
             const graficoBase64 = "{{ grafico_base64|default:'' }}";
             const audioBase64 = "{{ audio_base64|default:'' }}";
-    
+            const data_json = "{{ data_json|default:'' }}";
+
             // Manejo del gráfico
             if (graficoBase64) {
+                //Si hay un gráfico en base64, lo guarda en localStorage y lo muestra
                 localStorage.setItem('grafico_base64', graficoBase64);
                 console.log("Gráfico guardado en localStorage.");
+                imgElement.src = "data:image/png;base64," + graficoBase64;
+                imgElement.style.display = "block";
             } else {
+                // Si no hay un gráfico en base64, intenta cargarlo desde localStorage
                 const graficoBase64DesdeStorage = localStorage.getItem('grafico_base64');
                 if (graficoBase64DesdeStorage) {
+                    // Si hay un gráfico en localStorage, lo muestra
                     imgElement.src = "data:image/png;base64," + graficoBase64DesdeStorage;
                     imgElement.style.display = "block";
                     console.log("Gráfico cargado desde localStorage.");
                 } else {
-                    console.log("No hay gráfico disponible.");
+                    //Si no hay un gráfico en localStorage, muestra una imagen en blanco
+                    console.log("No hay gráfico disponible, mostrando imagen en blanco.");
+                    }
                 }
-            }
     
             // Manejo del audio
             if (audioBase64) {
@@ -137,14 +139,13 @@
                 const audioSource = audioPlayer.querySelector('source');
                 if (audioSource) {
                     audioSource.src = "data:audio/wav;base64," + audioBase64;
-                    audioPlayer.load(); // Recarga el reproductor con la nueva fuente
-                    console.log("Audio cargado desde el contexto actual.");
+                    audioPlayer.load();
                 } else {
                     console.error("No se encontró el elemento <source> dentro de <audio>.");
                 }
             } else {
                 const audioBase64DesdeStorage = localStorage.getItem('audio_base64');
-                if (audioBase64DesdeStorage) {
+                if (audioBase64DesdeStorage) {1
                     const audioSource = audioPlayer.querySelector('source');
                     if (audioSource) {
                         audioSource.src = "data:audio/wav;base64," + audioBase64DesdeStorage;
@@ -157,16 +158,30 @@
                     console.log("No hay audio disponible.");
                 }
             }
+
+            // Manejo del data_json
+            if (data_json) {
+                localStorage.setItem('data_json', data_json);
+                console.log("Json guardado en localStorage.");
+            } else {
+                const dataJsonDesdeLocalStorage = localStorage.getItem('data_json');
+                if (data_json) {
+                    console.log("Json cargado desde localStorage.");
+                } else {
+                    console.log("No hay Json disponible");
+                    }
+                }
     
             // Sincronizar posición del audio con slider
             audioPlayer.addEventListener("timeupdate", function() {
                 const audioDuration = audioPlayer.duration || 0;
                 const currentTime = audioPlayer.currentTime || 0;
-                customRange2.value = (currentTime / audioDuration) * 10000;
+                sliderX.value = (currentTime / audioDuration) * 10000;
             });
-    
-            customRange2.addEventListener("input", function() {
-                const positionPercent = customRange2.value / 10000;
+            
+            // Sincronizar slider con posición del audio
+            sliderX.addEventListener("input", function() {
+                const positionPercent = sliderX.value / 10000;
                 audioPlayer.currentTime = positionPercent * (audioPlayer.duration || 0);
             });
     
@@ -174,7 +189,8 @@
             tempoSlider.addEventListener("input", function() {
                 audioPlayer.playbackRate = tempoSlider.value / 100;
             });
-            
+
+            // Reproducir o pausar el audio
             playStopButton.addEventListener('click', async function() {
             try {
                 if (audioPlayer.paused || audioPlayer.ended) {
@@ -195,7 +211,6 @@
             }
             });
 
-
             // Restablecer al ícono de play cuando el audio termina
             audioPlayer.addEventListener('ended', function() {
                 playIcon.classList.remove('visually-hidden');
@@ -205,7 +220,9 @@
             document.getElementById('resetButton').addEventListener('click', function() {
             localStorage.removeItem('grafico_base64');
             localStorage.removeItem('audio_base64');
+            localStorage.removeItem('data_json');
             window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
+
         });
         });
     </script>

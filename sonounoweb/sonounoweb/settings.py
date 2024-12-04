@@ -34,10 +34,6 @@ ALLOWED_HOSTS = []
 #Habilita el uso de messages
 MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
 
-# Static Dir and Static root needs to be different
-
-STATICFILES_DIRS = [str(BASE_DIR) + '/sonounoweb/plantilla/static']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -129,6 +125,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'sonif1D/static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
