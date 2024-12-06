@@ -9,7 +9,6 @@ import re
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import pygame
 import wave
 from PIL import Image
@@ -59,18 +58,16 @@ def mostrar_grafico(request, nombre_archivo):
         messages.error(request, "Sin gráfico disponible o archivo no encontrado.")
         return render(request, 'sonif1D/index.html')
     
-    form = ConfiguracionGraficoForm()  # Crear un formulario de configuración de gráfico
     grafico_base64 = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
     audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
     # Enviar la imagen y el audio en base64 a la plantilla
     context = {
-        'form': form,
         'grafico_base64': grafico_base64,
         'audio_base64': audio_base64,
         'data_json': data_json,
     }
-    return render(request, 'sonif1D/grafico.html', context)
+    return render(request, 'sonif1D/index.html', context)
 
 # Vista para configurar y mostrar un gráfico
 class GraficoView(FormView):
@@ -193,7 +190,6 @@ class ImportarArchivoView(FormView):
             return self.render_to_response(self.get_context_data(form=form))
 
     def form_invalid(self, form):
-        print(form.errors)
         return self.render_to_response(self.get_context_data(form=form))
 
     def render_to_response(self, context, **response_kwargs):
