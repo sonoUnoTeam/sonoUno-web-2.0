@@ -10,8 +10,16 @@ class ConfiguracionGraficoForm(forms.Form):
     escala_grises = forms.BooleanField(required=False, label='Escala de grises')
     rotar_eje_x = forms.BooleanField(required=False, label='Rotar eje X')
     rotar_eje_y = forms.BooleanField(required=False, label='Rotar eje Y')
+    ESTILO_LINEA_CHOICES = [
+        ('solid', 'Sólido'),
+        ('dot', 'Punto'),
+        ('dash', 'Guion'),
+        ('longdash', 'Guion Largo'),
+        ('dashdot', 'Guion Punto'),
+        ('longdashdot', 'Guion Largo Punto'),
+    ]
     estilo_linea = forms.ChoiceField(
-        choices=[('solid', 'Sólida'), ('dotted', 'Punto'), ('dashdot', 'Guión-punto')],
+        choices=ESTILO_LINEA_CHOICES,
         widget=forms.RadioSelect,
         label='Estilo de línea',
         initial='solid'

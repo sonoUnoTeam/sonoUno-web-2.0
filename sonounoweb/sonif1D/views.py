@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pygame
 import wave
+import plotly.graph_objs as go
 from PIL import Image
 from django.conf import settings
 from django.conf.urls.static import static
@@ -58,15 +59,15 @@ def mostrar_grafico(request, nombre_archivo):
         messages.error(request, "Sin gráfico disponible o archivo no encontrado.")
         return render(request, 'sonif1D/index.html')
     
-    grafico_base64 = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
+    grafico_data = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
     audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
-    # Enviar la imagen y el audio en base64 a la plantilla
+   # Enviar la imagen y el audio en base64 a la plantilla
     context = {
-        'grafico_base64': grafico_base64,
         'audio_base64': audio_base64,
         'data_json': data_json,
     }
+    context.update(grafico_data)
     return render(request, 'sonif1D/index.html', context)
 
 # Vista para configurar y mostrar un gráfico
@@ -87,7 +88,7 @@ class GraficoView(FormView):
         estilo_linea = form.cleaned_data['estilo_linea']
         color_linea = form.cleaned_data['color_linea']
 
-        # Obtener los datos en json del formulario
+        # Obtener los datos en json del gráfico
         data_json = self.request.POST.get('data_json')
 
         if not data_json:
@@ -96,15 +97,17 @@ class GraficoView(FormView):
 
         # Transformar los datos de json a numpy
         data = json_to_numpy(data_json)
+        
         if data is None:
             messages.error(self.request, "Error al cargar los datos del gráfico.")
             return self.render_to_response(self.get_context_data(form=form))
 
-        new_grafico_base64 = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, rotar_eje_x, rotar_eje_y, estilo_linea, color_linea)
-      
+        grafico_data = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, rotar_eje_x, rotar_eje_y, estilo_linea, color_linea)
+  
         # Enviar la imagen y el audio en base64 a la plantilla
         context = self.get_context_data(form=form)
-        context['grafico_base64'] = new_grafico_base64
+        context.update(grafico_data)
+        context['data_json'] = data_json
         return self.render_to_response(context)
 
     def form_invalid(self, form):
@@ -217,38 +220,57 @@ def json_to_numpy(json_str):
         print(f"Error al decodificar JSON: {e}")
         return None
     
-# Función para generar el gráfico en base64 con configuraciones
-def generar_grafico(data, name_grafic=False, name_eje_x =False, name_eje_y =False, grilla=False, escala_grises=False, rotar_eje_x=False, rotar_eje_y=False, estilo_linea='solid', color_linea='blue'):
+# Función para generar el gráfico en base64 con configuraciones usando Plotly
+def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False, grilla=False, escala_grises=False, rotar_eje_x=False, rotar_eje_y=False, estilo_linea='solid', color_linea='blue'):
     # Verificar que data es un array de NumPy
     if not isinstance(data, np.ndarray):
         raise ValueError("El parámetro 'data' debe ser un array de NumPy")
     
-    plt.figure(figsize=(10, 5))
-    plt.plot(data[:, 0], data[:, 1], linestyle=estilo_linea, color=color_linea)
-    if name_eje_x:
-        plt.xlabel(name_eje_x)
-    if name_eje_y:    
-        plt.ylabel(name_eje_y)
-    if name_grafic:
-        plt.title(name_grafic)
-    if grilla:
-        plt.grid(True)
+    # Crear el gráfico con Plotly
+    fig = go.Figure()
+
+    # Aplicar escala de grises si está seleccionada
     if escala_grises:
-        plt.gray()
+        color_linea = 'gray'
+        fig.update_layout(template='plotly_white')
+    else:
+        fig.update_layout(template='plotly')
+
+    # Agregar la línea al gráfico
+    fig.add_trace(go.Scatter(x=data[:, 0], y=data[:, 1], mode='lines', line=dict(color=color_linea, dash=estilo_linea)))
+    
+    if name_eje_x:
+        fig.update_xaxes(title_text=name_eje_x)
+    if name_eje_y:
+        fig.update_yaxes(title_text=name_eje_y)
+    if name_grafic:
+        fig.update_layout(title_text=name_grafic)
+    if grilla:
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
     if rotar_eje_x:
-        plt.xticks(rotation=90)
+        fig.update_xaxes(tickangle=90)
     if rotar_eje_y:
-        plt.yticks(rotation=90)
+        fig.update_yaxes(tickangle=90)
 
-    buffer = BytesIO()  # Crear un buffer de Bytes para guardar la imagen
-    plt.savefig(buffer, format='png')
-    plt.close()
-    buffer.seek(0)  # Mover el cursor al inicio del buffer
+    # Convertir el gráfico a una imagen en base64
+    img_bytes = fig.to_image(format="png")
+    grafico_base64 = base64.b64encode(img_bytes).decode('utf-8')
 
-    grafico_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')  # Codifica la imagen en base64
-
-    return grafico_base64
-
+    # Establecer valores predeterminados si no se reciben parámetros
+    return {
+        'grafico_base64': grafico_base64,
+        'name_grafic': name_grafic if name_grafic is not None else 'Gráfico',
+        'name_eje_x': name_eje_x if name_eje_x is not None else 'Eje X',
+        'name_eje_y': name_eje_y if name_eje_y is not None else 'Eje Y',
+        'grilla': grilla if grilla is not None else False,
+        'escala_grises': escala_grises if escala_grises is not None else False,
+        'rotar_eje_x': rotar_eje_x if rotar_eje_x is not None else 0,
+        'rotar_eje_y': rotar_eje_y if rotar_eje_y is not None else 0,
+        'estilo_linea': estilo_linea,
+        'color_linea': color_linea
+    }
+    
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request):
     try:
