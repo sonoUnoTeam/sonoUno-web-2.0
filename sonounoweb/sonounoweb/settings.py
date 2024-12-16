@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-+tp7v=sjir%6@7qa8dc!$g1$%!z!97+ij4&j*9dig5u2cg(jmz
 DEBUG = True
 
 #to UM server
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sonounoapp.um.edu.ar']
 
 #Habilita el uso de messages
 MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
