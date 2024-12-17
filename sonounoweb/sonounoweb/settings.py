@@ -127,8 +127,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'sonif1D/static'),
-    print('Johi aqui!!'),
-    print(BASE_DIR)
 ]
 
 # Media files

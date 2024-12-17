@@ -51,8 +51,6 @@ def funciones_matematicas(request):
 def mostrar_grafico(request, nombre_archivo):
     # Ruta al archivo txt dentro de la carpeta sample_data
     ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'sonif1D', 'sample_data', nombre_archivo)
-    print('Aqui en views***************************')
-    print(ruta_archivo)
 
     try:
         data = cargar_archivo(ruta_archivo)  # Cargar los datos del archivo
