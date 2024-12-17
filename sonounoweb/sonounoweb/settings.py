@@ -61,7 +61,7 @@ ROOT_URLCONF = 'sonounoweb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'], #[os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,9 +69,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # Enable {{ STATIC_URL }} and {{ MEDIA_URL }}
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
             ],
         },
     },
@@ -127,9 +124,10 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, 'sonif1D/static'),
-#]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'sonif1D/static'),
+]
 
 # Media files
 MEDIA_URL = '/media/'
