@@ -52,12 +52,19 @@ def mostrar_grafico(request, nombre_archivo):
     # Ruta al archivo txt dentro de la carpeta sample_data
     ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'sonif1D', 'sample_data', nombre_archivo)
 
-    data = cargar_archivo(ruta_archivo) # Cargar los datos del archivo
-    data_json = numpy_to_json(data) # Convertir los datos a JSON
-    
-    if data is None:
-        messages.error(request, "Sin gráfico disponible o archivo no encontrado.")
+    try:
+        data = cargar_archivo(ruta_archivo)  # Cargar los datos del archivo
+    except ValueError as ve:
+        messages.error(request, f"Error en los datos del archivo: {ve}")
         return render(request, 'sonif1D/index.html')
+    except FileNotFoundError:
+        messages.error(request, "Archivo no encontrado.")
+        return render(request, 'sonif1D/index.html')
+    except Exception as e:
+        messages.error(request, f"Error inesperado: {e}")
+        return render(request, 'sonif1D/index.html')
+
+    data_json = numpy_to_json(data) # Convertir los datos a JSON
     
     grafico_data = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
     audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
@@ -118,17 +125,21 @@ class GraficoView(FormView):
 def cargar_archivo(ruta_archivo):
     try:
         if ruta_archivo.endswith('.csv'):
-            data = np.loadtxt(ruta_archivo, delimiter=',')
+            data = np.genfromtxt(ruta_archivo, delimiter=',')
+        elif ruta_archivo.endswith('.txt'):
+            data = np.genfromtxt(ruta_archivo, delimiter=None)
         else:
-            data = np.loadtxt(ruta_archivo)
+            raise ValueError("El archivo debe ser .csv o .txt")
         
         # Verificar que los datos sean una matriz con al menos dos columnas
         if data.ndim != 2 or data.shape[1] < 2:
-            return None
+            raise ValueError("Los datos deben ser una matriz con al menos dos columnas.")
         
         return data
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Archivo no encontrado: {ruta_archivo}")
     except Exception as e:
-        return None
+        raise ValueError(f"Error al cargar el archivo: {e}")
 
 # Función para cargar los datos desde un string en memoria a un array de NumPy
 def cargar_datos_desde_contenido(contenido):
