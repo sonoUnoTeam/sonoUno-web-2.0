@@ -17,7 +17,7 @@ if path not in sys.path:
 
 #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sonounoweb.settings')
 #Para varias instancias corriendo
-os.environ['DJANGO_SETTINGS_MODULE'] = 'sonounoweb.settings'
+#os.environ['DJANGO_SETTINGS_MODULE'] = 'sonounoweb.settings'
 
 #Prevenir UnicodeEncodeError
 os.environ.setdefault('LANG', 'en_US.UTF-8')
