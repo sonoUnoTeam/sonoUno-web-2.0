@@ -18,6 +18,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 BASE_DIR1 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(BASE_DIR)
 print('************************************************')
 print(BASE_DIR1)
 
