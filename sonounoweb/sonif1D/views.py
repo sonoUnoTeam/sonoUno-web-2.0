@@ -586,8 +586,7 @@ class simpleSound(object):
         try:
             rep = self.reproductor
             sound_buffer = b''
-            print(data_x)
-            print(data_y)
+
             # Recorremos los datos para generar las ondas
             for x in range(init, data_x.size):
                 # Calculamos la frecuencia basándonos en data_y
@@ -599,10 +598,9 @@ class simpleSound(object):
 
                 # Convertimos la onda en un objeto de sonido de pygame
                 s = pygame.mixer.Sound(f.astype('int16'))
-
+                print(s)
                 # Acumulamos el buffer de audio
                 sound_buffer += s.get_raw()
-
             # Creamos un archivo WAV en memoria usando BytesIO
             output_wave = io.BytesIO()
             with wave.open(output_wave, 'wb') as wav_file:
