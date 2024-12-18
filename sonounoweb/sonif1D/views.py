@@ -537,6 +537,7 @@ class simpleSound(object):
     def __init__(self):
         #Se instancia la clase que se genera el sonido usando PyGame.
         self.reproductor = reproductorRaw()
+        print(reproductorRaw())
     #Éste método modifica el valor para producir la nota y lo envía a la clase reproductorMidi
     def make_sound(self, data, x):
         try:
