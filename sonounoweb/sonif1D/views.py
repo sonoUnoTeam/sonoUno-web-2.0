@@ -586,13 +586,14 @@ class simpleSound(object):
         try:
             rep = self.reproductor
             sound_buffer = b''
+            print(data_x)
+            print(data_y)
             # Recorremos los datos para generar las ondas
             for x in range(init, data_x.size):
                 # Calculamos la frecuencia basándonos en data_y
                 freq = (rep.max_freq - rep.min_freq) * data_y[x] + rep.min_freq
                 self.env = rep._adsr_envelope()
-                if x == init:
-                    print('____________________________')
+
                 # Generamos la onda de la frecuencia calculada
                 f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
 
