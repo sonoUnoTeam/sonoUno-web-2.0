@@ -5,7 +5,6 @@ import os
 import time
 import urllib
 import re
-import signal
 
 import matplotlib
 import matplotlib.pyplot as plt
