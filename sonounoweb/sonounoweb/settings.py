@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+tp7v=sjir%6@7qa8dc!$g1$%!z!97+ij4&j*9dig5u2cg(jmz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #to UM server
 ALLOWED_HOSTS = ['sonounoapp.um.edu.ar', '127.0.0.1']
