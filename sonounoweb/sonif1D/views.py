@@ -292,6 +292,7 @@ def generar_auido_base64(data, request):
         # Llama al método generate_sound para obtener el sonido generado
         wav_data = sonido.generate_sound(data[:, 0], data[:, 1])  # Usamos x como data_x y y como data_y
         print('Ejecute el sonido.generate sound********************')
+        print(wav_data)
         # Codifica el archivo WAV en base64
         audio_base64 = base64.b64encode(wav_data).decode('utf-8')
 
