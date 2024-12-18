@@ -67,6 +67,7 @@ def mostrar_grafico(request, nombre_archivo):
     data_json = numpy_to_json(data) # Convertir los datos a JSON
     
     grafico_data = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
+    print('Grafico generado**********************************')
     audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
    # Enviar la imagen y el audio en base64 a la plantilla
@@ -285,6 +286,7 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request):
     try:
+        print('Adentro de audio**********************************')
         # Instancia el generador de sonido
         sonido = simpleSound()
         print('generar_auido_base64 ***************************')
