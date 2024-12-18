@@ -314,7 +314,6 @@ class reproductorRaw (object):
             min_volume=0,
             max_volume=1,
             logscale=False):
-        print('Llego al init')
         self.f_s = 44100 #Sampling frequency
         self.volume = volume
         self.min_freq = min_freq
@@ -325,9 +324,11 @@ class reproductorRaw (object):
         self.logscale = logscale
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
-
-        pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
-
+        print('Llego al init del mixer')
+        try:
+            pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        except Exception as e:
+            print(e)
         self._last_freq = 0
         self._last_time = 0
 
