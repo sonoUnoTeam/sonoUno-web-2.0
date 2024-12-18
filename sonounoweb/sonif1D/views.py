@@ -325,10 +325,7 @@ class reproductorRaw (object):
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
         print('Llego al init del mixer')
-        try:
-            pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
-        except Exception as e:
-            print(e)
+        pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
         self._last_freq = 0
         self._last_time = 0
 
@@ -532,7 +529,7 @@ class reproductorRaw (object):
         self.env = self._adsr_envelope()
         f = self.env*vol*2**14*self.generate_waveform(freq)
         self.sound = pygame.mixer.Sound(f.astype('int16'))
-        self.sound.play()
+        #self.sound.play()
 
 #Esta clase es la que se comunica con la clase principal.
 class simpleSound(object):
