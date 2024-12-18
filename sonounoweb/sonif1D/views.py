@@ -325,7 +325,10 @@ class reproductorRaw (object):
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
         print('Llego al init del mixer')
-        pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        try:
+            pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        except Exception as e:
+            print(e)
         print('puedo hacer el mixer.init')
         self._last_freq = 0
         self._last_time = 0
