@@ -286,14 +286,12 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request):
     try:
-        print('Adentro de audio**********************************')
         # Instancia el generador de sonido
         sonido = simpleSound()
-        print('generar_auido_base64 ***************************')
-
+        print('pase el simple sound cno el mixer init***********************')
         # Llama al método generate_sound para obtener el sonido generado
         wav_data = sonido.generate_sound(data[:, 0], data[:, 1])  # Usamos x como data_x y y como data_y
-
+        print('Ejecute el sonido.generate sound********************')
         # Codifica el archivo WAV en base64
         audio_base64 = base64.b64encode(wav_data).decode('utf-8')
 
@@ -325,10 +323,10 @@ class reproductorRaw (object):
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
         print('Llego al init del mixer')
-        """try:
+        try:
             pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
         except Exception as e:
-            print(e)"""
+            print(e)
         print('puedo hacer el mixer.init')
         self._last_freq = 0
         self._last_time = 0
