@@ -586,7 +586,7 @@ class simpleSound(object):
         try:
             rep = self.reproductor
             sound_buffer = b''
-
+            print('____________________________')
             # Recorremos los datos para generar las ondas
             for x in range(init, data_x.size):
                 # Calculamos la frecuencia basándonos en data_y
