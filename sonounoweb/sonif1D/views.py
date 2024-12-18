@@ -5,6 +5,7 @@ import os
 import time
 import urllib
 import re
+import signal
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -528,6 +529,7 @@ class reproductorRaw (object):
             freq = self.fixed_freq
         self.env = self._adsr_envelope()
         f = self.env*vol*2**14*self.generate_waveform(freq)
+        print('Llego hasta pygame mixer sound****************')
         self.sound = pygame.mixer.Sound(f.astype('int16'))
         #self.sound.play()
 
