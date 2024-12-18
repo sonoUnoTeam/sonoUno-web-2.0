@@ -595,7 +595,7 @@ class simpleSound(object):
 
                 # Generamos la onda de la frecuencia calculada
                 f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
-
+                print(x)
                 # Convertimos la onda en un objeto de sonido de pygame
                 s = pygame.mixer.Sound(f.astype('int16'))
                 print(s)
