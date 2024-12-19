@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pygame
 import wave
+import scipy.io.wavfile
 import plotly.graph_objs as go
 from PIL import Image
 from django.conf import settings
@@ -323,12 +324,12 @@ class reproductorRaw (object):
         self.logscale = logscale
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
-        print('Llego al init del mixer')
+        """print('Llego al init del mixer')
         try:
             pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, device_index=0, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
         except Exception as e:
             print(e)
-        print('puedo hacer el mixer.init')
+        print('puedo hacer el mixer.init')"""
         self._last_freq = 0
         self._last_time = 0
 
@@ -531,8 +532,8 @@ class reproductorRaw (object):
             freq = self.fixed_freq
         self.env = self._adsr_envelope()
         f = self.env*vol*2**14*self.generate_waveform(freq)
-        print('Llego hasta pygame mixer sound****************')
-        self.sound = pygame.mixer.Sound(f.astype('int16'))
+        print('Alerta!! Está usando def pitch')
+        #self.sound = pygame.mixer.Sound(f.astype('int16'))
         #self.sound.play()
 
 #Esta clase es la que se comunica con la clase principal.
@@ -595,19 +596,27 @@ class simpleSound(object):
 
                 # Generamos la onda de la frecuencia calculada
                 f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
-                print(x)
-                # Convertimos la onda en un objeto de sonido de pygame
+
+                """# Convertimos la onda en un objeto de sonido de pygame
                 s = pygame.mixer.Sound(f.astype('int16'))
-                print(s)
+
                 # Acumulamos el buffer de audio
-                sound_buffer += s.get_raw()
+                sound_buffer += s.get_raw()"""
+                if x == init:
+                    print('creo el array')
+                    sound_to_save = f.astype('int16')
+                    print(type(sound_to_save))
+                
+
             # Creamos un archivo WAV en memoria usando BytesIO
             output_wave = io.BytesIO()
-            with wave.open(output_wave, 'wb') as wav_file:
+            """with wave.open(output_wave, 'wb') as wav_file:
                 wav_file.setframerate(rep.f_s)  # Tasa de muestreo
                 wav_file.setnchannels(1)        # Canal mono
                 wav_file.setsampwidth(2)        # 2 bytes (16 bits por muestra)
-                wav_file.writeframesraw(sound_buffer)
+                wav_file.writeframesraw(sound_buffer)"""
+            
+            scipy.io.wavfile.write(output_wave, rep.f_s, sound_to_save)
 
             # Devolvemos el archivo WAV en formato de bytes
             return output_wave.getvalue()
