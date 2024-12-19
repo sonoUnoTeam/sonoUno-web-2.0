@@ -605,8 +605,8 @@ class simpleSound(object):
                 if x == init:
                     print('creo el array')
                     sound_to_save = f.astype('int16')
-                    print(type(sound_to_save))
-                
+                else:
+                    sound_to_save = np.append(sound_to_save, f.astype('int16'))
 
             # Creamos un archivo WAV en memoria usando BytesIO
             output_wave = io.BytesIO()
