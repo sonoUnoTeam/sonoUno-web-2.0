@@ -68,7 +68,6 @@ def mostrar_grafico(request, nombre_archivo):
     data_json = numpy_to_json(data) # Convertir los datos a JSON
     
     grafico_data = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
-    print('Grafico generado**********************************')
     audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
    # Enviar la imagen y el audio en base64 a la plantilla
@@ -289,11 +288,8 @@ def generar_auido_base64(data, request):
     try:
         # Instancia el generador de sonido
         sonido = simpleSound()
-        print('pase el simple sound cno el mixer init***********************')
         # Llama al método generate_sound para obtener el sonido generado
         wav_data = sonido.generate_sound(data[:, 0], data[:, 1])  # Usamos x como data_x y y como data_y
-        print('Ejecute el sonido.generate sound********************')
-        print(wav_data)
         # Codifica el archivo WAV en base64
         audio_base64 = base64.b64encode(wav_data).decode('utf-8')
 
@@ -324,12 +320,9 @@ class reproductorRaw (object):
         self.logscale = logscale
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
-        """print('Llego al init del mixer')
-        try:
-            pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, device_index=0, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
-        except Exception as e:
-            print(e)
-        print('puedo hacer el mixer.init')"""
+
+        #pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, device_index=0, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+
         self._last_freq = 0
         self._last_time = 0
 
@@ -523,7 +516,6 @@ class reproductorRaw (object):
     def pitch (self, value):
         if self.logscale:
             value = np.log10(100*value+1)/2 #This is to achieve reasoable values
-            print(value)
         if self.mapping == 'frequency':
             freq = (self.max_freq-self.min_freq)*value+self.min_freq
             vol = self.volume
@@ -532,7 +524,6 @@ class reproductorRaw (object):
             freq = self.fixed_freq
         self.env = self._adsr_envelope()
         f = self.env*vol*2**14*self.generate_waveform(freq)
-        print('Alerta!! Está usando def pitch')
         #self.sound = pygame.mixer.Sound(f.astype('int16'))
         #self.sound.play()
 
@@ -564,7 +555,6 @@ class simpleSound(object):
             for x in range (init, data_x.size):
                 freq = (rep.max_freq-rep.min_freq)*data_y[x]+rep.min_freq
                 self.env = rep._adsr_envelope()
-                #print(self.env.get_adsr())
                 f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                     delta_t = 1)
                 s = pygame.mixer.Sound(f.astype('int16'))
@@ -603,7 +593,6 @@ class simpleSound(object):
                 # Acumulamos el buffer de audio
                 sound_buffer += s.get_raw()"""
                 if x == init:
-                    print('creo el array')
                     sound_to_save = f.astype('int16')
                 else:
                     sound_to_save = np.append(sound_to_save, f.astype('int16'))
