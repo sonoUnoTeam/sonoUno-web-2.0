@@ -22,10 +22,10 @@
 
 <body>
    <!-- Se incluye la navbar -->
-   {% include 'navbar.html' %}
+   {% include 'sonif1D/navbar.html' %}
     <div class="container my-4">
         <!-- Se incluye mensajes -->
-        {% include 'message.html' %}  
+        {% include 'sonif1D/message.html' %}  
     </div>
     
     <div class="container my-3">
@@ -72,10 +72,6 @@
                                 </button>
                             </div>
                         </div>
-                        
-                        <!-- Gráfico  
-                        <img id="graficoImg" src="data:image/png;base64,{{ grafico_base64 }}" alt="" style="max-width: 100%; height: auto; object-fit: contain;" />
-                        -->
 
                         <!-- Gráfico -->
                         <div id="grafico" style="width: 100%; height: 500px;"></div>
@@ -108,7 +104,6 @@
             const playIcon = document.getElementById('playIcon');
             const pauseIcon = document.getElementById('pauseIcon');
             
-    
             // Obtener valores del contexto Django
             const audioBase64 = "{{ audio_base64|default:'' }}";
             const data_json = "{{ data_json|default:'' }}";
@@ -332,7 +327,5 @@
         });
     </script>
 
-    
-   
 </body>
 </html>

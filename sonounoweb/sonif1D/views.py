@@ -28,6 +28,7 @@ from .sonounolib.data_import.data_import import DataImport
 from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
+from .sonounolib.data_transform import predef_math_functions
 
 matplotlib.use('Agg')
 
@@ -36,7 +37,7 @@ def index(request):
     return render(request, "sonif1D/index.html")
 
 def inicio(request):
-    return render(request,"sonif1D/inicio.html")
+    return render(request,"inicio.html")
 
 def ayuda(request):
     return render(request,"sonif1D/ayuda.html")
@@ -178,12 +179,12 @@ class ImportarArchivoView(FormView):
                 messages.error(self.request, "El archivo no contiene datos válidos.")
                 return self.render_to_response(self.get_context_data(form=form), template_name='sonif1D/index.html')
 
-            grafico_base64 = generar_grafico(data, archivo.name)
+            grafico_data = generar_grafico(data, archivo.name)
             audio_base64 = generar_auido_base64(data, self.request)
             
             context = self.get_context_data(form=form)
+            context.update(grafico_data)
             context.update({
-                'grafico_base64': grafico_base64,
                 'audio_base64': audio_base64,
                 'data_json': data_json,
             })
@@ -566,7 +567,7 @@ class simpleSound(object):
 
     # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
-        try:
+        try:            
             rep = self.reproductor
             sound_buffer = b''
 

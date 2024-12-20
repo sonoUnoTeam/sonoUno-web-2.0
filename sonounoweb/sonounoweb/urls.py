@@ -24,7 +24,8 @@ from sonif1D import views
 
 urlpatterns = [
     path("", views.inicio, name='inicio'),
-    path("sonif1D/", include("sonif1D.urls")),
-    path('admin/', admin.site.urls),    
+    path('admin/', admin.site.urls),  
+    path("sonif1D/", include("sonif1D.urls")), # Incluye las urls de la app sonif1D
+    path('muongraphy/', include('muongraphy.urls')), # Incluye las urls de la app moungraphy
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
