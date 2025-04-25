@@ -53,19 +53,7 @@ def mostrar_grafico(request, nombre_archivo):
     # Ruta al archivo txt dentro de la carpeta sample_data
     ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'sonif1D', 'sample_data', nombre_archivo)
 
-    #data = cargar_archivo(ruta_archivo) # Cargar los datos del archivo
-    try:
-        data = cargar_archivo(ruta_archivo)  # Cargar los datos del archivo
-    except ValueError as ve:
-        messages.error(request, f"Error en los datos del archivo: {ve}")
-        return render(request, 'sonif1D/index.html')
-    except FileNotFoundError:
-        messages.error(request, "Archivo no encontrado.")
-        return render(request, 'sonif1D/index.html')
-    except Exception as e:
-        messages.error(request, f"Error inesperado: {e}")
-        return render(request, 'sonif1D/index.html')
-
+    data = cargar_archivo(ruta_archivo) # Cargar los datos del archivo
     data_json = numpy_to_json(data) # Convertir los datos a JSON
     
     if data is None:
@@ -324,7 +312,7 @@ class reproductorRaw (object):
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
 
-        #pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
 
         self._last_freq = 0
         self._last_time = 0
@@ -528,8 +516,8 @@ class reproductorRaw (object):
             freq = self.fixed_freq
         self.env = self._adsr_envelope()
         f = self.env*vol*2**14*self.generate_waveform(freq)
-        #self.sound = pygame.mixer.Sound(f.astype('int16'))
-        #self.sound.play()
+        self.sound = pygame.mixer.Sound(f.astype('int16'))
+        self.sound.play()
 
 #Esta clase es la que se comunica con la clase principal.
 class simpleSound(object):
@@ -592,11 +580,11 @@ class simpleSound(object):
                 # Generamos la onda de la frecuencia calculada
                 f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
 
-                """# Convertimos la onda en un objeto de sonido de pygame
+                # Convertimos la onda en un objeto de sonido de pygame
                 s = pygame.mixer.Sound(f.astype('int16'))
 
                 # Acumulamos el buffer de audio
-                sound_buffer += s.get_raw()"""
+                sound_buffer += s.get_raw()
 
             # Creamos un archivo WAV en memoria usando BytesIO
             output_wave = io.BytesIO()
