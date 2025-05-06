@@ -8,7 +8,7 @@ Created on Thu Apr 28 07:52:36 2022
 This script is dedicated to sonification based on a muongraphy data set
 """
 
-import pygame
+#import pygame
 import os
 from scipy.io import wavfile
 import numpy as np
@@ -19,7 +19,7 @@ def sound_init():
     Initializate the sound mixer with pygame to play sounds during plot display
     """
     #pygame.mixer.init(44100, -16, channels = 2, buffer=4095, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE | pygame.AUDIO_ALLOW_CHANNELS_CHANGE)
-    pygame.mixer.init(22050, -16, channels = 2, buffer=4095, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE | pygame.AUDIO_ALLOW_CHANNELS_CHANGE)
+    #pygame.mixer.init(22050, -16, channels = 2, buffer=4095, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE | pygame.AUDIO_ALLOW_CHANNELS_CHANGE)
 
 def set_bip():
     """
@@ -116,9 +116,10 @@ def play_sound(sound, vol_left=1, vol_right=1):
     vol_left : volume of the left speaker, default 1 (max volume)
     vol_right : volume of the right speaker, default 1 (max volume)
     """
-    sound_play = pygame.mixer.Sound(sound.astype('int16'))
-    channel = sound_play.play()
-    channel.set_volume(vol_left,vol_right)
+    #sound_play = pygame.mixer.Sound(sound.astype('int16'))
+    #channel = sound_play.play()
+    #channel.set_volume(vol_left,vol_right)
+    print("Se reproduce un sonido")
     
 def array_savesound(array):
     """

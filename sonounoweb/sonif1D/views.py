@@ -9,7 +9,7 @@ import re
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import pygame
+#import pygame
 import wave
 import plotly.graph_objs as go
 from PIL import Image
@@ -312,7 +312,7 @@ class reproductorRaw (object):
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
 
-        pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        #pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
 
         self._last_freq = 0
         self._last_time = 0
@@ -516,8 +516,8 @@ class reproductorRaw (object):
             freq = self.fixed_freq
         self.env = self._adsr_envelope()
         f = self.env*vol*2**14*self.generate_waveform(freq)
-        self.sound = pygame.mixer.Sound(f.astype('int16'))
-        self.sound.play()
+        #self.sound = pygame.mixer.Sound(f.astype('int16'))
+        #self.sound.play()
 
 #Esta clase es la que se comunica con la clase principal.
 class simpleSound(object):
@@ -550,8 +550,8 @@ class simpleSound(object):
                 #print(self.env.get_adsr())
                 f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                     delta_t = 1)
-                s = pygame.mixer.Sound(f.astype('int16'))
-                sound_buffer += s.get_raw()
+                #s = pygame.mixer.Sound(f.astype('int16'))
+                #sound_buffer += s.get_raw()
                 #localTrack.add_notes(Note(int((dataY[x]*rango)+offset)))
 
             with wave.open(path,'wb') as output_file:
@@ -567,7 +567,51 @@ class simpleSound(object):
 
     # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
-        try:            
+        try:
+            data_x, data_y, Status = predef_math_functions.normalize(data_x, data_y)
+            
+            rep = self.reproductor
+            sound_buffer = b''
+
+            # Recorremos los datos para generar las ondas
+            for x in range(init, data_x.size):
+                # Calculamos la frecuencia basándonos en data_y
+                freq = (rep.max_freq - rep.min_freq) * data_y[x] + rep.min_freq
+                self.env = rep._adsr_envelope()
+
+                # Generamos la onda de la frecuencia calculada
+                f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
+
+                """# Convertimos la onda en un objeto de sonido de pygame
+                s = pygame.mixer.Sound(f.astype('int16'))
+
+                # Acumulamos el buffer de audio
+                sound_buffer += s.get_raw()"""
+                if x == init:
+                    sound_to_save = f.astype('int16')
+                else:
+                    sound_to_save = np.append(sound_to_save, f.astype('int16'))
+
+            # Creamos un archivo WAV en memoria usando BytesIO
+            output_wave = io.BytesIO()
+            """with wave.open(output_wave, 'wb') as wav_file:
+                wav_file.setframerate(rep.f_s)  # Tasa de muestreo
+                wav_file.setnchannels(1)        # Canal mono
+                wav_file.setsampwidth(2)        # 2 bytes (16 bits por muestra)
+                wav_file.writeframesraw(sound_buffer)"""
+            
+            scipy.io.wavfile.write(output_wave, rep.f_s, sound_to_save)
+
+            # Devolvemos el archivo WAV en formato de bytes
+            return output_wave.getvalue()
+
+        except Exception as e:
+            print(f"Error al generar el sonido: {e}")
+            return None
+
+
+
+        """try:            
             rep = self.reproductor
             sound_buffer = b''
 
@@ -599,7 +643,7 @@ class simpleSound(object):
 
         except Exception as e:
             print(f"Error al generar el sonido: {e}")
-            return None
+            return None"""
 
         
     def save_sound_multicol_stars(self, path, data_x, data_y1, data_y2, init=0):
@@ -612,23 +656,23 @@ class simpleSound(object):
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             #y2
             rep.set_waveform('flute')
             freq = (rep.max_freq-rep.min_freq)*data_y2[x]+rep.min_freq
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             # Silence
             f = self.env*rep.volume*2**15*rep.generate_waveform(0,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
 
         with wave.open(path,'wb') as output_file:
             output_file.setframerate(rep.f_s)
@@ -647,23 +691,23 @@ class simpleSound(object):
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             #y2
             rep.set_waveform('flute')
             freq = (rep.max_freq-rep.min_freq)*data_y2[x]+rep.min_freq
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             # Silence
             f = self.env*rep.volume*2**15*rep.generate_waveform(0,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
 
         with wave.open(path,'wb') as output_file:
             output_file.setframerate(rep.f_s)
@@ -683,8 +727,8 @@ class simpleSound(object):
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             #y2
             rep.set_waveform('square')
             emission_flag = float(data_x.loc[x]) in emission['x'].unique()
@@ -704,8 +748,8 @@ class simpleSound(object):
                 self.env = rep._adsr_envelope()
                 f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                     delta_t = 1)
-                s = pygame.mixer.Sound(f.astype('int16'))
-                sound_buffer += s.get_raw()
+                #s = pygame.mixer.Sound(f.astype('int16'))
+                #sound_buffer += s.get_raw()
                 freq_status = False
             # Silence
             #f = self.env*rep.volume*2**15*rep.generate_waveform(0,
