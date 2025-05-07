@@ -49,9 +49,7 @@ def create_video_from_paths(image_paths, sound_paths):
     # Create temporary video file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video_file:
         temp_video_file_path = temp_video_file.name
-    print("¨*************************")
-    print(temp_video_file_path)
-    print("¨*************************")
+    
     # Write and encode video
     final_clip.write_videofile(
         temp_video_file_path, 
