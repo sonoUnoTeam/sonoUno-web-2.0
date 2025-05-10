@@ -52,7 +52,7 @@ def create_video_from_paths(image_paths, sound_paths):
         temp_video_file_path = temp_video_file.name
 
     # Set higher permissions (e.g., read/write/execute for owner and group)
-    os.chmod(temp_video_file_path, 0o770)
+    os.chmod(temp_video_file_path, 0o777)
 
     #with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video_file:
     #    temp_video_file_path = temp_video_file.name
