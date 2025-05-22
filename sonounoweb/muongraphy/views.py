@@ -49,8 +49,23 @@ def create_video_from_paths(image_paths, sound_paths):
     # Create temporary video file
     temp_dir = os.path.join(settings.BASE_DIR, 'temp')
     print("Directorio temporal: ",temp_dir)
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_video_file:
-        temp_video_file_path = temp_video_file.name
+
+    # Verificar si existe la carpeta temp y si no la crea
+    if not os.path.exists(temp_dir):
+        try:
+            os.makedirs(temp_dir, mode=0o777, exist_ok=True)  # Crear la carpeta con permisos completos
+            print(f"Carpeta creada: {temp_dir}")
+        except Exception as e:
+            print(f"Error al crear la carpeta: {e}")
+    else:
+        print(f"La carpeta ya existe: {temp_dir}")
+
+    # Captura si existe un error al crear el archivo temporal
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_video_file:
+            temp_video_file_path = temp_video_file.name
+    except Exception as e:
+        print(f"Otro error ocurrió: {e}")  # Captura cualquier otra excepción
 
     print("Path del video temporal: ",temp_video_file_path)
     # Set higher permissions (e.g., read/write/execute for owner and group)
@@ -67,8 +82,7 @@ def create_video_from_paths(image_paths, sound_paths):
         fps=24,
         audio_codec='aac',
         verbose=True,           # <--- agrega esto
-        logger='bar',            # <--- y esto para barra de progreso
-        write_audio=False
+        logger='bar'            # <--- y esto para barra de progreso
     )
     print("Termino de escribir el video.")
     # Read video into memory
