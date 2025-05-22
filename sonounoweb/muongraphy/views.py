@@ -48,15 +48,18 @@ def create_video_from_paths(image_paths, sound_paths):
     
     # Create temporary video file
     temp_dir = os.path.join(settings.BASE_DIR, 'temp')
+    print("Directorio temporal: ",temp_dir)
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_video_file:
         temp_video_file_path = temp_video_file.name
 
+    print("Path del video temporal: ",temp_video_file_path)
     # Set higher permissions (e.g., read/write/execute for owner and group)
     os.chmod(temp_video_file_path, 0o777)
 
     #with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video_file:
     #    temp_video_file_path = temp_video_file.name
 
+    print("Empiezo a escribir el video.")
     # Write and encode video
     final_clip.write_videofile(
         temp_video_file_path, 
@@ -66,11 +69,11 @@ def create_video_from_paths(image_paths, sound_paths):
         verbose=True,           # <--- agrega esto
         logger='bar'            # <--- y esto para barra de progreso
     )
-    
+    print("Termino de escribir el video.")
     # Read video into memory
     with open(temp_video_file_path, 'rb') as video_file:
         video_bytes = BytesIO(video_file.read())
-    
+    print("Cargue el video a memoria.")
     # Cleanup
     os.remove(temp_video_file_path)
     final_clip.close()
