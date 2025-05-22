@@ -62,7 +62,9 @@ def create_video_from_paths(image_paths, sound_paths):
         temp_video_file_path, 
         codec='libx264',
         fps=24,
-        audio_codec='aac'
+        audio_codec='aac',
+        verbose=True,           # <--- agrega esto
+        logger='bar'            # <--- y esto para barra de progreso
     )
     
     # Read video into memory
