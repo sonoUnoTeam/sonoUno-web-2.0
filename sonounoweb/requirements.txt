@@ -5,10 +5,8 @@ sqlparse==0.4.4
 tzdata==2024.1
 python-dotenv==1.0.1
 matplotlib==3.8.3
-pygame==2.5.2
 scipy==1.12.0
 pandas==2.2.1
-matplotlib==3.8.3
 plotly==5.15.0
 kaleido==0.2.1
 moviepy==1.0.3
