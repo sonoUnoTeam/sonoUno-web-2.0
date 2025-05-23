@@ -74,6 +74,15 @@ def create_video_from_paths(image_paths, sound_paths):
     #with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video_file:
     #    temp_video_file_path = temp_video_file.name
 
+    # Captura si existe un error al crear el archivo de audio temporal
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_audio_file:
+            temp_audiopath = temp_audio_file.name
+    except Exception as e:
+        print(f"Otro error ocurrió: {e}")  # Captura cualquier otra excepción
+
+    print("Path del audio temporal: ", temp_audiopath)
+
     print("Empiezo a escribir el video.")
     # Write and encode video
     final_clip.write_videofile(
@@ -81,9 +90,9 @@ def create_video_from_paths(image_paths, sound_paths):
         codec='libx264',
         fps=24,
         audio_codec='aac',
+        temp_audiofile=temp_audiopath,
         verbose=True,           # <--- agrega esto
-        logger='bar',            # <--- y esto para barra de progreso
-        temp_audiofile_path=temp_dir
+        logger='bar'            # <--- y esto para barra de progreso
     )
     print("Termino de escribir el video.")
     # Read video into memory
