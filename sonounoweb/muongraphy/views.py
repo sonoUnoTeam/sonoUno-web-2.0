@@ -82,7 +82,8 @@ def create_video_from_paths(image_paths, sound_paths):
         fps=24,
         audio_codec='aac',
         verbose=True,           # <--- agrega esto
-        logger='bar'            # <--- y esto para barra de progreso
+        logger='bar',            # <--- y esto para barra de progreso
+        temp_audiofile_path=temp_dir
     )
     print("Termino de escribir el video.")
     # Read video into memory
