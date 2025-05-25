@@ -1,0 +1,61 @@
+{% extends 'sonif1D/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Contenido de la página: LADO DERECHO (NO TOCAR) -->
+<div class="col-lg-4">
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="dropdown-center">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CONFIGURACIONES
+                    </button>
+                    <ul class="dropdown-menu">
+                        <nav>
+                            <a href="{% url 'sonif1D:sonido' %}">
+                                <button class="btn btn-secondary4 my-4"> SONIDO </button>
+                            </a>
+                        </nav>   
+                        <nav>
+                            <a href="{% url 'sonif1D:grafico' %}">
+                                <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
+                            </a>
+                        </nav>   
+                        <nav>
+                            <a href="{% url 'sonif1D:funciones_matematicas' %}">
+                                <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
+                            </a>
+                        </nav>   
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CADA CONFIGURACIÓN VA AQUÍ -->
+        <div class="card-body">
+            <div class="row">
+                <h4 class="text-center">Cargar un archivo CSV o TXT </h4>
+                
+                <!-- Formulario para cargar archivo -->
+                <div class="list-unstyled">
+                    <h5 class="text-center">Debe contener 2 columnas con los valores x e y respectivamente</h5>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_file" class="form-label">Archivo</label>
+                            <input type="file" name="archivo" id="id_file" class="form-control">
+                        </div>
+                    
+                        <!-- Botón de carga -->
+                        <div class="form-group text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Cargar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

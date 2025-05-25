@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from django.conf.urls.static import static
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,16 +29,16 @@ SECRET_KEY = 'django-insecure-+tp7v=sjir%6@7qa8dc!$g1$%!z!97+ij4&j*9dig5u2cg(jmz
 DEBUG = True
 
 #to UM server
-ALLOWED_HOSTS = ['sonounoapp.um.edu.ar']
+ALLOWED_HOSTS = ['sonounoapp.um.edu.ar', '127.0.0.1']
 
-# Static Dir and Static root needs to be different
-
-STATICFILES_DIRS = [str(BASE_DIR) + '/sonounoweb/plantilla/static']
+#Habilita el uso de messages
+MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
 
 # Application definition
 
 INSTALLED_APPS = [
     'sonif1D.apps.Sonif1DConfig',
+    'muongraphy.apps.MuongraphyConfig', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    #Para archivos estáticos en producción
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -60,7 +64,7 @@ ROOT_URLCONF = 'sonounoweb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +72,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Enable {{ STATIC_URL }} and {{ MEDIA_URL }}
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -124,8 +131,30 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'sonounoweb', 'static'),
+]
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "LOCATION": "/media/",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Cargar las variables de entorno desde el archivo .env
+load_dotenv()

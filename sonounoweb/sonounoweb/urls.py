@@ -15,30 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
-from sonounoweb.views import index
-from sonounoweb.views import sonido
-from sonounoweb.views import grafico
-from sonounoweb.views import funciones_matematicas
-from sonounoweb.views import inicio
-from sonounoweb.views import ayuda
-
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
 
+from sonif1D import views
+
 
 urlpatterns = [
-    path("sonif1D/", include("sonif1D.urls")),
-    path('admin/', admin.site.urls),
-    # de aquí en adelante se borrará
-    path('index', index),
-    path('sonido', sonido),
-    path('grafico', grafico),
-    path('funciones_matematicas', funciones_matematicas),
-    path('inicio', inicio),
-    path('ayuda', ayuda),
-       
+    path("", views.inicio, name='inicio'),
+    path('admin/', admin.site.urls),  
+    path("sonif1D/", include("sonif1D.urls")), # Incluye las urls de la app sonif1D
+    path('muongraphy/', include('muongraphy.urls')), # Incluye las urls de la app moungraphy
     
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] 
+
+# Agrega las URLs para servir archivos estáticos y multimedia
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
