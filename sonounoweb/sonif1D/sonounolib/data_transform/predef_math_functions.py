@@ -12,7 +12,7 @@ import numpy as np
 #from data_export.data_export import DataExport
 
 
-def normalize(self, data_x, data_y, init=0):
+def normalize(data_x, data_y, init=0):
 
     """
     This method normalize the data provided between 0 and 1 with the
