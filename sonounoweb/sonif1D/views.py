@@ -278,9 +278,6 @@ def generar_auido_base64(data, request):
     try:
         # Instancia el generador de sonido
         sonido = simpleSound()
-        print("Línea 281 al tratar de generar el audio con los siguiente datos:\n",data)
-
-        print(data[:,0])
 
         # Llama al método generate_sound para obtener el sonido generado
         wav_data = sonido.generate_sound(data[:, 0], data[:, 1])  # Usamos x como data_x y y como data_y
@@ -572,6 +569,7 @@ class simpleSound(object):
     # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
         try:
+            print(data_x)
             data_x, data_y, Status = predef_math_functions.normalize(data_x, data_y)
             
             rep = self.reproductor
@@ -604,7 +602,7 @@ class simpleSound(object):
                 wav_file.setsampwidth(2)        # 2 bytes (16 bits por muestra)
                 wav_file.writeframesraw(sound_buffer)"""
             
-            scipy.io.wavfile.write(output_wave, rep.f_s, sound_to_save)
+            write(output_wave, rep.f_s, sound_to_save)
 
             # Devolvemos el archivo WAV en formato de bytes
             return output_wave.getvalue()
