@@ -21,6 +21,7 @@ from django.shortcuts import get_object_or_404, render
 from django.template import loader
 from django.urls import reverse
 from io import BytesIO, StringIO
+from scipy.io.wavfile import write
 
 from .forms import ArchivoForm, ConfiguracionGraficoForm
 from .sonounolib.data_export.data_export import DataExport
