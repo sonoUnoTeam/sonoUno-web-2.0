@@ -26,7 +26,7 @@ from scipy.io.wavfile import write
 from .forms import ArchivoForm, ConfiguracionGraficoForm
 from .sonounolib.data_export.data_export import DataExport
 from .sonounolib.data_import.data_import import DataImport
-from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
+from .sonounolib.data_transform.predef_math_functions import normalize
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 #from .sonounolib.data_transform import predef_math_functions
@@ -570,7 +570,7 @@ class simpleSound(object):
     def generate_sound(self, data_x, data_y, init=0):
         try:
             print(data_x)
-            data_x, data_y, Status = PredefMathFunctions.normalize(data_x, data_y)
+            data_x, data_y, Status = normalize(data_x, data_y)
             
             rep = self.reproductor
             sound_buffer = b''
