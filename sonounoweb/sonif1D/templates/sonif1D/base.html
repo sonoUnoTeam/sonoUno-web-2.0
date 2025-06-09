@@ -53,13 +53,14 @@
                                 </button>
                             </div>
 
-                            <div class="col-sm"> <!--stop-->
-                                <button class="btn btn-secondary3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
+                            <div class="col-sm"> <!--Restart-->
+                                <button id="RestartButton" class="btn btn-secondary3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
                                     <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z"/>
                                   </svg></button>
                             </div>
                             <div class="col-sm"> <!--undo-->
-                                <button class="btn btn-secondary3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
+                                <button id="undoButton" class="btn btn-secondary3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
                                     <path d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"/>
                                   </svg></button>
                             </div>
@@ -108,8 +109,8 @@
             const audioBase64 = "{{ audio_base64|default:'' }}";
             const data_json = "{{ data_json|default:'' }}";
             const grafico_base64 = "{{ grafico_base64|default:'' }}";
-            //Condiguracion del grafico
 
+            //Configuracion del grafico
             let name_grafic = "{{ name_grafic|default:'Grafico' }}";
             let name_eje_x = "{{ name_eje_x|default:'Eje X' }}";
             let name_eje_y = "{{ name_eje_y|default:'Eje Y' }}";
@@ -196,15 +197,19 @@
                 }
             }
     
-            // Sincronizar posición del audio con slider
+            // Agregar evento para actualizar el slider y grafico cuando el audio se actualiza
             audioPlayer.addEventListener("timeupdate", function() {
                 const audioDuration = audioPlayer.duration || 0;
                 const currentTime = audioPlayer.currentTime || 0;
-                sliderX.value = (currentTime / audioDuration) * 10000;
+                if (currentTime ==0) {
+                    sliderX.value = 0; // Reinicia el slider al inicio del audio
+                }else {
+                    sliderX.value = (currentTime / audioDuration) * 10000 ; // Actualiza el slider basado en el tiempo actual del audio
+                }
                 updateGrafico(currentTime, audioDuration);
             });
     
-            // Sincronizar slider con posición del audio
+            // Agregar evento para actualizar el tiempo del audio cuando se mueve el slider
             sliderX.addEventListener("input", function() {
                 const positionPercent = sliderX.value / 10000;
                 audioPlayer.currentTime = positionPercent * (audioPlayer.duration || 0);
@@ -242,6 +247,32 @@
                 localStorage.removeItem('grafico_base64');
                 localStorage.removeItem('audio_base64');
                 localStorage.removeItem('data_json');
+                window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
+            });
+
+            //Boton para volver a inicio el audio y el gráfico
+            document.getElementById('RestartButton').addEventListener('click', function() {
+                const audioBase64DesdeStorage = localStorage.getItem('audio_base64');
+                if (audioBase64DesdeStorage) {
+                    const audioSource = audioPlayer.querySelector('source');
+                    audioSource.src = "data:audio/wav;base64," + audioBase64DesdeStorage;
+                    audioPlayer.load();
+                    audioPlayer.currentTime = 0; // Reinicia el tiempo del audio
+                }
+            });
+
+            //Botón para restaurar la configuración inicial del gráfico
+            document.getElementById('undoButton').addEventListener('click', function() {
+                // Configuración inicial del gráfico 
+                localStorage.setItem('name_grafic', "{{ name_grafic|default:'Grafico' }}");
+                localStorage.setItem('name_eje_x', "{{ name_eje_x|default:'Eje X' }}");
+                localStorage.setItem('name_eje_y', "{{ name_eje_y|default:'Eje Y' }}");
+                localStorage.setItem('grilla', "{{ grilla|default:'false' }}");
+                localStorage.setItem('escala_grises', "{{ escala_grises|default:'false' }}");
+                localStorage.setItem('rotar_eje_x', "{{ rotar_eje_x|default:'0' }}");
+                localStorage.setItem('rotar_eje_y', "{{ rotar_eje_y|default:'0' }}");
+                localStorage.setItem('estilo_linea', "{{ estilo_linea|default:'solid' }}");
+                localStorage.setItem('color_linea', "{{ color_linea|default:'blue' }}");
                 window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
             });
 
@@ -297,7 +328,12 @@
                 if (dataJsonDesdeStorage) {
                     const data = convertirData(dataJsonDesdeStorage);
                     if (data && Array.isArray(data.x) && Array.isArray(data.y) && data.x.length === data.y.length) {
-                        const currentIndex = Math.floor((currentTime / totalTime) * data.x.length);
+                        let currentIndex;
+                        if (currentTime === 0) {
+                            currentIndex = 0;
+                        } else {
+                            currentIndex = Math.floor((currentTime / totalTime) * data.x.length);
+                        }
                         const update = {
                             x: [[data.x[currentIndex]]], // Doble corchete para actualizar correctamente
                             y: [[data.y[currentIndex]]], // Doble corchete para actualizar correctamente
