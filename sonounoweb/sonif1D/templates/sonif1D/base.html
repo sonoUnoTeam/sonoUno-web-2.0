@@ -201,7 +201,7 @@
             audioPlayer.addEventListener("timeupdate", function() {
                 const audioDuration = audioPlayer.duration || 0;
                 const currentTime = audioPlayer.currentTime || 0;
-                if (currentTime ==0) {
+                if (currentTime === 0) {
                     sliderX.value = 0; // Reinicia el slider al inicio del audio
                 }else {
                     sliderX.value = (currentTime / audioDuration) * 10000 ; // Actualiza el slider basado en el tiempo actual del audio
