@@ -6,10 +6,19 @@ class ArchivoForm(forms.Form):
 
 # Formulario para la configuración del gráfico
 class ConfiguracionGraficoForm(forms.Form):
-    grilla = forms.BooleanField(required=False, label='Grilla')
-    escala_grises = forms.BooleanField(required=False, label='Escala de grises')
-    rotar_eje_x = forms.BooleanField(required=False, label='Rotar eje X')
-    rotar_eje_y = forms.BooleanField(required=False, label='Rotar eje Y')
+    grilla = forms.BooleanField(
+        required=False, 
+        label='Mostrar grilla',
+        initial=True,
+        help_text='Muestra líneas de cuadrícula en el gráfico'
+    )
+    escala_grises = forms.BooleanField(
+        required=False, 
+        label='Escala de grises',
+        initial=False,
+        help_text='Convierte el gráfico a escala de grises'
+    )
+
     ESTILO_LINEA_CHOICES = [
         ('solid', 'Sólido'),
         ('dot', 'Punto'),
@@ -36,6 +45,21 @@ class ConfiguracionGraficoForm(forms.Form):
         initial='blue',
         widget=forms.RadioSelect,
     )
-    name_grafic = forms.CharField(label='Nombre de Grafico')
-    name_eje_x = forms.CharField(label='Nombre de Eje X')
-    name_eje_y = forms.CharField(label='Nombre de Eje Y')    
+    name_grafic = forms.CharField(
+        label='Nombre de Gráfico',
+        initial='Gráfico de Datos',
+        max_length=100,
+        help_text='Título que aparecerá en la parte superior del gráfico'
+    )
+    name_eje_x = forms.CharField(
+        label='Nombre de Eje X',
+        initial='Eje X',
+        max_length=50,
+        help_text='Etiqueta para el eje horizontal'
+    )
+    name_eje_y = forms.CharField(
+        label='Nombre de Eje Y',
+        initial='Eje Y',
+        max_length=50,
+        help_text='Etiqueta para el eje vertical'
+    )    

@@ -6,7 +6,7 @@ import base64
 import subprocess
 import os
 from django.contrib import messages
-from utils.muon_bash import process_files, cleanup_temp_audio, cleanup_temp_audio
+from utils.muongraphy_lib.muon_bash import process_files, cleanup_temp_audio, cleanup_temp_audio
 from moviepy.editor import ImageClip, concatenate_videoclips, AudioFileClip, AudioClip, concatenate_audioclips
 from PIL import Image
 from scipy.io.wavfile import write

@@ -1,0 +1,436 @@
+/**
+ * LHC Styles - Estilos específicos para la aplicación LHC
+ * Separado de los templates para mejorar la mantenibilidad
+ */
+
+/* Reset de espacios para navbar */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Asegurar que navbar esté pegado al top sin espacio */
+.navbar {
+    margin: 0 !important;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Eliminar márgenes superiores de contenedores */
+.container.my-4:first-of-type {
+    margin-top: 0.5rem !important;
+}
+
+.container.my-3 {
+    margin-top: 0.5rem !important;
+}
+
+/* Estilos para los controles de video */
+.video-controls-panel {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    padding: 1.25rem;
+}
+
+.video-controls-panel:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.btn-group .btn {
+    transition: all 0.2s ease;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.btn-group .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.btn-group .btn:active {
+    transform: translateY(0);
+}
+
+.volume-controls {
+    background: rgba(255,255,255,0.9);
+    border-radius: 30px;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.progress-section {
+    background: rgba(255,255,255,0.95);
+    border-radius: 25px;
+    padding: 15px 20px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+#volumeDisplay {
+    min-width: 50px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.time-display {
+    background: rgba(108, 117, 125, 0.15);
+    border-radius: 20px;
+    padding: 12px 16px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #495057;
+    border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+.video-controls-panel .btn-group {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.video-controls-panel .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+    position: relative;
+}
+
+.video-controls-panel .btn i {
+    margin-right: 0.5rem;
+}
+
+/* Mejoras en los iconos de los botones */
+.btn-success i { color: #ffffff; }
+.btn-warning i { color: #ffffff; }
+.btn-danger i { color: #ffffff; }
+.btn-secondary i { color: #ffffff; }
+.btn-outline-primary i { color: #0d6efd; }
+.btn-outline-primary:hover i { color: #ffffff; }
+
+/* Estilos para la barra de progreso del video */
+.video-progress, .form-range {
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    border: none;
+}
+
+.video-progress:hover, .form-range:hover {
+    height: 10px;
+    background-color: #dee2e6;
+}
+
+.video-progress::-webkit-slider-thumb, .form-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+.video-progress::-webkit-slider-thumb:hover, .form-range::-webkit-slider-thumb:hover {
+    width: 18px;
+    height: 18px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.video-progress::-moz-range-thumb, .form-range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+.video-progress::-moz-range-thumb:hover, .form-range::-moz-range-thumb:hover {
+    width: 18px;
+    height: 18px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+/* Mejorar el estilo del slider de volumen específicamente */
+.form-range-sm {
+    height: 6px;
+}
+
+.form-range-sm::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+}
+
+.form-range-sm::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+}
+
+/* Estilos para el control de volumen */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.volume-slider {
+    width: 100px;
+    height: 4px;
+    background-color: #e9ecef;
+    border-radius: 2px;
+    outline: none;
+    transition: background-color 0.2s ease;
+}
+
+.volume-slider:hover {
+    background-color: #dee2e6;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+/* Estilos para las tarjetas de información */
+.info-card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.info-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.info-card .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+}
+
+.info-card .badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Estilos para los botones de navegación */
+.navigation-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.navigation-controls .btn {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+}
+
+.event-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.event-selector .btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 2rem;
+}
+
+/* Estilos para los botones de descarga */
+.download-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.download-controls .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+}
+
+.download-controls .btn i {
+    margin-right: 0.25rem;
+}
+
+/* Estilos para los mensajes de descarga */
+#downloadMessage {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Estilos para placeholders */
+.placeholder-container {
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+    border: 2px dashed #dee2e6;
+}
+
+.placeholder-container i {
+    font-size: 4rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.placeholder-container h4 {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.placeholder-container p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Estilos para el loader */
+.video-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+    border: 1px solid #dee2e6;
+}
+
+.video-loader .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+}
+
+.video-loader p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .video-controls-panel {
+        padding: 1rem;
+    }
+    
+    .video-controls-panel .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .video-controls-panel .btn {
+        border-radius: 0.375rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .navigation-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .event-selector {
+        justify-content: center;
+    }
+    
+    .download-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .download-controls .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    #downloadMessage {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+}
+
+/* Estilos para el dark mode (opcional, para futuras mejoras) */
+@media (prefers-color-scheme: dark) {
+    .video-controls-panel {
+        background-color: #343a40;
+        border-color: #495057;
+        color: #fff;
+    }
+    
+    .info-card {
+        background-color: #343a40;
+        border-color: #495057;
+        color: #fff;
+    }
+    
+    .info-card .card-header {
+        background-color: #495057;
+        border-color: #6c757d;
+        color: #fff;
+    }
+    
+    .placeholder-container {
+        background-color: #343a40;
+        border-color: #495057;
+        color: #fff;
+    }
+    
+    .video-loader {
+        background-color: #343a40;
+        border-color: #495057;
+        color: #fff;
+    }
+}

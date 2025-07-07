@@ -1,0 +1,940 @@
+2025-07-06 16:10:52,700 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:10:52,700 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:10:52,701 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:10:52,702 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:10:52,703 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 2
+2025-07-06 16:10:52,704 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:10:52,704 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:11:35,502 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:11:35,503 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:11:35,503 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:11:35,504 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:11:35,504 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 2
+2025-07-06 16:11:35,505 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:11:35,507 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:11:54,237 - lhc - INFO - main:33 - Sistema de logging LHC inicializado
+2025-07-06 16:11:54,237 - lhc - INFO - main:33 - Sistema de logging LHC inicializado
+2025-07-06 16:11:54,237 - lhc - INFO - main:33 - Sistema de logging LHC inicializado
+2025-07-06 16:11:54,239 - lhc - INFO - main:55 - Directorios del sistema verificados
+2025-07-06 16:11:54,239 - lhc - INFO - main:55 - Directorios del sistema verificados
+2025-07-06 16:11:54,239 - lhc - INFO - main:55 - Directorios del sistema verificados
+2025-07-06 16:11:54,241 - lhc - INFO - main:71 - Archivo validado: sonification_reduced.txt
+2025-07-06 16:11:54,241 - lhc - INFO - main:71 - Archivo validado: sonification_reduced.txt
+2025-07-06 16:11:54,241 - lhc - INFO - main:71 - Archivo validado: sonification_reduced.txt
+2025-07-06 16:11:54,255 - lhc - INFO - main:89 - Estadísticas de caché: {'files': 5, 'size_mb': 2.17, 'oldest': '2025-07-06 15:15:03', 'newest': '2025-07-06 15:50:51'}
+2025-07-06 16:11:54,255 - lhc - INFO - main:89 - Estadísticas de caché: {'files': 5, 'size_mb': 2.17, 'oldest': '2025-07-06 15:15:03', 'newest': '2025-07-06 15:50:51'}
+2025-07-06 16:11:54,255 - lhc - INFO - main:89 - Estadísticas de caché: {'files': 5, 'size_mb': 2.17, 'oldest': '2025-07-06 15:15:03', 'newest': '2025-07-06 15:50:51'}
+2025-07-06 16:11:54,257 - lhc - INFO - main:104 - Configuración de seguridad verificada
+2025-07-06 16:11:54,257 - lhc - INFO - main:104 - Configuración de seguridad verificada
+2025-07-06 16:11:54,257 - lhc - INFO - main:104 - Configuración de seguridad verificada
+2025-07-06 16:11:54,261 - lhc - INFO - main:134 - Inicialización completada exitosamente
+2025-07-06 16:11:54,261 - lhc - INFO - main:134 - Inicialización completada exitosamente
+2025-07-06 16:11:54,261 - lhc - INFO - main:134 - Inicialización completada exitosamente
+2025-07-06 16:12:32,023 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:32,024 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:12:32,025 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:32,026 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:12:45,540 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:45,540 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:12:45,542 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:12:45,543 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:12:45,546 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:45,546 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:12:45,548 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:45,549 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:12:45,550 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:45,550 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:12:45,551 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:45,552 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:12:59,029 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:12:59,030 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:16:57,739 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:16:57,740 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:16:57,740 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 1
+2025-07-06 16:16:57,741 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:16:57,742 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:17:11,428 - lhc.services - INFO - generate_lhc_video:283 - Video generado exitosamente para evento 1
+2025-07-06 16:19:10,732 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 16:19:10,733 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:10,734 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:10,734 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 16:19:10,734 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:19:10,739 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:10,740 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:10,740 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:19:21,103 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:21,103 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:21,104 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:19:21,138 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:21,138 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:21,139 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:19:21,140 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:19:21,143 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:21,144 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:21,144 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:19:21,144 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:19:21,149 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:21,150 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:21,150 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:19:21,150 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:19:21,154 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:21,155 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:21,155 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:19:31,596 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:31,597 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:31,598 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:31,599 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:45,112 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:45,113 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:45,114 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:19:45,115 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:19:45,119 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:45,119 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:45,121 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:45,122 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:45,124 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:45,125 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:45,181 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:45,182 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:45,182 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:19:45,205 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:45,206 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:58,540 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:58,540 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:58,555 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:58,556 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:19:58,556 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 1
+2025-07-06 16:19:58,557 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:19:58,557 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,194 - lhc.services - INFO - generate_lhc_video:283 - Video generado exitosamente para evento 1
+2025-07-06 16:20:12,204 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:12,205 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,205 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:20:12,210 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:12,210 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,211 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:20:12,211 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:20:12,214 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:12,214 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,215 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:20:12,215 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:20:12,219 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:12,219 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,220 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:20:12,220 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:20:12,224 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:12,224 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,224 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:20:12,230 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 16:20:12,230 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:12,231 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,231 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 16:20:12,231 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:20:12,236 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:12,237 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:12,237 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:20:41,813 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:41,814 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:41,817 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:41,818 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:56,037 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:56,037 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:56,039 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:20:56,041 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:20:56,043 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:56,044 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:56,049 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:56,049 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:56,052 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:56,053 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:56,133 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:56,134 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:20:56,135 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:20:56,160 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:20:56,160 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:09,873 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:09,873 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:09,889 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:09,890 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:09,890 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 1
+2025-07-06 16:21:09,891 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:09,892 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,690 - lhc.services - INFO - generate_lhc_video:283 - Video generado exitosamente para evento 1
+2025-07-06 16:21:23,698 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:23,699 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,699 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:21:23,704 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:23,705 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,705 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:21:23,705 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:21:23,708 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:23,709 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,710 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:21:23,710 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:21:23,714 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:23,714 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,715 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:21:23,715 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:21:23,719 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:23,719 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,720 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:21:23,727 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 16:21:23,729 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:23,729 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,730 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 16:21:23,730 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:21:23,734 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:21:23,734 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:21:23,735 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:22:47,061 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:22:47,062 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:22:47,064 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:22:47,064 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:00,451 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:00,452 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:00,453 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:23:00,455 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 16:23:00,456 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:00,457 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:00,459 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:00,459 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:00,461 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:00,462 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:00,521 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:00,522 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:00,522 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:23:00,543 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:00,544 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:13,675 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:13,676 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:13,691 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:13,691 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:13,692 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 1
+2025-07-06 16:23:13,693 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:13,693 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,400 - lhc.services - INFO - generate_lhc_video:283 - Video generado exitosamente para evento 1
+2025-07-06 16:23:27,409 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:27,409 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,410 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:23:27,415 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:27,416 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,416 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:23:27,417 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:23:27,420 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:27,421 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,422 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:23:27,422 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:23:27,425 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:27,426 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,426 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 16:23:27,426 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:23:27,431 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:27,431 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,432 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:23:27,436 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 16:23:27,437 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:27,438 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,438 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 16:23:27,438 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 16:23:27,442 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:23:27,443 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:23:27,443 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:24:02,225 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:24:02,226 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:24:02,227 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:24:02,229 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:24:02,229 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 2
+2025-07-06 16:24:02,230 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:24:02,230 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:24:38,262 - lhc.services - INFO - _create_video_from_paths:306 - Creando video con 12 clips
+2025-07-06 16:24:40,622 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:24:40,623 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:24:40,624 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:24:40,625 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:24:40,625 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 1
+2025-07-06 16:24:40,625 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:24:40,627 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:24:44,411 - lhc.services - INFO - _write_video_to_base64:477 - Video convertido a base64 exitosamente (458959 bytes)
+2025-07-06 16:24:44,449 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b (0.44MB)
+2025-07-06 16:24:44,451 - lhc.services - INFO - generate_lhc_video:283 - Video generado exitosamente para evento 2
+2025-07-06 16:24:44,563 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video generado exitosamente
+2025-07-06 16:24:57,650 - lhc.services - INFO - _create_video_from_paths:306 - Creando video con 10 clips
+2025-07-06 16:25:01,463 - lhc.services - INFO - _write_video_to_base64:477 - Video convertido a base64 exitosamente (324499 bytes)
+2025-07-06 16:25:01,471 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293 (0.31MB)
+2025-07-06 16:25:01,471 - lhc.services - INFO - generate_lhc_video:283 - Video generado exitosamente para evento 1
+2025-07-06 16:25:01,499 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 16:26:00,743 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:26:00,744 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:26:00,745 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:26:00,745 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:26:00,746 - lhc.services - INFO - generate_lhc_video:250 - Generando nuevo video para evento 2
+2025-07-06 16:26:00,746 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:26:00,747 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:26:34,430 - lhc.services - INFO - _create_video_from_paths:306 - Creando video con 12 clips
+2025-07-06 16:26:39,071 - lhc.services - INFO - _write_video_to_base64:477 - Video convertido a base64 exitosamente (458959 bytes)
+2025-07-06 16:26:39,081 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b (0.44MB)
+2025-07-06 16:26:39,081 - lhc.services - INFO - generate_lhc_video:283 - Video generado exitosamente para evento 2
+2025-07-06 16:26:39,095 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video generado exitosamente
+2025-07-06 16:31:04,823 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:31:04,826 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:31:04,828 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:31:04,829 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:31:04,829 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 16:31:04,830 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:31:04,831 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:31:21,588 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 10 clips
+2025-07-06 16:31:26,371 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (324499 bytes)
+2025-07-06 16:31:26,374 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 16:31:26,375 - lhc.services - ERROR - generate_lhc_video:303 - Error generando video sonification_reduced.txt_1_1751830264: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 16:31:26,375 - lhc.views - ERROR - get:109 - Error generando video: Error: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 16:34:40,356 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:34:40,356 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:34:40,357 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 16:34:40,358 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 16:34:40,358 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 16:34:55,636 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 10 clips
+2025-07-06 16:35:01,063 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (324499 bytes)
+2025-07-06 16:35:01,068 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 16:35:01,069 - lhc.services - ERROR - generate_lhc_video:303 - Error generando video sonification_reduced.txt_1_1751830480: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:07:17,320 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:07:17,321 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:07:17,322 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:07:17,322 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:07:17,323 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 17:07:17,323 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:07:17,324 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:07:31,763 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 10 clips
+2025-07-06 17:07:36,214 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (324499 bytes)
+2025-07-06 17:07:36,217 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:07:36,218 - lhc.services - ERROR - generate_lhc_video:303 - Error generando video sonification_reduced.txt_1_1751832437: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:07:36,218 - lhc.views - ERROR - get:109 - Error generando video: Error: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:14:12,295 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:14:12,296 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:14:12,296 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:14:12,297 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:14:12,297 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 17:14:12,298 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:14:12,298 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:14:27,678 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 10 clips
+2025-07-06 17:14:31,836 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (324499 bytes)
+2025-07-06 17:14:31,839 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:14:32,685 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293 (0.31MB)
+2025-07-06 17:14:32,685 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 17:14:32,700 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:15:31,066 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:31,067 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:15:31,068 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:31,069 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:15:46,716 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:46,717 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:15:46,718 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 17:15:46,720 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 17:15:46,721 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:46,721 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:15:46,725 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:46,725 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:15:46,727 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:46,728 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:15:46,834 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:46,835 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:15:46,835 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:15:46,871 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:15:46,871 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:03,725 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:03,726 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:03,735 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:03,736 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:03,736 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 17:16:03,737 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:03,738 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,397 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:16:18,398 - lhc.services - ERROR - _extract_image_from_video_base64:569 - Error extrayendo imagen del video: Incorrect padding
+2025-07-06 17:16:18,399 - lhc.services - ERROR - _extract_audio_from_video_base64:634 - Error extrayendo audio del video: Incorrect padding
+2025-07-06 17:16:18,399 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 17:16:18,407 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:18,408 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,408 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:16:18,412 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:18,412 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,412 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:16:18,413 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:16:18,415 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:18,415 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,416 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:16:18,416 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:16:18,418 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:18,418 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,418 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:16:18,419 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:16:18,422 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:18,424 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,424 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:16:18,428 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 17:16:18,429 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:18,430 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,430 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 17:16:18,430 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:16:18,433 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:16:18,434 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:16:18,434 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:17:02,902 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:02,903 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:02,904 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 17:17:02,904 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:02,905 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:16,938 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:17:16,940 - lhc.services - ERROR - _extract_image_from_video_base64:569 - Error extrayendo imagen del video: Incorrect padding
+2025-07-06 17:17:16,941 - lhc.services - ERROR - _extract_audio_from_video_base64:634 - Error extrayendo audio del video: Incorrect padding
+2025-07-06 17:17:16,941 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 17:17:30,983 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:30,984 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:30,984 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:17:31,017 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:31,017 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:31,018 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:17:31,018 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:17:31,020 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:31,021 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:31,021 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:17:31,021 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:17:31,026 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:31,027 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:31,027 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:17:31,027 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:17:31,030 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:31,031 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:31,031 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:17:43,497 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:43,497 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:43,498 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:17:43,499 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:17:43,502 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:17:43,502 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:17:44,506 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 17:22:14,538 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:22:14,538 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:22:14,539 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:22:14,540 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:22:14,542 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:22:14,542 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:22:14,542 - lhc.services - ERROR - generate_lhc_video:303 - Error generando video sonification_reduced.txt_1_1751833334: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:22:14,543 - lhc.views - ERROR - get:109 - Error generando video: Error: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:22:18,621 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:22:18,622 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:22:18,623 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:22:18,624 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:22:18,626 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:22:18,627 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:22:18,627 - lhc.services - ERROR - generate_lhc_video:303 - Error generando video sonification_reduced.txt_1_1751833338: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:22:18,627 - lhc.views - ERROR - get:109 - Error generando video: Error: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:22:22,470 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:22:22,470 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:22:22,472 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:22:22,472 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:22:22,476 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:22:22,476 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:22:22,477 - lhc.services - ERROR - generate_lhc_video:303 - Error generando video sonification_reduced.txt_1_1751833342: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:22:22,477 - lhc.views - ERROR - get:109 - Error generando video: Error: 'LHCVideoService' object has no attribute '_extract_image_from_video_base64'
+2025-07-06 17:25:09,673 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:25:09,673 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:25:09,674 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:25:09,674 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:25:09,677 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:25:09,677 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:25:10,760 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 17:25:25,360 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:25:25,361 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:25:25,362 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:25:25,362 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:25:25,366 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b
+2025-07-06 17:25:25,367 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 2
+2025-07-06 17:25:26,387 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video obtenido del caché
+2025-07-06 17:25:29,299 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:25:29,300 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:25:29,301 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:25:29,301 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:25:29,302 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 3
+2025-07-06 17:25:29,302 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:25:29,303 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:25:45,125 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 10 clips
+2025-07-06 17:25:48,895 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (325445 bytes)
+2025-07-06 17:25:48,897 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:25:49,703 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: de1fef31d8aa5e9c1966e7eb216f16fe47eebb83c32b869cd1ff83c48841344b (0.31MB)
+2025-07-06 17:25:49,703 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 3
+2025-07-06 17:25:49,721 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 3/5, Status: Video generado exitosamente
+2025-07-06 17:26:37,937 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:26:37,937 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:26:37,938 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:26:37,938 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:26:37,939 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 5
+2025-07-06 17:26:37,939 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:26:37,939 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:26:56,059 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 7 clips
+2025-07-06 17:26:58,820 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (202364 bytes)
+2025-07-06 17:26:58,822 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:26:59,600 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: a6ef27777ddc70b50706eeea88abc2a2c7c0e5e87d902bf7986a132171783b04 (0.19MB)
+2025-07-06 17:26:59,600 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 5
+2025-07-06 17:26:59,622 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 5/5, Status: Video generado exitosamente
+2025-07-06 17:27:06,697 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:27:06,697 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:27:06,698 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:27:06,699 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:27:06,701 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:27:06,701 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:27:07,563 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 17:27:22,747 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:27:22,748 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:27:22,749 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:27:22,749 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:27:22,750 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 2
+2025-07-06 17:27:22,750 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:27:22,751 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:27:57,769 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 12 clips
+2025-07-06 17:28:02,599 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (458959 bytes)
+2025-07-06 17:28:02,602 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:28:03,480 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b (0.44MB)
+2025-07-06 17:28:03,481 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 2
+2025-07-06 17:28:03,494 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video generado exitosamente
+2025-07-06 17:28:28,894 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:28:28,895 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:28:28,896 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:28:28,897 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:28:28,900 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b
+2025-07-06 17:28:28,901 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 2
+2025-07-06 17:28:30,096 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video obtenido del caché
+2025-07-06 17:32:01,870 - lhc.services - INFO - clear_cache:146 - Caché limpiado exitosamente
+2025-07-06 17:32:05,717 - lhc.services - INFO - clear_cache:146 - Caché limpiado exitosamente
+2025-07-06 17:32:19,544 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:32:19,545 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:32:19,545 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:32:19,546 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:32:19,546 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 17:32:19,547 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:32:19,547 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:32:34,932 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 10 clips
+2025-07-06 17:32:39,094 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (324499 bytes)
+2025-07-06 17:32:39,096 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:32:39,988 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293 (0.31MB)
+2025-07-06 17:32:39,988 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 17:32:40,002 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:49:01,458 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:01,459 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:01,461 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:01,461 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:16,198 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:16,199 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:16,201 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 17:49:16,203 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 17:49:16,204 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:16,205 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:16,207 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:16,208 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:16,211 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:16,214 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:16,295 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:16,296 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:16,297 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:49:16,342 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:16,342 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:31,719 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:31,720 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:31,732 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:31,733 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:31,733 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 17:49:31,734 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:31,734 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,197 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:49:46,199 - lhc.services - ERROR - _extract_image_from_video_base64:569 - Error extrayendo imagen del video: Incorrect padding
+2025-07-06 17:49:46,205 - lhc.services - ERROR - _extract_audio_from_video_base64:634 - Error extrayendo audio del video: Incorrect padding
+2025-07-06 17:49:46,206 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 17:49:46,223 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:46,224 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,225 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:49:46,234 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:46,234 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,235 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:49:46,235 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:49:46,238 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:46,239 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,239 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:49:46,240 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:49:46,241 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:46,242 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,248 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 17:49:46,248 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:49:46,251 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:46,252 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,253 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:49:46,257 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 17:49:46,258 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:46,258 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,259 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 17:49:46,263 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 17:49:46,266 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:49:46,267 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:49:46,267 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 17:51:32,337 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:51:32,338 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:51:32,341 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:51:32,342 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:51:32,344 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:51:32,344 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:51:33,256 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 17:51:52,500 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:51:52,501 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:51:52,501 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:51:52,502 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:51:52,504 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 17:51:52,504 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 17:51:53,580 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 17:52:03,730 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:52:03,731 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:52:03,732 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:52:03,733 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:52:03,733 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 2
+2025-07-06 17:52:03,734 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 17:52:03,734 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 17:52:40,070 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 12 clips
+2025-07-06 17:52:45,009 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (458959 bytes)
+2025-07-06 17:52:45,013 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 17:52:46,086 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b (0.44MB)
+2025-07-06 17:52:46,087 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 2
+2025-07-06 17:52:46,121 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video generado exitosamente
+2025-07-06 18:00:42,624 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:42,625 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:00:42,627 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:42,628 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:00:57,378 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:57,378 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:00:57,380 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 18:00:57,381 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 18:00:57,383 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:57,383 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:00:57,394 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:57,396 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:00:57,399 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:57,399 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:00:57,481 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:57,482 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:00:57,482 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:00:57,534 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:00:57,534 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:11,604 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:11,605 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:11,616 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:11,617 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:11,618 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 18:01:11,619 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:11,619 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,613 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 18:01:25,615 - lhc.services - ERROR - _extract_image_from_video_base64:569 - Error extrayendo imagen del video: Incorrect padding
+2025-07-06 18:01:25,617 - lhc.services - ERROR - _extract_audio_from_video_base64:634 - Error extrayendo audio del video: Incorrect padding
+2025-07-06 18:01:25,618 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 18:01:25,625 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:25,625 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,626 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:01:25,630 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:25,631 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,631 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:01:25,631 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:01:25,635 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:25,635 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,636 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:01:25,636 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:01:25,638 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:25,638 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,639 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:01:25,639 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:01:25,643 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:25,644 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,644 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:01:25,650 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 18:01:25,651 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:25,652 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,652 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 18:01:25,653 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:01:25,656 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:01:25,656 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:01:25,656 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:03:42,200 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:03:42,201 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:03:42,201 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:03:42,202 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:03:42,205 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:03:42,206 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:03:43,397 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:04:42,364 - lhc.views - ERROR - cache_stats:211 - Error en cache_stats: Unclosed tag on line 147: 'block'. Looking for one of: endblock.
+2025-07-06 18:05:06,252 - lhc.views - ERROR - cache_stats:211 - Error en cache_stats: Unclosed tag on line 147: 'block'. Looking for one of: endblock.
+2025-07-06 18:05:41,695 - lhc.views - ERROR - cache_stats:211 - Error en cache_stats: Unclosed tag on line 147: 'block'. Looking for one of: endblock.
+2025-07-06 18:09:44,878 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:09:44,879 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:09:44,879 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:09:44,880 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:09:44,883 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:09:44,883 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:09:45,864 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:10:38,373 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:10:38,373 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:10:38,374 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:10:38,375 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:10:38,379 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b
+2025-07-06 18:10:38,379 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 2
+2025-07-06 18:10:39,615 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video obtenido del caché
+2025-07-06 18:14:32,804 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:32,804 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:14:32,806 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:32,807 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:14:47,528 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:47,529 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:14:47,532 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 18:14:47,534 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 18:14:47,535 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:47,536 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:14:47,538 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:47,539 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:14:47,540 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:47,541 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:14:47,620 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:47,620 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:14:47,620 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:14:47,644 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:14:47,645 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:02,526 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:02,529 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:02,577 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:02,577 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:02,580 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 18:15:02,581 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:02,581 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,037 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 18:15:17,039 - lhc.services - ERROR - _extract_image_from_video_base64:569 - Error extrayendo imagen del video: Incorrect padding
+2025-07-06 18:15:17,040 - lhc.services - ERROR - _extract_audio_from_video_base64:634 - Error extrayendo audio del video: Incorrect padding
+2025-07-06 18:15:17,041 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 18:15:17,050 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:17,050 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,051 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:15:17,056 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:17,057 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,057 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:15:17,058 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:15:17,060 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:17,061 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,062 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:15:17,063 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:15:17,065 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:17,065 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,066 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:15:17,066 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:15:17,069 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:17,069 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,070 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:15:17,074 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 18:15:17,074 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:17,075 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,075 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 18:15:17,075 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:15:17,080 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:17,081 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:17,081 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:15:41,928 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:41,928 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:41,929 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:15:41,929 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:15:41,932 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b
+2025-07-06 18:15:41,932 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 2
+2025-07-06 18:15:43,164 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video obtenido del caché
+2025-07-06 18:17:36,254 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:17:36,255 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:17:36,256 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:17:36,257 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:17:36,260 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:17:36,261 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:17:37,256 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:21:18,652 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:18,653 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:18,655 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:18,656 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:34,156 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:34,157 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:34,160 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 18:21:34,162 - utils.lhc_lib.lhc_web - ERROR - load_particle_data:543 - Error cargando 'archivo_inexistente.txt': No se encontró el archivo 'archivo_inexistente.txt'. Archivos disponibles: ['sonification_reduced.txt']
+2025-07-06 18:21:34,164 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:34,164 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:34,166 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:34,167 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:34,169 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:34,169 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:34,250 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:34,251 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:34,251 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:21:34,277 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:34,278 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:49,613 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:49,614 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:49,626 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:49,627 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:21:49,628 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 18:21:49,628 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:21:49,629 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,213 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 18:22:05,214 - lhc.services - ERROR - _extract_image_from_video_base64:569 - Error extrayendo imagen del video: Incorrect padding
+2025-07-06 18:22:05,216 - lhc.services - ERROR - _extract_audio_from_video_base64:634 - Error extrayendo audio del video: Incorrect padding
+2025-07-06 18:22:05,216 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 18:22:05,223 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:05,223 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,224 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:22:05,230 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:05,230 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,231 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:22:05,231 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:22:05,233 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:05,234 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,234 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:22:05,234 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:22:05,237 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:05,237 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,237 - lhc.views - ERROR - get:109 - Error generando video: Test
+2025-07-06 18:22:05,238 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:22:05,240 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:05,241 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,241 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:22:05,247 - lhc.views - WARNING - _get_validated_event_index:155 - Índice de evento inválido: invalid
+2025-07-06 18:22:05,248 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:05,248 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,249 - lhc.views - ERROR - get:109 - Error generando video: Error en parámetros
+2025-07-06 18:22:05,249 - lhc.views - ERROR - get:133 - Error inesperado en LHCEventView: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+2025-07-06 18:22:05,252 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:05,252 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:05,253 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:22:40,637 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:40,638 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:40,639 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:22:40,639 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:22:40,642 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:22:40,642 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:22:41,557 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:27:06,506 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:27:06,507 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:27:06,508 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:27:06,510 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:27:06,513 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:27:06,514 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:27:07,403 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:27:18,776 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:27:18,777 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:27:18,777 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:27:18,778 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:27:18,782 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b
+2025-07-06 18:27:18,782 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 2
+2025-07-06 18:27:19,789 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video obtenido del caché
+2025-07-06 18:27:22,486 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:27:22,487 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:27:22,487 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:27:22,488 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:27:22,490 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:27:22,490 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:27:23,414 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:36:06,952 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:36:06,953 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:36:06,954 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:36:06,955 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:36:06,958 - lhc.services - INFO - get_cached_video:77 - Caché expirado: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:36:06,959 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 1
+2025-07-06 18:36:06,959 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:36:06,960 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:36:23,494 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 10 clips
+2025-07-06 18:36:30,332 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (324499 bytes)
+2025-07-06 18:36:30,336 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 18:36:31,633 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293 (0.31MB)
+2025-07-06 18:36:31,633 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 1
+2025-07-06 18:36:31,651 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video generado exitosamente
+2025-07-06 18:36:35,690 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:36:35,691 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:36:35,691 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:36:35,692 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:36:35,695 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b
+2025-07-06 18:36:35,695 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 2
+2025-07-06 18:36:36,683 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video obtenido del caché
+2025-07-06 18:36:39,439 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:36:39,440 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:36:39,440 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:36:39,441 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:36:39,443 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:36:39,443 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:36:40,359 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:38:41,807 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:38:41,808 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:38:41,809 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:38:41,809 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:38:41,813 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:38:41,814 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:38:42,812 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:39:00,409 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:39:00,410 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:39:00,411 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:39:00,411 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:39:00,413 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:39:00,414 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:39:01,272 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:42:40,036 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:42:40,037 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:42:40,037 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:42:40,038 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:42:40,040 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:42:40,041 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:42:41,088 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:43:05,502 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:43:05,503 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:43:05,504 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:43:05,504 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:43:05,506 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:43:05,507 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:43:06,365 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:43:21,257 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:43:21,258 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:43:21,259 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:43:21,260 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:43:21,264 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 3003f2fab92dd7bfa6924ade4a797d8139cbab3c614fe52ab2acfbe8a9a77c2b
+2025-07-06 18:43:21,264 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 2
+2025-07-06 18:43:22,522 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 2/5, Status: Video obtenido del caché
+2025-07-06 18:52:13,378 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:52:13,379 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:52:13,379 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:52:13,385 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:52:13,389 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:52:13,389 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:52:14,352 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:52:51,863 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:52:51,864 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:52:51,864 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:52:51,865 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:52:51,867 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:52:51,867 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:52:52,847 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:53:18,365 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:53:18,366 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:53:18,366 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:53:18,367 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:53:18,369 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:53:18,370 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:53:19,285 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché
+2025-07-06 18:53:34,716 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:53:34,717 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:53:34,718 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:53:34,718 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:53:34,719 - lhc.services - INFO - generate_lhc_video:258 - Generando nuevo video para evento 5
+2025-07-06 18:53:34,719 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:53:34,720 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:53:52,730 - lhc.services - INFO - _create_video_from_paths:322 - Creando video con 7 clips
+2025-07-06 18:53:55,730 - lhc.services - INFO - _write_video_to_base64:493 - Video convertido a base64 exitosamente (202364 bytes)
+2025-07-06 18:53:55,732 - lhc.services - INFO - generate_lhc_video:281 - Extrayendo imagen y audio para descargas...
+2025-07-06 18:53:56,487 - lhc.services - INFO - save_video_to_cache:119 - Video guardado en caché: a6ef27777ddc70b50706eeea88abc2a2c7c0e5e87d902bf7986a132171783b04 (0.19MB)
+2025-07-06 18:53:56,487 - lhc.services - INFO - generate_lhc_video:299 - Video generado exitosamente para evento 5
+2025-07-06 18:53:56,505 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 5/5, Status: Video generado exitosamente
+2025-07-06 18:55:06,482 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:55:06,482 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:55:06,483 - utils.lhc_lib.lhc_web - INFO - load_particle_data:508 - Cargando archivo de datos: C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\sample_data\lhc\sonification_reduced.txt
+2025-07-06 18:55:06,485 - utils.lhc_lib.lhc_web - INFO - load_particle_data:539 - Archivo cargado exitosamente: 5 eventos encontrados
+2025-07-06 18:55:06,487 - lhc.services - INFO - get_cached_video:88 - Video obtenido del caché: 0cbb1f435420354f7225a642205274cc6f710e774c6cb20576b4f8a03fc84293
+2025-07-06 18:55:06,488 - lhc.services - INFO - generate_lhc_video:238 - Video obtenido del caché para evento 1
+2025-07-06 18:55:07,453 - lhc.views - INFO - get:123 - Video LHC generado exitosamente - Archivo: sonification_reduced.txt, Evento: 1/5, Status: Video obtenido del caché

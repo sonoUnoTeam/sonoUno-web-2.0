@@ -1,0 +1,302 @@
+{% extends 'lhc/base.html' %}
+{% load static %}
+{% block title %}LHC - Large Hadron Collider{% endblock %}
+
+{% block extra_css %}
+<!-- CSS específico del reproductor de video ya incluido en lhc-styles.css -->
+{% endblock %}
+
+{% block content %}
+<!-- Contenido principal del LHC -->
+
+<!-- Columna principal del contenido -->
+<div class="col-lg-8">
+    {% if video_base64 %}
+    <!-- Video del evento LHC con controles personalizados -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-play-circle"></i> Video del Evento LHC
+                {% if event_info %}
+                    - Evento {{ event_info.event_number }} de {{ event_info.total_events }}
+                    {% if file_name %}
+                        ({{ file_name }})
+                    {% endif %}
+                {% endif %}
+            </h5>
+        </div>
+        <div class="card-body">
+            <!-- Loader -->
+            <div id="videoLoader" class="text-center mb-3" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando video...</span>
+                </div>
+                <p class="mt-2 text-muted">Cargando video del evento LHC...</p>
+            </div>
+            
+            <!-- Reproductor de video -->
+            <div class="text-center">
+                <video id="lhcVideo" class="w-100" style="max-height: 500px; display: none;" preload="auto">
+                    <source src="data:video/mp4;base64,{{ video_base64 }}" type="video/mp4">
+                    Tu navegador no soporta el elemento video.
+                </video>
+                
+                <!-- Controles personalizados -->
+                <div class="mt-3 lhc-video-controls" id="videoControls" style="display: none;">
+                    <!-- Panel de controles principal -->
+                    <div class="card border-0 bg-light rounded-3 p-3 video-controls-panel">
+                        <!-- Controles de reproducción -->
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-6">
+                                <div class="btn-group w-100" role="group" aria-label="Controles de video">
+                                    <button class="btn btn-success" id="playBtn" onclick="playVideo()">
+                                        <i class="bi bi-play-fill"></i> Play
+                                    </button>
+                                    <button class="btn btn-warning" id="pauseBtn" onclick="pauseVideo()" style="display: none;">
+                                        <i class="bi bi-pause-fill"></i> Pause
+                                    </button>
+                                    <button class="btn btn-danger" id="stopBtn" onclick="stopVideo()">
+                                        <i class="bi bi-stop-fill"></i> Stop
+                                    </button>
+                                    <button class="btn btn-secondary" id="resetBtn" onclick="resetVideo()">
+                                        <i class="bi bi-arrow-clockwise"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Controles de volumen -->
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-2 volume-controls">
+                                    <button class="btn btn-outline-primary btn-sm" id="volumeDownBtn" onclick="decreaseVolume()" title="Bajar volumen">
+                                        <i class="bi bi-volume-down"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm" id="muteBtn" onclick="toggleMute()" title="Silenciar/Activar sonido">
+                                        <i class="bi bi-volume-up" id="muteIcon"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm" id="volumeUpBtn" onclick="increaseVolume()" title="Subir volumen">
+                                        <i class="bi bi-volume-up"></i>
+                                    </button>
+                                    <div class="flex-grow-1 mx-2">
+                                        <input type="range" id="volumeSlider" min="0" max="100" value="100" step="1" class="form-range form-range-sm">
+                                    </div>
+                                    <small class="text-muted text-nowrap fw-bold" id="volumeDisplay">100%</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Barra de progreso y tiempo -->
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <div class="text-center time-display">
+                                    <small class="text-muted">
+                                        <i class="bi bi-clock text-primary"></i> 
+                                        <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="d-flex align-items-center gap-2 progress-section">
+                                    <small class="text-muted fw-bold">0:00</small>
+                                    <input type="range" id="progressBar" min="0" value="0" step="0.1" class="form-range flex-grow-1">
+                                    <small class="text-muted fw-bold" id="totalTimeLabel">0:00</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Debug info -->
+                <div class="mt-2">
+                    <small class="text-muted">
+                        Video cargado: {{ video_base64|length }} caracteres base64
+                    </small>
+                    <button class="btn btn-sm btn-outline-secondary ms-2" onclick="debugVideoState()">Debug Video</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- Mensaje cuando no hay video -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-info-circle"></i> LHC Data Visualization
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="text-center">
+                <p class="lead">Selecciona un archivo disponible en ejemplos para generar la visualización LHC</p>
+                <p class="text-muted">Haz clic en un número de evento abajo para comenzar</p>
+                
+                <!-- Mostrar eventos disponibles si no hay video -->
+                {% if total_events %}
+                    <div class="mt-4">
+                        <h6>Eventos disponibles:</h6>
+                        <div class="d-flex flex-wrap gap-1 justify-content-center">
+                            {% for i in "x"|ljust:total_events %}
+                                <a href="?event={{ forloop.counter }}" class="btn btn-outline-primary btn-sm">
+                                    Evento {{ forloop.counter }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if event_info %}
+    <!-- Información detallada del evento -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-info-circle"></i> Detalles del Evento
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6><i class="bi bi-graph-up"></i> Composición del Evento</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Tracks:</strong> <span class="badge bg-primary">{{ event_info.total_tracks }}</span></li>
+                        <li><strong>Clusters:</strong> <span class="badge bg-success">{{ event_info.total_clusters }}</span></li>
+                        <li><strong>Total elementos:</strong> <span class="badge bg-info">{{ event_info.total_elements }}</span></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6><i class="bi bi-skip-backward"></i> Navegación</h6>
+                    <!-- Controles de navegación -->
+                    <div class="btn-group mb-3" role="group" aria-label="Navegación de eventos">
+                        {% if prev_event is not None %}
+                            <a href="?event={{ prev_event }}" class="btn btn-outline-primary">
+                                <i class="bi bi-chevron-left"></i> Anterior
+                            </a>
+                        {% else %}
+                            <button class="btn btn-outline-secondary" disabled>
+                                <i class="bi bi-chevron-left"></i> Anterior
+                            </button>
+                        {% endif %}
+                        
+                        {% if next_event is not None %}
+                            <a href="?event={{ next_event }}" class="btn btn-outline-primary">
+                                Siguiente <i class="bi bi-chevron-right"></i>
+                            </a>
+                        {% else %}
+                            <button class="btn btn-outline-secondary" disabled>
+                                Siguiente <i class="bi bi-chevron-right"></i>
+                            </button>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Selector de evento mejorado -->
+                    <div>
+                        <small class="text-muted">Ir a evento:</small>
+                        <div class="d-flex flex-wrap gap-1 mt-1">
+                            {% for i in "x"|ljust:total_events %}
+                                {% if forloop.counter == current_event %}
+                                    <button class="btn btn-primary btn-sm" disabled>{{ forloop.counter }}</button>
+                                {% else %}
+                                    <a href="?event={{ forloop.counter }}" class="btn btn-outline-primary btn-sm">{{ forloop.counter }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Sidebar derecha - Información y funciones LHC -->
+<div class="col-lg-4">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-info-circle"></i> Información del Sistema
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                    <div class="list-unstyled">
+                    <h6><i class="bi bi-download text-success"></i> Descargas Disponibles</h6>
+                    <ul class="small">
+                        <li><strong>Imagen completa:</strong> Visualización final del evento (optimizada)</li>
+                        <li><strong>Audio completo:</strong> Extraído del video con máxima eficiencia</li>
+                    </ul>
+                    
+                    <h6><i class="bi bi-play-circle text-success"></i> Controles de Video</h6>
+                    <ul class="small">
+                        <li><strong>Play/Pause:</strong> Reproducir o pausar el video</li>
+                        <li><strong>Stop:</strong> Detener y volver al inicio</li>
+                        <li><strong>Reset:</strong> Reiniciar al punto inicial</li>
+                        <li><strong>Barra de progreso:</strong> Navegar por el video</li>
+                    </ul>
+                    
+                    <h6><i class="bi bi-volume-up text-primary"></i> Controles de Audio</h6>
+                    <ul class="small">
+                        <li><strong>Subir/Bajar volumen:</strong> Ajustar en pasos de 10%</li>
+                        <li><strong>Mute:</strong> Silenciar/activar sonido instantáneamente</li>
+                        <li><strong>Slider de volumen:</strong> Control preciso 0-100%</li>
+                        <li><strong>Indicador visual:</strong> Muestra el nivel actual</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h6><i class="bi bi-graph-up"></i> Sobre los Datos LHC</h6>
+                    <p class="small">
+                        Cada evento LHC contiene información sobre partículas detectadas, representadas como:
+                    </p>
+                    <ul class="small">
+                        <li><span class="badge bg-primary">Tracks</span> - Trayectorias de partículas cargadas</li>
+                        <li><span class="badge bg-success">Clusters</span> - Agrupaciones de energía detectada</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h6><i class="bi bi-music-note"></i> Sonificación</h6>
+                    <p class="small">
+                        El video combina visualización 3D con sonificación de datos, donde cada elemento produce un sonido único basado en sus propiedades físicas.
+                    </p>
+                    
+                    {% if event_info %}
+                    <hr>
+                    <h6><i class="bi bi-skip-backward"></i> Navegación</h6>
+                    <p class="small">
+                        Usa los controles de navegación para explorar diferentes eventos. Cada evento representa una colisión diferente en el LHC.
+                    </p>
+                    {% endif %}
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Scripts específicos de LHC -->
+<script src="{% static 'lhc/js/lhc-video-player.js' %}"></script>
+<script src="{% static 'lhc/js/lhc-downloads.js' %}"></script>
+
+<!-- Script para configurar datos específicos del template -->
+<script>
+// Configurar los datos de descarga desde el template
+document.addEventListener('DOMContentLoaded', function() {
+    // Configurar datos de descarga si están disponibles
+    {% if event_info %}
+    if (typeof setDownloadData === 'function') {
+        var imageData = {% if event_info.final_image_base64 %}"{{ event_info.final_image_base64|escapejs }}"{% else %}null{% endif %};
+        var audioData = {% if event_info.final_audio_base64 %}"{{ event_info.final_audio_base64|escapejs }}"{% else %}null{% endif %};
+        var eventNumber = "{{ event_info.event_number|default:'X'|escapejs }}";
+        var fileName = "{{ file_name|default:'evento'|escapejs }}";
+        
+        setDownloadData(imageData, audioData, eventNumber, fileName);
+    }
+    {% endif %}
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'lhc/base.html' %}
+{% load static %}
+
+{% block title %}Estadísticas de Caché LHC{% endblock %}
+
+{% block extra_css %}
+<!-- Estilos de cache stats ya incluidos en lhc-styles.css consolidado -->
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            
+            {% if cache_cleared %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <strong>¡Éxito!</strong> El caché ha sido limpiado correctamente.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+            
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">
+                        <i class="bi bi-bar-chart"></i> Estadísticas de Caché LHC
+                    </h4>
+                </div>
+                
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-primary">
+                                        <i class="bi bi-files"></i> Archivos en Caché
+                                    </h5>
+                                    <h2 class="text-primary" data-cache-files="{{ stats.files|default:0 }}">{{ stats.files|default:0 }}</h2>
+                                    <p class="text-muted">videos almacenados</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-info">
+                                        <i class="bi bi-hdd"></i> Tamaño Total
+                                    </h5>
+                                    <h2 class="text-info">{{ stats.size_mb|default:0|floatformat:2 }} MB</h2>
+                                    <p class="text-muted">espacio utilizado</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if stats.oldest or stats.newest %}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h5><i class="bi bi-clock"></i> Información Temporal</h5>
+                            <table class="table table-sm">
+                                {% if stats.oldest %}
+                                <tr>
+                                    <td><strong>Archivo más antiguo:</strong></td>
+                                    <td>{{ stats.oldest }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if stats.newest %}
+                                <tr>
+                                    <td><strong>Archivo más reciente:</strong></td>
+                                    <td>{{ stats.newest }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h5><i class="bi bi-info-circle"></i> Información del Sistema</h5>
+                            <div class="alert alert-info">
+                                <p><strong>Ubicación:</strong> <code>{{ stats.cache_dir|default:"temp/video_cache/" }}</code></p>
+                                <p><strong>TTL:</strong> 1 hora (archivos se eliminan automáticamente)</p>
+                                <p><strong>Límite máximo:</strong> 100 MB total</p>
+                                <p class="mb-0"><strong>Formato:</strong> Videos en base64 (JSON)</p>
+                                {% if stats.files == 0 %}
+                                <p class="text-muted mt-2 mb-0"><em>No hay archivos en caché actualmente.</em></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'lhc:index' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Volver a LHC
+                        </a>
+                        
+                        <div>
+                            <button type="button" class="btn btn-outline-primary me-2" onclick="location.reload()">
+                                <i class="bi bi-arrow-clockwise"></i> Actualizar
+                            </button>
+                            
+                            <a href="?clear=true" class="btn btn-warning" 
+                               onclick="return confirmClearCache()">
+                                <i class="bi bi-trash"></i> Limpiar Caché
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gráfico de uso (opcional, para futuras mejoras) -->
+            {% if stats.files > 0 %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-pie-chart"></i> Distribución del Caché
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="progress" style="height: 25px;">
+                        {% with usage_percent=stats.size_mb|floatformat:1 max_size=100 %}
+                        {% widthratio stats.size_mb max_size 100 as progress_width %}
+                        <div class="progress-bar bg-info" role="progressbar" 
+                             style="width: {{ progress_width }}%"
+                             aria-valuenow="{{ stats.size_mb }}" aria-valuemin="0" aria-valuemax="100">
+                            {{ usage_percent }} MB de 100 MB
+                        </div>
+                        {% endwith %}
+                    </div>
+                    <small class="text-muted">Límite máximo: 100 MB</small>
+                </div>
+            </div>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'lhc/js/lhc-cache-stats.js' %}"></script>
+{% endblock %}

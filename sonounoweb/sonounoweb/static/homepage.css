@@ -1,0 +1,322 @@
+/* Homepage Styles - SonoUno */
+
+/* Reset and Base Styles */
+body {
+    background: #bdc3c7 !important;
+    background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7) !important;
+    background: linear-gradient(to right, #2c3e50, #bdc3c7) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 100vh !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    overflow-x: hidden !important;
+}
+
+/* Homepage Container */
+.homepage-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section */
+.header-section {
+    padding: 60px 0 40px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.brand-logo {
+    width: 180px !important;
+    height: auto !important;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.brand-logo:hover {
+    transform: scale(1.02);
+}
+
+.brand-info {
+    text-align: left;
+    color: white !important;
+    max-width: 500px;
+}
+
+.brand-title {
+    font-size: 3.2rem !important;
+    font-weight: 300 !important;
+    margin-bottom: 10px !important;
+    letter-spacing: 3px !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+    color: white !important;
+}
+
+.brand-tagline {
+    font-size: 1.2rem !important;
+    color: #ecf0f1 !important;
+    margin-bottom: 8px !important;
+    font-weight: 400 !important;
+}
+
+.brand-description {
+    font-size: 1rem !important;
+    color: #bdc3c7 !important;
+    line-height: 1.6 !important;
+    font-weight: 300 !important;
+}
+
+/* Apps Menu Section */
+.apps-menu-section {
+    flex: 1;
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+}
+
+.apps-title-wrapper {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.apps-title {
+    font-size: 2.2rem !important;
+    color: white !important;
+    font-weight: 300 !important;
+    margin-bottom: 15px !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.apps-subtitle {
+    font-size: 1.1rem !important;
+    color: #bdc3c7 !important;
+    font-weight: 300 !important;
+}
+
+/* Apps Button Grid */
+.apps-button-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.app-button-large {
+    display: block !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: none !important;
+    border-radius: 15px !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.app-button-large:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.app-button-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 33, 71, 0.05), transparent);
+    transition: left 0.5s ease;
+}
+
+.app-button-large:hover::before {
+    left: 100%;
+}
+
+.app-button-content {
+    display: flex !important;
+    align-items: center !important;
+    padding: 25px 30px !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.app-button-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    flex: 1 !important;
+}
+
+.app-icon-wrapper {
+    width: 60px !important;
+    height: 60px !important;
+    background: #002147 !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.app-button-large:hover .app-icon-wrapper {
+    background: #003366 !important;
+    transform: scale(1.1) !important;
+}
+
+.app-icon-wrapper i {
+    font-size: 1.8rem !important;
+    color: white !important;
+}
+
+.app-button-title {
+    font-size: 1.8rem !important;
+    font-weight: 600 !important;
+    color: #002147 !important;
+    margin: 0 !important;
+    letter-spacing: 1px !important;
+}
+
+.app-button-desc {
+    font-size: 1rem !important;
+    color: #666 !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    flex: 2 !important;
+    padding-left: 20px !important;
+}
+
+.app-button-arrow {
+    width: 40px !important;
+    height: 40px !important;
+    background: #f8f9fa !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.app-button-large:hover .app-button-arrow {
+    background: #002147 !important;
+    transform: translateX(5px) !important;
+}
+
+.app-button-large:hover .app-button-arrow i {
+    color: white !important;
+}
+
+.app-button-arrow i {
+    font-size: 1rem !important;
+    color: #002147 !important;
+    transition: color 0.3s ease !important;
+}
+
+/* Animations */
+@keyframes ripple {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.homepage-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.homepage-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .brand-wrapper {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .brand-info {
+        text-align: center;
+    }
+    
+    .brand-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .apps-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .app-button-content {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 20px !important;
+    }
+    
+    .app-button-header {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    
+    .app-button-desc {
+        padding-left: 0 !important;
+    }
+    
+    .app-button-arrow {
+        align-self: center !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-section {
+        padding: 40px 0 30px;
+    }
+    
+    .brand-logo {
+        width: 140px !important;
+    }
+    
+    .brand-title {
+        font-size: 2rem !important;
+    }
+    
+    .apps-button-grid {
+        gap: 15px;
+        padding: 0 15px;
+    }
+    
+    .app-button-content {
+        padding: 20px !important;
+    }
+    
+    .app-icon-wrapper {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .app-icon-wrapper i {
+        font-size: 1.5rem !important;
+    }
+    
+    .app-button-title {
+        font-size: 1.5rem !important;
+    }
+}

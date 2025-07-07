@@ -1,118 +1,143 @@
-{% extends 'sonif1D/base.html' %}{% load static %}
+{% extends 'sonif1D/base.html' %}
+{% load static %}
 {% load custom_filters %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'sonif1D/config_styles.css' %}">
+{% endblock %}
 
 {% block content %}
 <!-- Contenido de la pagina: LADO DERECHO -->
 <div class="col-lg-4">
     <div class="card mb-4">
-        <div class="card-header">
-            <div class="dropdown-center">
-                <div class="d-grid gap-2">
-                <button class="btn btn-secondary btn-lg dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  CONFIGURACIONES
-                </button>
-                <ul class="dropdown-menu">
-                  <nav>
-                      <a href="{% url 'sonif1D:sonido' %}">
-                          <button class="btn btn-secondary4 my-4"> SONIDO </button>
-                      </a>
-                  </nav>   
-                  <nav>
-                      <a href="{% url 'sonif1D:grafico' %}">
-                          <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
-                      </a>
-                  </nav>   
-                  <nav>
-                      <a href="{% url 'sonif1D:funciones_matematicas' %}">
-                          <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
-                      </a>
-                  </nav>   
-              </ul>
-              
-              
-              
-              </div>
-            </div>
-        </div>
+        {% include 'sonif1D/partials/config_dropdown.html' %}
 
-  <!-- CADA CONFIGURACION VA ACA-->           
+        <!-- CADA CONFIGURACION VA ACA-->           
         <div class="card-body">
             <div class="row">
-                <h4 class="text-center">GRÁFICO </h4>
-                <h5 class="text-left">CONFIGURACIONES GENERALES</h5>
+                <div class="text-center mb-3">
+                    <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
+                    <h4 class="text-primary">Configuración de Gráfico</h4>
+                    <p class="text-muted small">Personaliza la apariencia de tu gráfico</p>
+                </div>
+                
                 <form id="configForm" method="post" action="{% url 'sonif1D:grafico' %}">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="{{ form.name_grafic.id_for_label }}">Nombre del Gráfico</label>
-                            {{ form.name_grafic|add_class:"form-control" }}
+                    
+                    <!-- Configuraciones Generales -->
+                    <div class="card border-light mb-3 config-section">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-cog"></i> Configuraciones Generales
+                            </h6>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="{{ form.name_eje_x.id_for_label }}">Nombre del Eje X</label>
-                            {{ form.name_eje_x|add_class:"form-control" }}
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="{{ form.name_eje_y.id_for_label }}">Nombre del Eje Y</label>
-                            {{ form.name_eje_y|add_class:"form-control" }}
-                        </div>
-                        
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <div class="form-check">
-                                    {{ form.grilla|add_class:"form-check-input" }}
-                                    <label class="form-check-label" for="{{ form.grilla.id_for_label }}">{{ form.grilla.label }}</label>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="{{ form.name_grafic.id_for_label }}" class="form-label fw-bold">
+                                    <i class="fas fa-heading"></i> {{ form.name_grafic.label }}
+                                </label>
+                                {{ form.name_grafic|add_class:"form-control" }}
+                                {% if form.name_grafic.help_text %}
+                                    <div class="form-text">{{ form.name_grafic.help_text }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="{{ form.name_eje_x.id_for_label }}" class="form-label fw-bold">
+                                            <i class="fas fa-arrows-alt-h"></i> {{ form.name_eje_x.label }}
+                                        </label>
+                                        {{ form.name_eje_x|add_class:"form-control" }}
+                                        {% if form.name_eje_x.help_text %}
+                                            <div class="form-text">{{ form.name_eje_x.help_text }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="{{ form.name_eje_y.id_for_label }}" class="form-label fw-bold">
+                                            <i class="fas fa-arrows-alt-v"></i> {{ form.name_eje_y.label }}
+                                        </label>
+                                        {{ form.name_eje_y|add_class:"form-control" }}
+                                        {% if form.name_eje_y.help_text %}
+                                            <div class="form-text">{{ form.name_eje_y.help_text }}</div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <div class="form-check">
-                                    {{ form.escala_grises|add_class:"form-check-input" }}
-                                    <label class="form-check-label" for="{{ form.escala_grises.id_for_label }}">{{ form.escala_grises.label }}</label>
+                    </div>
+
+                    <!-- Opciones de Visualización -->
+                    <div class="card border-light mb-3 config-section">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-eye"></i> Opciones de Visualización
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check mb-3">
+                                        {{ form.grilla|add_class:"form-check-input" }}
+                                        <label class="form-check-label" for="{{ form.grilla.id_for_label }}">
+                                            <i class="fas fa-th"></i> {{ form.grilla.label }}
+                                        </label>
+                                        {% if form.grilla.help_text %}
+                                            <div class="form-text small">{{ form.grilla.help_text }}</div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        {{ form.escala_grises|add_class:"form-check-input" }}
+                                        <label class="form-check-label" for="{{ form.escala_grises.id_for_label }}">
+                                            <i class="fas fa-adjust"></i> {{ form.escala_grises.label }}
+                                        </label>
+                                        {% if form.escala_grises.help_text %}
+                                            <div class="form-text small">{{ form.escala_grises.help_text }}</div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <div class="form-check">
-                                    {{ form.rotar_eje_x|add_class:"form-check-input" }}
-                                    <label class="form-check-label" for="{{ form.rotar_eje_x.id_for_label }}">{{ form.rotar_eje_x.label }}</label>
-                                </div>
-                            </div>
+                    </div>
+
+                    <!-- Estilo de Línea -->
+                    <div class="card border-light mb-3 config-section">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-paint-brush"></i> Estilo de Línea
+                            </h6>
                         </div>
-                        
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <div class="form-check">
-                                    {{ form.rotar_eje_y|add_class:"form-check-input" }}
-                                    <label class="form-check-label" for="{{ form.rotar_eje_y.id_for_label }}">{{ form.rotar_eje_y.label }}</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h5 class="text-left my-2">ESTILO DE LÍNEA</h5>
-                        <div class="form-group">
+                        <div class="card-body">
                             {{ form.estilo_linea }}
                         </div>
-                        
-                        <h5 class="text-left my-2">COLOR DE LÍNEA</h5>
-                        <div class="form-group">
+                    </div>
+
+                    <!-- Color de Línea -->
+                    <div class="card border-light mb-3 config-section">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-palette"></i> Color de Línea
+                            </h6>
+                        </div>
+                        <div class="card-body">
                             {{ form.color_linea }}
                         </div>
+                    </div>
 
-                        <!-- Campos ocultos para los datos en base64 -->
-                        <input type="hidden" name="data_json" id="data_json">
+                    <!-- Campos ocultos para los datos en base64 -->
+                    <input type="hidden" name="data_json" id="data_json">
 
-                        <!-- Botón para guardar los cambios -->
-                        <div class="form-group mt-3 text-center">
-                            <button class="btn btn-secondary btn-sm" type="submit" onclick="setBase64Data()">
-                                Guardar cambios
-                            </button>
-                        </div>
+                    <!-- Botón para guardar los cambios -->
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-primary btn-lg" type="submit" onclick="setBase64Data()">
+                            <i class="fas fa-save"></i> Aplicar Configuración
+                        </button>
+                        <small class="text-muted text-center">
+                            Los cambios se aplicarán al gráfico actual
+                        </small>
                     </div>
                 </form>
             </div>

@@ -116,8 +116,6 @@
             let name_eje_y = "{{ name_eje_y|default:'Eje Y' }}";
             let grilla = "{{ grilla|default:'false' }}";
             let escala_grises = "{{ escala_grises|default:'false' }}";
-            let rotar_eje_x = "{{ rotar_eje_x|default:'0' }}";
-            let rotar_eje_y = "{{ rotar_eje_y|default:'0' }}";
             let estilo_linea = "{{ estilo_linea|default:'solid' }}";
             let color_linea = "{{ color_linea|default:'blue' }}";;
 
@@ -126,8 +124,6 @@
             localStorage.setItem('name_eje_y', name_eje_y);
             localStorage.setItem('grilla', grilla);
             localStorage.setItem('escala_grises', escala_grises);
-            localStorage.setItem('rotar_eje_x', rotar_eje_x);
-            localStorage.setItem('rotar_eje_y', rotar_eje_y);
             localStorage.setItem('estilo_linea', estilo_linea);
             localStorage.setItem('color_linea', color_linea);
 
@@ -136,8 +132,6 @@
             name_eje_y = localStorage.getItem('name_eje_y');
             grilla = localStorage.getItem('grilla');
             escala_grises = localStorage.getItem('escala_grises');
-            rotar_eje_x = localStorage.getItem('rotar_eje_x');
-            rotar_eje_y = localStorage.getItem('rotar_eje_y');
             estilo_linea = localStorage.getItem('estilo_linea');
             color_linea = localStorage.getItem('color_linea');
     
@@ -269,8 +263,6 @@
                 localStorage.setItem('name_eje_y', "{{ name_eje_y|default:'Eje Y' }}");
                 localStorage.setItem('grilla', "{{ grilla|default:'false' }}");
                 localStorage.setItem('escala_grises', "{{ escala_grises|default:'false' }}");
-                localStorage.setItem('rotar_eje_x', "{{ rotar_eje_x|default:'0' }}");
-                localStorage.setItem('rotar_eje_y', "{{ rotar_eje_y|default:'0' }}");
                 localStorage.setItem('estilo_linea', "{{ estilo_linea|default:'solid' }}");
                 localStorage.setItem('color_linea', "{{ color_linea|default:'blue' }}");
                 window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
@@ -304,8 +296,8 @@
                 // Diseño del gráfico
                 var layout = {
                     title: name_grafic,
-                    xaxis: {title: name_eje_x, tickangle: parseInt(rotar_eje_x)},
-                    yaxis: {title: name_eje_y, tickangle: parseInt(rotar_eje_y)},
+                    xaxis: {title: name_eje_x},
+                    yaxis: {title: name_eje_y},
                     showlegend: false,
                     template: escala_grises === 'true' ? 'plotly_white' : 'plotly'
                 };

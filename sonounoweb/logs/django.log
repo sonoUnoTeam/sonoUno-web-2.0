@@ -1,0 +1,374 @@
+INFO 2025-07-06 16:08:39,254 autoreload 9416 11344 Watching for file changes with StatReloader
+INFO 2025-07-06 16:10:41,293 autoreload 9416 11344 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 16:10:42,377 autoreload 12832 3948 Watching for file changes with StatReloader
+INFO 2025-07-06 16:11:29,445 autoreload 5548 9396 Watching for file changes with StatReloader
+INFO 2025-07-06 16:23:55,248 autoreload 4408 1460 Watching for file changes with StatReloader
+INFO 2025-07-06 16:24:33,118 basehttp 4408 13072 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 16:24:33,458 basehttp 4408 1908 "GET /static/homepage.css HTTP/1.1" 304 0
+INFO 2025-07-06 16:24:33,486 basehttp 4408 60 "GET /static/homepage.js HTTP/1.1" 304 0
+INFO 2025-07-06 16:24:33,488 basehttp 4408 11816 "GET /static/sonoUno.jpg HTTP/1.1" 304 0
+INFO 2025-07-06 16:24:33,620 basehttp 4408 13072 "GET /static/styles.css HTTP/1.1" 200 7769
+INFO 2025-07-06 16:24:37,548 basehttp 4408 13072 "GET /lhc/index/ HTTP/1.1" 200 23824
+INFO 2025-07-06 16:24:37,657 basehttp 4408 13072 "GET /static/lhc/styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 16:24:44,598 basehttp 4408 8012 - Broken pipe from ('127.0.0.1', 56513)
+INFO 2025-07-06 16:25:01,504 basehttp 4408 13072 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 465738
+INFO 2025-07-06 16:26:39,101 basehttp 4408 13072 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 645014
+INFO 2025-07-06 16:28:49,820 autoreload 4408 1460 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\services.py changed, reloading.
+INFO 2025-07-06 16:28:51,165 autoreload 9416 5484 Watching for file changes with StatReloader
+INFO 2025-07-06 16:29:03,667 autoreload 9416 5484 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\services.py changed, reloading.
+INFO 2025-07-06 16:29:04,982 autoreload 11164 6368 Watching for file changes with StatReloader
+INFO 2025-07-06 16:29:14,854 autoreload 11164 6368 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\services.py changed, reloading.
+INFO 2025-07-06 16:29:16,107 autoreload 5488 8688 Watching for file changes with StatReloader
+INFO 2025-07-06 16:29:25,891 autoreload 6272 2476 Watching for file changes with StatReloader
+INFO 2025-07-06 16:31:00,290 basehttp 6272 10552 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 16:31:00,965 basehttp 6272 9464 "GET /static/sonoUno.jpg HTTP/1.1" 200 52419
+INFO 2025-07-06 16:31:00,983 basehttp 6272 10552 "GET /static/styles.css HTTP/1.1" 200 7769
+INFO 2025-07-06 16:31:01,016 basehttp 6272 5988 "GET /static/homepage.css HTTP/1.1" 200 7235
+INFO 2025-07-06 16:31:01,035 basehttp 6272 1460 "GET /static/homepage.js HTTP/1.1" 200 9870
+WARNING 2025-07-06 16:31:01,771 log 6272 1460 Not Found: /favicon.ico
+WARNING 2025-07-06 16:31:01,771 basehttp 6272 1460 "GET /favicon.ico HTTP/1.1" 404 2805
+INFO 2025-07-06 16:31:02,970 basehttp 6272 1460 "GET /lhc/index/ HTTP/1.1" 200 23824
+INFO 2025-07-06 16:31:03,124 basehttp 6272 1460 "GET /static/lhc/styles.css HTTP/1.1" 200 3368
+INFO 2025-07-06 16:31:26,377 basehttp 6272 1460 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 24203
+INFO 2025-07-06 16:32:13,859 autoreload 6272 2476 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 16:32:14,187 autoreload 5488 8688 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 16:32:15,044 autoreload 10660 804 Watching for file changes with StatReloader
+INFO 2025-07-06 16:32:15,317 autoreload 1176 12280 Watching for file changes with StatReloader
+INFO 2025-07-06 16:32:45,576 autoreload 10660 804 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 16:32:46,174 autoreload 1176 12280 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 16:32:46,739 autoreload 13120 4428 Watching for file changes with StatReloader
+INFO 2025-07-06 16:32:47,468 autoreload 2076 3788 Watching for file changes with StatReloader
+INFO 2025-07-06 17:06:35,326 autoreload 2652 12432 Watching for file changes with StatReloader
+INFO 2025-07-06 17:07:13,974 basehttp 2652 4904 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 17:07:14,293 basehttp 2652 4708 "GET /static/homepage.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:07:14,294 basehttp 2652 4904 "GET /static/styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:07:14,312 basehttp 2652 11148 "GET /static/homepage.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:07:15,807 basehttp 2652 11148 "GET /lhc/index/ HTTP/1.1" 200 23824
+INFO 2025-07-06 17:07:36,220 basehttp 2652 11148 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 24203
+INFO 2025-07-06 17:13:57,152 autoreload 13116 7888 Watching for file changes with StatReloader
+INFO 2025-07-06 17:14:07,648 basehttp 13116 9540 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 17:14:10,165 basehttp 13116 9540 "GET /lhc/index/ HTTP/1.1" 200 23824
+INFO 2025-07-06 17:14:32,742 basehttp 13116 9540 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6213154
+INFO 2025-07-06 17:17:44,553 basehttp 13116 2756 "GET /lhc/grafico/sonification_reduced.txt/?id=90c961e4-863f-4302-bef4-a7030d173b4d&vscodeBrowserReqId=1751833063479 HTTP/1.1" 200 6213153
+INFO 2025-07-06 17:17:44,553 basehttp 13116 2756 - Broken pipe from ('127.0.0.1', 52998)
+INFO 2025-07-06 17:19:15,497 autoreload 13116 7888 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\urls.py changed, reloading.
+INFO 2025-07-06 17:19:17,004 autoreload 1820 6668 Watching for file changes with StatReloader
+INFO 2025-07-06 17:19:24,988 autoreload 1820 6668 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:19:26,087 autoreload 2208 13212 Watching for file changes with StatReloader
+INFO 2025-07-06 17:19:45,542 autoreload 2208 13212 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:19:46,739 autoreload 3708 3400 Watching for file changes with StatReloader
+INFO 2025-07-06 17:20:09,592 autoreload 3708 3400 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:20:10,961 autoreload 11828 3384 Watching for file changes with StatReloader
+INFO 2025-07-06 17:20:45,090 autoreload 11828 3384 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:20:46,196 autoreload 6208 9872 Watching for file changes with StatReloader
+INFO 2025-07-06 17:21:49,258 autoreload 6208 9872 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:21:50,371 autoreload 9196 4240 Watching for file changes with StatReloader
+INFO 2025-07-06 17:22:02,738 autoreload 9196 4240 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\services.py changed, reloading.
+INFO 2025-07-06 17:22:03,905 autoreload 9416 12524 Watching for file changes with StatReloader
+INFO 2025-07-06 17:22:09,687 basehttp 9416 8000 "GET / HTTP/1.1" 200 5885
+WARNING 2025-07-06 17:22:10,033 log 9416 8000 Not Found: /favicon.ico
+WARNING 2025-07-06 17:22:10,035 basehttp 9416 8000 "GET /favicon.ico HTTP/1.1" 404 2805
+INFO 2025-07-06 17:22:10,639 basehttp 9416 8000 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 17:22:11,902 basehttp 9416 8000 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 17:22:11,972 basehttp 9416 8000 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 17:22:13,118 basehttp 9416 7284 "GET /lhc/index/ HTTP/1.1" 200 23824
+INFO 2025-07-06 17:22:14,544 basehttp 9416 7284 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 24203
+INFO 2025-07-06 17:22:18,629 basehttp 9416 7284 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 24203
+INFO 2025-07-06 17:22:22,479 basehttp 9416 7284 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 24203
+INFO 2025-07-06 17:23:37,701 autoreload 9416 12524 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\services.py changed, reloading.
+INFO 2025-07-06 17:23:38,927 autoreload 13028 1632 Watching for file changes with StatReloader
+INFO 2025-07-06 17:24:17,204 autoreload 13028 1632 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\services.py changed, reloading.
+INFO 2025-07-06 17:24:18,792 autoreload 5008 11468 Watching for file changes with StatReloader
+INFO 2025-07-06 17:24:59,227 autoreload 5008 11468 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:25:00,462 autoreload 6332 3828 Watching for file changes with StatReloader
+INFO 2025-07-06 17:25:06,852 basehttp 6332 9484 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 17:25:06,933 basehttp 6332 9484 "GET /static/homepage.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:25:06,934 basehttp 6332 10404 "GET /static/homepage.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:25:07,759 basehttp 6332 10404 "GET /lhc/index/ HTTP/1.1" 200 23824
+INFO 2025-07-06 17:25:10,803 basehttp 6332 10404 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6213153
+INFO 2025-07-06 17:25:26,462 basehttp 6332 10404 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8264112
+INFO 2025-07-06 17:25:26,529 basehttp 6332 9484 "GET /static/styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:25:49,760 basehttp 6332 10404 "GET /lhc/grafico/sonification_reduced.txt/?event=3 HTTP/1.1" 200 6217581
+INFO 2025-07-06 17:26:59,653 basehttp 6332 10404 "GET /lhc/grafico/sonification_reduced.txt/?event=5 HTTP/1.1" 200 4531718
+INFO 2025-07-06 17:27:07,603 basehttp 6332 10404 "GET /lhc/grafico/sonification_reduced.txt/?event=1 HTTP/1.1" 200 6213153
+INFO 2025-07-06 17:28:03,545 basehttp 6332 10404 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8264114
+INFO 2025-07-06 17:28:21,407 autoreload 6332 3828 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\services.py changed, reloading.
+INFO 2025-07-06 17:28:22,952 autoreload 3832 10412 Watching for file changes with StatReloader
+INFO 2025-07-06 17:28:30,205 basehttp 3832 8480 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8264112
+INFO 2025-07-06 17:31:22,747 autoreload 3832 10412 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:31:23,932 autoreload 2332 5288 Watching for file changes with StatReloader
+INFO 2025-07-06 17:31:40,889 basehttp 2332 2816 "GET /lhc/cache/stats/ HTTP/1.1" 200 10832
+INFO 2025-07-06 17:32:01,872 basehttp 2332 2816 "GET /lhc/cache/stats/?clear=true HTTP/1.1" 200 11177
+INFO 2025-07-06 17:32:05,718 basehttp 2332 2816 "GET /lhc/cache/stats/?clear=true HTTP/1.1" 200 8913
+INFO 2025-07-06 17:32:16,893 basehttp 2332 2816 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 17:32:18,099 basehttp 2332 2816 "GET /lhc/index/ HTTP/1.1" 200 23824
+INFO 2025-07-06 17:32:40,050 basehttp 2332 2816 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6213154
+INFO 2025-07-06 17:51:09,675 autoreload 2332 5288 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 17:51:10,947 autoreload 2756 12592 Watching for file changes with StatReloader
+INFO 2025-07-06 17:51:17,540 basehttp 2756 1460 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 17:51:17,701 basehttp 2756 1460 "GET /static/styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:17,703 basehttp 2756 7212 "GET /static/homepage.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:17,718 basehttp 2756 13124 "GET /static/homepage.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:21,232 basehttp 2756 13124 "GET /lhc/index/ HTTP/1.1" 200 8329
+INFO 2025-07-06 17:51:21,510 basehttp 2756 7212 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 200 9739
+INFO 2025-07-06 17:51:21,516 basehttp 2756 1460 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 200 4935
+INFO 2025-07-06 17:51:21,525 basehttp 2756 13124 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 6327
+INFO 2025-07-06 17:51:25,511 basehttp 2756 13124 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 17:51:28,446 basehttp 2756 13124 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 17:51:28,525 basehttp 2756 13124 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 17:51:29,551 basehttp 2756 1460 "GET /lhc/index/ HTTP/1.1" 200 8329
+INFO 2025-07-06 17:51:29,675 basehttp 2756 1460 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:29,677 basehttp 2756 7212 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:29,683 basehttp 2756 3968 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:33,294 basehttp 2756 3968 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197810
+INFO 2025-07-06 17:51:33,390 basehttp 2756 7212 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:33,393 basehttp 2756 1460 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:33,470 basehttp 2756 2644 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:53,618 basehttp 2756 2644 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197810
+INFO 2025-07-06 17:51:53,730 basehttp 2756 1460 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:53,730 basehttp 2756 3968 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:51:53,731 basehttp 2756 7212 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:52:46,180 basehttp 2756 2644 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8248771
+INFO 2025-07-06 17:52:46,282 basehttp 2756 7212 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 17:52:46,283 basehttp 2756 1460 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 17:52:46,284 basehttp 2756 3968 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:02:47,209 autoreload 9772 10156 Watching for file changes with StatReloader
+INFO 2025-07-06 18:02:54,880 basehttp 9772 7016 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:02:57,543 basehttp 9772 7016 "GET /lhc/index/ HTTP/1.1" 200 8243
+INFO 2025-07-06 18:02:57,628 basehttp 9772 7308 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:02:57,634 basehttp 9772 12576 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:02:57,721 basehttp 9772 7016 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 9454
+INFO 2025-07-06 18:03:23,487 basehttp 9772 7016 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:03:24,340 basehttp 9772 7016 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:03:31,440 basehttp 9772 7016 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 18:03:31,523 basehttp 9772 7016 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 18:03:33,338 basehttp 9772 12576 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 18:03:33,418 basehttp 9772 12576 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 18:03:35,176 basehttp 9772 7308 "GET /lhc/index/ HTTP/1.1" 200 8243
+INFO 2025-07-06 18:03:35,231 basehttp 9772 7308 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:03:43,439 basehttp 9772 7308 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197724
+INFO 2025-07-06 18:03:43,522 basehttp 9772 10488 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+ERROR 2025-07-06 18:04:42,365 log 9772 7308 Internal Server Error: /lhc/cache/stats/
+ERROR 2025-07-06 18:04:42,365 basehttp 9772 7308 "GET /lhc/cache/stats/ HTTP/1.1" 500 96
+WARNING 2025-07-06 18:05:01,881 log 9772 7308 Not Found: /lhc/cache/stats/'
+WARNING 2025-07-06 18:05:01,882 basehttp 9772 7308 "GET /lhc/cache/stats/' HTTP/1.1" 404 4035
+INFO 2025-07-06 18:05:06,233 basehttp 9772 7308 "GET /lhc/cache/stats HTTP/1.1" 301 0
+ERROR 2025-07-06 18:05:06,253 log 9772 10488 Internal Server Error: /lhc/cache/stats/
+ERROR 2025-07-06 18:05:06,254 basehttp 9772 10488 "GET /lhc/cache/stats/ HTTP/1.1" 500 96
+ERROR 2025-07-06 18:05:41,696 log 9772 10488 Internal Server Error: /lhc/cache/stats/
+ERROR 2025-07-06 18:05:41,696 basehttp 9772 10488 "GET /lhc/cache/stats/ HTTP/1.1" 500 96
+INFO 2025-07-06 18:09:30,359 autoreload 9772 10156 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 18:09:31,501 autoreload 2068 9036 Watching for file changes with StatReloader
+INFO 2025-07-06 18:09:37,727 basehttp 2068 12688 "GET /lhc/cache/stats/ HTTP/1.1" 200 10078
+INFO 2025-07-06 18:09:37,896 basehttp 2068 12688 "GET /static/lhc/css/lhc-cache-stats.css HTTP/1.1" 200 5759
+INFO 2025-07-06 18:09:37,899 basehttp 2068 5768 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 200 1734
+INFO 2025-07-06 18:09:42,067 basehttp 2068 5768 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:09:43,064 basehttp 2068 5768 "GET /lhc/index/ HTTP/1.1" 200 8351
+INFO 2025-07-06 18:09:43,153 basehttp 2068 5768 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:09:43,155 basehttp 2068 12688 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:09:43,161 basehttp 2068 5768 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:09:45,893 basehttp 2068 5768 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197935
+INFO 2025-07-06 18:10:39,718 basehttp 2068 5768 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8248889
+INFO 2025-07-06 18:10:39,788 basehttp 2068 12688 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:15:34,868 autoreload 2068 9036 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\urls.py changed, reloading.
+INFO 2025-07-06 18:15:35,985 autoreload 4836 9920 Watching for file changes with StatReloader
+INFO 2025-07-06 18:15:43,242 basehttp 4836 9852 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8248889
+INFO 2025-07-06 18:15:43,398 basehttp 4836 8624 "GET /static/styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:15:43,444 basehttp 4836 8632 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:15:43,504 basehttp 4836 8884 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 10715
+INFO 2025-07-06 18:15:43,566 basehttp 4836 8624 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 200 10514
+WARNING 2025-07-06 18:16:25,493 log 4836 8624 Not Found: /lhc/c/
+WARNING 2025-07-06 18:16:25,494 basehttp 4836 8624 "GET /lhc/c/ HTTP/1.1" 404 3987
+INFO 2025-07-06 18:16:28,702 basehttp 4836 8624 "GET /lhc/cache/stats/ HTTP/1.1" 200 10078
+INFO 2025-07-06 18:16:28,861 basehttp 4836 8624 "GET /static/lhc/css/lhc-cache-stats.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:16:28,864 basehttp 4836 8884 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 304 0
+WARNING 2025-07-06 18:16:32,358 log 4836 8884 Not Found: /favicon.ico
+WARNING 2025-07-06 18:16:32,359 basehttp 4836 8884 "GET /favicon.ico HTTP/1.1" 404 2805
+INFO 2025-07-06 18:17:37,288 basehttp 4836 8884 "GET /lhc/grafico/sonification_reduced.txt/?event=1 HTTP/1.1" 200 6197935
+INFO 2025-07-06 18:17:37,385 basehttp 4836 9852 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 200 10514
+INFO 2025-07-06 18:17:37,386 basehttp 4836 8624 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 10715
+INFO 2025-07-06 18:22:28,713 autoreload 4836 9920 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 18:22:29,890 autoreload 7576 10432 Watching for file changes with StatReloader
+INFO 2025-07-06 18:22:38,000 basehttp 7576 4388 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:22:38,186 basehttp 7576 4388 "GET /static/homepage.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:22:38,191 basehttp 7576 6380 "GET /static/homepage.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:22:38,974 basehttp 7576 6380 "GET /lhc/index/ HTTP/1.1" 200 8351
+INFO 2025-07-06 18:22:39,083 basehttp 7576 6380 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:22:39,105 basehttp 7576 10604 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:22:39,190 basehttp 7576 4388 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 200 14162
+INFO 2025-07-06 18:22:41,593 basehttp 7576 4388 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197935
+INFO 2025-07-06 18:26:46,313 autoreload 7576 10432 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 18:26:47,444 autoreload 6484 3844 Watching for file changes with StatReloader
+INFO 2025-07-06 18:26:54,618 basehttp 6484 3008 "GET /lhc/cache/stats/ HTTP/1.1" 200 9787
+INFO 2025-07-06 18:26:54,764 basehttp 6484 3008 "GET /static/lhc/css/lhc-cache-stats.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:26:54,840 basehttp 6484 11032 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 200 2215
+INFO 2025-07-06 18:27:00,893 basehttp 6484 11032 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:27:03,933 basehttp 6484 11032 "GET /lhc/index/ HTTP/1.1" 200 8351
+INFO 2025-07-06 18:27:04,042 basehttp 6484 11032 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:27:04,045 basehttp 6484 11032 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:27:04,071 basehttp 6484 3008 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 200 14162
+INFO 2025-07-06 18:27:07,435 basehttp 6484 3008 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197935
+INFO 2025-07-06 18:27:19,833 basehttp 6484 3008 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8248889
+INFO 2025-07-06 18:27:19,914 basehttp 6484 11032 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:27:23,449 basehttp 6484 3008 "GET /lhc/grafico/sonification_reduced.txt/?event=1 HTTP/1.1" 200 6197935
+INFO 2025-07-06 18:35:52,201 autoreload 6484 3844 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\venv\Lib\site-packages\django\utils\decorators.py changed, reloading.
+INFO 2025-07-06 18:35:53,341 autoreload 2764 8884 Watching for file changes with StatReloader
+INFO 2025-07-06 18:36:01,508 basehttp 2764 7128 "GET / HTTP/1.1" 200 5885
+WARNING 2025-07-06 18:36:01,864 log 2764 7128 Not Found: /favicon.ico
+WARNING 2025-07-06 18:36:01,865 basehttp 2764 7128 "GET /favicon.ico HTTP/1.1" 404 2805
+INFO 2025-07-06 18:36:04,099 basehttp 2764 7128 "GET /lhc/index/ HTTP/1.1" 200 8391
+INFO 2025-07-06 18:36:04,207 basehttp 2764 13276 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:36:04,216 basehttp 2764 13276 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:36:04,302 basehttp 2764 7128 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 14325
+INFO 2025-07-06 18:36:26,194 basehttp 2764 13276 "GET /lhc/cache/stats/ HTTP/1.1" 200 9810
+INFO 2025-07-06 18:36:27,375 basehttp 2764 13276 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:36:27,379 basehttp 2764 11792 "GET /static/lhc/css/lhc-cache-stats.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:36:27,454 basehttp 2764 7908 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:36:31,688 basehttp 2764 7128 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197976
+INFO 2025-07-06 18:36:31,856 basehttp 2764 7908 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+WARNING 2025-07-06 18:36:35,558 log 2764 7128 Not Found: /favicon.ico
+WARNING 2025-07-06 18:36:35,559 basehttp 2764 7128 "GET /favicon.ico HTTP/1.1" 404 2805
+WARNING 2025-07-06 18:36:35,567 log 2764 7908 Not Found: /favicon.ico
+WARNING 2025-07-06 18:36:35,568 basehttp 2764 7908 "GET /favicon.ico HTTP/1.1" 404 2805
+INFO 2025-07-06 18:36:36,739 basehttp 2764 7908 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8248929
+INFO 2025-07-06 18:36:40,393 basehttp 2764 7908 "GET /lhc/grafico/sonification_reduced.txt/?event=1 HTTP/1.1" 200 6197975
+INFO 2025-07-06 18:37:38,249 autoreload 2764 8884 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 18:37:39,293 autoreload 12392 3984 Watching for file changes with StatReloader
+INFO 2025-07-06 18:37:45,129 basehttp 12392 12444 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:37:48,379 basehttp 12392 12444 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:37:48,451 basehttp 12392 8660 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:37:48,506 basehttp 12392 12444 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 14325
+INFO 2025-07-06 18:37:50,643 basehttp 12392 12444 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:37:51,345 basehttp 12392 12444 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:37:55,671 basehttp 12392 12444 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:37:55,723 basehttp 12392 12444 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:37:56,227 basehttp 12392 12444 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+WARNING 2025-07-06 18:38:04,045 log 12392 12444 Not Found: /favicon.ico
+WARNING 2025-07-06 18:38:04,045 basehttp 12392 12444 "GET /favicon.ico HTTP/1.1" 404 2805
+INFO 2025-07-06 18:38:28,494 autoreload 12392 3984 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 18:38:29,555 autoreload 3312 5492 Watching for file changes with StatReloader
+INFO 2025-07-06 18:38:40,017 basehttp 3312 7512 "GET /lhc/index/ HTTP/1.1" 200 8391
+INFO 2025-07-06 18:38:40,106 basehttp 3312 6604 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+WARNING 2025-07-06 18:38:40,115 basehttp 3312 7512 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 404 1926
+INFO 2025-07-06 18:38:42,848 basehttp 3312 6604 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197975
+WARNING 2025-07-06 18:38:42,945 basehttp 3312 5352 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 404 1926
+INFO 2025-07-06 18:39:01,306 basehttp 3312 6604 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197975
+INFO 2025-07-06 18:39:01,449 basehttp 3312 7304 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 14325
+INFO 2025-07-06 18:39:06,716 basehttp 3312 7304 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:39:06,805 basehttp 3312 7304 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 14325
+INFO 2025-07-06 18:39:06,810 basehttp 3312 7304 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:39:11,651 basehttp 3312 7304 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:39:11,720 basehttp 3312 7304 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:39:12,311 basehttp 3312 7304 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:39:12,886 basehttp 3312 7304 "GET /lhc/cache/stats/ HTTP/1.1" 200 9809
+INFO 2025-07-06 18:39:12,956 basehttp 3312 7304 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:40:23,858 basehttp 3312 7304 "GET /sonif1D/ayuda HTTP/1.1" 200 2150
+WARNING 2025-07-06 18:40:23,949 log 3312 7304 Not Found: /home/ibio-joha/github/sonoUno-web-2.0/sonounoweb/sonif1D/templates/sonif1D/static/sonoUno.jpg
+WARNING 2025-07-06 18:40:23,950 basehttp 3312 7304 "GET /home/ibio-joha/github/sonoUno-web-2.0/sonounoweb/sonif1D/templates/sonif1D/static/sonoUno.jpg HTTP/1.1" 404 3051
+INFO 2025-07-06 18:40:27,390 basehttp 3312 7304 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:40:28,176 basehttp 3312 7304 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:40:30,599 basehttp 3312 7304 "GET /lhc/index/ HTTP/1.1" 200 8391
+INFO 2025-07-06 18:40:30,704 basehttp 3312 7304 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:40:30,705 basehttp 3312 6604 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:40:35,134 basehttp 3312 6604 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 18:40:35,212 basehttp 3312 6604 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 18:40:37,204 basehttp 3312 7304 "GET /lhc/index/ HTTP/1.1" 200 8391
+INFO 2025-07-06 18:40:37,354 basehttp 3312 7304 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:42:25,696 basehttp 3312 7304 "GET /lhc/cache/stats/ HTTP/1.1" 200 9817
+INFO 2025-07-06 18:42:25,789 basehttp 3312 7304 "GET /static/styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:42:25,790 basehttp 3312 4372 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 16219
+INFO 2025-07-06 18:42:25,793 basehttp 3312 7304 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:42:38,015 basehttp 3312 7304 "GET /lhc/cache/stats/ HTTP/1.1" 200 9817
+INFO 2025-07-06 18:42:38,088 basehttp 3312 7304 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:42:41,151 basehttp 3312 7304 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197975
+INFO 2025-07-06 18:42:41,308 basehttp 3312 4372 "GET /static/styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:42:41,309 basehttp 3312 2988 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 16219
+INFO 2025-07-06 18:42:41,320 basehttp 3312 12400 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:43:06,408 basehttp 3312 7304 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197975
+INFO 2025-07-06 18:43:06,504 basehttp 3312 12400 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 16219
+INFO 2025-07-06 18:43:22,585 basehttp 3312 12400 "GET /lhc/grafico/sonification_reduced.txt/?event=2 HTTP/1.1" 200 8248929
+INFO 2025-07-06 18:43:22,655 basehttp 3312 7304 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:43:25,480 basehttp 3312 12400 "GET /lhc/cache/stats/ HTTP/1.1" 200 9817
+INFO 2025-07-06 18:43:25,556 basehttp 3312 12400 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 16219
+INFO 2025-07-06 18:43:26,297 basehttp 3312 12400 "GET /lhc/cache/stats/ HTTP/1.1" 200 9817
+INFO 2025-07-06 18:43:29,661 basehttp 3312 12400 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:43:30,641 basehttp 3312 12400 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:44:39,619 basehttp 3312 12400 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:44:40,649 basehttp 3312 12400 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:44:44,574 basehttp 3312 12400 "GET /sonif1D/grafico/ HTTP/1.1" 200 33930
+INFO 2025-07-06 18:44:48,156 basehttp 3312 12400 "POST /sonif1D/grafico/ HTTP/1.1" 200 80212
+INFO 2025-07-06 18:44:49,894 basehttp 3312 12400 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:44:50,830 basehttp 3312 12400 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 18:44:50,905 basehttp 3312 12400 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 18:44:57,515 basehttp 3312 7304 "GET /muongraphy/grafico/Example_1.csv/ HTTP/1.1" 200 190051
+WARNING 2025-07-06 18:44:57,587 basehttp 3312 7304 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 18:45:00,266 basehttp 3312 4372 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:45:01,298 basehttp 3312 4372 "GET /lhc/index/ HTTP/1.1" 200 8391
+INFO 2025-07-06 18:45:01,423 basehttp 3312 4372 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:45:01,434 basehttp 3312 4372 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:45:16,578 basehttp 3312 4372 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:45:22,365 basehttp 3312 4372 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:45:24,384 basehttp 3312 4372 "GET /lhc/index/ HTTP/1.1" 200 8391
+INFO 2025-07-06 18:45:24,510 basehttp 3312 4372 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:45:33,454 basehttp 3312 4372 "GET /lhc/cache/stats/ HTTP/1.1" 200 9817
+INFO 2025-07-06 18:45:34,249 basehttp 3312 4372 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:45:49,110 basehttp 3312 4372 "GET /lhc/index/ HTTP/1.1" 200 8391
+INFO 2025-07-06 18:45:49,199 basehttp 3312 4372 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:45:49,201 basehttp 3312 2988 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:51:02,031 basehttp 3312 13148 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:51:02,155 basehttp 3312 13148 "GET /static/homepage.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:51:02,166 basehttp 3312 13244 "GET /static/homepage.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:51:03,395 basehttp 3312 13244 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:51:07,594 basehttp 3312 13244 "GET /lhc/index/ HTTP/1.1" 200 8422
+INFO 2025-07-06 18:51:07,674 basehttp 3312 13244 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 15879
+INFO 2025-07-06 18:51:07,676 basehttp 3312 13148 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:51:10,436 basehttp 3312 13148 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:51:11,078 basehttp 3312 13148 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 18:51:11,138 basehttp 3312 13148 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 18:51:12,848 basehttp 3312 13244 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:51:16,199 basehttp 3312 13244 "GET /lhc/index/ HTTP/1.1" 200 8422
+INFO 2025-07-06 18:51:16,281 basehttp 3312 13244 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:51:18,319 basehttp 3312 13244 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:51:19,843 basehttp 3312 13244 "GET /lhc/index/ HTTP/1.1" 200 8422
+INFO 2025-07-06 18:51:19,921 basehttp 3312 13244 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:51:29,846 basehttp 3312 13244 "GET /lhc/cache/stats/ HTTP/1.1" 200 9848
+INFO 2025-07-06 18:51:30,579 basehttp 3312 12492 "GET /static/lhc/js/lhc-cache-stats.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:51:30,580 basehttp 3312 13244 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:52:04,217 autoreload 3312 5492 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 18:52:05,423 autoreload 4244 9120 Watching for file changes with StatReloader
+INFO 2025-07-06 18:52:11,343 basehttp 4244 7772 "GET /lhc/index/ HTTP/1.1" 200 8357
+INFO 2025-07-06 18:52:11,419 basehttp 4244 7772 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:52:11,419 basehttp 4244 11232 "GET /static/lhc/js/lhc-downloads.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:52:14,390 basehttp 4244 11232 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6197960
+INFO 2025-07-06 18:52:19,246 basehttp 4244 11232 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:52:19,364 basehttp 4244 11232 "GET /static/homepage.js HTTP/1.1" 304 0
+INFO 2025-07-06 18:52:20,618 basehttp 4244 11232 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:52:22,535 basehttp 4244 11232 "GET /muongraphy/index HTTP/1.1" 200 10611
+WARNING 2025-07-06 18:52:22,622 basehttp 4244 11232 "GET /static/muongraphy/styles.css HTTP/1.1" 404 1923
+INFO 2025-07-06 18:52:23,335 basehttp 4244 7772 "GET /lhc/index/ HTTP/1.1" 200 8357
+INFO 2025-07-06 18:52:28,339 basehttp 4244 7772 "GET /lhc/cache/stats/ HTTP/1.1" 200 9783
+INFO 2025-07-06 18:52:29,154 basehttp 4244 7772 "GET /lhc/cache/stats/ HTTP/1.1" 200 9783
+INFO 2025-07-06 18:52:39,341 autoreload 4244 9120 C:\Users\Gonza\Downloads\SonoUno-Muongraphy-Working\sonoUno-web-2.0\sonounoweb\lhc\views.py changed, reloading.
+INFO 2025-07-06 18:52:40,376 autoreload 6372 4308 Watching for file changes with StatReloader
+INFO 2025-07-06 18:52:47,346 basehttp 6372 12440 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:52:48,582 basehttp 6372 12440 "GET /lhc/index/ HTTP/1.1" 200 8422
+INFO 2025-07-06 18:52:48,728 basehttp 6372 12440 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 15879
+INFO 2025-07-06 18:52:52,882 basehttp 6372 12440 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6198025
+INFO 2025-07-06 18:53:08,355 basehttp 6372 12440 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:53:09,251 basehttp 6372 12440 "GET /sonif1D/index HTTP/1.1" 200 25694
+INFO 2025-07-06 18:53:12,121 basehttp 6372 12440 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:53:12,744 basehttp 6372 12440 "GET /lhc/index/ HTTP/1.1" 200 8422
+INFO 2025-07-06 18:53:12,833 basehttp 6372 12440 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:53:19,322 basehttp 6372 12440 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6198025
+INFO 2025-07-06 18:53:31,479 basehttp 6372 12440 "GET /lhc/cache/stats/ HTTP/1.1" 200 9848
+INFO 2025-07-06 18:53:31,556 basehttp 6372 12440 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 200 15879
+INFO 2025-07-06 18:53:56,530 basehttp 6372 12440 "GET /lhc/grafico/sonification_reduced.txt/?event=5 HTTP/1.1" 200 4516585
+INFO 2025-07-06 18:53:56,608 basehttp 6372 11048 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:54:00,426 basehttp 6372 11048 "GET /lhc/cache/stats/ HTTP/1.1" 200 9849
+INFO 2025-07-06 18:54:00,492 basehttp 6372 11048 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:54:25,880 basehttp 6372 11048 "GET / HTTP/1.1" 200 5885
+INFO 2025-07-06 18:54:27,333 basehttp 6372 11048 "GET /lhc/index/ HTTP/1.1" 200 8422
+INFO 2025-07-06 18:54:27,412 basehttp 6372 11048 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:55:07,487 basehttp 6372 11048 "GET /lhc/grafico/sonification_reduced.txt/ HTTP/1.1" 200 6198025
+INFO 2025-07-06 18:55:07,606 basehttp 6372 12440 "GET /static/lhc/css/lhc-styles.css HTTP/1.1" 304 0
+INFO 2025-07-06 18:55:07,721 basehttp 6372 8960 "GET /static/lhc/js/lhc-video-player.js HTTP/1.1" 304 0

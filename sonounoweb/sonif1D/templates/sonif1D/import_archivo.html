@@ -2,57 +2,99 @@
 {% load static %}
 
 {% block content %}
-<!-- Contenido de la página: LADO DERECHO (NO TOCAR) -->
+<!-- Contenido de la página: LADO DERECHO -->
 <div class="col-lg-4">
     <div class="card mb-4">
-        <div class="card-header">
-            <div class="dropdown-center">
-                <div class="d-grid gap-2">
-                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        CONFIGURACIONES
-                    </button>
-                    <ul class="dropdown-menu">
-                        <nav>
-                            <a href="{% url 'sonif1D:sonido' %}">
-                                <button class="btn btn-secondary4 my-4"> SONIDO </button>
-                            </a>
-                        </nav>   
-                        <nav>
-                            <a href="{% url 'sonif1D:grafico' %}">
-                                <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
-                            </a>
-                        </nav>   
-                        <nav>
-                            <a href="{% url 'sonif1D:funciones_matematicas' %}">
-                                <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
-                            </a>
-                        </nav>   
-                    </ul>
-                </div>
-            </div>
-        </div>
+        {% include 'sonif1D/partials/config_dropdown_disabled.html' %}
 
-        <!-- CADA CONFIGURACIÓN VA AQUÍ -->
+        <!-- IMPORTAR ARCHIVO -->
         <div class="card-body">
             <div class="row">
-                <h4 class="text-center">Cargar un archivo CSV o TXT </h4>
+                <div class="text-center mb-4">
+                    <i class="fas fa-upload fa-3x text-primary mb-3"></i>
+                    <h4 class="text-primary">Importar Datos</h4>
+                    <p class="text-muted">Carga tu archivo de datos para comenzar a trabajar</p>
+                </div>
                 
-                <!-- Formulario para cargar archivo -->
-                <div class="list-unstyled">
-                    <h5 class="text-center">Debe contener 2 columnas con los valores x e y respectivamente</h5>
+                <!-- Información de formato -->
+                <div class="alert alert-info" role="alert">
+                    <h6 class="alert-heading">
+                        <i class="fas fa-info-circle"></i> Formato de archivo requerido
+                    </h6>
+                    <ul class="mb-0">
+                        <li><strong>Formatos soportados:</strong> .CSV y .TXT</li>
+                        <li><strong>Estructura:</strong> Dos columnas (X, Y)</li>
+                        <li><strong>Separadores:</strong> Coma, tabulación o espacios</li>
+                        <li><strong>Codificación:</strong> UTF-8</li>
+                    </ul>
+                </div>
 
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="id_file" class="form-label">Archivo</label>
-                            <input type="file" name="archivo" id="id_file" class="form-control">
-                        </div>
+                <!-- Ejemplo de formato -->
+                <div class="card border-light mb-3">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="fas fa-eye"></i> Ejemplo de formato
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <pre class="mb-0 text-muted small">0.0, 1.2
+0.1, 1.5
+0.2, 1.8
+0.3, 2.1
+...</pre>
+                    </div>
+                </div>
+
+                <!-- Formulario para cargar archivo -->
+                <form method="post" enctype="multipart/form-data" class="mt-3">
+                    {% csrf_token %}
                     
-                        <!-- Botón de carga -->
-                        <div class="form-group text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Cargar</button>
+                    <div class="form-group mb-4">
+                        <label for="id_file" class="form-label fw-bold">
+                            <i class="fas fa-file"></i> Seleccionar archivo
+                        </label>
+                        <input type="file" 
+                               name="archivo" 
+                               id="id_file" 
+                               class="form-control form-control-lg" 
+                               accept=".csv,.txt"
+                               required>
+                        <div class="form-text">
+                            <i class="fas fa-check-circle text-success"></i> 
+                            Archivos CSV y TXT con datos en dos columnas
                         </div>
-                    </form>
+                    </div>
+
+                    <!-- Pasos siguientes -->
+                    <div class="alert alert-secondary" role="alert">
+                        <h6 class="alert-heading">
+                            <i class="fas fa-list-ol"></i> ¿Qué sucede después de cargar?
+                        </h6>
+                        <ol class="mb-0">
+                            <li>Se validará el formato del archivo</li>
+                            <li>Se generará automáticamente el gráfico</li>
+                            <li>Se creará el archivo de audio</li>
+                            <li>Podrás acceder a las configuraciones</li>
+                        </ol>
+                    </div>
+                    
+                    <!-- Botón de carga -->
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-upload"></i> Cargar y Procesar Archivo
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Archivos de ejemplo -->
+                <div class="mt-4 text-center">
+                    <hr>
+                    <h6 class="text-muted">
+                        <i class="fas fa-download"></i> ¿No tienes datos?
+                    </h6>
+                    <p class="text-muted small">
+                        Puedes descargar archivos de ejemplo desde el menú principal
+                    </p>
                 </div>
             </div>
         </div>
