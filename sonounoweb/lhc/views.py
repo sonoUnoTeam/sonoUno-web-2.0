@@ -1,17 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
 from django.views import View
 import logging
 import uuid
-import base64
-import os
-import tempfile
 
 from .services import LHCVideoService, LHCCacheService, LHCEventService
 from .validators import LHCSecurityValidator, LHCRateLimiter
@@ -62,11 +57,10 @@ class LHCEventView(View):
         try:
             # Control de rate limiting
             if not LHCRateLimiter.check_rate_limit(client_ip):
-                messages.error(
+                return self._render_error_response(
                     request, 
                     "Demasiados requests concurrentes. Por favor espere un momento."
                 )
-                return render(request, 'lhc/index.html', {'error': True})
             
             # Registrar request
             LHCRateLimiter.add_request(client_ip, request_id)
@@ -79,36 +73,35 @@ class LHCEventView(View):
                 validated_file_name = LHCSecurityValidator.validate_file_name(file_name)
             except (ValidationError, PermissionDenied) as e:
                 logger.warning(f"Archivo no válido {file_name}: {e}")
-                messages.error(request, f"Archivo no válido: {str(e)}")
-                return render(request, 'lhc/index.html', {'error': True})
+                return self._render_error_response(request, f"Archivo no válido: {str(e)}")
             
             # Obtener total de eventos para validación
             try:
                 total_events = get_total_events(validated_file_name)
                 if total_events == 0:
-                    messages.error(request, "No se encontraron eventos en el archivo")
-                    return render(request, 'lhc/index.html', {'error': True})
+                    return self._render_error_response(request, "No se encontraron eventos en el archivo")
             except Exception as e:
                 logger.error(f"Error obteniendo total de eventos: {e}")
-                messages.error(request, "Error accediendo al archivo de datos")
-                return render(request, 'lhc/index.html', {'error': True})
+                return self._render_error_response(request, "Error accediendo al archivo de datos")
             
             # Validar índice del evento
             validated_event_index = LHCSecurityValidator.validate_event_index(
                 event_index, total_events
             )
             
-            # Generar o obtener video
+            # Generar o obtener video (usando datos ya validados)
+            # OPTIMIZACIÓN: Se pasa skip_validation=True porque ya validamos
+            # file_name y event_index arriba, evitando validaciones duplicadas
             video_base64, event_info, status_message = self.video_service.generate_lhc_video(
                 validated_file_name, 
                 validated_event_index,
-                use_cache=True
+                use_cache=True,
+                skip_validation=True  # Los datos ya están validados arriba
             )
             
             if video_base64 is None:
                 logger.error(f"Error generando video: {status_message}")
-                messages.error(request, f"Error generando visualización: {status_message}")
-                return render(request, 'lhc/index.html', {'error': True})
+                return self._render_error_response(request, f"Error generando visualización: {status_message}")
             
             # Preparar contexto
             context = self._prepare_context(
@@ -131,12 +124,27 @@ class LHCEventView(View):
             
         except Exception as e:
             logger.error(f"Error inesperado en LHCEventView: {e}")
-            messages.error(request, "Error interno del servidor")
-            return render(request, 'lhc/index.html', {'error': True})
+            return self._render_error_response(request, "Error interno del servidor")
             
         finally:
             # Limpiar request del rate limiter
             LHCRateLimiter.remove_request(request_id)
+    
+    def _render_error_response(self, request, message: str = None):
+        """
+        Renderiza una respuesta de error estandarizada.
+        
+        Args:
+            request: Request de Django
+            message: Mensaje de error opcional
+            
+        Returns:
+            HttpResponse: Respuesta de error renderizada
+        """
+        if message:
+            messages.error(request, message)
+        return render(request, 'lhc/index.html', {'error': True})
+        return render(request, 'lhc/index.html', {'error': True})
     
     def _get_validated_event_index(self, request):
         """
@@ -210,69 +218,3 @@ def cache_stats(request):
     except Exception as e:
         logger.error(f"Error en cache_stats: {e}")
         return HttpResponse(f"Error obteniendo estadísticas: {str(e)}", status=500)
-
-# ========================================
-# APIs PARA EXTRACCIÓN DE MEDIOS
-# ========================================
-
-@require_http_methods(["POST"])
-def extract_audio_from_video_api(request):
-    """
-    API para extraer audio de un video en base64.
-    Solo disponible en modo DEBUG para desarrollo.
-    """
-    if not settings.DEBUG:
-        return JsonResponse({'error': 'No disponible en producción'}, status=403)
-    
-    try:
-        import json
-        data = json.loads(request.body)
-        video_base64 = data.get('video_base64')
-        
-        if not video_base64:
-            return JsonResponse({'error': 'video_base64 requerido'}, status=400)
-        
-        # Usar servicio para extraer audio
-        video_service = LHCVideoService()
-        audio_data = video_service._extract_audio_from_video_base64(video_base64)
-        
-        if audio_data:
-            audio_base64 = base64.b64encode(audio_data).decode('utf-8')
-            return JsonResponse({'audio_base64': audio_base64})
-        else:
-            return JsonResponse({'error': 'No se pudo extraer audio'}, status=500)
-            
-    except Exception as e:
-        logger.error(f"Error en extract_audio_from_video_api: {e}")
-        return JsonResponse({'error': str(e)}, status=500)
-
-
-@require_http_methods(["POST"])
-def extract_image_from_video_api(request):
-    """
-    API para extraer imagen de un video en base64.
-    Solo disponible en modo DEBUG para desarrollo.
-    """
-    if not settings.DEBUG:
-        return JsonResponse({'error': 'No disponible en producción'}, status=403)
-    
-    try:
-        import json
-        data = json.loads(request.body)
-        video_base64 = data.get('video_base64')
-        
-        if not video_base64:
-            return JsonResponse({'error': 'video_base64 requerido'}, status=400)
-        
-        # Usar servicio para extraer imagen
-        video_service = LHCVideoService()
-        image_base64 = video_service._extract_image_from_video_base64(video_base64)
-        
-        if image_base64:
-            return JsonResponse({'image_base64': image_base64})
-        else:
-            return JsonResponse({'error': 'No se pudo extraer imagen'}, status=500)
-            
-    except Exception as e:
-        logger.error(f"Error en extract_image_from_video_api: {e}")
-        return JsonResponse({'error': str(e)}, status=500)

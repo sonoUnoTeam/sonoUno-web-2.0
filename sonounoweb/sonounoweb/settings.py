@@ -161,7 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 load_dotenv()
 
 # ========================================
-# CONFIGURACIÓN DE LOGGING MEJORADA
+# CONFIGURACIÓN DE LOGGING 
 # ========================================
 
 LOGGING = {

@@ -1,5 +1,4 @@
 {% load static %}
-{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,10 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
     <!-- CSS Principal del proyecto -->
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <!-- CSS específico de LHC (consolidado) -->
+    <!-- CSS específico de LHC -->
     <link rel="stylesheet" href="{% static 'lhc/css/lhc-styles.css' %}">
-    <!-- Extra CSS from templates -->
-    {% block extra_css %}{% endblock %}>
     <!-- JavaScript -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -30,12 +27,12 @@
     <!-- Se incluye la navbar -->
     {% include 'lhc/navbar.html' %}
     
-    <div class="container my-4 lhc-main-container">
+    <div class="container my-4">
         <!-- Se incluye mensajes -->
         {% include 'lhc/message.html' %}
     </div>
     
-    <div class="container my-3 lhc-content">
+    <div class="container my-3">
         <div class="row">
             {% block content %}
             {% endblock content %}

@@ -2,9 +2,6 @@
 {% load static %}
 {% block title %}LHC - Large Hadron Collider{% endblock %}
 
-{% block extra_css %}
-<!-- CSS específico del reproductor de video ya incluido en lhc-styles.css -->
-{% endblock %}
 
 {% block content %}
 <!-- Contenido principal del LHC -->
@@ -105,13 +102,6 @@
                     </div>
                 </div>
                 
-                <!-- Debug info -->
-                <div class="mt-2">
-                    <small class="text-muted">
-                        Video cargado: {{ video_base64|length }} caracteres base64
-                    </small>
-                    <button class="btn btn-sm btn-outline-secondary ms-2" onclick="debugVideoState()">Debug Video</button>
-                </div>
             </div>
         </div>
     </div>
@@ -159,9 +149,9 @@
                 <div class="col-md-6">
                     <h6><i class="bi bi-graph-up"></i> Composición del Evento</h6>
                     <ul class="list-unstyled">
-                        <li><strong>Tracks:</strong> <span class="badge bg-primary">{{ event_info.total_tracks }}</span></li>
-                        <li><strong>Clusters:</strong> <span class="badge bg-success">{{ event_info.total_clusters }}</span></li>
-                        <li><strong>Total elementos:</strong> <span class="badge bg-info">{{ event_info.total_elements }}</span></li>
+                        <li><strong>Tracks:</strong> <span class="badge bg-primary">{{ event_info.total_tracks|default:0 }}</span></li>
+                        <li><strong>Clusters:</strong> <span class="badge bg-success">{{ event_info.total_clusters|default:0 }}</span></li>
+                        <li><strong>Total elementos:</strong> <span class="badge bg-info">{{ event_info.total_elements|default:0 }}</span></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
@@ -189,7 +179,7 @@
                         {% endif %}
                     </div>
                     
-                    <!-- Selector de evento mejorado -->
+                    <!-- Selector de evento  -->
                     <div>
                         <small class="text-muted">Ir a evento:</small>
                         <div class="d-flex flex-wrap gap-1 mt-1">
@@ -222,8 +212,8 @@
                     <div class="list-unstyled">
                     <h6><i class="bi bi-download text-success"></i> Descargas Disponibles</h6>
                     <ul class="small">
-                        <li><strong>Imagen completa:</strong> Visualización final del evento (optimizada)</li>
-                        <li><strong>Audio completo:</strong> Extraído del video con máxima eficiencia</li>
+                        <li><strong>Imagen completa:</strong> Visualización final del evento </li>
+                        <li><strong>Audio completo:</strong> Extraído del video </li>
                     </ul>
                     
                     <h6><i class="bi bi-play-circle text-success"></i> Controles de Video</h6>

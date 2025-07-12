@@ -176,35 +176,6 @@ function resetVideo() {
     }
 }
 
-function debugVideoState() {
-    const video = document.getElementById('lhcVideo');
-    if (video) {
-        console.log('=== DEBUG VIDEO STATE ===');
-        console.log('currentTime:', video.currentTime);
-        console.log('duration:', video.duration);
-        console.log('volume:', video.volume);
-        console.log('muted:', video.muted);
-        console.log('readyState:', video.readyState);
-        console.log('paused:', video.paused);
-        console.log('ended:', video.ended);
-        console.log('videoInitialized:', videoInitialized);
-        console.log('previousVolume:', previousVolume);
-        console.log('========================');
-        
-        // También mostrar en alerta para debug visual
-        alert(`Video Debug:
-currentTime: ${formatTime(video.currentTime)}
-duration: ${formatTime(video.duration)}
-volume: ${Math.round(video.volume * 100)}%
-muted: ${video.muted}
-paused: ${video.paused}
-readyState: ${video.readyState}`);
-    } else {
-        console.log('No hay elemento video encontrado');
-        alert('No hay elemento video encontrado');
-    }
-}
-
 /**
  * Control de volumen
  */

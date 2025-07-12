@@ -95,9 +95,7 @@ class LHCDataProcessingIntegrationTests(TestCase):
         # Usar archivos temporales para no afectar el sistema
         image_paths, sound_paths, event_info = process_single_event(
             filename=self.test_filename,
-            event_index=0,
-            save_to_output=False,
-            display_event_number=1
+            event_index=0
         )
         
         self.assertIsNotNone(image_paths, "Image paths no debería ser None")
@@ -121,9 +119,7 @@ class LHCDataProcessingIntegrationTests(TestCase):
         """Test: Manejo de índice de evento inválido"""
         image_paths, sound_paths, event_info = process_single_event(
             filename=self.test_filename,
-            event_index=999,  # Índice muy alto
-            save_to_output=False,
-            display_event_number=1000
+            event_index=999  # Índice muy alto
         )
         
         self.assertIsNone(image_paths, "Image paths debería ser None para índice inválido")
@@ -185,8 +181,8 @@ class LHCViewURLTests(TestCase):
             self.assertTrue(mock_generate_video.called)
         
     def test_grafico_view_url_resolution(self):
-        """Test: Resolución de URL del gráfico"""
-        url = reverse('lhc:grafico', kwargs={'file_name': 'sonification_reduced.txt'})
+        """Test: Resolución de URL del evento"""
+        url = reverse('lhc:evento', kwargs={'file_name': 'sonification_reduced.txt'})
         self.assertTrue(url.endswith('sonification_reduced.txt/'))
         
     def test_grafico_view_invalid_event_parameter(self):
@@ -484,7 +480,7 @@ class LHCValidatorTests(TestCase):
 
 class LHCIntegrationTests(TestCase):
     """
-    Tests de integración para toda la aplicación LHC refactorizada
+    Tests de integración para toda la aplicación LHC 
     """
     
     def setUp(self):
@@ -507,7 +503,7 @@ class LHCIntegrationTests(TestCase):
         )
         
         # Test GET request
-        url = reverse('lhc:grafico', kwargs={'file_name': 'sonification_reduced.txt'})
+        url = reverse('lhc:evento', kwargs={'file_name': 'sonification_reduced.txt'})
         
         try:
             response = self.client.get(url, {'event': '1'})
@@ -552,9 +548,7 @@ class LHCPerformanceTests(TestCase):
         start_time = time.time()
         result = process_single_event(
             filename="sonification_reduced.txt",
-            event_index=0,
-            save_to_output=False,
-            display_event_number=1
+            event_index=0
         )
         end_time = time.time()
         

@@ -1,6 +1,5 @@
 /**
  * LHC Styles - Estilos específicos para la aplicación LHC
- * Separado de los templates para mejorar la mantenibilidad
  */
 
 /* ========================================
@@ -256,17 +255,18 @@
    ESTILOS ESPECÍFICOS PARA LHC
    ======================================== */
 
-/* Contenedor específico para LHC sin afectar navbar ni elementos globales */
+/* Estilos de contenedores específicos de LHC - Ahora no se usan en los templates */
+/* 
 .lhc-main-container {
-    margin-top: 0.5rem;
-    padding-top: 0;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
 }
 
-/* Contenedores específicos de LHC */
 .lhc-content .container {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     padding-top: 0;
 }
+*/
 
 /* Estilos para los controles de video - Conservando el diseño original */
 .video-controls-panel {

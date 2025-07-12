@@ -12,7 +12,6 @@ import tempfile
 import logging
 from typing import Optional, Tuple, Dict, Any, List
 from django.conf import settings
-from io import BytesIO
 import base64
 
 from .validators import LHCSecurityValidator
@@ -53,53 +52,55 @@ class LHCCacheService:
         cache_data = f"{file_name}_{event_index}_v2.0"
         return hashlib.sha256(cache_data.encode()).hexdigest()
     
-    def get_cached_video(self, cache_key: str) -> Optional[str]:
+    def get_cached_video(self, cache_key: str) -> Tuple[Optional[str], Optional[Dict]]:
         """
-        Obtiene video del caché si existe y es válido.
+        Obtiene video y event_info del caché si existe y es válido.
         
         Args:
             cache_key: Clave del caché
             
         Returns:
-            Optional[str]: Video en base64 o None
+            Tuple[Optional[str], Optional[Dict]]: (video_base64, event_info) o (None, None)
         """
         cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
         
         if not os.path.exists(cache_file):
-            return None
+            return None, None
         
         try:
             with open(cache_file, 'r') as f:
                 cache_data = json.load(f)
             
-            # Verificar que el caché no sea muy viejo (1 hora)
-            if time.time() - cache_data.get('timestamp', 0) > 3600:
-                logger.info(f"Caché expirado: {cache_key}")
-                self._remove_cache_file(cache_file)
-                return None
+            # Caché indefinido - no verificar expiración por tiempo
+            # Los archivos de caché se mantienen hasta ser eliminados manualmente
+            # mediante la vista de administración del caché
             
             # Verificar integridad
             video_data = cache_data.get('video_base64')
             if not video_data:
                 logger.warning(f"Caché corrupto (sin datos): {cache_key}")
                 self._remove_cache_file(cache_file)
-                return None
+                return None, None
             
-            logger.info(f"Video obtenido del caché: {cache_key}")
-            return video_data
+            # Obtener event_info del caché
+            event_info = cache_data.get('event_info')
+            
+            logger.info(f"Video y datos obtenidos del caché: {cache_key}")
+            return video_data, event_info
             
         except (json.JSONDecodeError, OSError) as e:
             logger.error(f"Error leyendo caché {cache_key}: {e}")
             self._remove_cache_file(cache_file)
-            return None
+            return None, None
     
-    def save_video_to_cache(self, cache_key: str, video_base64: str) -> bool:
+    def save_video_to_cache(self, cache_key: str, video_base64: str, event_info: Dict = None) -> bool:
         """
-        Guarda video en caché.
+        Guarda video y event_info en caché.
         
         Args:
             cache_key: Clave del caché
             video_base64: Video en base64
+            event_info: Información del evento (opcional)
             
         Returns:
             bool: True si se guardó exitosamente
@@ -107,8 +108,11 @@ class LHCCacheService:
         cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
         
         try:
+            # Caché permanente - los archivos se mantienen indefinidamente
+            # hasta ser eliminados manualmente a través de la vista de administración
             cache_data = {
                 'video_base64': video_base64,
+                'event_info': event_info,
                 'timestamp': time.time(),
                 'size_mb': len(video_base64) / (1024 * 1024 * 1.33)  # Aproximado sin base64
             }
@@ -116,7 +120,7 @@ class LHCCacheService:
             with open(cache_file, 'w') as f:
                 json.dump(cache_data, f)
             
-            logger.info(f"Video guardado en caché: {cache_key} ({cache_data['size_mb']:.2f}MB)")
+            logger.info(f"Video y datos guardados en caché: {cache_key} ({cache_data['size_mb']:.2f}MB)")
             return True
             
         except Exception as e:
@@ -204,7 +208,8 @@ class LHCVideoService:
         self, 
         file_name: str, 
         event_index: int,
-        use_cache: bool = True
+        use_cache: bool = True,
+        skip_validation: bool = False
     ) -> Tuple[Optional[str], Optional[Dict[str, Any]], str]:
         """
         Genera video LHC con manejo completo de errores y caché.
@@ -213,6 +218,7 @@ class LHCVideoService:
             file_name: Nombre del archivo de datos
             event_index: Índice del evento (1-based)
             use_cache: Si usar caché o no
+            skip_validation: Si omitir validaciones (cuando ya se validó previamente)
             
         Returns:
             Tuple[video_base64, event_info, status_message]
@@ -220,39 +226,44 @@ class LHCVideoService:
         request_id = f"{file_name}_{event_index}_{int(time.time())}"
         
         try:
-            # Validaciones de seguridad
-            validated_file_name = LHCSecurityValidator.validate_file_name(file_name)
-            total_events = get_total_events(validated_file_name)
-            
-            if total_events == 0:
-                return None, None, "No se encontraron eventos en el archivo"
-            
-            validated_event_index = LHCSecurityValidator.validate_event_index(event_index, total_events)
+            # Validaciones de seguridad (solo si no se ha validado previamente)
+            if skip_validation:
+                # Los datos ya están validados, usar directamente
+                validated_file_name = file_name
+                validated_event_index = event_index
+                # No necesitamos total_events para la lógica del caché
+                total_events = None
+            else:
+                # Realizar validaciones completas
+                validated_file_name = LHCSecurityValidator.validate_file_name(file_name)
+                total_events = get_total_events(validated_file_name)
+                
+                if total_events == 0:
+                    return None, None, "No se encontraron eventos en el archivo"
+                
+                validated_event_index = LHCSecurityValidator.validate_event_index(event_index, total_events)
             
             # Intentar obtener del caché
             if use_cache:
                 cache_key = self.cache_service.get_cache_key(validated_file_name, validated_event_index)
-                cached_video = self.cache_service.get_cached_video(cache_key)
+                cached_video, cached_event_info = self.cache_service.get_cached_video(cache_key)
                 
-                if cached_video:
-                    logger.info(f"Video obtenido del caché para evento {validated_event_index}")
+                if cached_video and cached_event_info:
+                    logger.info(f"Video y datos obtenidos del caché para evento {validated_event_index}")
                     
-                    # Extraer imagen y audio del video cacheado para descargas
-                    final_image_base64 = self._extract_image_from_video_base64(cached_video)
-                    audio_data = self._extract_audio_from_video_base64(cached_video)
-                    final_audio_base64 = base64.b64encode(audio_data).decode('utf-8') if audio_data else None
-                    
-                    event_info = {
-                        'event_number': validated_event_index,
-                        'event_index': validated_event_index,
-                        'total_events': total_events,
-                        'total_tracks': 0,  # No disponible desde caché
-                        'total_clusters': 0,  # No disponible desde caché
-                        'from_cache': True,
-                        'final_image_base64': final_image_base64,
-                        'final_audio_base64': final_audio_base64
-                    }
-                    return cached_video, event_info, "Video obtenido del caché"
+                    # Verificar si ya tiene imagen y audio extraídos (formato nuevo)
+                    if ('final_image_base64' in cached_event_info and 
+                        'final_audio_base64' in cached_event_info and
+                        cached_event_info['final_image_base64'] and
+                        cached_event_info['final_audio_base64']):
+                        # Ya están extraídos, retornar directamente
+                        cached_event_info['from_cache'] = True
+                        return cached_video, cached_event_info, "Video obtenido del caché"
+                    else:
+                        # Caché en formato antiguo - eliminar y regenerar
+                        logger.info("Caché en formato antiguo detectado, eliminando para regenerar...")
+                        self.cache_service._remove_cache_file(os.path.join(self.cache_service.cache_dir, f"{cache_key}.json"))
+                        # Continuar con generación normal
             
             # Generar nuevo video
             logger.info(f"Generando nuevo video para evento {validated_event_index}")
@@ -262,14 +273,32 @@ class LHCVideoService:
                 None, 
                 validated_file_name, 
                 'txt', 
-                True, 
+                False, 
                 validated_event_index, 
-                save_to_output=False, 
-                generate_complete_audio=True
+                save_to_output=False
             )
             
             if not image_paths or not sound_paths:
                 return None, None, "Error procesando datos LHC"
+            
+            final_image_path = image_paths[-1]  # La última imagen es la completa del evento
+            final_audio_path = sound_paths[-1]  # El último audio es el completo del evento
+            
+            # Convertir imagen final a base64 directamente
+            try:
+                with open(final_image_path, 'rb') as img_file:
+                    final_image_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+            except Exception as e:
+                logger.error(f"Error leyendo imagen final: {e}")
+                final_image_base64 = None
+            
+            # Convertir audio final a base64 directamente
+            try:
+                with open(final_audio_path, 'rb') as audio_file:
+                    final_audio_base64 = base64.b64encode(audio_file.read()).decode('utf-8')
+            except Exception as e:
+                logger.error(f"Error leyendo audio final: {e}")
+                final_audio_base64 = None
             
             # Crear video
             video_base64 = self._create_video_from_paths(image_paths, sound_paths)
@@ -277,24 +306,50 @@ class LHCVideoService:
             if not video_base64:
                 return None, None, "Error generando video"
             
-            # Extraer imagen y audio para descargas
-            logger.info("Extrayendo imagen y audio para descargas...")
-            final_image_base64 = self._extract_image_from_video_base64(video_base64)
-            audio_data = self._extract_audio_from_video_base64(video_base64)
-            final_audio_base64 = base64.b64encode(audio_data).decode('utf-8') if audio_data else None
-            
-            # Guardar en caché
-            if use_cache:
-                cache_key = self.cache_service.get_cache_key(validated_file_name, validated_event_index)
-                self.cache_service.save_video_to_cache(cache_key, video_base64)
-            
-            # Actualizar event_info con datos de descarga
+            # Actualizar event_info con datos 
             if event_info:
                 event_info['event_number'] = validated_event_index
                 event_info['event_index'] = validated_event_index
                 event_info['from_cache'] = False
                 event_info['final_image_base64'] = final_image_base64
                 event_info['final_audio_base64'] = final_audio_base64
+                # Agregar información de optimización
+                event_info['optimized_extraction'] = True
+                event_info['source'] = 'lhc_lib_direct'
+            
+            # Guardar en caché (incluyendo event_info)
+            if use_cache:
+                cache_key = self.cache_service.get_cache_key(validated_file_name, validated_event_index)
+                self.cache_service.save_video_to_cache(cache_key, video_base64, event_info)
+            
+            # Limpiar archivos temporales de la librería LHC con retraso
+            try:
+                import threading
+                
+                def delayed_cleanup():
+                    time.sleep(2)  # Esperar 2 segundos antes de limpiar
+                    try:
+                        from utils.lhc_lib.lhc_web import cleanup_temp_files
+                        all_temp_files = image_paths + sound_paths
+                        cleanup_temp_files(all_temp_files)
+                        logger.debug(f"Limpieza retrasada de {len(all_temp_files)} archivos temporales completada")
+                    except Exception as e:
+                        logger.warning(f"Error en limpieza retrasada de archivos temporales: {e}")
+                
+                # Ejecutar limpieza en hilo separado para no bloquear la respuesta
+                cleanup_thread = threading.Thread(target=delayed_cleanup, daemon=True)
+                cleanup_thread.start()
+                
+            except Exception as e:
+                logger.warning(f"Error configurando limpieza retrasada: {e}")
+                # Fallback a limpieza inmediata (puede fallar en Windows)
+                try:
+                    from utils.lhc_lib.lhc_web import cleanup_temp_files
+                    all_temp_files = image_paths + sound_paths
+                    cleanup_temp_files(all_temp_files)
+                    logger.debug(f"Limpieza inmediata de {len(all_temp_files)} archivos temporales completada")
+                except Exception as cleanup_error:
+                    logger.warning(f"Error en limpieza inmediata de archivos temporales: {cleanup_error}")
             
             logger.info(f"Video generado exitosamente para evento {validated_event_index}")
             return video_base64, event_info, f"Video generado exitosamente"
@@ -318,10 +373,12 @@ class LHCVideoService:
         try:
             from moviepy.editor import ImageClip, concatenate_videoclips, AudioFileClip, AudioClip, concatenate_audioclips
             from PIL import Image
+            import gc
             
             logger.info(f"Creando video con {len(image_paths)} clips")
             
             clips = []
+            audio_clips_for_cleanup = []  # Track all audio clips for proper cleanup
             temp_files_to_cleanup = []
             
             try:
@@ -336,13 +393,16 @@ class LHCVideoService:
                     
                     # Crear clip de audio
                     audio_clip = AudioFileClip(sound_path)
+                    audio_clips_for_cleanup.append(audio_clip)  # Track for cleanup
                     
                     # Agregar silencio según posición
                     if i == total_clips - 1:
                         audio_clip_final = AudioClip(lambda t: 0, duration=1, fps=44100)
+                        audio_clips_for_cleanup.append(audio_clip_final)
                     elif i == 0 or i == mid_point:
                         silence = AudioClip(lambda t: 0, duration=1, fps=44100)
                         audio_clip_final = concatenate_audioclips([audio_clip, silence])
+                        audio_clips_for_cleanup.extend([silence, audio_clip_final])
                     else:
                         audio_clip_final = audio_clip
                     
@@ -367,7 +427,17 @@ class LHCVideoService:
                 return video_base64
                 
             finally:
-                # Limpiar recursos
+                # Limpieza exhaustiva de recursos MoviePy
+                logger.debug("Iniciando limpieza exhaustiva de recursos MoviePy...")
+                
+                # Primero cerrar el clip final
+                if 'final_clip' in locals():
+                    try:
+                        final_clip.close()
+                    except:
+                        pass
+                
+                # Cerrar todos los clips individuales
                 for clip in clips:
                     try:
                         if hasattr(clip, 'audio') and clip.audio:
@@ -376,16 +446,30 @@ class LHCVideoService:
                     except:
                         pass
                 
-                if 'final_clip' in locals():
-                    final_clip.close()
+                # Cerrar todos los clips de audio rastreados
+                for audio_clip in audio_clips_for_cleanup:
+                    try:
+                        audio_clip.close()
+                    except:
+                        pass
                 
-                # Limpiar archivos temporales
+                # Forzar garbage collection para liberar recursos
+                del clips
+                del audio_clips_for_cleanup
+                if 'final_clip' in locals():
+                    del final_clip
+                gc.collect()
+                
+                # Esperar un momento para que Windows libere los archivos
+                time.sleep(0.5)
+                
+                # Limpiar archivos temporales de imágenes procesadas
                 for temp_file in temp_files_to_cleanup:
                     try:
                         if os.path.exists(temp_file):
                             os.remove(temp_file)
-                    except:
-                        pass
+                    except Exception as e:
+                        logger.warning(f"Error eliminando archivo temporal de imagen {temp_file}: {e}")
                         
         except Exception as e:
             logger.error(f"Error creando video: {e}")
@@ -421,7 +505,11 @@ class LHCVideoService:
                     img_clean = Image.new(img.mode, img.size)
                     img_clean.putdata(img_data)
                     
-                    with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as temp_img:
+                    # Usar directorio temp del proyecto en lugar del sistema
+                    temp_dir = os.path.join(settings.BASE_DIR, 'temp')
+                    os.makedirs(temp_dir, exist_ok=True)
+                    
+                    with tempfile.NamedTemporaryFile(delete=False, suffix='.png', dir=temp_dir) as temp_img:
                         img_clean.save(temp_img.name, 'PNG', optimize=True)
                         clean_image_path = temp_img.name
                         temp_files_to_cleanup.append(clean_image_path)
@@ -444,6 +532,9 @@ class LHCVideoService:
         Returns:
             Optional[str]: Video en base64
         """
+        import gc
+        
+        # Usar directorio temp del proyecto en lugar del sistema
         temp_dir = os.path.join(settings.BASE_DIR, 'temp')
         os.makedirs(temp_dir, exist_ok=True)
         
@@ -451,7 +542,7 @@ class LHCVideoService:
         temp_audio_path = None
         
         try:
-            # Crear archivos temporales
+            # Crear archivos temporales en el directorio del proyecto
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_video:
                 temp_video_path = temp_video.name
             
@@ -498,142 +589,33 @@ class LHCVideoService:
             return None
             
         finally:
-            # Limpiar archivos temporales
+            # Cerrar explícitamente el clip final para liberar recursos
+            try:
+                final_clip.close()
+            except:
+                pass
+            
+            # Forzar garbage collection
+            gc.collect()
+            
+            # Esperar un momento para que se liberen los handles de archivo
+            time.sleep(0.3)
+            
+            # Limpiar archivos temporales con manejo mejorado de errores para Windows
             for temp_path in [temp_video_path, temp_audio_path]:
                 if temp_path and os.path.exists(temp_path):
-                    try:
-                        os.remove(temp_path)
-                    except OSError as e:
-                        logger.error(f"Error eliminando archivo temporal {temp_path}: {e}")
-    
-    def _extract_image_from_video_base64(self, video_base64: str) -> Optional[str]:
-        """
-        Extrae una imagen (frame) de un video en base64.
-        
-        Args:
-            video_base64: Video en formato base64
-            
-        Returns:
-            Optional[str]: Imagen en base64 o None si falla
-        """
-        try:
-            from moviepy.editor import VideoFileClip
-            from PIL import Image
-            import tempfile
-            
-            temp_dir = os.path.join(settings.BASE_DIR, 'temp')
-            os.makedirs(temp_dir, exist_ok=True)
-            
-            # Crear archivo temporal para el video
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_video:
-                video_data = base64.b64decode(video_base64)
-                temp_video.write(video_data)
-                temp_video_path = temp_video.name
-            
-            # Crear archivo temporal para la imagen
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".png", dir=temp_dir) as temp_image:
-                temp_image_path = temp_image.name
-            
-            try:
-                # Cargar video y extraer frame
-                video_clip = VideoFileClip(temp_video_path)
-                duration = video_clip.duration
-                
-                # Obtener frame del medio del video para mejor representación
-                if duration and duration > 0:
-                    frame_time = min(duration * 0.5, duration - 0.1)
-                else:
-                    frame_time = 0
-                
-                frame = video_clip.get_frame(frame_time)
-                img = Image.fromarray(frame)
-                img.save(temp_image_path, 'PNG')
-                
-                # Leer imagen y convertir a base64
-                with open(temp_image_path, 'rb') as img_file:
-                    image_data = img_file.read()
-                    image_base64 = base64.b64encode(image_data).decode('utf-8')
-                
-                video_clip.close()
-                return image_base64
-                
-            finally:
-                # Limpiar archivos temporales
-                try:
-                    os.remove(temp_video_path)
-                    os.remove(temp_image_path)
-                except:
-                    pass
-                    
-        except Exception as e:
-            logger.error(f"Error extrayendo imagen del video: {e}")
-            return None
-    
-    def _extract_audio_from_video_base64(self, video_base64: str) -> Optional[bytes]:
-        """
-        Extrae audio de un video en base64.
-        
-        Args:
-            video_base64: Video en formato base64
-            
-        Returns:
-            Optional[bytes]: Audio en bytes o None si falla
-        """
-        try:
-            from moviepy.editor import VideoFileClip
-            import tempfile
-            
-            temp_dir = os.path.join(settings.BASE_DIR, 'temp')
-            os.makedirs(temp_dir, exist_ok=True)
-            
-            # Crear archivo temporal para el video
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_video:
-                video_data = base64.b64decode(video_base64)
-                temp_video.write(video_data)
-                temp_video_path = temp_video.name
-            
-            # Crear archivo temporal para el audio
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".wav", dir=temp_dir) as temp_audio:
-                temp_audio_path = temp_audio.name
-            
-            try:
-                # Cargar video y extraer audio
-                video_clip = VideoFileClip(temp_video_path)
-                audio_clip = video_clip.audio
-                
-                if audio_clip is None:
-                    logger.warning("El video no contiene pista de audio")
-                    video_clip.close()
-                    return None
-                
-                # Escribir audio a archivo temporal
-                audio_clip.write_audiofile(
-                    temp_audio_path,
-                    codec='pcm_s16le',
-                    verbose=False,
-                    logger=None
-                )
-                
-                # Leer audio como bytes
-                with open(temp_audio_path, 'rb') as audio_file:
-                    audio_data = audio_file.read()
-                
-                video_clip.close()
-                audio_clip.close()
-                return audio_data
-                
-            finally:
-                # Limpiar archivos temporales
-                try:
-                    os.remove(temp_video_path)
-                    os.remove(temp_audio_path)
-                except:
-                    pass
-                    
-        except Exception as e:
-            logger.error(f"Error extrayendo audio del video: {e}")
-            return None
-
+                    max_attempts = 3
+                    for attempt in range(max_attempts):
+                        try:
+                            os.remove(temp_path)
+                            break
+                        except OSError as e:
+                            if attempt < max_attempts - 1:
+                                time.sleep(0.5)
+                                gc.collect()  # Intentar liberar más memoria
+                            else:
+                                logger.warning(f"No se pudo eliminar archivo temporal {temp_path} después de {max_attempts} intentos: {e}")
+                                # El archivo se limpiará en la próxima limpieza automática
 
 class LHCEventService:
     """Servicio para manejo de eventos LHC."""

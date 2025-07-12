@@ -42,7 +42,7 @@ def inicio(request):
     return render(request,"inicio.html")
 
 def ayuda(request):
-    return render(request,"sonif1D/ayuda.html")
+    return render(request,"inicio.html")
 
 def sonido(request):
     return render(request, 'sonif1D/sonido.html')
@@ -612,7 +612,6 @@ class simpleSound(object):
     # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
         try:
-            print(data_x)
             data_x, data_y, Status = normalize(data_x, data_y)
             
             rep = self.reproductor
