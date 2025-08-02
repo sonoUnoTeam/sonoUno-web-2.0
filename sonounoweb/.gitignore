@@ -1,66 +1,21 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
+# .gitignore for sonoUno-web-2.0 project
 # Virtual environments
 venv/
 env/
-ENV/
-env.bak/
-venv.bak/
-.venv/
 
 # Django
 *.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
 media/
 staticfiles/
-static/
 
 # Environment variables
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # IDE
 .vscode/
-.idea/
-*.swp
-*.swo
-*~
 
 # OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
 
 # Temporary files
 temp/
@@ -71,21 +26,8 @@ tmp/
 # Logs
 logs
 
-# Coverage reports
-htmlcov/
-.coverage
-.coverage.*
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# pyenv
-.python-version
-
-# Specific to this project
-# Note: The general __pycache__/ rule above should cover most cases,
-# but keeping these specific ones for explicit coverage
+# Specific 
+__pycache__/
 sonounoweb/__pycache__/*
 sonif1D/__pycache__/*
 sonif1D/sonounolib/*/__pycache__/*
