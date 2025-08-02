@@ -32,7 +32,18 @@ class reproductorRaw (object):
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
 
-        pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        try:
+            pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        except pygame.error as e:
+            # En servidores sin dispositivos de audio, configuramos pygame para modo headless
+            print(f"Warning: Could not initialize pygame mixer: {e}")
+            print("Running in headless mode - audio playback disabled")
+            os.environ['SDL_AUDIODRIVER'] = 'dummy'
+            try:
+                pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+            except pygame.error as fallback_error:
+                print(f"Warning: Even fallback initialization failed: {fallback_error}")
+                print("Continuing without audio support")
 
         self._last_freq = 0
         self._last_time = 0
@@ -414,7 +425,18 @@ class simpleSound(object):
 class tickMark(object):
     def __init__(self):
         #pygame.init()
-        pygame.mixer.init()
+        try:
+            pygame.mixer.init()
+        except pygame.error as e:
+            # En servidores sin dispositivos de audio, configuramos pygame para modo headless
+            print(f"Warning: Could not initialize pygame mixer: {e}")
+            print("Running in headless mode - audio playback disabled")
+            os.environ['SDL_AUDIODRIVER'] = 'dummy'
+            try:
+                pygame.mixer.init()
+            except pygame.error as fallback_error:
+                print(f"Warning: Even fallback initialization failed: {fallback_error}")
+                print("Continuing without audio support")
 
     def loop(self):
         base_path = os.path.abspath(os.path.dirname(__file__))

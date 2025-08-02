@@ -15,6 +15,11 @@ from django.conf.urls.static import static
 import os
 from dotenv import load_dotenv
 
+# Configuración para modo headless en servidores sin dispositivos gráficos/audio
+# Esto debe ir ANTES de cualquier importación de matplotlib o pygame
+os.environ.setdefault('MPLBACKEND', 'Agg')  # Backend no-GUI para matplotlib
+os.environ.setdefault('SDL_AUDIODRIVER', 'dummy')  # Driver de audio dummy para SDL/pygame
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

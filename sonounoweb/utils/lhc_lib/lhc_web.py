@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Módulo LHC optimizado para integración con Django web app.
-
-OPTIMIZACIONES REALIZADAS:
-- Eliminadas funciones innecesarias para plots de salida (get_output_directory, plot_to_output_file, etc.)
-- Removido soporte para data_lhc/lhc_output (nunca usado en la web app)
-- Simplificada interfaz process_files (parámetros path, plot_flag, save_to_output siempre tienen valores fijos)
-- Optimizado process_single_event para usar solo archivos temporales
-- Eliminadas funciones de debug y main
-
 Funciones principales:
 - load_particle_data(): Carga y valida archivos de datos LHC 
 - get_available_data_files(): Lista archivos disponibles 
@@ -16,13 +7,15 @@ Funciones principales:
 - process_files(): Interfaz principal para la web app (siempre usa archivos temporales)
 - get_total_events(): Obtiene número total de eventos 
 - cleanup_temp_files(): Limpieza de archivos temporales
-
-Interfaz simplificada optimizada para uso exclusivo con archivos temporales.
-La función process_files() ignora parámetros innecesarios:
-- path: siempre None (usa sample_data fija)
-- plot_flag: nunca genera plots de salida
-- save_to_output: siempre False (solo archivos temporales)
 """
+
+import os
+import sys
+
+# Configuración para modo headless en servidores sin dispositivos gráficos/audio
+# Esto debe ir ANTES de cualquier importación de matplotlib o pygame
+os.environ.setdefault('MPLBACKEND', 'Agg')  # Backend no-GUI para matplotlib
+os.environ.setdefault('SDL_AUDIODRIVER', 'dummy')  # Driver de audio dummy para SDL/pygame
 
 import os
 import sys
@@ -37,6 +30,7 @@ import threading
 import time
 from typing import Optional, Tuple, List, Dict, Any
 from functools import lru_cache
+from django.conf import settings
 
 # Configurar logging
 logger = logging.getLogger(__name__)
@@ -121,7 +115,6 @@ def plot_to_temp_file(fig):
     """
     try:
         # Obtener directorio temporal del proyecto
-        from django.conf import settings
         temp_dir = os.path.join(settings.BASE_DIR, 'temp')
         os.makedirs(temp_dir, exist_ok=True)
     except ImportError:
@@ -193,7 +186,6 @@ def process_sound_array(sound_array):
     
     try:
         # Obtener directorio temporal del proyecto
-        from django.conf import settings
         temp_dir = os.path.join(settings.BASE_DIR, 'temp')
         os.makedirs(temp_dir, exist_ok=True)
     except ImportError:

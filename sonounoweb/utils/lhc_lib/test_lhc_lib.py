@@ -142,9 +142,7 @@ class TestLHCLibIntegration(unittest.TestCase):
         # Procesar primer evento
         result = process_single_event(
             filename=filename,
-            event_index=0,
-            save_to_output=False,  # Usar archivos temporales
-            display_event_number=1
+            event_index=0
         )
         
         image_paths, sound_paths, event_info = result
@@ -182,9 +180,7 @@ class TestLHCLibIntegration(unittest.TestCase):
             with self.subTest(event=event_idx):
                 result = process_single_event(
                     filename=filename,
-                    event_index=event_idx,
-                    save_to_output=False,
-                    display_event_number=event_idx + 1
+                    event_index=event_idx
                 )
                 
                 image_paths, sound_paths, event_info = result
@@ -224,9 +220,7 @@ class TestLHCLibPerformance(unittest.TestCase):
         start_time = time.time()
         result = process_single_event(
             filename="sonification_reduced.txt",
-            event_index=0,
-            save_to_output=False,
-            display_event_number=1
+            event_index=0
         )
         end_time = time.time()
         

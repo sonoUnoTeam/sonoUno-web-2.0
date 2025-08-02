@@ -1,6 +1,6 @@
 
 import base64
-from utils.muongraphy_lib.muon_bash import process_files
+from utils.muon_bash import process_files
 
 def save_base64_image(base64_str, filename):
     with open(filename, "wb") as f:

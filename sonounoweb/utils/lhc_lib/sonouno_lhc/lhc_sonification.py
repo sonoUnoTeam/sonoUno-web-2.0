@@ -18,13 +18,33 @@ def sound_init():
     """
     Initializate the sound mixer with pygame to play sounds during plot display
     """
-    pygame.mixer.init(
-        44100,
-        -16,
-        channels=1,
-        buffer=4095,
-        allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE,
-    )
+    try:
+        pygame.mixer.init(
+            44100,
+            -16,
+            channels=1,
+            buffer=4095,
+            allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE,
+        )
+    except pygame.error as e:
+        # En servidores sin dispositivos de audio, pygame.mixer.init() puede fallar
+        # con errores como "dsp: No such audio device"
+        # En estos casos, configuramos pygame para modo headless
+        print(f"Warning: Could not initialize pygame mixer: {e}")
+        print("Running in headless mode - audio playback disabled")
+        # Inicializamos pygame mixer con el driver 'dummy' que no requiere hardware de audio
+        os.environ['SDL_AUDIODRIVER'] = 'dummy'
+        try:
+            pygame.mixer.init(
+                44100,
+                -16,
+                channels=1,
+                buffer=4095,
+                allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE,
+            )
+        except pygame.error as fallback_error:
+            print(f"Warning: Even fallback initialization failed: {fallback_error}")
+            print("Continuing without audio support")
 
 
 def set_bip():

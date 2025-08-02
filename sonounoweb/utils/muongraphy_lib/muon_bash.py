@@ -6,19 +6,15 @@ import os
 import datetime
 import glob
 import matplotlib.pyplot as plt
+from django.conf import settings
 from utils.muongraphy_lib.data_import.data_import import DataImportColumns
 from utils.muongraphy_lib.sound_module import sonification as sd
 from scipy.io import wavfile
 import numpy as np
-from django.conf import settings
 
 def plot_to_temp_file(fig):
-    # Usar directorio temp del proyecto en lugar del sistema
-    temp_dir = os.path.join(settings.BASE_DIR, 'temp')
-    os.makedirs(temp_dir, exist_ok=True)
-    
-    # Create temporary file dentro del proyecto
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.png', dir=temp_dir) as tmp_file:
+    # Create temporary file 
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as tmp_file:
         # Save figure to temp file
         fig.savefig(tmp_file.name, format='png')
         return tmp_file.name
