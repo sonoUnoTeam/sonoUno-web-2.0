@@ -1,0 +1,52 @@
+ <!-- BARRA DE NAVEGACIÓN -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'inicio' %}">
+            <h3>sonoUno web</h3>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- Botones de la barra de navegación -->
+                <!-- <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Importar</button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <li><a class="dropdown-item" href="{% url 'sonif1D:importar_archivo' %}">Archivo csv/txt</a></li>
+                         <li><a class="dropdown-item" href="">Archivo .WAV</a></li>
+                        <li><a class="dropdown-item" href="">Marcadores .CSV</a></li>
+                    </ul>
+                </div> -->
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Exportar</button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                        {% if file_name and current_event %}
+                            <li><a class="dropdown-item" href="#" id="downloadEventImage">
+                                <i class="bi bi-image"></i> Imagen Completa del Evento {{ current_event }}
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" id="downloadEventAudio">
+                                <i class="bi bi-music-note-beamed"></i> Audio Completo del Evento {{ current_event }}
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><span class="dropdown-item-text text-muted small">
+                                <i class="bi bi-info-circle"></i> Descarga directa sin servidor
+                            </span></li>
+                        {% else %}
+                            <li><span class="dropdown-item-text text-muted">
+                                <i class="bi bi-info-circle"></i> Selecciona un evento para descargar
+                            </span></li>
+                        {% endif %}
+                    </ul>                    
+                </div>
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Datos</button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+                        <li><a class="dropdown-item" href="{% url 'lhc:evento' 'sonification_reduced.txt' %}">Ejemplo 1</a></li>
+                    </ul>
+                </div>                    
+                <li class="nav-item"><a class="btn btn-dark text-white" href="{% url 'sonif1D:ayuda' %}">Ayuda</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

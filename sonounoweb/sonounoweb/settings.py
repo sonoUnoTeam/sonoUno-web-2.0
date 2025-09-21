@@ -15,6 +15,11 @@ from django.conf.urls.static import static
 import os
 from dotenv import load_dotenv
 
+# Configuración para modo headless en servidores sin dispositivos gráficos/audio
+# Esto debe ir ANTES de cualquier importación de matplotlib o pygame
+os.environ.setdefault('MPLBACKEND', 'Agg')  # Backend no-GUI para matplotlib
+os.environ.setdefault('SDL_AUDIODRIVER', 'dummy')  # Driver de audio dummy para SDL/pygame
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +43,8 @@ MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
 
 INSTALLED_APPS = [
     'sonif1D.apps.Sonif1DConfig',
-    'muongraphy.apps.MuongraphyConfig', 
+    'muongraphy.apps.MuongraphyConfig',
+    'lhc.apps.LhcConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -158,3 +164,97 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Cargar las variables de entorno desde el archivo .env
 load_dotenv()
+
+# ========================================
+# CONFIGURACIÓN DE LOGGING 
+# ========================================
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+        'lhc_format': {
+            'format': '{asctime} - {name} - {levelname} - {funcName}:{lineno} - {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'maxBytes': 10*1024*1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        },
+        'lhc_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'lhc.log'),
+            'maxBytes': 10*1024*1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'lhc_format',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'lhc': {
+            'handlers': ['lhc_file'],
+            'level': 'INFO' if DEBUG else 'WARNING',
+            'propagate': False,
+        },
+        'utils.lhc_lib': {
+            'handlers': ['lhc_file'],
+            'level': 'INFO' if DEBUG else 'WARNING',
+            'propagate': False,
+        },
+    },
+}
+
+# ========================================
+# CONFIGURACIÓN ESPECÍFICA PARA LHC
+# ========================================
+
+# Límites de seguridad para la aplicación LHC
+LHC_CONFIG = {
+    'MAX_FILE_SIZE': 50 * 1024 * 1024,  # 50MB
+    'MAX_VIDEO_DURATION': 300,  # 5 minutos
+    'MAX_CONCURRENT_REQUESTS': 5,
+    'CACHE_TTL': 3600,  # 1 hora
+    'MAX_CACHE_SIZE': 100 * 1024 * 1024,  # 100MB
+    'TEMP_FILE_TIMEOUT': 3600,  # 1 hora
+    'MAX_EVENTS_PER_FILE': 10000,
+    'ALLOWED_FILES': [
+        'sonification_reduced.txt',
+        'lhc_event_data.txt',
+        'particle_collision_data.txt',
+        'test_lhc_data.txt'
+    ],
+    'VIDEO_SETTINGS': {
+        'FPS': 15,
+        'CODEC': 'libx264',
+        'PRESET': 'fast',
+        'CRF': 26,
+        'RESOLUTION': (1200, 600),
+    }
+}
+
+# Crear directorio de logs si no existe
+os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)

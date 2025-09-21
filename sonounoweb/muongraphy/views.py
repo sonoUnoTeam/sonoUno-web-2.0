@@ -6,7 +6,7 @@ import base64
 import subprocess
 import os
 from django.contrib import messages
-from utils.muon_bash import process_files, cleanup_temp_audio, cleanup_temp_audio
+from utils.muongraphy_lib.muon_bash import process_files, cleanup_temp_audio, cleanup_temp_files
 from moviepy.editor import ImageClip, concatenate_videoclips, AudioFileClip, AudioClip, concatenate_audioclips
 from PIL import Image
 from scipy.io.wavfile import write
@@ -121,11 +121,16 @@ def grafico(request, file_name):
 
     video_base64 = None
     try:
-        image_paths, sound_paths = process_files(path, file_name, file_type, plot_flag) # Retorna una lista de buffers de imágenes y una lista de arrays de sonidos
+        # Ahora recibimos 3 valores: imágenes para video, sonidos, y todas las imágenes para limpieza
+        image_paths, sound_paths, all_image_paths = process_files(path, file_name, file_type, plot_flag)
         if image_paths and sound_paths is not None:
             video_base64 = create_video_from_paths(image_paths, sound_paths)
+            
+            # Limpiar archivos temporales de sonido
             cleanup_temp_audio(sound_paths)
-            cleanup_temp_audio(image_paths)
+            
+            # Limpiar TODOS los archivos temporales de imágenes (no solo los del video)
+            cleanup_temp_files(all_image_paths)
         else:
             raise ValueError("Archivo no encontrado.")
     except Exception as e:

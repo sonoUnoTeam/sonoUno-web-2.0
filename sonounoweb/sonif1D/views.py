@@ -22,6 +22,7 @@ from django.template import loader
 from django.urls import reverse
 from io import BytesIO, StringIO
 from scipy.io.wavfile import write
+from scipy import signal
 
 from .forms import ArchivoForm, ConfiguracionGraficoForm
 from .sonounolib.data_export.data_export import DataExport
@@ -41,7 +42,7 @@ def inicio(request):
     return render(request,"inicio.html")
 
 def ayuda(request):
-    return render(request,"sonif1D/ayuda.html")
+    return render(request,"inicio.html")
 
 def sonido(request):
     return render(request, 'sonif1D/sonido.html')
@@ -78,6 +79,32 @@ class GraficoView(FormView):
     form_class = ConfiguracionGraficoForm
     success_url = reverse_lazy('sonif1D:grafico')
 
+    def get_initial(self):
+        """
+        Retorna los valores iniciales para el formulario.
+        Esto asegura que los campos tengan valores por defecto apropiados.
+        """
+        initial = super().get_initial()
+        # Los valores por defecto ya están definidos en el form, 
+        # pero podemos sobreescribirlos aquí si es necesario
+        initial.update({
+            'name_grafic': 'Gráfico de Datos',
+            'name_eje_x': 'Eje X',
+            'name_eje_y': 'Eje Y',
+            'grilla': True,
+            'escala_grises': False,
+            'estilo_linea': 'solid',
+            'color_linea': 'blue'
+        })
+        return initial
+
+    def get_context_data(self, **kwargs):
+        """
+        Añade contexto adicional al template.
+        """
+        context = super().get_context_data(**kwargs)
+        return context
+
     def form_valid(self, form):
         # Procesar los datos del formulario
         name_grafic = form.cleaned_data['name_grafic']
@@ -85,8 +112,6 @@ class GraficoView(FormView):
         name_eje_y = form.cleaned_data['name_eje_y']
         grilla = form.cleaned_data['grilla']
         escala_grises = form.cleaned_data['escala_grises']
-        rotar_eje_x = form.cleaned_data['rotar_eje_x']
-        rotar_eje_y = form.cleaned_data['rotar_eje_y']
         estilo_linea = form.cleaned_data['estilo_linea']
         color_linea = form.cleaned_data['color_linea']
 
@@ -104,7 +129,7 @@ class GraficoView(FormView):
             messages.error(self.request, "Error al cargar los datos del gráfico.")
             return self.render_to_response(self.get_context_data(form=form))
 
-        grafico_data = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, rotar_eje_x, rotar_eje_y, estilo_linea, color_linea)
+        grafico_data = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, estilo_linea, color_linea)
   
         # Enviar la imagen y el audio en base64 a la plantilla
         context = self.get_context_data(form=form)
@@ -167,29 +192,53 @@ class ImportarArchivoView(FormView):
         archivo = self.request.FILES['archivo']
         nombre_archivo = archivo.name.lower()
         
+        # Verificar el tamaño del archivo (máximo 10MB)
+        if archivo.size > 10 * 1024 * 1024:  # 10MB
+            messages.error(self.request, "El archivo es demasiado grande. El tamaño máximo permitido es 10MB.")
+            return self.render_to_response(self.get_context_data(form=form))
+        
         # Verificar la extensión del archivo
         if nombre_archivo.endswith('.csv') or nombre_archivo.endswith('.txt'):
-            # Leer el contenido del archivo cargado
-            contenido = archivo.read().decode('utf-8')
+            try:
+                # Leer el contenido del archivo cargado
+                contenido = archivo.read().decode('utf-8')
+            except UnicodeDecodeError:
+                messages.error(self.request, "Error de codificación. Asegúrate de que el archivo esté en formato UTF-8.")
+                return self.render_to_response(self.get_context_data(form=form))
 
             # Procesar el contenido como una lista de líneas o directamente
             data = cargar_datos_desde_contenido(contenido)
-            data_json = numpy_to_json(data) # Convertir los datos a JSON
 
             if data is None:
-                messages.error(self.request, "El archivo no contiene datos válidos.")
-                return self.render_to_response(self.get_context_data(form=form), template_name='sonif1D/index.html')
+                messages.error(self.request, 
+                    "El archivo no contiene datos válidos. Verifica que tenga dos columnas numéricas separadas por comas, tabulaciones o espacios.")
+                return self.render_to_response(self.get_context_data(form=form))
 
-            grafico_data = generar_grafico(data, archivo.name)
-            audio_base64 = generar_auido_base64(data, self.request)
-            
-            context = self.get_context_data(form=form)
-            context.update(grafico_data)
-            context.update({
-                'audio_base64': audio_base64,
-                'data_json': data_json,
-            })
-            return self.render_to_response(context, template_name='sonif1D/index.html')
+            # Verificar que tenga al menos algunas filas de datos
+            if data.shape[0] < 2:
+                messages.error(self.request, "El archivo debe contener al menos 2 filas de datos.")
+                return self.render_to_response(self.get_context_data(form=form))
+
+            try:
+                data_json = numpy_to_json(data) # Convertir los datos a JSON
+                grafico_data = generar_grafico(data, archivo.name)
+                audio_base64 = generar_auido_base64(data, self.request)
+                
+                # Mensaje de éxito
+                messages.success(self.request, 
+                    f"Archivo '{archivo.name}' cargado exitosamente. Se procesaron {data.shape[0]} puntos de datos.")
+                
+                context = self.get_context_data(form=form)
+                context.update(grafico_data)
+                context.update({
+                    'audio_base64': audio_base64,
+                    'data_json': data_json,
+                })
+                return self.render_to_response(context, template_name='sonif1D/index.html')
+                
+            except Exception as e:
+                messages.error(self.request, f"Error al procesar los datos: {str(e)}")
+                return self.render_to_response(self.get_context_data(form=form))
         else:
             messages.error(self.request, "Formato de archivo no soportado. Por favor, sube un archivo CSV o TXT.")
             return self.render_to_response(self.get_context_data(form=form))
@@ -223,7 +272,7 @@ def json_to_numpy(json_str):
         return None
     
 # Función para generar el gráfico en base64 con configuraciones usando Plotly
-def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False, grilla=False, escala_grises=False, rotar_eje_x=False, rotar_eje_y=False, estilo_linea='solid', color_linea='blue'):
+def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False, grilla=False, escala_grises=False, estilo_linea='solid', color_linea='blue'):
     # Verificar que data es un array de NumPy
     if not isinstance(data, np.ndarray):
         raise ValueError("El parámetro 'data' debe ser un array de NumPy")
@@ -250,10 +299,6 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
     if grilla:
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
-    if rotar_eje_x:
-        fig.update_xaxes(tickangle=90)
-    if rotar_eje_y:
-        fig.update_yaxes(tickangle=90)
 
     # Convertir el gráfico a una imagen en base64
     img_bytes = fig.to_image(format="png")
@@ -267,8 +312,6 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
         'name_eje_y': name_eje_y if name_eje_y is not None else 'Eje Y',
         'grilla': grilla if grilla is not None else False,
         'escala_grises': escala_grises if escala_grises is not None else False,
-        'rotar_eje_x': rotar_eje_x if rotar_eje_x is not None else 0,
-        'rotar_eje_y': rotar_eje_y if rotar_eje_y is not None else 0,
         'estilo_linea': estilo_linea,
         'color_linea': color_linea
     }
@@ -569,7 +612,6 @@ class simpleSound(object):
     # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
         try:
-            print(data_x)
             data_x, data_y, Status = normalize(data_x, data_y)
             
             rep = self.reproductor

@@ -2,105 +2,77 @@
 {% load static %}
 
 {% block content %}
+<!-- Contenido de la pagina: LADO DERECHO -->
+<div class="col-lg-4">
+    <div class="card mb-4">
+        {% include 'sonif1D/partials/config_dropdown.html' %}
 
+        <!-- CADA CONFIGURACION VA ACA-->           
+        <div class="card-body">
+            <div class="row">
+                <h4 class="text-center">FUNCIONES MATEMÁTICAS </h4>
 
-    <!-- Contenido de la pagina: LADO DERECHO (NO TOCAR)-->
-    <div class="col-lg-4">
-        <div class="card mb-4">
-            <div class="card-header">
-                <div class="dropdown-center">
-                    <div class="d-grid gap-2">
-                    <button class="btn btn-secondary btn-lg dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      CONFIGURACIONES
-                    </button>
-                    <ul class="dropdown-menu">
-                      <nav>
-                          <a href="{% url 'sonif1D:sonido' %}">
-                              <button class="btn btn-secondary4 my-4"> SONIDO </button>
-                          </a>
-                      </nav>   
-                      <nav>
-                          <a href="{% url 'sonif1D:grafico' %}">
-                              <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
-                          </a>
-                      </nav>   
-                      <nav>
-                          <a href="{% url 'sonif1D:funciones_matematicas' %}">
-                              <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
-                          </a>
-                      </nav>   
-                  </ul>                  
-                  </div>
-                </div>
-            </div>
-
-     <!-- CADA CONFIGURACION VA ACA-->           
-            <div class="card-body">
-                <div class="row">
-                    <h4 class="text-center">FUNCIONES MATEMÁTICAS </h4>
-
-<!-- SECCION: DETECCION DE PICOS -->
-                    <div class="list-unstyled">
-                        <div>
+                <!-- SECCION: DETECCION DE PICOS -->
+                <div class="list-unstyled">
+                    <div>
                         <p class="d-inline-flex gap-1">
                             <div class="col text-center">
                                 <div class="d-grid gap-2">
-                          <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                              DETECCIÓN DE PICOS
-                            </button>
-                          </p>
-                        
-                          
-                        </div>
-                          <div class="collapse" id="collapseExample">
+                                    <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        DETECCIÓN DE PICOS
+                                    </button>
+                                </div>
+                            </div>
+                        </p>
+                        <div class="collapse" id="collapseExample">
                             <div class="card card-body">
                                 <label for="customRange2" class="form-label">Sensibilidad de detección</label>
                                 <input type="range" class="form-range" min="0" max="100" id="customRange2">
                             </div>
-                          </div>
                         </div>
-                    </div>   
+                    </div>
+                </div>   
 
-<!-- SECCION: SUAVIZADO -->
-                    <div class="list-unstyled1">
-                        <div>
+                <!-- SECCION: SUAVIZADO -->
+                <div class="list-unstyled1">
+                    <div>
                         <p class="d-inline-flex gap-2">
                             <div class="col text-center">
                                 <div class="d-grid gap-2">
-                          <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
-                                SUAVIZADO
-                            </button>
-                        </div>
-                          </p>
-                        </div> 
-                          <div class="collapse" id="collapseExample2">
+                                    <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                                        SUAVIZADO
+                                    </button>
+                                </div>
+                            </div>
+                        </p>
+                        <div class="collapse" id="collapseExample2">
                             <div class="card card-body">
                                 <label for="customRange2" class="form-label">Sensibilidad del suavizado</label>
-                            <input type="range" class="form-range" min="0" max="1200" id="customRange2">
-                          </div>
-                        </div>
+                                <input type="range" class="form-range" min="0" max="1200" id="customRange2">
+                            </div>
                         </div>
                     </div>
-
-<!-- BOTON LOG -->
-                            <div class="list-unstyled1">
-                              <div class="col text-center my-5">
-                                <div class="d-grid gap-2">
-                                <button class="btn btn-secondary1 type="button"> APLICAR FUNCIÓN LOGARÍTMICA </button>
-                             </div>
-                            </div>
-                            </div>
-<!-- BOTON CUAD -->
-                            <div class="list-unstyled1">
-                             <div class="col text-center my-4">
-                                <div class="d-grid gap-2">
-                                <button class="btn btn-secondary1" type="button"> APLICAR FUNCIÓN CUADRÁTICA</button>
-                             </div> 
-                            </div>
-                            </div> 
-                        </div>
                 </div>
+
+                <!-- BOTON LOG -->
+                <div class="list-unstyled1">
+                    <div class="col text-center my-5">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-secondary1" type="button"> APLICAR FUNCIÓN LOGARÍTMICA </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BOTON CUAD -->
+                <div class="list-unstyled1">
+                    <div class="col text-center my-4">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-secondary1" type="button"> APLICAR FUNCIÓN CUADRÁTICA</button>
+                        </div> 
+                    </div>
+                </div> 
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -2,59 +2,32 @@
 {% load static %}
 {% block title %}Contenido de SonoUno{% endblock %}
 
-
 {% block content %}
-<!-- Contenido de la pagina: LADO DERECHO (NO TOCAR)-->
+<!-- Contenido de la pagina: LADO DERECHO -->
 <div class="col-lg-4">
     <div class="card mb-4">
-        <div class="card-header">
-            <div class="dropdown-center">
-                <div class="d-grid gap-2">
-                <button class="btn btn-secondary btn-lg dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  CONFIGURACIONES
-                </button>
-                <ul class="dropdown-menu">
-                    <nav>
-                        <a href="{% url 'sonif1D:sonido' %}">
-                            <button class="btn btn-secondary4 my-4"> SONIDO </button>
-                        </a>
-                    </nav>   
-                    <nav>
-                        <a href="{% url 'sonif1D:grafico' %}">
-                            <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
-                        </a>
-                    </nav>   
-                    <nav>
-                        <a href="{% url 'sonif1D:funciones_matematicas' %}">
-                            <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
-                        </a>
-                    </nav>   
-                </ul>
-                
-              </div>
-            </div>
-        </div>
+        {% include 'sonif1D/partials/config_dropdown.html' %}
         
-<!-- Contenido de la pagina: LADO DERECHO - GUIA DE INICIO RAPIDO-->
+        <!-- Contenido de la pagina: LADO DERECHO - GUIA DE INICIO RAPIDO-->
         <div class="card-body">
             <div class="row">
-                    <div class="list-unstyled">
+                <div class="list-unstyled">
                     <h4 class="text-center">Guía de inicio rápido</h4>
                     <p class="text-center">
                         En la zona superior de la página encontrarás botones que te permitirán cargar y descargar datos y acceder al manual.
                     </p>      
                     <p class="text-center">
-                        Puedes modificar los valores del sonido y gráfico en “Configuraciones -> Sonido / Gráfico / Funciones matemáticas”.
+                        Puedes modificar los valores del gráfico en "Configuraciones -> Gráfico".
                     </p>  
                     <p class="text-center">
                         Puedes hacer zoom haciendo click y arrastrando sobre la sección que quieras focalizar.
                     </p>   
                     <p class="text-center">
-                        Los botones "M+" y “M-” te permitirán añadir y eliminar marcadores. Los botones Play/Pausa y Stop te ayudarán con la reproducción y “Reset” reinicia el gráfico.
+                        Los botones "M+" y "M-" te permitirán añadir y eliminar marcadores. Los botones Play/Pausa y Stop te ayudarán con la reproducción y "Reset" reinicia el gráfico.
                     </p>     
-                        
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
