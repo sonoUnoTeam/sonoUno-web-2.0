@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'sonif1D.apps.Sonif1DConfig',
     'muongraphy.apps.MuongraphyConfig',
     'lhc.apps.LhcConfig',
+    'imagesonif.apps.ImagesonifConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -203,6 +204,14 @@ LOGGING = {
             'backupCount': 5,
             'formatter': 'lhc_format',
         },
+        'imagesonif_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'imagesonif.log'),
+            'maxBytes': 10*1024*1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'lhc_format',
+        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -220,8 +229,8 @@ LOGGING = {
             'level': 'INFO' if DEBUG else 'WARNING',
             'propagate': False,
         },
-        'utils.lhc_lib': {
-            'handlers': ['lhc_file'],
+        'imagesonif': {
+            'handlers': ['imagesonif_file'],
             'level': 'INFO' if DEBUG else 'WARNING',
             'propagate': False,
         },

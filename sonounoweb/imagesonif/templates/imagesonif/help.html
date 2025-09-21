@@ -1,0 +1,155 @@
+{% extends 'imagesonif/base.html' %}
+{% load static %}
+{% block title %}Ayuda - Sonificación de Imágenes{% endblock %}
+
+{% block content %}
+<div class="imagesonif-container">
+    <div class="container">
+        <!-- Header -->
+        <div class="imagesonif-header">
+            <h1 class="imagesonif-title">Tutorial de Sonificación</h1>
+            <p class="imagesonif-subtitle">Aprende a usar la herramienta paso a paso</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="imagesonif-card">
+                    <div class="imagesonif-card-header">
+                        <h2><i class="bi bi-question-circle me-2"></i>Guía de Uso</h2>
+                    </div>
+                    <div class="imagesonif-card-body">
+                        
+                        <div class="imagesonif-info-panel mb-4">
+                            <div class="imagesonif-info-title">
+                                <i class="bi bi-info-circle me-2"></i>
+                                ¿Qué es la Sonificación de Imágenes?
+                            </div>
+                            <p>La sonificación de imágenes es el proceso de convertir información visual en sonido. 
+                               Nuestra herramienta analiza los valores de brillo de cada columna de píxeles en tu imagen 
+                               y los traduce a frecuencias de audio, creando una representación sonora única de tu imagen.</p>
+                        </div>
+
+                        <h4>Pasos para Sonificar una Imagen</h4>
+                        
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-1-circle text-primary me-2"></i>
+                                Subir tu Imagen
+                            </div>
+                            <p class="imagesonif-result-description">
+                                Arrastra tu imagen al área designada o haz clic para seleccionarla. 
+                                Soportamos formatos JPG, PNG, BMP, GIF, TIFF y WebP con un tamaño máximo de 50MB.
+                                Una vez seleccionada, verás una vista previa y las dimensiones de tu imagen.
+                            </p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-2-circle text-primary me-2"></i>
+                                Vista Previa y Generación
+                            </div>
+                            <p class="imagesonif-result-description">
+                                Revisa la vista previa de tu imagen y las dimensiones. La imagen se convierte automáticamente 
+                                a escala de grises y se procesa utilizando configuraciones optimizadas. 
+                                Haz clic en "Generar Sonificación" para comenzar el procesamiento.
+                            </p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-3-circle text-primary me-2"></i>
+                                Reproducir y Personalizar
+                            </div>
+                            <p class="imagesonif-result-description">
+                                Una vez generada la sonificación, podrás reproducir el video con controles completos: 
+                                play/pause, stop, reset, control de volumen y barra de progreso. 
+                                También puedes ajustar la velocidad de reproducción desde 0.25x hasta 2x.
+                            </p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-4-circle text-primary me-2"></i>
+                                Descargar Resultados
+                            </div>
+                            <p class="imagesonif-result-description">
+                                Descarga tanto el video completo (MP4) que incluye la visualización del progreso, 
+                                como el archivo de audio por separado (WAV). Puedes compartir estos archivos 
+                                o usar el botón "Empezar de Nuevo" para procesar otra imagen.
+                            </p>
+                        </div>
+
+                        <h4 class="mt-4">Consejos para Mejores Resultados</h4>
+                        
+                        <div class="imagesonif-controls">
+                            <ul>
+                                <li><strong>Contraste:</strong> Imágenes con buen contraste producen sonificaciones más interesantes y dinámicas</li>
+                                <li><strong>Composición:</strong> Imágenes con elementos verticales distintivos se traducen mejor al sonido</li>
+                                <li><strong>Resolución:</strong> Imágenes más anchas producen sonificaciones más largas y detalladas</li>
+                                <li><strong>Velocidad de reproducción:</strong> Usa velocidades más lentas (0.5x o 0.25x) para analizar detalles sutiles</li>
+                                <li><strong>Control de volumen:</strong> Ajusta el volumen durante la reproducción para una mejor experiencia</li>
+                                <li><strong>Experimentación:</strong> Prueba diferentes tipos de imágenes para descubrir sonidos únicos</li>
+                            </ul>
+                        </div>
+
+                        <h4 class="mt-4">Preguntas Frecuentes</h4>
+                        
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">¿Cómo se convierte la imagen en sonido?</div>
+                            <p class="imagesonif-result-description">
+                                La imagen se convierte automáticamente a escala de grises y se analiza columna por columna. 
+                                Para cada columna, se calcula el promedio de brillo de todos los píxeles y 
+                                se mapea a una frecuencia específica usando configuraciones optimizadas.
+                            </p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">¿Puedo ajustar la configuración de la sonificación?</div>
+                            <p class="imagesonif-result-description">
+                                La aplicación usa configuraciones optimizadas automáticamente, pero después de generar 
+                                la sonificación puedes controlar la velocidad de reproducción, el volumen, 
+                                y usar todos los controles de video para personalizar tu experiencia de escucha.
+                            </p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">¿Qué controles tengo disponibles después de generar el video?</div>
+                            <p class="imagesonif-result-description">
+                                Tienes controles completos de reproducción: play/pause, stop, reset, control de volumen 
+                                con slider, barra de progreso interactiva, y opciones de velocidad desde 0.25x hasta 2x. 
+                                También puedes silenciar el audio o ajustar el volumen en tiempo real.
+                            </p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">¿Cómo puedo compartir mis sonificaciones?</div>
+                            <p class="imagesonif-result-description">
+                                Puedes descargar tanto el video MP4 completo (que incluye la visualización del progreso) 
+                                como el archivo de audio WAV por separado. Estos archivos se pueden compartir 
+                                en redes sociales, enviar por email, o usar como prefieras.
+                            </p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">¿Puedo usar cualquier tipo de imagen?</div>
+                            <p class="imagesonif-result-description">
+                                Sí, la aplicación acepta múltiples formatos (JPG, PNG, BMP, GIF, TIFF, WebP), 
+                                pero algunas imágenes funcionan mejor que otras. Imágenes con variaciones de brillo 
+                                y buen contraste producen sonificaciones más dinámicas e interesantes.
+                            </p>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <a href="{% url 'imagesonif:index' %}" class="imagesonif-btn-primary">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Volver a la Herramienta
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
