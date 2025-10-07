@@ -28,6 +28,7 @@ urlpatterns = [
     path("sonif1D/", include("sonif1D.urls")), # Incluye las urls de la app sonif1D
     path('muongraphy/', include('muongraphy.urls')), # Incluye las urls de la app moungraphy
     path('lhc/', include('lhc.urls')), # Incluye las urls de la app lhc
+    path('imagesonif/', include('imagesonif.urls')), # Incluye las urls de la app imagesonif
     
 ] 
 

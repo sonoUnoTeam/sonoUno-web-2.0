@@ -1,0 +1,330 @@
+{% extends 'imagesonif/base.html' %}
+{% load static %}
+{% block title %}Sonificación de Imágenes{% endblock %}
+
+{% block content %}
+<!-- Contenido principal de ImageSonif -->
+
+<!-- Contenedor para alertas de JavaScript -->
+<div id="alertContainer" class="col-12 mb-3"></div>
+
+<!-- Columna principal del contenido -->
+<div class="col-lg-8">
+    <!-- Formulario que engloba todo el accordion -->
+    <form id="sonificationForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Accordion de pasos -->
+        <div class="accordion" id="sonificationAccordion">
+            
+            <!-- Paso 1: Seleccionar Imagen -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingStep1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapseStep1" aria-expanded="true" aria-controls="collapseStep1">
+                        <i class="bi bi-upload me-2"></i>
+                        <span class="step-number me-2">1.</span>
+                        Seleccionar Imagen
+                        <span id="step1Status" class="badge bg-secondary">Pendiente</span>
+                    </button>
+                </h2>
+                <div id="collapseStep1" class="accordion-collapse collapse show" 
+                     aria-labelledby="headingStep1" data-bs-parent="#sonificationAccordion">
+                    <div class="accordion-body">
+                        <!-- Área de subida de imagen -->
+                        <div class="imagesonif-upload-zone mb-4" id="uploadArea">
+                            <i class="imagesonif-upload-icon bi bi-cloud-upload"></i>
+                            <div class="imagesonif-upload-text">Arrastra tu imagen aquí</div>
+                            <p class="imagesonif-upload-hint mb-3">o haz clic para seleccionar</p>
+                            <input type="file" id="imageFile" name="image" accept="image/*" style="display: none;">
+                            <button type="button" class="btn btn-primary" onclick="document.getElementById('imageFile').click()">
+                                <i class="bi bi-folder2-open me-2"></i>
+                                Seleccionar Imagen
+                            </button>
+                            <div class="imagesonif-upload-hint mt-3">
+                                Formatos soportados: JPG, PNG, BMP, GIF, TIFF, WebP<br>
+                                Tamaño máximo: 50MB
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Paso 2: Vista Previa -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingStep2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#collapseStep2" aria-expanded="false" aria-controls="collapseStep2">
+                    <i class="bi bi-eye me-2"></i>
+                    <span class="step-number me-2">2.</span>
+                    Vista Previa
+                    <span id="step2Status" class="badge bg-secondary">Bloqueado</span>
+                </button>
+            </h2>
+            <div id="collapseStep2" class="accordion-collapse collapse" 
+                 aria-labelledby="headingStep2" data-bs-parent="#sonificationAccordion">
+                <div class="accordion-body">
+                    
+                    <!-- Preview de imagen -->
+                    <div id="imagePreview" class="mb-4">
+                        <h6><i class="bi bi-image me-2"></i>Vista previa de la imagen:</h6>
+                        <div class="text-center">
+                            <img id="previewImg" class="img-fluid shadow-sm" style="max-height: 300px; border-radius: 8px;">
+                        </div>
+                        <div id="imageInfo" class="text-center mt-3">
+                            <span class="badge bg-primary me-2">Dimensiones</span>
+                            <span class="badge bg-info me-2">Tamaño</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de procesamiento centrado -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success btn-lg px-5" id="processBtn">
+                            <i class="bi bi-play me-2"></i>
+                            Generar Sonificación
+                        </button>
+                        <p class="text-muted mt-2 small">
+                            <i class="bi bi-info-circle me-1"></i>
+                            El volumen se ajustará automáticamente
+                        </p>
+                    </div>
+                    
+                    <!-- Progreso de procesamiento -->
+                    <div id="progressContainer" style="display: none;" class="mt-4">
+                        <div class="card bg-light border-0">
+                            <div class="card-body text-center">
+                                <h6><i class="bi bi-gear-fill me-2"></i>Procesando imagen...</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                         role="progressbar" style="width: 0%"></div>
+                                </div>
+                                <small id="progressText" class="text-muted">Iniciando procesamiento...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 3: Sonificación Generada -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingStep3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#collapseStep3" aria-expanded="false" aria-controls="collapseStep3">
+                    <i class="bi bi-camera-video me-2"></i>
+                    <span class="step-number me-2">3.</span>
+                    Sonificación Generada
+                    <span id="step3Status" class="badge bg-secondary">Bloqueado</span>
+                </button>
+            </h2>
+            <div id="collapseStep3" class="accordion-collapse collapse" 
+                 aria-labelledby="headingStep3" data-bs-parent="#sonificationAccordion">
+                <div class="accordion-body">
+                    
+                    <!-- Video de sonificación -->
+                    <div class="text-center mb-4">
+                        <video id="sonificationVideo" class="w-100 rounded shadow" 
+                               style="max-height: 400px; display: none;">
+                            Tu navegador no soporta el elemento video.
+                        </video>
+                    </div>
+                    
+                    <!-- Controles de video (estilo LHC) -->
+                    <div id="videoControls" style="display: none;">
+                        <div class="card border-0 bg-light rounded-3 p-3 video-controls-panel">
+                            <!-- Controles de reproducción -->
+                            <div class="row align-items-center mb-3">
+                                <div class="col-md-6">
+                                    <div class="btn-group w-100" role="group" aria-label="Controles de video">
+                                        <button class="btn btn-success" id="playBtn" type="button">
+                                            <i class="bi bi-play-fill"></i> Play
+                                        </button>
+                                        <button class="btn btn-warning" id="pauseBtn" type="button" style="display: none;">
+                                            <i class="bi bi-pause-fill"></i> Pause
+                                        </button>
+                                        <button class="btn btn-danger" id="stopBtn" type="button">
+                                            <i class="bi bi-stop-fill"></i> Stop
+                                        </button>
+                                        <button class="btn btn-secondary" id="resetBtn" type="button">
+                                            <i class="bi bi-arrow-clockwise"></i> Reset
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Controles de volumen -->
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center gap-2 volume-controls">
+                                        <button class="btn btn-outline-primary btn-sm" id="volumeDownBtn" type="button" title="Bajar volumen">
+                                            <i class="bi bi-volume-down"></i>
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm" id="muteBtn" type="button" title="Silenciar/Activar sonido">
+                                            <i class="bi bi-volume-up" id="muteIcon"></i>
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm" id="volumeUpBtn" type="button" title="Subir volumen">
+                                            <i class="bi bi-volume-up"></i>
+                                        </button>
+                                        <div class="flex-grow-1 mx-2">
+                                            <input type="range" id="volumeSlider" min="0" max="100" value="100" step="1" class="form-range form-range-sm">
+                                        </div>
+                                        <small class="text-muted text-nowrap fw-bold" id="volumeDisplay">100%</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Barra de progreso y tiempo -->
+                            <div class="row align-items-center mb-3">
+                                <div class="col-md-3">
+                                    <div class="text-center time-display">
+                                        <small class="text-muted">
+                                            <i class="bi bi-clock text-primary"></i> 
+                                            <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="d-flex align-items-center gap-2 progress-section">
+                                        <small class="text-muted fw-bold">0:00</small>
+                                        <input type="range" id="progressBar" min="0" value="0" step="0.1" class="form-range flex-grow-1">
+                                        <small class="text-muted fw-bold" id="totalTimeLabel">0:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Velocidad de reproducción (mantenido) -->
+                            <div class="row align-items-center mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small mb-1">Velocidad de reproducción:</label>
+                                    <select class="form-select form-select-sm" id="playbackSpeed" onchange="changePlaybackSpeed()">
+                                        <option value="0.25">0.25x</option>
+                                        <option value="0.5">0.5x</option>
+                                        <option value="0.75">0.75x</option>
+                                        <option value="1" selected>1x (Normal)</option>
+                                        <option value="1.25">1.25x</option>
+                                        <option value="1.5">1.5x</option>
+                                        <option value="2">2x</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Botones de descarga (mantenidos) -->
+                            <div class="d-flex gap-2 flex-wrap justify-content-center">
+                                <button class="btn btn-outline-primary" id="downloadVideoBtn" type="button">
+                                    <i class="bi bi-download me-2"></i>
+                                    Descargar Video MP4
+                                </button>
+                                <button class="btn btn-outline-success" id="downloadAudioBtn" type="button">
+                                    <i class="bi bi-music-note-beamed me-2"></i>
+                                    Descargar Audio WAV
+                                </button>
+                                <button class="btn btn-outline-warning" id="processNewImageBtn" type="button">
+                                    <i class="bi bi-arrow-counterclockwise me-2"></i>
+                                    Empezar de Nuevo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Información de la sonificación -->
+                    <div id="sonificationInfo" class="card mt-4" style="display: none;">
+                        <div class="card-header">
+                            <h6 class="card-title mb-0">
+                                <i class="bi bi-info-circle me-2"></i>Detalles de la Sonificación
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <h6><i class="bi bi-image me-1"></i> Información de la Imagen</h6>
+                                    <ul class="list-unstyled small">
+                                        <li><strong>Dimensiones:</strong> <span class="badge bg-primary" id="infoDimensions">-</span></li>
+                                        <li><strong>Columnas procesadas:</strong> <span class="badge bg-success" id="infoColumns">-</span></li>
+                                        <li><strong>Duración:</strong> <span class="badge bg-info" id="infoDuration">-</span></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h6><i class="bi bi-gear me-1"></i> Información del Procesamiento</h6>
+                                    <ul class="list-unstyled small">
+                                        <li><strong>Tiempo procesamiento:</strong> <span class="badge bg-dark" id="infoProcessTime">-</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+<!-- Sidebar derecha - Información y funciones ImageSonif -->
+<div class="col-lg-4">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-info-circle"></i> Información del Sistema
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="list-unstyled">
+                <h6><i class="bi bi-download text-success"></i> Descargas Disponibles</h6>
+                <ul class="small">
+                    <li><strong>Video completo:</strong> Visualización final con sonido</li>
+                    <li><strong>Audio completo:</strong> Sonificación en formato WAV</li>
+                </ul>
+                
+                <h6><i class="bi bi-play-circle text-success"></i> Controles de Video</h6>
+                <ul class="small">
+                    <li><strong>Play/Pause:</strong> Reproducir o pausar el video</li>
+                    <li><strong>Reiniciar:</strong> Volver al inicio del video</li>
+                    <li><strong>Velocidad:</strong> Ajustar velocidad de reproducción</li>
+                    <li><strong>Controles nativos:</strong> Usar controles del navegador</li>
+                </ul>
+                
+                <h6><i class="bi bi-music-note-beamed text-primary"></i> Sobre la Sonificación</h6>
+                <ul class="small">
+                    <li><strong>Píxeles brillantes:</strong> Generan tonos más agudos</li>
+                    <li><strong>Píxeles oscuros:</strong> Producen tonos más graves</li>
+                    <li><strong>Columnas de imagen:</strong> Se procesan de izquierda a derecha</li>
+                </ul>
+                
+                <hr>
+                
+                <h6><i class="bi bi-image"></i> Tipos de Imágenes Recomendadas</h6>
+                <p class="small">
+                    Para mejores resultados utiliza imágenes con:
+                </p>
+                <ul class="small">
+                    <li><strong>Buen contraste:</strong> Diferencias claras entre áreas claras y oscuras</li>
+                    <li><strong>Elementos verticales:</strong> Estructuras que varíen verticalmente</li>
+                    <li><strong>Variedad tonal:</strong> Escala de grises amplia</li>
+                </ul>
+                
+                <hr>
+                
+                <h6><i class="bi bi-gear"></i> Configuración</h6>
+                <p class="small">
+                    La sonificación utiliza configuraciones optimizadas automáticamente:
+                </p>
+                <ul class="small">
+                    <li><strong>Volumen:</strong> Ajustado automáticamente para óptima experiencia</li>
+                    <li><strong>Frecuencia:</strong> Mapeada según brillo de píxeles</li>
+                    <li><strong>Duración:</strong> Calculada según dimensiones de imagen</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- JavaScript específico de ImageSonif -->
+<script src="{% static 'imagesonif/js/imagesonif-utils.js' %}"></script>
+<script src="{% static 'imagesonif/js/imagesonif-main.js' %}"></script>
+
+<!-- Configuración para JavaScript -->
+<script>
+    // Configurar URL para las peticiones AJAX
+    window.imagesonifProcessUrl = '{% url "imagesonif:process" %}';
+</script>
+{% endblock %}
