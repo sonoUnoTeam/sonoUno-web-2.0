@@ -297,6 +297,17 @@ class simpleSound(object):
         """
         try:
             if not audio_data_list:
+                logger.error("Lista de audio vacía")
+                return False
+            
+            # Verificar permisos de escritura en el directorio
+            output_dir = os.path.dirname(output_path)
+            if not os.path.exists(output_dir):
+                logger.error(f"Directorio de salida no existe: {output_dir}")
+                return False
+            
+            if not os.access(output_dir, os.W_OK):
+                logger.error(f"No hay permisos de escritura en: {output_dir}")
                 return False
             
             # Concatenar todos los datos de audio
@@ -351,7 +362,17 @@ class simpleSound(object):
         try:
             # Verificar si OpenCV está disponible
             if not CV2_AVAILABLE:
+                logger.warning("OpenCV no está disponible - imágenes de progreso deshabilitadas")
                 self.expErrSs.writeexception(Exception("OpenCV no está disponible"))
+                return []
+            
+            # Verificar que el directorio temporal existe y tiene permisos de escritura
+            if not os.path.exists(temp_dir):
+                logger.error(f"Directorio temporal no existe: {temp_dir}")
+                return []
+            
+            if not os.access(temp_dir, os.W_OK):
+                logger.error(f"No hay permisos de escritura en directorio temporal: {temp_dir}")
                 return []
                 
             from PIL import Image
@@ -374,11 +395,24 @@ class simpleSound(object):
                 
                 # Guardar imagen
                 image_path = os.path.join(temp_dir, f'progress_{j:06d}.png')
-                cv2.imwrite(image_path, img_copy)
+                
+                # Intentar guardar con manejo de errores
+                success = cv2.imwrite(image_path, img_copy)
+                if not success:
+                    logger.error(f"No se pudo guardar imagen de progreso: {image_path}")
+                    return []
+                
+                # Verificar que el archivo se creó correctamente
+                if not os.path.exists(image_path) or os.path.getsize(image_path) == 0:
+                    logger.error(f"Imagen de progreso vacía o no creada: {image_path}")
+                    return []
+                    
                 image_paths.append(image_path)
             
+            logger.info(f"Generadas {len(image_paths)} imágenes de progreso")
             return image_paths
             
         except Exception as e:
+            logger.error(f"Error creando imágenes de progreso: {e}")
             self.expErrSs.writeexception(e)
             return []

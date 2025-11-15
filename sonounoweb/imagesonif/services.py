@@ -11,6 +11,7 @@ import hashlib
 import tempfile
 import logging
 import base64
+import threading
 from typing import Optional, Tuple, Dict, Any, List
 from django.conf import settings
 from PIL import Image, ImageOps
@@ -223,72 +224,111 @@ class ImageSonificationVideoService:
             original_image_for_video, processed_image_for_sonification = self._prepare_image_for_sonification(validated_image)
             image_array = np.array(processed_image_for_sonification)
             
-            # Configurar generador de sonido
+            # Aplicar configuración de frecuencias y tiempo al generador de sonido
             self._configure_sound_generator(sonification_settings)
             
-            # Crear directorio temporal
-            with tempfile.TemporaryDirectory() as temp_dir:
-                # Procesar sonificación
-                audio_data_list, normalized_values = self.sound_generator.process_image_sonification(
-                    image_array
+            # Directorio temporal del proyecto para archivos intermedios
+            temp_dir = os.path.join(settings.BASE_DIR, 'temp')
+            os.makedirs(temp_dir, exist_ok=True)
+            
+            # Procesar sonificación
+            audio_data_list, normalized_values = self.sound_generator.process_image_sonification(
+                image_array
+            )
+            
+            if not audio_data_list:
+                return None, None, None, "Error procesando sonificación: No se generaron datos de audio"
+            
+            # Crear secuencia de imágenes con progreso
+            progress_images = self.sound_generator.create_progress_images(
+                original_image_for_video, 
+                len(audio_data_list), 
+                temp_dir
+            )
+            
+            # Si no se pueden generar imágenes de progreso, continuar sin ellas
+            if not progress_images:
+                logger.warning("No se pudieron generar imágenes de progreso, continuando sin video")
+                progress_images = []
+            
+            # Guardar audio completo
+            audio_path = os.path.join(temp_dir, 'sonification.wav')
+            if not self.sound_generator.save_complete_audio(audio_data_list, audio_path):
+                return None, None, None, "Error guardando archivo de audio"
+            
+            # Verificar que el archivo de audio existe y tiene contenido
+            if not os.path.exists(audio_path) or os.path.getsize(audio_path) == 0:
+                return None, None, None, "Error: Archivo de audio vacío o no creado"
+            
+            # Crear video solo si hay imágenes de progreso
+            video_base64 = None
+            if progress_images:
+                video_base64 = self._create_video_from_images_and_audio(
+                    progress_images, 
+                    audio_path,
+                    sonification_settings.get('time_base', 0.09)  # Actualizado valor por defecto
                 )
-                
-                if not audio_data_list:
-                    return None, None, None, "Error procesando sonificación"
-                
-                # Crear secuencia de imágenes con progreso
-                progress_images = self.sound_generator.create_progress_images(
-                    original_image_for_video, 
-                    len(audio_data_list), 
-                    temp_dir
-                )
-                
-                # Si no se pueden generar imágenes de progreso, continuar sin ellas
-                if not progress_images:
-                    logger.warning("No se pudieron generar imágenes de progreso, continuando sin video")
-                    progress_images = []
-                
-                # Guardar audio completo
-                audio_path = os.path.join(temp_dir, 'sonification.wav')
-                if not self.sound_generator.save_complete_audio(audio_data_list, audio_path):
-                    return None, None, None, "Error guardando audio"
-                
-                # Crear video solo si hay imágenes de progreso
-                video_base64 = None
-                if progress_images:
-                    video_base64 = self._create_video_from_images_and_audio(
-                        progress_images, 
-                        audio_path,
-                        sonification_settings.get('time_base', 0.09)  # Actualizado valor por defecto
-                    )
-                    if not video_base64:
-                        logger.warning("No se pudo generar video, continuando solo con audio")
-                else:
-                    logger.info("Sin imágenes de progreso, continuando solo con audio")
-                
-                # Convertir audio a base64
+                if not video_base64:
+                    logger.warning("No se pudo generar video, continuando solo con audio")
+            else:
+                logger.info("Sin imágenes de progreso, continuando solo con audio")
+            
+            # Convertir audio a base64
+            try:
                 with open(audio_path, 'rb') as audio_file:
                     audio_base64 = base64.b64encode(audio_file.read()).decode('utf-8')
                 
-                # Preparar información de sonificación
-                sonification_info = {
-                    'image_dimensions': original_image_for_video.size,
-                    'total_columns': len(audio_data_list),
-                    'duration_seconds': len(audio_data_list) * sonification_settings.get('time_base', 0.09),  # Actualizado
-                    'settings': sonification_settings,
-                    'from_cache': False,
-                    'timestamp': time.time()
-                }
+                if not audio_base64:
+                    return None, None, None, "Error: No se pudo convertir audio a base64"
+                    
+            except Exception as e:
+                logger.error(f"Error leyendo archivo de audio: {e}")
+                return None, None, None, f"Error leyendo archivo de audio: {str(e)}"
+            
+            # Limpieza asíncrona de archivos temporales (imágenes de progreso y audio)
+            try:
+                def delayed_cleanup():
+                    time.sleep(2)  # Delay para permitir que se complete la lectura de archivos
+                    try:
+                        all_temp_files = progress_images + [audio_path]
+                        self._cleanup_temp_files(all_temp_files)
+                        logger.debug(f"Limpieza retrasada de {len(all_temp_files)} archivos temporales completada")
+                    except Exception as e:
+                        logger.warning(f"Error en limpieza retrasada de archivos temporales: {e}")
                 
-                # Guardar en caché
-                if use_cache:
-                    cache_key = self.cache_service.get_cache_key(image_hash, settings_hash)
-                    self.cache_service.save_sonification_to_cache(
-                        cache_key, video_base64, audio_base64, sonification_info
-                    )
+                # Thread daemon para limpieza sin bloquear el retorno de la función
+                cleanup_thread = threading.Thread(target=delayed_cleanup, daemon=True)
+                cleanup_thread.start()
                 
-                logger.info(f"Sonificación generada exitosamente - {len(audio_data_list)} columnas")
-                return video_base64, audio_base64, sonification_info, "Sonificación generada exitosamente"
+            except Exception as e:
+                logger.warning(f"Error configurando limpieza retrasada: {e}")
+                # Limpieza síncrona como alternativa
+                try:
+                    all_temp_files = progress_images + [audio_path]
+                    self._cleanup_temp_files(all_temp_files)
+                    logger.debug(f"Limpieza inmediata de {len(all_temp_files)} archivos temporales completada")
+                except Exception as cleanup_error:
+                    logger.warning(f"Error en limpieza inmediata de archivos temporales: {cleanup_error}")
+            
+            # Preparar información de sonificación
+            sonification_info = {
+                'image_dimensions': original_image_for_video.size,
+                'total_columns': len(audio_data_list),
+                'duration_seconds': len(audio_data_list) * sonification_settings.get('time_base', 0.09),  # Actualizado
+                'settings': sonification_settings,
+                'from_cache': False,
+                'timestamp': time.time()
+            }
+            
+            # Guardar en caché
+            if use_cache:
+                cache_key = self.cache_service.get_cache_key(image_hash, settings_hash)
+                self.cache_service.save_sonification_to_cache(
+                    cache_key, video_base64, audio_base64, sonification_info
+                )
+            
+            logger.info(f"Sonificación generada exitosamente - {len(audio_data_list)} columnas")
+            return video_base64, audio_base64, sonification_info, "Sonificación generada exitosamente"
         
         except Exception as e:
             logger.error(f"Error procesando sonificación de imagen: {e}")
@@ -313,12 +353,14 @@ class ImageSonificationVideoService:
     
     def _prepare_image_for_sonification(self, image: Image.Image) -> Tuple[Image.Image, Image.Image]:
         """Prepara la imagen para sonificación y video."""
-        # Redimensionar si es muy grande (máximo 960 columnas)
-        max_width = 960
+        # Número máximo de columnas a procesar (determina cantidad de frames del video)
+        max_width = 300
+        
         if image.width > max_width:
             ratio = max_width / image.width
             new_height = int(image.height * ratio)
             original_image = image.resize((max_width, new_height), Image.Resampling.LANCZOS)
+            logger.info(f"Imagen redimensionada de {image.width}x{image.height} a {max_width}x{new_height}")
         else:
             original_image = image.copy()
 
@@ -378,16 +420,15 @@ class ImageSonificationVideoService:
                 audio_clip = audio_clip.subclip(0, video_clip.duration)
                 logger.info(f"Audio ajustado a duración del video: {video_clip.duration}s")
             
-            # Combinar video y audio
+            # Combinar video y audio en clip final
             final_clip = video_clip.set_audio(audio_clip)
             logger.info("Video y audio combinados exitosamente")
             
-            # Usar directorio temp del proyecto como en LHC
-            from django.conf import settings
+            # Directorio temporal del proyecto para archivos de renderizado
             temp_dir = os.path.join(settings.BASE_DIR, 'temp')
             os.makedirs(temp_dir, exist_ok=True)
             
-            # Crear archivos temporales en el directorio del proyecto
+            # Archivos temporales para el proceso de renderizado
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=temp_dir) as temp_video:
                 temp_video_path = temp_video.name
             
@@ -420,7 +461,7 @@ class ImageSonificationVideoService:
                 threads=2
             )
             
-            # Verificar video generado como en LHC
+            # Validar que el video se generó correctamente
             if not os.path.exists(temp_video_path) or os.path.getsize(temp_video_path) == 0:
                 logger.error("Video generado está vacío o no existe")
                 return None
@@ -438,7 +479,7 @@ class ImageSonificationVideoService:
             return None
             
         finally:
-            # Limpieza exhaustiva de recursos MoviePy como en LHC
+            # Liberar recursos de MoviePy (clips de video y audio)
             try:
                 if 'final_clip' in locals():
                     final_clip.close()
@@ -449,16 +490,66 @@ class ImageSonificationVideoService:
             except:
                 pass
             
-            # Limpiar archivos temporales
-            for temp_file in [temp_video_path, temp_audio_path]:
-                try:
-                    if temp_file and os.path.exists(temp_file):
-                        os.unlink(temp_file)
-                except:
-                    pass
-            
-            # Limpiar memoria
             gc.collect()
+            
+            # Delay para liberar file handles antes de eliminar archivos
+            time.sleep(0.3)
+            
+            # Eliminar archivos temporales de renderizado con reintentos
+            for temp_path in [temp_video_path, temp_audio_path]:
+                if temp_path and os.path.exists(temp_path):
+                    max_attempts = 3
+                    for attempt in range(max_attempts):
+                        try:
+                            os.remove(temp_path)
+                            break
+                        except OSError as e:
+                            if attempt < max_attempts - 1:
+                                time.sleep(0.5)
+                                gc.collect()  # Intentar liberar más memoria
+                            else:
+                                logger.warning(f"No se pudo eliminar archivo temporal {temp_path} después de {max_attempts} intentos: {e}")
+    
+    def _cleanup_temp_files(self, file_paths: List[str]) -> None:
+        """
+        Elimina archivos temporales con reintentos para manejar file locks.
+        
+        Args:
+            file_paths: Lista de rutas de archivos a eliminar
+        """
+        import gc
+        
+        if not file_paths:
+            return
+        
+        # Forzar recolección de basura antes de eliminar archivos
+        gc.collect()
+        time.sleep(0.1)
+        
+        for path in file_paths:
+            if path and os.path.exists(path):
+                max_attempts = 5
+                for attempt in range(max_attempts):
+                    try:
+                        # Verificar si el archivo todavía existe antes de cada intento
+                        if not os.path.exists(path):
+                            break
+                        
+                        os.remove(path)
+                        break
+                    except PermissionError as e:
+                        if attempt < max_attempts - 1:
+                            # Espera progresiva entre reintentos
+                            wait_time = 0.5 * (attempt + 1)
+                            time.sleep(wait_time)
+                            gc.collect()
+                            
+                            logger.debug(f"Reintentando eliminar archivo temporal {path} (intento {attempt + 2}/{max_attempts})")
+                        else:
+                            logger.warning(f"No se pudo eliminar archivo temporal {path} después de {max_attempts} intentos: {e}")
+                    except Exception as e:
+                        logger.warning(f"Error eliminando archivo temporal {path}: {e}")
+                        break
 
 
 class ImageSonificationInfoService:
