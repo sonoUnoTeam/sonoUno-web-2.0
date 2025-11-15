@@ -1,31 +1,38 @@
-<!-- Dropdown de Configuraciones -->
-<div class="card-header">
-    <div class="dropdown-center">
-        <div class="d-grid gap-2">
-            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                CONFIGURACIONES
-            </button>
-            <ul class="dropdown-menu">
-                <!-- SONIDO - Sin funcionalidad implementada
-                <nav>
-                    <a href="{% url 'sonif1D:sonido' %}">
-                        <button class="btn btn-secondary4 my-4"> SONIDO </button>
+<!-- Accordion de Configuraciones -->
+<div class="card-header bg-white border-0 p-0">
+    <div class="accordion accordion-flush" id="configAccordion">
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button btn-config-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#configCollapseMenu" aria-expanded="false" aria-controls="configCollapseMenu">
+                    <span class="d-flex align-items-center gap-2 w-100">
+                        <i class="fas fa-cog config-icon"></i>
+                        <span class="fw-bold">CONFIGURACIONES</span>
+                    </span>
+                </button>
+            </h2>
+            <div id="configCollapseMenu" class="accordion-collapse collapse" data-bs-parent="#configAccordion">
+                <div class="accordion-body config-menu-body p-0">
+                    <!-- SONIDO - Sin funcionalidad implementada
+                    <a href="{% url 'sonif1D:sonido' %}" class="config-menu-item">
+                        <i class="fas fa-volume-up"></i>
+                        <span>SONIDO</span>
+                        <i class="fas fa-chevron-right ms-auto"></i>
                     </a>
-                </nav>   
-                -->
-                <nav>
-                    <a href="{% url 'sonif1D:grafico' %}">
-                        <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
+                    -->
+                    <a href="{% url 'sonif1D:grafico' %}" class="config-menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>GRÁFICO</span>
+                        <i class="fas fa-chevron-right ms-auto"></i>
                     </a>
-                </nav>   
-                <!-- FUNCIONES MATEMÁTICAS - Sin funcionalidad implementada
-                <nav>
-                    <a href="{% url 'sonif1D:funciones_matematicas' %}">
-                        <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
+                    <!-- FUNCIONES MATEMÁTICAS - Sin funcionalidad implementada
+                    <a href="{% url 'sonif1D:funciones_matematicas' %}" class="config-menu-item">
+                        <i class="fas fa-calculator"></i>
+                        <span>FUNCIONES MATEMÁTICAS</span>
+                        <i class="fas fa-chevron-right ms-auto"></i>
                     </a>
-                </nav>   
-                -->
-            </ul>
+                    -->
+                </div>
+            </div>
         </div>
     </div>
 </div>

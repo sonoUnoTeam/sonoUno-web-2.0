@@ -10,42 +10,44 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Botones de la barra de navegación -->
-                <!-- <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Importar</button>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:importar_archivo' %}">Archivo csv/txt</a></li>
-                         <li><a class="dropdown-item" href="">Archivo .WAV</a></li>
-                        <li><a class="dropdown-item" href="">Marcadores .CSV</a></li>
-                    </ul>
-                </div> -->
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Exportar</button>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                    <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-download me-2"></i>Exportar
+                    </button>
+                    <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop2">
                         {% if file_name and current_event %}
-                            <li><a class="dropdown-item" href="#" id="downloadEventImage">
-                                <i class="bi bi-image"></i> Imagen Completa del Evento {{ current_event }}
+                            <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadEventImage">
+                                <i class="fas fa-image me-2"></i>Imagen Completa del Evento {{ current_event }}
                             </a></li>
-                            <li><a class="dropdown-item" href="#" id="downloadEventAudio">
-                                <i class="bi bi-music-note-beamed"></i> Audio Completo del Evento {{ current_event }}
+                            <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadEventAudio">
+                                <i class="fas fa-volume-up me-2"></i>Audio Completo del Evento {{ current_event }}
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><span class="dropdown-item-text text-muted small">
-                                <i class="bi bi-info-circle"></i> Descarga directa sin servidor
+                                <i class="fas fa-info-circle me-2"></i>Descarga directa sin servidor
                             </span></li>
                         {% else %}
                             <li><span class="dropdown-item-text text-muted">
-                                <i class="bi bi-info-circle"></i> Selecciona un evento para descargar
+                                <i class="fas fa-info-circle me-2"></i>Selecciona un evento para descargar
                             </span></li>
                         {% endif %}
                     </ul>                    
                 </div>
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Datos</button>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-                        <li><a class="dropdown-item" href="{% url 'lhc:evento' 'sonification_reduced.txt' %}">Ejemplo 1</a></li>
+                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-database me-2"></i>Datos
+                    </button>
+                    <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop3">
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'lhc:evento' 'sonification_reduced.txt' %}">
+                            <i class="fas fa-atom me-2"></i>Ejemplo 1
+                        </a></li>
                     </ul>
                 </div>                    
-                <li class="nav-item"><a class="btn btn-dark text-white" href="{% url 'sonif1D:ayuda' %}">Ayuda</a></li>
+                <li class="nav-item">
+                    <a class="btn btn-dark text-white navbar-help-btn" href="{% url 'sonif1D:ayuda' %}">
+                        <i class="fas fa-question-circle me-2"></i>Ayuda
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

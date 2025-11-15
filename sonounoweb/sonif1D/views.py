@@ -5,6 +5,7 @@ import os
 import time
 import urllib
 import re
+import logging
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -30,9 +31,13 @@ from .sonounolib.data_import.data_import import DataImport
 from .sonounolib.data_transform.predef_math_functions import normalize
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
+from .logging_config import setup_sonif1D_logging
 #from .sonounolib.data_transform import predef_math_functions
 
 matplotlib.use('Agg')
+
+# Configurar logger
+logger = logging.getLogger('sonif1D')
 
 
 def index(request):
@@ -52,20 +57,24 @@ def funciones_matematicas(request):
 
 # Función para mostrar un gráfico de un archivo cargado
 def mostrar_grafico(request, nombre_archivo):
-    # Ruta al archivo txt dentro de la carpeta sample_data
+    # Inicio de mostrar_grafico
     ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'sonif1D', 'sample_data', nombre_archivo)
 
-    data = cargar_archivo(ruta_archivo) # Cargar los datos del archivo
-    data_json = numpy_to_json(data) # Convertir los datos a JSON
-    
+    data = cargar_archivo(ruta_archivo)
     if data is None:
+        logger.error(f"No se pudo cargar el archivo: {nombre_archivo}")
         messages.error(request, "Sin gráfico disponible o archivo no encontrado.")
         return render(request, 'sonif1D/index.html')
-    
-    grafico_data = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
-    audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
-   # Enviar la imagen y el audio en base64 a la plantilla
+    # Datos cargados correctamente
+    data_json = numpy_to_json(data)
+    grafico_data = generar_grafico(data, nombre_archivo)
+
+    audio_base64 = generar_auido_base64(data, request)
+    if not audio_base64:
+        logger.error("Error al generar audio - audio_base64 es None")
+
+    # Enviar la imagen y el audio en base64 a la plantilla
     context = {
         'audio_base64': audio_base64,
         'data_json': data_json,
@@ -149,18 +158,37 @@ def cargar_archivo(ruta_archivo):
         else:
             data = np.loadtxt(ruta_archivo)
         
+        # Verificar dimensiones y forma
+        
         # Verificar que los datos sean una matriz con al menos dos columnas
         if data.ndim != 2 or data.shape[1] < 2:
+            logger.error(f"Datos inválidos. ndim={data.ndim}, shape={data.shape}")
             return None
         
+        logger.info(f"Archivo cargado exitosamente: {os.path.basename(ruta_archivo)} ({data.shape[0]} puntos)")
         return data
     except Exception as e:
+        logger.error(f"Error al cargar archivo: {e}", exc_info=True)
         return None
 
+# Función para reducir la cantidad de puntos en los datos
+def reducir_puntos(data, max_points=300):
+    """
+    Reduce la cantidad de puntos de datos manteniendo la forma general de la señal.
+    Si los datos tienen más puntos que max_points, hace un submuestreo uniforme.
+    """
+    if data.shape[0] <= max_points:
+        return data, data.shape[0]
+    
+    # Calcular el paso para submuestreo uniforme
+    indices = np.linspace(0, data.shape[0] - 1, max_points, dtype=int)
+    return data[indices], data.shape[0]
+
 # Función para cargar los datos desde un string en memoria a un array de NumPy
-def cargar_datos_desde_contenido(contenido):
+def cargar_datos_desde_contenido(contenido, max_points=300):
     """
     Procesa los datos desde un string en memoria y retorna un array de NumPy.
+    Limita automáticamente la cantidad de puntos para optimizar el rendimiento.
     """
     try:
         # Convertir el contenido en un formato procesable (lista de líneas)
@@ -172,6 +200,13 @@ def cargar_datos_desde_contenido(contenido):
             try:
                 # Intentar convertir las líneas a un array de NumPy
                 data = np.array([list(map(float, re.split(delim, line))) for line in lines if line.strip()])
+                
+                # Reducir puntos si es necesario
+                if data.shape[0] > max_points:
+                    data, original_points = reducir_puntos(data, max_points)
+                    # Información para el usuario sobre reducción de puntos
+                    print(f"Datos reducidos de {original_points} a {data.shape[0]} puntos para optimizar la sonorización")
+                
                 return data
             except ValueError:
                 continue
@@ -207,26 +242,38 @@ class ImportarArchivoView(FormView):
                 return self.render_to_response(self.get_context_data(form=form))
 
             # Procesar el contenido como una lista de líneas o directamente
-            data = cargar_datos_desde_contenido(contenido)
-
-            if data is None:
+            # Guardamos el número de puntos original antes de la reducción
+            data_temp = cargar_datos_desde_contenido(contenido.replace('\r\n', '\n'))
+            
+            if data_temp is None:
                 messages.error(self.request, 
                     "El archivo no contiene datos válidos. Verifica que tenga dos columnas numéricas separadas por comas, tabulaciones o espacios.")
                 return self.render_to_response(self.get_context_data(form=form))
 
             # Verificar que tenga al menos algunas filas de datos
-            if data.shape[0] < 2:
+            if data_temp.shape[0] < 2:
                 messages.error(self.request, "El archivo debe contener al menos 2 filas de datos.")
                 return self.render_to_response(self.get_context_data(form=form))
+
+            # Contar puntos originales
+            original_points = data_temp.shape[0]
+            
+            # Reducir puntos si es necesario (máximo 300 puntos para sonorización óptima)
+            data, _ = reducir_puntos(data_temp, max_points=300)
 
             try:
                 data_json = numpy_to_json(data) # Convertir los datos a JSON
                 grafico_data = generar_grafico(data, archivo.name)
                 audio_base64 = generar_auido_base64(data, self.request)
                 
-                # Mensaje de éxito
-                messages.success(self.request, 
-                    f"Archivo '{archivo.name}' cargado exitosamente. Se procesaron {data.shape[0]} puntos de datos.")
+                # Mensaje de éxito con información sobre reducción de puntos
+                if original_points > data.shape[0]:
+                    messages.success(self.request, 
+                        f"Archivo '{archivo.name}' cargado exitosamente. "
+                        f"Se redujeron los datos de {original_points} a {data.shape[0]} puntos para optimizar la sonorización.")
+                else:
+                    messages.success(self.request, 
+                        f"Archivo '{archivo.name}' cargado exitosamente con {data.shape[0]} puntos de datos.")
                 
                 context = self.get_context_data(form=form)
                 context.update(grafico_data)
@@ -319,17 +366,21 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request):
     try:
-        # Instancia el generador de sonido
+        # Instancia el generador de sonido y genera el WAV en memoria
         sonido = simpleSound()
+        wav_data = sonido.generate_sound(data[:, 0], data[:, 1])
 
-        # Llama al método generate_sound para obtener el sonido generado
-        wav_data = sonido.generate_sound(data[:, 0], data[:, 1])  # Usamos x como data_x y y como data_y
+        if wav_data is None:
+            logger.error("generate_sound retornó None")
+            messages.error(request, "Error: No se pudo generar el audio")
+            return None
 
-        # Codifica el archivo WAV en base64
+        logger.info(f"Audio generado correctamente ({len(wav_data)} bytes)")
         audio_base64 = base64.b64encode(wav_data).decode('utf-8')
-
         return audio_base64
+
     except Exception as e:
+        logger.error(f"Error al generar el archivo de audio: {e}", exc_info=True)
         messages.error(request, f"Error al generar el archivo de audio: {e}")
         return None
         
@@ -612,12 +663,14 @@ class simpleSound(object):
     # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
         try:
+            # Normalizar datos
             data_x, data_y, Status = normalize(data_x, data_y)
-            
+
             rep = self.reproductor
             sound_buffer = b''
 
             # Recorremos los datos para generar las ondas
+            logger.info(f"Iniciando generación de {data_x.size} muestras de audio...")
             for x in range(init, data_x.size):
                 # Calculamos la frecuencia basándonos en data_y
                 freq = (rep.max_freq - rep.min_freq) * data_y[x] + rep.min_freq
@@ -626,30 +679,24 @@ class simpleSound(object):
                 # Generamos la onda de la frecuencia calculada
                 f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
 
-                """# Convertimos la onda en un objeto de sonido de pygame
-                s = pygame.mixer.Sound(f.astype('int16'))
-
-                # Acumulamos el buffer de audio
-                sound_buffer += s.get_raw()"""
                 if x == init:
                     sound_to_save = f.astype('int16')
                 else:
                     sound_to_save = np.append(sound_to_save, f.astype('int16'))
 
+            logger.info(f"Generación de ondas completada. Total de muestras de audio: {sound_to_save.size}")
+
             # Creamos un archivo WAV en memoria usando BytesIO
             output_wave = io.BytesIO()
-            """with wave.open(output_wave, 'wb') as wav_file:
-                wav_file.setframerate(rep.f_s)  # Tasa de muestreo
-                wav_file.setnchannels(1)        # Canal mono
-                wav_file.setsampwidth(2)        # 2 bytes (16 bits por muestra)
-                wav_file.writeframesraw(sound_buffer)"""
-            
             write(output_wave, rep.f_s, sound_to_save)
 
             # Devolvemos el archivo WAV en formato de bytes
-            return output_wave.getvalue()
+            wav_bytes = output_wave.getvalue()
+            logger.info(f"=== Audio WAV generado exitosamente. Tamaño: {len(wav_bytes)} bytes ===")
+            return wav_bytes
 
         except Exception as e:
+            logger.error(f"Error al generar el sonido: {e}", exc_info=True)
             print(f"Error al generar el sonido: {e}")
             return None
 

@@ -1,13 +1,19 @@
-<!-- Dropdown de Configuraciones (Deshabilitado durante importación) -->
-<div class="card-header">
-    <div class="dropdown-center">
-        <div class="d-grid gap-2">
-            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" disabled aria-expanded="false" title="Las configuraciones están disponibles después de cargar datos">
-                CONFIGURACIONES
-            </button>
-            <small class="text-muted text-center mt-2">
-                <i class="fas fa-info-circle"></i> Las configuraciones estarán disponibles después de cargar los datos
-            </small>
+<!-- Accordion de Configuraciones (Deshabilitado durante importación) -->
+<div class="card-header bg-white border-0 p-0">
+    <div class="accordion accordion-flush" id="configAccordionDisabled">
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button btn-config-accordion-disabled" type="button" disabled title="Las configuraciones están disponibles después de cargar datos">
+                    <span class="d-flex align-items-center gap-2 w-100">
+                        <i class="fas fa-cog"></i>
+                        <span class="fw-bold">CONFIGURACIONES</span>
+                    </span>
+                </button>
+            </h2>
         </div>
+    </div>
+    <div class="alert alert-info mx-3 mt-3 mb-0" role="alert">
+        <i class="fas fa-info-circle me-2"></i>
+        <small>Las configuraciones estarán disponibles después de cargar los datos</small>
     </div>
 </div>
