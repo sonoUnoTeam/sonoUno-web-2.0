@@ -220,8 +220,8 @@ class ImageSonificationVideoService:
             logger.info("Generando nueva sonificación de imagen")
             
             # Preparar imagen
-            processed_image = self._prepare_image_for_sonification(validated_image)
-            image_array = np.array(processed_image)
+            original_image_for_video, processed_image_for_sonification = self._prepare_image_for_sonification(validated_image)
+            image_array = np.array(processed_image_for_sonification)
             
             # Configurar generador de sonido
             self._configure_sound_generator(sonification_settings)
@@ -238,7 +238,7 @@ class ImageSonificationVideoService:
                 
                 # Crear secuencia de imágenes con progreso
                 progress_images = self.sound_generator.create_progress_images(
-                    processed_image, 
+                    original_image_for_video, 
                     len(audio_data_list), 
                     temp_dir
                 )
@@ -272,7 +272,7 @@ class ImageSonificationVideoService:
                 
                 # Preparar información de sonificación
                 sonification_info = {
-                    'image_dimensions': processed_image.size,
+                    'image_dimensions': original_image_for_video.size,
                     'total_columns': len(audio_data_list),
                     'duration_seconds': len(audio_data_list) * sonification_settings.get('time_base', 0.09),  # Actualizado
                     'settings': sonification_settings,
@@ -311,19 +311,28 @@ class ImageSonificationVideoService:
         settings_str = json.dumps(settings, sort_keys=True)
         return hashlib.md5(settings_str.encode()).hexdigest()
     
-    def _prepare_image_for_sonification(self, image: Image.Image) -> Image.Image:
-        """Prepara la imagen para sonificación."""
-        # Convertir a escala de grises
-        gray_image = ImageOps.grayscale(image)
-        
-        # Redimensionar si es muy grande (máximo 960 columnas como en el script original)
+    def _prepare_image_for_sonification(self, image: Image.Image) -> Tuple[Image.Image, Image.Image]:
+        """Prepara la imagen para sonificación y video."""
+        # Redimensionar si es muy grande (máximo 960 columnas)
         max_width = 960
-        if gray_image.width > max_width:
-            ratio = max_width / gray_image.width
-            new_height = int(gray_image.height * ratio)
-            gray_image = gray_image.resize((max_width, new_height), Image.Resampling.LANCZOS)
+        if image.width > max_width:
+            ratio = max_width / image.width
+            new_height = int(image.height * ratio)
+            original_image = image.resize((max_width, new_height), Image.Resampling.LANCZOS)
+        else:
+            original_image = image.copy()
+
+        # Asegurar que las dimensiones son pares para el codificador de video
+        width, height = original_image.size
+        new_width = width - (width % 2)
+        new_height = height - (height % 2)
+        if new_width != width or new_height != height:
+            original_image = original_image.crop((0, 0, new_width, new_height))
+
+        # Convertir a escala de grises para la sonificación
+        gray_image = ImageOps.grayscale(original_image)
         
-        return gray_image
+        return original_image, gray_image
     
     def _configure_sound_generator(self, settings: Dict) -> None:
         """Configura el generador de sonido con las configuraciones especificadas."""
