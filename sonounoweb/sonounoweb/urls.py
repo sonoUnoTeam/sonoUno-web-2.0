@@ -24,7 +24,14 @@ from sonif1D import views
 
 urlpatterns = [
     path("", views.inicio, name='inicio'),
-    path("sonif1D/", include("sonif1D.urls")),
-    path('admin/', admin.site.urls),    
+    path('admin/', admin.site.urls),  
+    path("sonif1D/", include("sonif1D.urls")), # Incluye las urls de la app sonif1D
+    path('muongraphy/', include('muongraphy.urls')), # Incluye las urls de la app moungraphy
+    path('lhc/', include('lhc.urls')), # Incluye las urls de la app lhc
+    path('imagesonif/', include('imagesonif.urls')), # Incluye las urls de la app imagesonif
     
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] 
+
+# Agrega las URLs para servir archivos estáticos y multimedia
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

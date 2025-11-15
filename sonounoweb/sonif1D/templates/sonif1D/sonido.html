@@ -1,124 +1,97 @@
-{% extends 'base.html' %}
+{% extends 'sonif1D/base.html' %}
 {% load static %}
 
 {% block content %}
+<!-- Contenido de la pagina: LADO DERECHO -->
+<div class="col-lg-4">
+    <div class="card mb-4">
+        {% include 'sonif1D/partials/config_dropdown.html' %}
 
-    <!-- Contenido de la pagina: LADO DERECHO (NO TOCAR)-->
-    <div class="col-lg-4">
-        <div class="card mb-4">
-            <div class="card-header">
-                <div class="dropdown-center">
-                    <div class="d-grid gap-2">
-                    <button class="btn btn-secondary btn-lg dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      CONFIGURACIONES
-                    </button>
-                    <ul class="dropdown-menu">
-                      <nav>
-                          <a href="{% url 'sonif1D:sonido' %}">
-                              <button class="btn btn-secondary4 my-4"> SONIDO </button>
-                          </a>
-                      </nav>   
-                      <nav>
-                          <a href="{% url 'sonif1D:grafico' %}">
-                              <button class="btn btn-secondary4 my-4"> GRÁFICO </button>
-                          </a>
-                      </nav>   
-                      <nav>
-                          <a href="{% url 'sonif1D:funciones_matematicas' %}">
-                              <button class="btn btn-secondary4 my-4"> FUNCIONES MATEMÁTICAS </button>
-                          </a>
-                      </nav>   
-                  </ul>                  
-                                   
-                  </div>
+        <!-- CADA CONFIGURACION VA ACA-->           
+        <div class="card-body">
+            <div class="row">
+                <h5 class="text-center">CONFIGURACIONES DE SONIDO </h5>
+                
+                <!-- SELECCION DE VOLUMEN: -->
+                <div class="list-unstyled">
+                    <div>
+                        <p class="d-inline-flex gap-1">
+                            <div class="col text-center">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        VOLUMEN
+                                    </button>
+                                </div>
+                            </div>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <input type="range" class="form-range" min="0" max="100" id="customRange2">
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                
+                <!-- SELECCION DE FRECUENCIAS -->
+                <div class="list-unstyled1">
+                    <div>
+                        <p class="d-inline-flex gap-2">
+                            <div class="col text-center">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                                        FRECUENCIAS
+                                    </button>
+                                </div>
+                            </div>
+                        </p>
+                        <div class="collapse" id="collapseExample2">
+                            <div class="card card-body">
+                                <input type="range" class="form-range" min="0" max="1200" id="customRange2">
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                
+                <!-- SELECCION DE TIPOS DE SONIDO -->   
+                <div class="list-unstyled1 my-2">
+                    <div>
+                        <p class="d-inline-flex gap-3">
+                            <div class="col text-center">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample2">
+                                        TIPOS DE SONIDO
+                                    </button>
+                                </div>
+                            </div>
+                        </p>
+                        <div class="collapse" id="collapseExample3">
+                            <div class="card card-body">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Sintetizador
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Celesta
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Flauta
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-     <!-- CADA CONFIGURACION VA ACA-->           
-            <div class="card-body">
-                <div class="row">
-                    <h5 class="text-center">CONFIGURACIONES DE SONIDO </h5>
-       <!-- SELECCION DE VOLUMEN: -->
-       <div class="list-unstyled">
-        <div>
-        <p class="d-inline-flex gap-1">
-            <div class="col text-center">
-                <div class="d-grid gap-2">
-          <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              VOLUMEN
-            </button>
-                
-          </p>
         </div>
-          </div>
-        </div>
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <input type="range" class="form-range" min="0" max="100" id="customRange2">
-            </div>
-          </div>
-        </div>
-    </div>  
-       <!-- SELECCION DE FRECUENCIAS -->
-       <div class="list-unstyled1">
-        <div>
-        <p class="d-inline-flex gap-2">
-            <div class="col text-center">
-                <div class="d-grid gap-2">
-          <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
-                FRECUENCIAS
-            </button>
-        </div>
-          </p>
-        </div> 
-          <div class="collapse" id="collapseExample2">
-            <div class="card card-body">
-            <input type="range" class="form-range" min="0" max="1200" id="customRange2">
-          </div>
-        </div>
-        </div>
-    </div>  
-      <!-- SELECCION DE TIPOS DE SONIDO -->   
-      <div class="list-unstyled1 my-2">
-        <div>
-        <p class="d-inline-flex gap-3">
-            <div class="col text-center">
-                <div class="d-grid gap-2">
-          <button class="btn btn-secondary1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample2">
-                TIPOS DE SONIDO
-            </button>
-        </div>
-          </p>
-        </div> 
-          <div class="collapse" id="collapseExample3">
-            <div class="card card-body">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      Sintetizador
-                    </label>
-                  </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Celesta
-                    </label>
-                  </div>
-
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Flauta
-                    </label>
-                  </div>
-
-             </div>
-        </div>
-          </div>
-        </div>
-        </div>
-    </div>  
+    </div>
 </div>
 {% endblock %}

@@ -13,10 +13,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from django.conf.urls.static import static
 import os
+from dotenv import load_dotenv
+
+# Configuración para modo headless en servidores sin dispositivos gráficos/audio
+# Esto debe ir ANTES de cualquier importación de matplotlib o pygame
+os.environ.setdefault('MPLBACKEND', 'Agg')  # Backend no-GUI para matplotlib
+os.environ.setdefault('SDL_AUDIODRIVER', 'dummy')  # Driver de audio dummy para SDL/pygame
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 
 # Quick-start development settings - unsuitable for production
@@ -29,7 +34,7 @@ SECRET_KEY = 'django-insecure-+tp7v=sjir%6@7qa8dc!$g1$%!z!97+ij4&j*9dig5u2cg(jmz
 DEBUG = True
 
 #to UM server
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sonounoapp.um.edu.ar', '127.0.0.1']
 
 #Habilita el uso de messages
 MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
@@ -38,6 +43,9 @@ MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
 
 INSTALLED_APPS = [
     'sonif1D.apps.Sonif1DConfig',
+    'muongraphy.apps.MuongraphyConfig',
+    'lhc.apps.LhcConfig',
+    'imagesonif.apps.ImagesonifConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +56,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    #Para archivos estáticos en producción
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -69,6 +79,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Enable {{ STATIC_URL }} and {{ MEDIA_URL }}
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -125,11 +138,132 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'sonif1D/static'),
+    os.path.join(BASE_DIR, 'sonounoweb', 'static'),
 ]
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "LOCATION": "/media/",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Cargar las variables de entorno desde el archivo .env
+load_dotenv()
+
+# ========================================
+# CONFIGURACIÓN DE LOGGING 
+# ========================================
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+        'lhc_format': {
+            'format': '{asctime} - {name} - {levelname} - {funcName}:{lineno} - {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'maxBytes': 10*1024*1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        },
+        'lhc_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'lhc.log'),
+            'maxBytes': 10*1024*1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'lhc_format',
+        },
+        'imagesonif_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'imagesonif.log'),
+            'maxBytes': 10*1024*1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'lhc_format',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'lhc': {
+            'handlers': ['lhc_file'],
+            'level': 'INFO' if DEBUG else 'WARNING',
+            'propagate': False,
+        },
+        'imagesonif': {
+            'handlers': ['imagesonif_file'],
+            'level': 'INFO' if DEBUG else 'WARNING',
+            'propagate': False,
+        },
+    },
+}
+
+# ========================================
+# CONFIGURACIÓN ESPECÍFICA PARA LHC
+# ========================================
+
+# Límites de seguridad para la aplicación LHC
+LHC_CONFIG = {
+    'MAX_FILE_SIZE': 50 * 1024 * 1024,  # 50MB
+    'MAX_VIDEO_DURATION': 300,  # 5 minutos
+    'MAX_CONCURRENT_REQUESTS': 5,
+    'CACHE_TTL': 3600,  # 1 hora
+    'MAX_CACHE_SIZE': 100 * 1024 * 1024,  # 100MB
+    'TEMP_FILE_TIMEOUT': 3600,  # 1 hora
+    'MAX_EVENTS_PER_FILE': 10000,
+    'ALLOWED_FILES': [
+        'sonification_reduced.txt',
+        'lhc_event_data.txt',
+        'particle_collision_data.txt',
+        'test_lhc_data.txt'
+    ],
+    'VIDEO_SETTINGS': {
+        'FPS': 15,
+        'CODEC': 'libx264',
+        'PRESET': 'fast',
+        'CRF': 26,
+        'RESOLUTION': (1200, 600),
+    }
+}
+
+# Crear directorio de logs si no existe
+os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)

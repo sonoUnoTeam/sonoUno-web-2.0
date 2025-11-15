@@ -1,2 +1,57 @@
+# .gitignore for sonoUno-web-2.0 project
+# Virtual environments
+venv/
+env/
+
+# Django
+*.log
+media/
+staticfiles/
+
+# Django migrations (ignore migration files)
+sonounoweb/*/migrations/*.py
+!sonounoweb/*/migrations/__init__.py
+!sonounoweb/*/migrations/0001_initial.py
+
+# Django migrations cache (always ignore)
+sonounoweb/*/migrations/__pycache__/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.bak
+
+# Logs
+logs
+
+# Specific 
+__pycache__/
 sonounoweb/__pycache__/*
 sonif1D/__pycache__/*
+sonif1D/sonounolib/*/__pycache__/*
+sonif1D/templatetags/__pycache__/*
+utils/__pycache__/*
+utils/lhc_lib/__pycache__/*
+utils/muongraphy_lib/__pycache__/*
+utils/muongraphy_lib/data_import/__pycache__/*
+utils/muongraphy_lib/sound_module/__pycache__/*
+lhc/__pycache__/*
+lhc/management/__pycache__/*
+lhc/management/commands/__pycache__/*
+muongraphy/__pycache__/*
+imagesonif/__pycache__/*
+imagesonif/migrations/__pycache__/*
+
+# Database files
+*.sqlite3
+*.db

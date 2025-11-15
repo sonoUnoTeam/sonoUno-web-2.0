@@ -9,8 +9,9 @@ import re
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import pygame
+#import pygame
 import wave
+import plotly.graph_objs as go
 from PIL import Image
 from django.conf import settings
 from django.conf.urls.static import static
@@ -20,13 +21,16 @@ from django.shortcuts import get_object_or_404, render
 from django.template import loader
 from django.urls import reverse
 from io import BytesIO, StringIO
+from scipy.io.wavfile import write
+from scipy import signal
 
 from .forms import ArchivoForm, ConfiguracionGraficoForm
 from .sonounolib.data_export.data_export import DataExport
 from .sonounolib.data_import.data_import import DataImport
-from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
+from .sonounolib.data_transform.predef_math_functions import normalize
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
+#from .sonounolib.data_transform import predef_math_functions
 
 matplotlib.use('Agg')
 
@@ -35,10 +39,10 @@ def index(request):
     return render(request, "sonif1D/index.html")
 
 def inicio(request):
-    return render(request,"sonif1D/inicio.html")
+    return render(request,"inicio.html")
 
 def ayuda(request):
-    return render(request,"sonif1D/ayuda.html")
+    return render(request,"inicio.html")
 
 def sonido(request):
     return render(request, 'sonif1D/sonido.html')
@@ -58,15 +62,15 @@ def mostrar_grafico(request, nombre_archivo):
         messages.error(request, "Sin gráfico disponible o archivo no encontrado.")
         return render(request, 'sonif1D/index.html')
     
-    grafico_base64 = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
+    grafico_data = generar_grafico(data, nombre_archivo)  # Generar el gráfico en base64
     audio_base64 = generar_auido_base64(data, request)  # Generar el archivo de audio en base64
 
-    # Enviar la imagen y el audio en base64 a la plantilla
+   # Enviar la imagen y el audio en base64 a la plantilla
     context = {
-        'grafico_base64': grafico_base64,
         'audio_base64': audio_base64,
         'data_json': data_json,
     }
+    context.update(grafico_data)
     return render(request, 'sonif1D/index.html', context)
 
 # Vista para configurar y mostrar un gráfico
@@ -75,6 +79,32 @@ class GraficoView(FormView):
     form_class = ConfiguracionGraficoForm
     success_url = reverse_lazy('sonif1D:grafico')
 
+    def get_initial(self):
+        """
+        Retorna los valores iniciales para el formulario.
+        Esto asegura que los campos tengan valores por defecto apropiados.
+        """
+        initial = super().get_initial()
+        # Los valores por defecto ya están definidos en el form, 
+        # pero podemos sobreescribirlos aquí si es necesario
+        initial.update({
+            'name_grafic': 'Gráfico de Datos',
+            'name_eje_x': 'Eje X',
+            'name_eje_y': 'Eje Y',
+            'grilla': True,
+            'escala_grises': False,
+            'estilo_linea': 'solid',
+            'color_linea': 'blue'
+        })
+        return initial
+
+    def get_context_data(self, **kwargs):
+        """
+        Añade contexto adicional al template.
+        """
+        context = super().get_context_data(**kwargs)
+        return context
+
     def form_valid(self, form):
         # Procesar los datos del formulario
         name_grafic = form.cleaned_data['name_grafic']
@@ -82,12 +112,10 @@ class GraficoView(FormView):
         name_eje_y = form.cleaned_data['name_eje_y']
         grilla = form.cleaned_data['grilla']
         escala_grises = form.cleaned_data['escala_grises']
-        rotar_eje_x = form.cleaned_data['rotar_eje_x']
-        rotar_eje_y = form.cleaned_data['rotar_eje_y']
         estilo_linea = form.cleaned_data['estilo_linea']
         color_linea = form.cleaned_data['color_linea']
 
-        # Obtener los datos en json del formulario
+        # Obtener los datos en json del gráfico
         data_json = self.request.POST.get('data_json')
 
         if not data_json:
@@ -96,15 +124,17 @@ class GraficoView(FormView):
 
         # Transformar los datos de json a numpy
         data = json_to_numpy(data_json)
+        
         if data is None:
             messages.error(self.request, "Error al cargar los datos del gráfico.")
             return self.render_to_response(self.get_context_data(form=form))
 
-        new_grafico_base64 = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, rotar_eje_x, rotar_eje_y, estilo_linea, color_linea)
-      
+        grafico_data = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, estilo_linea, color_linea)
+  
         # Enviar la imagen y el audio en base64 a la plantilla
         context = self.get_context_data(form=form)
-        context['grafico_base64'] = new_grafico_base64
+        context.update(grafico_data)
+        context['data_json'] = data_json
         return self.render_to_response(context)
 
     def form_invalid(self, form):
@@ -162,29 +192,53 @@ class ImportarArchivoView(FormView):
         archivo = self.request.FILES['archivo']
         nombre_archivo = archivo.name.lower()
         
+        # Verificar el tamaño del archivo (máximo 10MB)
+        if archivo.size > 10 * 1024 * 1024:  # 10MB
+            messages.error(self.request, "El archivo es demasiado grande. El tamaño máximo permitido es 10MB.")
+            return self.render_to_response(self.get_context_data(form=form))
+        
         # Verificar la extensión del archivo
         if nombre_archivo.endswith('.csv') or nombre_archivo.endswith('.txt'):
-            # Leer el contenido del archivo cargado
-            contenido = archivo.read().decode('utf-8')
+            try:
+                # Leer el contenido del archivo cargado
+                contenido = archivo.read().decode('utf-8')
+            except UnicodeDecodeError:
+                messages.error(self.request, "Error de codificación. Asegúrate de que el archivo esté en formato UTF-8.")
+                return self.render_to_response(self.get_context_data(form=form))
 
             # Procesar el contenido como una lista de líneas o directamente
             data = cargar_datos_desde_contenido(contenido)
-            data_json = numpy_to_json(data) # Convertir los datos a JSON
 
             if data is None:
-                messages.error(self.request, "El archivo no contiene datos válidos.")
-                return self.render_to_response(self.get_context_data(form=form), template_name='sonif1D/index.html')
+                messages.error(self.request, 
+                    "El archivo no contiene datos válidos. Verifica que tenga dos columnas numéricas separadas por comas, tabulaciones o espacios.")
+                return self.render_to_response(self.get_context_data(form=form))
 
-            grafico_base64 = generar_grafico(data, archivo.name)
-            audio_base64 = generar_auido_base64(data, self.request)
-            
-            context = self.get_context_data(form=form)
-            context.update({
-                'grafico_base64': grafico_base64,
-                'audio_base64': audio_base64,
-                'data_json': data_json,
-            })
-            return self.render_to_response(context, template_name='sonif1D/index.html')
+            # Verificar que tenga al menos algunas filas de datos
+            if data.shape[0] < 2:
+                messages.error(self.request, "El archivo debe contener al menos 2 filas de datos.")
+                return self.render_to_response(self.get_context_data(form=form))
+
+            try:
+                data_json = numpy_to_json(data) # Convertir los datos a JSON
+                grafico_data = generar_grafico(data, archivo.name)
+                audio_base64 = generar_auido_base64(data, self.request)
+                
+                # Mensaje de éxito
+                messages.success(self.request, 
+                    f"Archivo '{archivo.name}' cargado exitosamente. Se procesaron {data.shape[0]} puntos de datos.")
+                
+                context = self.get_context_data(form=form)
+                context.update(grafico_data)
+                context.update({
+                    'audio_base64': audio_base64,
+                    'data_json': data_json,
+                })
+                return self.render_to_response(context, template_name='sonif1D/index.html')
+                
+            except Exception as e:
+                messages.error(self.request, f"Error al procesar los datos: {str(e)}")
+                return self.render_to_response(self.get_context_data(form=form))
         else:
             messages.error(self.request, "Formato de archivo no soportado. Por favor, sube un archivo CSV o TXT.")
             return self.render_to_response(self.get_context_data(form=form))
@@ -217,38 +271,51 @@ def json_to_numpy(json_str):
         print(f"Error al decodificar JSON: {e}")
         return None
     
-# Función para generar el gráfico en base64 con configuraciones
-def generar_grafico(data, name_grafic=False, name_eje_x =False, name_eje_y =False, grilla=False, escala_grises=False, rotar_eje_x=False, rotar_eje_y=False, estilo_linea='solid', color_linea='blue'):
+# Función para generar el gráfico en base64 con configuraciones usando Plotly
+def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False, grilla=False, escala_grises=False, estilo_linea='solid', color_linea='blue'):
     # Verificar que data es un array de NumPy
     if not isinstance(data, np.ndarray):
         raise ValueError("El parámetro 'data' debe ser un array de NumPy")
     
-    plt.figure(figsize=(10, 5))
-    plt.plot(data[:, 0], data[:, 1], linestyle=estilo_linea, color=color_linea)
-    if name_eje_x:
-        plt.xlabel(name_eje_x)
-    if name_eje_y:    
-        plt.ylabel(name_eje_y)
-    if name_grafic:
-        plt.title(name_grafic)
-    if grilla:
-        plt.grid(True)
+    # Crear el gráfico con Plotly
+    fig = go.Figure()
+
+    # Aplicar escala de grises si está seleccionada
     if escala_grises:
-        plt.gray()
-    if rotar_eje_x:
-        plt.xticks(rotation=90)
-    if rotar_eje_y:
-        plt.yticks(rotation=90)
+        color_linea = 'gray'
+        fig.update_layout(template='plotly_white')
+    else:
+        fig.update_layout(template='plotly')
 
-    buffer = BytesIO()  # Crear un buffer de Bytes para guardar la imagen
-    plt.savefig(buffer, format='png')
-    plt.close()
-    buffer.seek(0)  # Mover el cursor al inicio del buffer
+    # Agregar la línea al gráfico
+    fig.add_trace(go.Scatter(x=data[:, 0], y=data[:, 1], mode='lines', line=dict(color=color_linea, dash=estilo_linea)))
+    
+    if name_eje_x:
+        fig.update_xaxes(title_text=name_eje_x)
+    if name_eje_y:
+        fig.update_yaxes(title_text=name_eje_y)
+    if name_grafic:
+        fig.update_layout(title_text=name_grafic)
+    if grilla:
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
 
-    grafico_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')  # Codifica la imagen en base64
+    # Convertir el gráfico a una imagen en base64
+    img_bytes = fig.to_image(format="png")
+    grafico_base64 = base64.b64encode(img_bytes).decode('utf-8')
 
-    return grafico_base64
-
+    # Establecer valores predeterminados si no se reciben parámetros
+    return {
+        'grafico_base64': grafico_base64,
+        'name_grafic': name_grafic if name_grafic is not None else 'Gráfico',
+        'name_eje_x': name_eje_x if name_eje_x is not None else 'Eje X',
+        'name_eje_y': name_eje_y if name_eje_y is not None else 'Eje Y',
+        'grilla': grilla if grilla is not None else False,
+        'escala_grises': escala_grises if escala_grises is not None else False,
+        'estilo_linea': estilo_linea,
+        'color_linea': color_linea
+    }
+    
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request):
     try:
@@ -289,7 +356,7 @@ class reproductorRaw (object):
         self.duty_cycle = duty_cycle
         self.waveform = self.get_available_waveforms()[0]
 
-        pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
+        #pygame.mixer.init(self.f_s, -16, channels = 1,buffer=1024, allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE)
 
         self._last_freq = 0
         self._last_time = 0
@@ -493,8 +560,8 @@ class reproductorRaw (object):
             freq = self.fixed_freq
         self.env = self._adsr_envelope()
         f = self.env*vol*2**14*self.generate_waveform(freq)
-        self.sound = pygame.mixer.Sound(f.astype('int16'))
-        self.sound.play()
+        #self.sound = pygame.mixer.Sound(f.astype('int16'))
+        #self.sound.play()
 
 #Esta clase es la que se comunica con la clase principal.
 class simpleSound(object):
@@ -527,8 +594,8 @@ class simpleSound(object):
                 #print(self.env.get_adsr())
                 f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                     delta_t = 1)
-                s = pygame.mixer.Sound(f.astype('int16'))
-                sound_buffer += s.get_raw()
+                #s = pygame.mixer.Sound(f.astype('int16'))
+                #sound_buffer += s.get_raw()
                 #localTrack.add_notes(Note(int((dataY[x]*rango)+offset)))
 
             with wave.open(path,'wb') as output_file:
@@ -545,6 +612,50 @@ class simpleSound(object):
     # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
         try:
+            data_x, data_y, Status = normalize(data_x, data_y)
+            
+            rep = self.reproductor
+            sound_buffer = b''
+
+            # Recorremos los datos para generar las ondas
+            for x in range(init, data_x.size):
+                # Calculamos la frecuencia basándonos en data_y
+                freq = (rep.max_freq - rep.min_freq) * data_y[x] + rep.min_freq
+                self.env = rep._adsr_envelope()
+
+                # Generamos la onda de la frecuencia calculada
+                f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
+
+                """# Convertimos la onda en un objeto de sonido de pygame
+                s = pygame.mixer.Sound(f.astype('int16'))
+
+                # Acumulamos el buffer de audio
+                sound_buffer += s.get_raw()"""
+                if x == init:
+                    sound_to_save = f.astype('int16')
+                else:
+                    sound_to_save = np.append(sound_to_save, f.astype('int16'))
+
+            # Creamos un archivo WAV en memoria usando BytesIO
+            output_wave = io.BytesIO()
+            """with wave.open(output_wave, 'wb') as wav_file:
+                wav_file.setframerate(rep.f_s)  # Tasa de muestreo
+                wav_file.setnchannels(1)        # Canal mono
+                wav_file.setsampwidth(2)        # 2 bytes (16 bits por muestra)
+                wav_file.writeframesraw(sound_buffer)"""
+            
+            write(output_wave, rep.f_s, sound_to_save)
+
+            # Devolvemos el archivo WAV en formato de bytes
+            return output_wave.getvalue()
+
+        except Exception as e:
+            print(f"Error al generar el sonido: {e}")
+            return None
+
+
+
+        """try:            
             rep = self.reproductor
             sound_buffer = b''
 
@@ -576,7 +687,7 @@ class simpleSound(object):
 
         except Exception as e:
             print(f"Error al generar el sonido: {e}")
-            return None
+            return None"""
 
         
     def save_sound_multicol_stars(self, path, data_x, data_y1, data_y2, init=0):
@@ -589,23 +700,23 @@ class simpleSound(object):
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             #y2
             rep.set_waveform('flute')
             freq = (rep.max_freq-rep.min_freq)*data_y2[x]+rep.min_freq
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             # Silence
             f = self.env*rep.volume*2**15*rep.generate_waveform(0,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
 
         with wave.open(path,'wb') as output_file:
             output_file.setframerate(rep.f_s)
@@ -624,23 +735,23 @@ class simpleSound(object):
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             #y2
             rep.set_waveform('flute')
             freq = (rep.max_freq-rep.min_freq)*data_y2[x]+rep.min_freq
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             # Silence
             f = self.env*rep.volume*2**15*rep.generate_waveform(0,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
 
         with wave.open(path,'wb') as output_file:
             output_file.setframerate(rep.f_s)
@@ -660,8 +771,8 @@ class simpleSound(object):
             self.env = rep._adsr_envelope()
             f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                 delta_t = 1)
-            s = pygame.mixer.Sound(f.astype('int16'))
-            sound_buffer += s.get_raw()
+            #s = pygame.mixer.Sound(f.astype('int16'))
+            #sound_buffer += s.get_raw()
             #y2
             rep.set_waveform('square')
             emission_flag = float(data_x.loc[x]) in emission['x'].unique()
@@ -681,8 +792,8 @@ class simpleSound(object):
                 self.env = rep._adsr_envelope()
                 f = self.env*rep.volume*2**15*rep.generate_waveform(freq,
                     delta_t = 1)
-                s = pygame.mixer.Sound(f.astype('int16'))
-                sound_buffer += s.get_raw()
+                #s = pygame.mixer.Sound(f.astype('int16'))
+                #sound_buffer += s.get_raw()
                 freq_status = False
             # Silence
             #f = self.env*rep.volume*2**15*rep.generate_waveform(0,

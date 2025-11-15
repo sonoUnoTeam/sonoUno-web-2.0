@@ -12,6 +12,38 @@ import numpy as np
 #from data_export.data_export import DataExport
 
 
+def normalize(data_x, data_y, init=0):
+
+    """
+    This method normalize the data provided between 0 and 1 with the
+    Feature Scaling method. The changes are applied to the y variable.
+    
+    This method return the new data with a true status or the unchanged
+    data with false status.
+    """
+    # Normalization by variable scaling (Feature Scaling o MinMax Scaler)
+    # The standardization by standard scaling (Standard Scaler) is not 
+    # posible because the data is not between 0 and 1. The Standard Scaler
+    # operation is:
+    # self.new_y = (data_y-np.mean(data_y)) / np.std(data_y)
+    try:
+        # Check if all values of the array are the same
+        equal_values = np.all(data_y == data_y[init])
+        # If True set a medium value, if not perform the normalization
+        if equal_values:
+            new_y = np.copy(data_y)
+            new_y.fill(0)
+        else:
+            #Perform the normalization
+            new_y = ((data_y-np.nanmin(data_y)) 
+                / (np.nanmax(data_y)-np.nanmin(data_y)))
+        return data_x, new_y, True
+    except Exception as Error:
+        #self._export_error_info.writeexception(Error)
+        print(Error)
+        return data_x, data_y, False
+
+
 class PredefMathFunctions(object):
 
 
