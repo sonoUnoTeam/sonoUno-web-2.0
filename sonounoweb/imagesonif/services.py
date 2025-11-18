@@ -353,6 +353,9 @@ class ImageSonificationVideoService:
     
     def _prepare_image_for_sonification(self, image: Image.Image) -> Tuple[Image.Image, Image.Image]:
         """Prepara la imagen para sonificación y video."""
+        if image.mode == 'RGBA':
+            image = image.convert('RGB')
+        
         # Número máximo de columnas a procesar (determina cantidad de frames del video)
         max_width = 300
         
