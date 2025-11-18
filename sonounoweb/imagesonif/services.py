@@ -268,11 +268,12 @@ class ImageSonificationVideoService:
                     audio_path,
                     sonification_settings.get('time_base', 0.09)  # Actualizado valor por defecto
                 )
-                if not video_base64:
-                    logger.warning("No se pudo generar video, continuando solo con audio")
-            else:
-                logger.info("Sin imágenes de progreso, continuando solo con audio")
-            
+                if video_base64:
+                    logger.info("Video creado exitosamente")
+                else:
+                    logger.warning("Fallo al crear video")
+                    return None, None, None, "Error: No se pudo generar el video de sonificación"
+
             # Convertir audio a base64
             try:
                 with open(audio_path, 'rb') as audio_file:
