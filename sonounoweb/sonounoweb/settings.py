@@ -169,7 +169,6 @@ load_dotenv()
 # ========================================
 # CONFIGURACIÓN DE LOGGING 
 # ========================================
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -179,64 +178,54 @@ LOGGING = {
             'style': '{',
         },
         'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-        'lhc_format': {
-            'format': '{asctime} - {name} - {levelname} - {funcName}:{lineno} - {message}',
-            'style': '{',
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
         },
     },
     'handlers': {
         'file': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
-            'maxBytes': 10*1024*1024,  # 10MB
-            'backupCount': 5,
-            'formatter': 'verbose',
-        },
-        'lhc_file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'lhc.log'),
-            'maxBytes': 10*1024*1024,  # 10MB
-            'backupCount': 5,
-            'formatter': 'lhc_format',
-        },
-        'imagesonif_file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'imagesonif.log'),
-            'maxBytes': 10*1024*1024,  # 10MB
-            'backupCount': 5,
-            'formatter': 'lhc_format',
+            'formatter': 'simple',
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
     },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'WARNING',
+    },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['console', 'file'],
             'level': 'INFO',
-            'propagate': True,
-        },
-        'lhc': {
-            'handlers': ['lhc_file'],
-            'level': 'INFO' if DEBUG else 'WARNING',
             'propagate': False,
         },
         'imagesonif': {
-            'handlers': ['imagesonif_file'],
-            'level': 'INFO' if DEBUG else 'WARNING',
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'lhc': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'sonif1D': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'muongraphy': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
             'propagate': False,
         },
     },
 }
-
 # ========================================
 # CONFIGURACIÓN ESPECÍFICA PARA LHC
 # ========================================
