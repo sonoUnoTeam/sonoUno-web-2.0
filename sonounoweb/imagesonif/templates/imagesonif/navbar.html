@@ -10,8 +10,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Botones de la barra de navegación -->
-                <li class="nav-item"><a class="btn btn-dark text-white me-2" href="{% url 'imagesonif:help' %}">Tutorial</a></li>
-                <li class="nav-item"><a class="btn btn-dark text-white" href="{% url 'imagesonif:help' %}">Ayuda</a></li>
+                <li class="nav-item">
+                    <a class="btn btn-dark text-white navbar-help-btn me-2" href="{% url 'imagesonif:help' %}">
+                        <i class="fas fa-book me-2"></i>Tutorial
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-dark text-white navbar-help-btn" href="{% url 'imagesonif:help' %}">
+                        <i class="fas fa-question-circle me-2"></i>Ayuda
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

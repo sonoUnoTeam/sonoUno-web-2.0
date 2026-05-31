@@ -11,17 +11,30 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Botones de la barra de navegación -->
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Datos</button>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-                        <li><a class="dropdown-item" href="{% url 'muongraphy:grafico' 'Example_1.csv' %}">Example 1</a></li>
-                        <li><a class="dropdown-item" href="{% url 'muongraphy:grafico' 'Example_2.csv' %}">Example 2</a></li>
-                        <li><a class="dropdown-item" href="{% url 'muongraphy:grafico' 'Example_3.csv' %}">Example 3</a></li>
-                        <li><a class="dropdown-item" href="{% url 'muongraphy:grafico' 'Example_4.csv' %}">Example 4</a></li>
+                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-database me-2"></i>Datos
+                    </button>
+                    <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop3">
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'muongraphy:grafico' 'Example_1.csv' %}">
+                            <i class="fas fa-chart-bar me-2"></i>Example 1
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'muongraphy:grafico' 'Example_2.csv' %}">
+                            <i class="fas fa-chart-line me-2"></i>Example 2
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'muongraphy:grafico' 'Example_3.csv' %}">
+                            <i class="fas fa-chart-area me-2"></i>Example 3
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'muongraphy:grafico' 'Example_4.csv' %}">
+                            <i class="fas fa-chart-pie me-2"></i>Example 4
+                        </a></li>
                     </ul>
                 </div>                    
-                <li class="nav-item"><a class="btn btn-dark text-white" href="{% url 'sonif1D:ayuda' %}">Ayuda</a></li>
+                <li class="nav-item">
+                    <a class="btn btn-dark text-white navbar-help-btn" href="{% url 'sonif1D:ayuda' %}">
+                        <i class="fas fa-question-circle me-2"></i>Ayuda
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
-
 </nav>

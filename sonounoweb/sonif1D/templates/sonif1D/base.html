@@ -12,8 +12,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS Personal -->
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- CSS Configuraciones -->
+    <link rel="stylesheet" href="{% static 'sonif1D/config_styles.css' %}">
     <!-- JavaScript -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -36,46 +40,87 @@
                 <div class="card mb-4">
                     <div class="card-body">
 
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                              <input type="text" class="form-control" placeholder="Nombre del gráfico" aria-label="Nombre del gráfico">
-                            </div>
-    
-                            <div class="col-sm"> <!--play/stop-->
-                                <button id="playStopButton" class="btn btn-secondary3">
-                                    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-                                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                                    </svg>
-                                    <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pause-fill visually-hidden" viewBox="0 0 16 16">
-                                        <path d="M5.5 3.5A.5.5 0 0 1 6 4v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
-                                    </svg>
-                                    <p class="visually-hidden">Play</p>                        
-                                </button>
-                            </div>
-
-                            <div class="col-sm"> <!--Restart-->
-                                <button id="RestartButton" class="btn btn-secondary3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
-                                    <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z"/>
-                                  </svg></button>
-                            </div>
-                            <div class="col-sm"> <!--undo-->
-                                <button id="undoButton" class="btn btn-secondary3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
-                                    <path d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"/>
-                                  </svg></button>
-                            </div>
-                            <div class="col-sm"> <!--reset-->
-                                <button id="resetButton" class="btn btn-secondary3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
-                                        <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
                         <!-- Gráfico -->
                         <div id="grafico" style="width: 100%; height: 500px;"></div>
+                        
+                        <!-- Controles principales de reproducción -->
+                        <div class="row mb-3 mt-3">
+                            <!-- Botones de control -->
+                            <div class="col-md-6 mb-2">
+                                <div class="btn-group w-100" role="group">
+                                    <button class="btn btn-success" id="playBtn" type="button">
+                                        <i class="bi bi-play-fill"></i> Play
+                                    </button>
+                                    <button class="btn btn-warning" id="pauseBtn" type="button" style="display: none;">
+                                        <i class="bi bi-pause-fill"></i> Pause
+                                    </button>
+                                    <button class="btn btn-danger" id="stopBtn" type="button">
+                                        <i class="bi bi-stop-fill"></i> Stop
+                                    </button>
+                                    <button class="btn btn-secondary" id="audioResetBtn" type="button">
+                                        <i class="bi bi-arrow-clockwise"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Controles de volumen -->
+                            <div class="col-md-6 mb-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm" id="volumeDownBtn" type="button" title="Bajar volumen">
+                                        <i class="bi bi-volume-down"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm" id="muteBtn" type="button" title="Silenciar/Activar sonido">
+                                        <i class="bi bi-volume-up" id="muteIcon"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm" id="volumeUpBtn" type="button" title="Subir volumen">
+                                        <i class="bi bi-volume-up"></i>
+                                    </button>
+                                    <div class="flex-grow-1 mx-2">
+                                        <input type="range" id="volumeSlider" min="0" max="100" value="100" step="1" class="form-range form-range-sm">
+                                    </div>
+                                    <small class="text-muted text-nowrap fw-bold" id="volumeDisplay">100%</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Barra de progreso y tiempo -->
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <small class="text-muted">
+                                        <i class="bi bi-clock text-primary"></i> 
+                                        <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="d-flex align-items-center gap-2">
+                                    <small class="text-muted fw-bold" id="startTimeLabel">0:00</small>
+                                    <input type="range" id="progressBar" min="0" value="0" step="0.1" class="form-range flex-grow-1">
+                                    <small class="text-muted fw-bold" id="endTimeLabel">0:00</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Botones de marcadores -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="btn-group w-100" role="group">
+                                    <button id="addMarkerButton" class="btn btn-outline-primary" title="Agregar marcador (M+)">
+                                        <i class="bi bi-bookmark-plus-fill"></i> M+
+                                    </button>
+                                    <button id="removeMarkerButton" class="btn btn-outline-danger" title="Eliminar último marcador (M-)">
+                                        <i class="bi bi-bookmark-dash-fill"></i> M-
+                                    </button>
+                                    <button id="undoButton" class="btn btn-outline-warning" title="Deshacer configuración">
+                                        <i class="bi bi-backspace-fill"></i> Undo
+                                    </button>
+                                    <button id="resetButton" class="btn btn-outline-secondary" title="Reset completo">
+                                        <i class="bi bi-arrow-counterclockwise"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Reproductor de audio -->
                         <audio id="audioPlayer" >
@@ -83,11 +128,27 @@
                             Tu navegador no soporta la reproducción de audio.
                         </audio>                                               
 
-                        <h5 for="customRange2" class="text-left">Posición del eje X</h5>
-                        <input type="range" class="form-range" min="0" max="10000" value="0" id="customRange2">
-
-                        <h5 for="customRange3" class="text-left">Tempo</h5>
-                        <input type="range" class="form-range" min="30" max="200" value="120" id="customRange3">
+                        <!-- Velocidad de reproducción -->
+                        <div class="row align-items-center mt-3">
+                            <div class="col-md-6">
+                                <label class="form-label mb-1" for="playbackSpeed">Velocidad de reproducción:</label>
+                                <select class="form-select form-select-sm" id="playbackSpeed">
+                                    <option value="0.25">0.25x</option>
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1" selected>1x (Normal)</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2x</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label mb-1">&nbsp;</label>
+                                <div>
+                                    <span class="badge bg-info text-dark">Marcadores: <span id="markerCount">0</span></span>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -100,10 +161,23 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Obtener elementos del DOM
             const audioPlayer = document.getElementById('audioPlayer');
-            const sliderX = document.getElementById('customRange2'); // Posición eje X
-            const playStopButton = document.getElementById('playStopButton');
-            const playIcon = document.getElementById('playIcon');
-            const pauseIcon = document.getElementById('pauseIcon');
+            const playBtn = document.getElementById('playBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const audioResetBtn = document.getElementById('audioResetBtn');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeUpBtn = document.getElementById('volumeUpBtn');
+            const volumeDownBtn = document.getElementById('volumeDownBtn');
+            const muteBtn = document.getElementById('muteBtn');
+            const progressBar = document.getElementById('progressBar');
+            const currentTimeSpan = document.getElementById('currentTime');
+            const totalTimeSpan = document.getElementById('totalTime');
+            const addMarkerButton = document.getElementById('addMarkerButton');
+            const removeMarkerButton = document.getElementById('removeMarkerButton');
+            
+            // Array para almacenar los marcadores
+            let markers = [];
+            let previousVolume = 1.0;
             
             // Obtener valores del contexto Django
             const audioBase64 = "{{ audio_base64|default:'' }}";
@@ -139,26 +213,22 @@
             if (data_json) {
                 // Si hay datos del gráfico, los guarda en localStorage y los muestra
                 localStorage.setItem('data_json', data_json);
-                console.log("Datos del gráfico guardados en localStorage.");
+                // Limpiar marcadores al cargar nuevos datos
+                localStorage.removeItem('markers');
+                markers = [];
                 renderGrafico(convertirData(data_json)); // Convierte y muestra los datos
             } else {
                 // Si no hay datos del gráfico, intenta cargarlos desde localStorage
                 const dataJsonDesdeStorage = localStorage.getItem('data_json');
                 if (dataJsonDesdeStorage) {
                     // Si hay datos del gráfico en localStorage, los muestra
-                    console.log("Datos del gráfico cargados desde localStorage.");
                     renderGrafico(convertirData(dataJsonDesdeStorage));
-                } else {
-                    // Si no hay datos del gráfico en localStorage, muestra un mensaje de error
-                    console.log("No hay datos del gráfico disponibles.");
                 }
             }
     
             // Manejo del audio
             if (audioBase64) {
                 localStorage.setItem('audio_base64', audioBase64);
-                console.log("Audio guardado en localStorage.");
-                // Actualiza el reproductor inmediatamente después de guardar
                 const audioSource = audioPlayer.querySelector('source');
                 audioSource.src = "data:audio/wav;base64," + audioBase64;
                 audioPlayer.load();
@@ -168,72 +238,198 @@
                     const audioSource = audioPlayer.querySelector('source');
                     audioSource.src = "data:audio/wav;base64," + audioBase64DesdeStorage;
                     audioPlayer.load();
-                    console.log("Audio cargado desde localStorage.");
-                } else {
-                    console.log("No hay audio disponible.");
                 }
             }
 
             // Manejo del grafico base64
             if (grafico_base64) {
-                // Si hay datos del gráfico, los guarda en localStorage y los muestra
                 localStorage.setItem('grafico_base64', grafico_base64);
-                console.log("La imagen del gráfico guardado en localStorage.");
-            } else {
-                // Si no hay imagen del gráfico, intenta cargarlos desde localStorage
-                const graficoDesdeStorage = localStorage.getItem('grafico_base64');
-                if (graficoDesdeStorage) {
-                    // Si hay datos del gráfico en localStorage
-                    console.log("Imagen del gráfico cargado desde localStorage.");
-                } else {
-                    // Si no hay datos del gráfico en localStorage, muestra un mensaje de error
-                    console.log("No hay imagen del gráfico disponible.");
-                }
             }
     
-            // Agregar evento para actualizar el slider y grafico cuando el audio se actualiza
-            audioPlayer.addEventListener("timeupdate", function() {
+            // ===== FUNCIONES DE CONTROL DE AUDIO =====
+            
+            // Play
+            playBtn.addEventListener('click', function() {
+                if (audioPlayer) {
+                    audioPlayer.play().then(() => {
+                        playBtn.style.display = 'none';
+                        pauseBtn.style.display = 'inline-block';
+                    }).catch((error) => {
+                        alert("Error al reproducir el audio: " + error.message);
+                    });
+                }
+            });
+            
+            // Pause
+            pauseBtn.addEventListener('click', function() {
+                if (audioPlayer) {
+                    audioPlayer.pause();
+                    pauseBtn.style.display = 'none';
+                    playBtn.style.display = 'inline-block';
+                }
+            });
+            
+            // Stop
+            stopBtn.addEventListener('click', function() {
+                if (audioPlayer) {
+                    audioPlayer.pause();
+                    audioPlayer.currentTime = 0;
+                    pauseBtn.style.display = 'none';
+                    playBtn.style.display = 'inline-block';
+                }
+            });
+            
+            // Reset audio
+            audioResetBtn.addEventListener('click', function() {
+                if (audioPlayer) {
+                    audioPlayer.pause();
+                    audioPlayer.currentTime = 0;
+                    audioPlayer.volume = 1.0;
+                    audioPlayer.muted = false;
+                    previousVolume = 1.0;
+                    
+                    pauseBtn.style.display = 'none';
+                    playBtn.style.display = 'inline-block';
+                    if (progressBar) progressBar.value = 0;
+                    if (currentTimeSpan) currentTimeSpan.textContent = '00:00';
+                    if (volumeSlider) volumeSlider.value = 100;
+                    updateVolumeDisplay(1.0);
+                    updateMuteIcon(1.0);
+                }
+            });
+            
+            // Cuando termina el audio
+            audioPlayer.addEventListener('ended', function() {
+                pauseBtn.style.display = 'none';
+                playBtn.style.display = 'inline-block';
+            });
+            
+            // ===== CONTROL DE VOLUMEN =====
+            
+            // Cambiar volumen con slider
+            volumeSlider.addEventListener('input', function() {
+                const volume = this.value / 100;
+                audioPlayer.volume = volume;
+                audioPlayer.muted = volume === 0;
+                updateVolumeDisplay(volume);
+                updateMuteIcon(volume);
+                if (volume > 0) {
+                    previousVolume = volume;
+                }
+            });
+            
+            // Subir volumen
+            volumeUpBtn.addEventListener('click', function() {
+                const currentVolume = audioPlayer.volume;
+                const newVolume = Math.min(1.0, currentVolume + 0.1);
+                audioPlayer.volume = newVolume;
+                audioPlayer.muted = false;
+                volumeSlider.value = newVolume * 100;
+                updateVolumeDisplay(newVolume);
+                updateMuteIcon(newVolume);
+                if (newVolume > 0) {
+                    previousVolume = newVolume;
+                }
+            });
+            
+            // Bajar volumen
+            volumeDownBtn.addEventListener('click', function() {
+                const currentVolume = audioPlayer.volume;
+                const newVolume = Math.max(0.0, currentVolume - 0.1);
+                audioPlayer.volume = newVolume;
+                volumeSlider.value = newVolume * 100;
+                updateVolumeDisplay(newVolume);
+                updateMuteIcon(newVolume);
+                if (newVolume === 0) {
+                    audioPlayer.muted = true;
+                } else {
+                    previousVolume = newVolume;
+                    audioPlayer.muted = false;
+                }
+            });
+            
+            // Mute/Unmute
+            muteBtn.addEventListener('click', function() {
+                if (audioPlayer.muted) {
+                    audioPlayer.muted = false;
+                    audioPlayer.volume = previousVolume;
+                    volumeSlider.value = previousVolume * 100;
+                    updateVolumeDisplay(previousVolume);
+                    updateMuteIcon(previousVolume);
+                } else {
+                    previousVolume = audioPlayer.volume;
+                    audioPlayer.muted = true;
+                    volumeSlider.value = 0;
+                    updateVolumeDisplay(0);
+                    updateMuteIcon(0);
+                }
+            });
+            
+            function updateVolumeDisplay(volume) {
+                const volumeDisplay = document.getElementById('volumeDisplay');
+                if (volumeDisplay) {
+                    volumeDisplay.textContent = Math.round(volume * 100) + '%';
+                }
+            }
+            
+            function updateMuteIcon(volume) {
+                const muteIcon = document.getElementById('muteIcon');
+                if (muteIcon) {
+                    if (volume === 0) {
+                        muteIcon.className = 'bi bi-volume-mute';
+                    } else if (volume < 0.5) {
+                        muteIcon.className = 'bi bi-volume-down';
+                    } else {
+                        muteIcon.className = 'bi bi-volume-up';
+                    }
+                }
+            }
+            
+            // ===== BARRA DE PROGRESO =====
+            
+            // Actualizar barra de progreso
+            audioPlayer.addEventListener('timeupdate', function() {
                 const audioDuration = audioPlayer.duration || 0;
                 const currentTime = audioPlayer.currentTime || 0;
-                if (currentTime === 0) {
-                    sliderX.value = 0; // Reinicia el slider al inicio del audio
-                }else {
-                    sliderX.value = (currentTime / audioDuration) * 10000 ; // Actualiza el slider basado en el tiempo actual del audio
+                
+                if (!isNaN(currentTime) && isFinite(currentTime)) {
+                    if (progressBar) progressBar.value = currentTime;
+                    if (currentTimeSpan) currentTimeSpan.textContent = formatTime(currentTime);
                 }
+                
                 updateGrafico(currentTime, audioDuration);
             });
-    
-            // Agregar evento para actualizar el tiempo del audio cuando se mueve el slider
-            sliderX.addEventListener("input", function() {
-                const positionPercent = sliderX.value / 10000;
-                audioPlayer.currentTime = positionPercent * (audioPlayer.duration || 0);
-            });
-    
-            // Reproducir o pausar el audio
-            playStopButton.addEventListener('click', async function() {
-                try {
-                    if (audioPlayer.paused || audioPlayer.ended) {
-                        await audioPlayer.play(); // Reproduce solo si está pausado o terminado
-                        playIcon.classList.add('visually-hidden');
-                        pauseIcon.classList.remove('visually-hidden');
-                    } else {
-                        audioPlayer.pause(); // Pausa si se está reproduciendo
-                        playIcon.classList.remove('visually-hidden');
-                        pauseIcon.classList.add('visually-hidden');
-                    }
-                } catch (error) {
-                    if (error.name === 'AbortError') {
-                        console.warn("Interrupción controlada: se pausó antes de que la reproducción comenzara.");
-                    } else {
-                        console.error("Error al reproducir o pausar el audio:", error);
-                    }
+            
+            // Cuando se carga metadata del audio
+            audioPlayer.addEventListener('loadedmetadata', function() {
+                const duration = audioPlayer.duration || 0;
+                if (progressBar) progressBar.max = duration;
+                if (totalTimeSpan) totalTimeSpan.textContent = formatTime(duration);
+                if (document.getElementById('endTimeLabel')) {
+                    document.getElementById('endTimeLabel').textContent = formatTime(duration);
                 }
             });
-    
-            // Restablecer al ícono de play cuando el audio termina
-            audioPlayer.addEventListener('ended', function() {
-                playIcon.classList.remove('visually-hidden');
-                pauseIcon.classList.add('visually-hidden');
+            
+            // Cambiar posición con la barra de progreso
+            progressBar.addEventListener('input', function() {
+                audioPlayer.currentTime = parseFloat(this.value);
+            });
+            
+            // Formatear tiempo
+            function formatTime(seconds) {
+                if (!isFinite(seconds) || isNaN(seconds)) return '00:00';
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            // ===== VELOCIDAD DE REPRODUCCIÓN =====
+            
+            const playbackSpeedSelect = document.getElementById('playbackSpeed');
+            playbackSpeedSelect.addEventListener('change', function() {
+                if (audioPlayer) {
+                    audioPlayer.playbackRate = parseFloat(this.value);
+                }
             });
             
             // Botón de reset para borrar los datos del gráfico y el audio
@@ -241,35 +437,148 @@
                 localStorage.removeItem('grafico_base64');
                 localStorage.removeItem('audio_base64');
                 localStorage.removeItem('data_json');
+                localStorage.removeItem('markers');
+                markers = [];
                 window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
             });
-
-            //Boton para volver a inicio el audio y el gráfico
-            document.getElementById('RestartButton').addEventListener('click', function() {
-                const audioBase64DesdeStorage = localStorage.getItem('audio_base64');
-                if (audioBase64DesdeStorage) {
-                    const audioSource = audioPlayer.querySelector('source');
-                    audioSource.src = "data:audio/wav;base64," + audioBase64DesdeStorage;
-                    audioPlayer.load();
-                    audioPlayer.currentTime = 0; // Reinicia el tiempo del audio
+            
+            // Cargar marcadores guardados desde localStorage
+            function loadMarkers() {
+                const savedMarkers = localStorage.getItem('markers');
+                if (savedMarkers) {
+                    markers = JSON.parse(savedMarkers);
+                    updateMarkerCount();
+                }
+            }
+            
+            // Guardar marcadores en localStorage
+            function saveMarkers() {
+                localStorage.setItem('markers', JSON.stringify(markers));
+                updateMarkerCount();
+            }
+            
+            // Actualizar contador de marcadores
+            function updateMarkerCount() {
+                const markerCountElement = document.getElementById('markerCount');
+                if (markerCountElement) {
+                    markerCountElement.textContent = markers.length;
+                }
+            }
+            
+            // Agregar marcador en la posición actual del audio
+            addMarkerButton.addEventListener('click', function() {
+                const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                if (dataJsonDesdeStorage) {
+                    const data = convertirData(dataJsonDesdeStorage);
+                    const audioDuration = audioPlayer.duration || 0;
+                    const currentTime = audioPlayer.currentTime || 0;
+                    
+                    if (audioDuration > 0) {
+                        const currentIndex = Math.floor((currentTime / audioDuration) * data.x.length);
+                        const markerX = data.x[currentIndex];
+                        const markerY = data.y[currentIndex];
+                        
+                        // Agregar el marcador al array
+                        markers.push({ x: markerX, y: markerY, index: currentIndex });
+                        saveMarkers();
+                        
+                        // Actualizar el gráfico con los marcadores
+                        renderGraficoWithMarkers(data);
+                    } else {
+                        alert('Por favor, carga un archivo de audio primero.');
+                    }
+                } else {
+                    alert('Por favor, carga datos del gráfico primero.');
+                }
+            });
+            
+            // Eliminar el último marcador
+            removeMarkerButton.addEventListener('click', function() {
+                if (markers.length > 0) {
+                    markers.pop();
+                    saveMarkers();
+                    
+                    const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                    if (dataJsonDesdeStorage) {
+                        const data = convertirData(dataJsonDesdeStorage);
+                        renderGraficoWithMarkers(data);
+                    }
+                } else {
+                    alert('No hay marcadores para eliminar.');
                 }
             });
 
-            //Botón para restaurar la configuración inicial del gráfico
-            document.getElementById('undoButton').addEventListener('click', function() {
-                // Configuración inicial del gráfico 
-                localStorage.setItem('name_grafic', "{{ name_grafic|default:'Grafico' }}");
-                localStorage.setItem('name_eje_x', "{{ name_eje_x|default:'Eje X' }}");
-                localStorage.setItem('name_eje_y', "{{ name_eje_y|default:'Eje Y' }}");
-                localStorage.setItem('grilla', "{{ grilla|default:'false' }}");
-                localStorage.setItem('escala_grises', "{{ escala_grises|default:'false' }}");
-                localStorage.setItem('estilo_linea', "{{ estilo_linea|default:'solid' }}");
-                localStorage.setItem('color_linea', "{{ color_linea|default:'blue' }}");
-                window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
-            });
+            // Nota: El botón RestartButton fue reemplazado por audioResetBtn que ya tiene su evento más arriba
+
+            //Botón para limpiar todo excepto los datos originales
+            const undoButton = document.getElementById('undoButton');
+            if (undoButton) {
+                undoButton.addEventListener('click', function() {
+                    if (confirm('¿Limpiar todas las configuraciones y marcadores? Se mantendrán los datos del gráfico.')) {
+                        // Restablecer configuración inicial del gráfico 
+                        localStorage.setItem('name_grafic', 'Gráfico');
+                        localStorage.setItem('name_eje_x', 'Eje X');
+                        localStorage.setItem('name_eje_y', 'Eje Y');
+                        localStorage.setItem('grilla', 'false');
+                        localStorage.setItem('escala_grises', 'false');
+                        localStorage.setItem('estilo_linea', 'solid');
+                        localStorage.setItem('color_linea', 'blue');
+                        
+                        // Actualizar las variables en memoria
+                        name_grafic = 'Gráfico';
+                        name_eje_x = 'Eje X';
+                        name_eje_y = 'Eje Y';
+                        grilla = 'false';
+                        escala_grises = 'false';
+                        estilo_linea = 'solid';
+                        color_linea = 'blue';
+                        
+                        // Limpiar marcadores
+                        localStorage.removeItem('markers');
+                        markers = [];
+                        updateMarkerCount();
+                        
+                        // Reiniciar controles de audio
+                        if (audioPlayer) {
+                            audioPlayer.pause();
+                            audioPlayer.currentTime = 0;
+                            audioPlayer.volume = 1.0;
+                            audioPlayer.muted = false;
+                            audioPlayer.playbackRate = 1.0;
+                            previousVolume = 1.0;
+                            
+                            // Restablecer controles visuales
+                            pauseBtn.style.display = 'none';
+                            playBtn.style.display = 'inline-block';
+                            if (progressBar) progressBar.value = 0;
+                            if (currentTimeSpan) currentTimeSpan.textContent = '00:00';
+                            if (volumeSlider) volumeSlider.value = 100;
+                            
+                            const playbackSpeedSelect = document.getElementById('playbackSpeed');
+                            if (playbackSpeedSelect) playbackSpeedSelect.value = '1';
+                            
+                            updateVolumeDisplay(1.0);
+                            updateMuteIcon(1.0);
+                        }
+                        
+                        // Recargar el gráfico con configuraciones por defecto
+                        const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                        if (dataJsonDesdeStorage) {
+                            const data = convertirData(dataJsonDesdeStorage);
+                            renderGraficoWithMarkers(data);
+                        }
+                    }
+                });
+            }
 
             // Función para renderizar el gráfico
             function renderGrafico(data) {
+                loadMarkers(); // Cargar marcadores guardados
+                renderGraficoWithMarkers(data);
+            }
+            
+            // Función para renderizar el gráfico con marcadores
+            function renderGraficoWithMarkers(data) {
                 // Aplicar escala de grises si está seleccionada
                 if (escala_grises === 'true') {
                     color_linea = 'gray';
@@ -285,14 +594,32 @@
                         dash: estilo_linea
                     }
                 };
-                // Traza de la marca
+                // Traza de la marca móvil (posición actual del audio)
                 var trace2 = {
                     x: [],
                     y: [],
                     mode: 'markers',
                     marker: {color: 'red', size: 10},
-                    name: 'Marca'
+                    name: 'Posición actual'
                 };
+                
+                // Traza de los marcadores fijos
+                var trace3 = {
+                    x: markers.map(m => m.x),
+                    y: markers.map(m => m.y),
+                    mode: 'markers',
+                    marker: {
+                        color: 'blue',
+                        size: 12,
+                        symbol: 'circle',
+                        line: {
+                            color: 'darkblue',
+                            width: 2
+                        }
+                    },
+                    name: 'Marcadores'
+                };
+                
                 // Diseño del gráfico
                 var layout = {
                     title: name_grafic,
@@ -310,11 +637,55 @@
                     layout.yaxis.showgrid = false;
                 }
 
-                // Renderizar el gráfico
-                Plotly.newPlot('grafico', [trace1, trace2], layout);
+                // Renderizar el gráfico con tres trazas: línea, marca móvil y marcadores fijos
+                Plotly.newPlot('grafico', [trace1, trace2, trace3], layout).then(function() {
+                    // Después de renderizar, capturar la imagen actualizada
+                    updateGraficoImage();
+                });
+                
+                // Habilitar clic en el gráfico para agregar marcadores
+                const graficoDiv = document.getElementById('grafico');
+                graficoDiv.on('plotly_click', function(data) {
+                    if (data.points.length > 0) {
+                        const point = data.points[0];
+                        // Solo agregar marcadores si se hace clic en la línea (trace 0)
+                        if (point.curveNumber === 0) {
+                            const clickX = point.x;
+                            const clickY = point.y;
+                            const pointIndex = point.pointIndex;
+                            
+                            // Agregar el marcador
+                            markers.push({ x: clickX, y: clickY, index: pointIndex });
+                            saveMarkers();
+                            
+                            // Actualizar el gráfico
+                            const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                            if (dataJsonDesdeStorage) {
+                                const dataGraph = convertirData(dataJsonDesdeStorage);
+                                renderGraficoWithMarkers(dataGraph);
+                            }
+                        }
+                    }
+                });
             }
             
-            // Función para actualizar la marca en el gráfico
+            // Función para actualizar la imagen del gráfico en localStorage
+            function updateGraficoImage() {
+                const graficoDiv = document.getElementById('grafico');
+                if (graficoDiv) {
+                    Plotly.toImage(graficoDiv, {
+                        format: 'png',
+                        width: 1200,
+                        height: 600
+                    }).then(function(dataUrl) {
+                        // Extraer solo el base64 (sin el prefijo data:image/png;base64,)
+                        const base64Image = dataUrl.split(',')[1];
+                        localStorage.setItem('grafico_base64', base64Image);
+                    });
+                }
+            }
+            
+            // Función para actualizar la marca móvil en el gráfico
             function updateGrafico(currentTime, totalTime) {
                 const dataJsonDesdeStorage = localStorage.getItem('data_json');
                 if (dataJsonDesdeStorage) {
@@ -326,18 +697,20 @@
                         } else {
                             currentIndex = Math.floor((currentTime / totalTime) * data.x.length);
                         }
+                        // Actualizar solo la marca móvil (traza índice 1)
                         const update = {
                             x: [[data.x[currentIndex]]], // Doble corchete para actualizar correctamente
                             y: [[data.y[currentIndex]]], // Doble corchete para actualizar correctamente
-                            mode: 'markers',
-                            marker: {color: 'red', size: 10}
                         };
-                        Plotly.restyle('grafico', update, [1]); // Actualiza la segunda traza (índice 1)
-                    } else {
-                        console.error("Datos del gráfico no válidos.");
+                        Plotly.restyle('grafico', update, [1]); // Actualiza la segunda traza (índice 1 - marca móvil)
+                        
+                        // Mantener los marcadores fijos (traza índice 2)
+                        const markersUpdate = {
+                            x: [markers.map(m => m.x)],
+                            y: [markers.map(m => m.y)]
+                        };
+                        Plotly.restyle('grafico', markersUpdate, [2]); // Actualiza la tercera traza (índice 2 - marcadores)
                     }
-                } else {
-                    console.error("No se encontraron datos del gráfico en localStorage.");
                 }
             }
             

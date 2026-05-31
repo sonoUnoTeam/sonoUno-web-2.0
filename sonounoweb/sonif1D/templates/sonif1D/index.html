@@ -10,22 +10,143 @@
         
         <!-- Contenido de la pagina: LADO DERECHO - GUIA DE INICIO RAPIDO-->
         <div class="card-body">
-            <div class="row">
-                <div class="list-unstyled">
-                    <h4 class="text-center">Guía de inicio rápido</h4>
-                    <p class="text-center">
-                        En la zona superior de la página encontrarás botones que te permitirán cargar y descargar datos y acceder al manual.
-                    </p>      
-                    <p class="text-center">
-                        Puedes modificar los valores del gráfico en "Configuraciones -> Gráfico".
-                    </p>  
-                    <p class="text-center">
-                        Puedes hacer zoom haciendo click y arrastrando sobre la sección que quieras focalizar.
-                    </p>   
-                    <p class="text-center">
-                        Los botones "M+" y "M-" te permitirán añadir y eliminar marcadores. Los botones Play/Pausa y Stop te ayudarán con la reproducción y "Reset" reinicia el gráfico.
-                    </p>     
+            <h5 class="text-center mb-3">
+                <i class="bi bi-lightbulb-fill text-warning"></i> Guía de inicio rápido
+            </h5>
+            
+            <!-- Accordion -->
+            <div class="accordion accordion-flush" id="guiaAccordion">
+                
+                <!-- Sección 1: Cargar datos -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                            <i class="bi bi-1-circle-fill text-primary me-2"></i>
+                            <strong>Cargar datos</strong>
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#guiaAccordion">
+                        <div class="accordion-body small">
+                            <ul class="mb-0">
+                                <li><strong>Importar archivo:</strong> Menú superior → <em>Importar → Archivo csv/txt</em></li>
+                                <li><strong>Datos de ejemplo:</strong> Menú superior → <em>Datos</em> (Sinusoidal, Square, etc.)</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Sección 2: Personalizar -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                            <i class="bi bi-2-circle-fill text-success me-2"></i>
+                            <strong>Personalizar</strong>
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#guiaAccordion">
+                        <div class="accordion-body small">
+                            <ul class="mb-0">
+                                <li><strong>Configurar gráfico:</strong> <em>Configuraciones → Gráfico</em></li>
+                                <li>Ajusta título, etiquetas de ejes, colores, estilos de línea y grilla</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 3: Interactuar -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                            <i class="bi bi-3-circle-fill text-warning me-2"></i>
+                            <strong>Interactuar con el gráfico</strong>
+                        </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#guiaAccordion">
+                        <div class="accordion-body small">
+                            <ul class="mb-1">
+                                <li><strong>Zoom:</strong> Haz clic y arrastra sobre el área que deseas ampliar</li>
+                                <li><strong>Controles de reproducción:</strong>
+                                    <ul>
+                                        <li><i class="bi bi-play-fill text-success"></i> <strong>Play:</strong> Inicia la sonorización</li>
+                                        <li><i class="bi bi-pause-fill text-warning"></i> <strong>Pause:</strong> Pausa sin perder la posición</li>
+                                        <li><i class="bi bi-stop-fill text-danger"></i> <strong>Stop:</strong> Detiene y vuelve al inicio</li>
+                                        <li><i class="bi bi-arrow-clockwise text-secondary"></i> <strong>Reset:</strong> Reinicia audio y volumen</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Control de volumen:</strong>
+                                    <ul>
+                                        <li>Usa los botones <i class="bi bi-volume-down"></i>/<i class="bi bi-volume-up"></i> o el slider</li>
+                                        <li>Botón <i class="bi bi-volume-mute"></i> para silenciar/activar</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Navegación:</strong>
+                                    <ul>
+                                        <li><strong>Barra de progreso:</strong> Arrastra para ir a cualquier punto</li>
+                                        <li><strong>Velocidad:</strong> 0.25x (lento) hasta 2x (rápido)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 4: Marcadores -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                            <i class="bi bi-4-circle-fill text-info me-2"></i>
+                            <strong>Trabajar con marcadores</strong>
+                        </button>
+                    </h2>
+                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#guiaAccordion">
+                        <div class="accordion-body small">
+                            <ul class="mb-1">
+                                <li><strong>Agregar marcador:</strong>
+                                    <ul>
+                                        <li>Haz clic directamente sobre la línea del gráfico</li>
+                                        <li>O usa el botón <span class="badge bg-secondary">M+</span> para marcar la posición actual del audio</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Eliminar marcador:</strong> Botón <span class="badge bg-secondary">M-</span> elimina el último</li>
+                                <li><strong>Visualización:</strong>
+                                    <ul>
+                                        <li><span class="text-primary fs-5">●</span> <strong>Azul:</strong> Marcadores guardados</li>
+                                        <li><span class="text-danger fs-5">●</span> <strong>Rojo:</strong> Posición actual del audio</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 5: Exportar -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                            <i class="bi bi-5-circle-fill text-secondary me-2"></i>
+                            <strong>Exportar resultados</strong>
+                        </button>
+                    </h2>
+                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#guiaAccordion">
+                        <div class="accordion-body small">
+                            <p class="mb-2"><strong>Menú Exportar →</strong></p>
+                            <ul class="mb-0">
+                                <li><em>Gráfico:</em> Descarga imagen PNG</li>
+                                <li><em>Sonido:</em> Descarga audio WAV</li>
+                                <li><em>Marcadores:</em> Descarga CSV con tus puntos marcados</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Fin Accordion -->
+
+            <!-- Tip destacado -->
+            <div class="alert alert-light border border-info small mt-3 mb-0" role="alert">
+                <i class="bi bi-info-circle-fill text-info"></i> <strong>Tip:</strong> 
+                Tus datos y marcadores se guardan automáticamente. Usa <i class="bi bi-arrow-counterclockwise"></i> para restablecer 
+                o <i class="bi bi-backspace-fill"></i> para deshacer cambios de configuración.
             </div>
         </div>
     </div>

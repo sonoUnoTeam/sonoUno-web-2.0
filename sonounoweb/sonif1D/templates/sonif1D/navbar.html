@@ -11,32 +11,98 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Botones de la barra de navegación -->
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Importar</button>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:importar_archivo' %}">Archivo csv/txt</a></li>
-                         <!-- <li><a class="dropdown-item" href="">Archivo .WAV</a></li>
-                        <li><a class="dropdown-item" href="">Marcadores .CSV</a></li>  -->
+                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-file-import me-2"></i>Importar
+                    </button>
+                    <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:importar_archivo' %}">
+                            <i class="fas fa-file-csv me-2"></i>Archivo csv/txt
+                        </a></li>
+                         <!-- <li><a class="dropdown-item navbar-dropdown-item" href="">
+                            <i class="fas fa-file-audio me-2"></i>Archivo .WAV
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="">
+                            <i class="fas fa-map-marker-alt me-2"></i>Marcadores .CSV
+                        </a></li>  -->
                     </ul>
                 </div>
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Exportar</button>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                        <li><a class="dropdown-item" href="#" id="downloadImage">Grafico</a></li>
-                        <li><a class="dropdown-item" href="#" id="downloadAudio">Sonido</a></li>
+                    <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-download me-2"></i>Exportar
+                    </button>
+                    <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop2">
+                        <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadImage">
+                            <i class="fas fa-chart-line me-2"></i>Gráfico
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadAudio">
+                            <i class="fas fa-volume-up me-2"></i>Sonido
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadMarkers">
+                            <i class="fas fa-bookmark me-2"></i>Marcadores
+                        </a></li>
                     </ul>                    
                 </div>
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">Datos</button>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'decrease.txt' %}">Decrease</a></li>
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'sinusoidal.txt' %}">Sinusoidal</a></li>
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'growing.txt' %}">Growing</a></li>
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'square.txt' %}">Square</a></li>
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'triangular.txt' %}">Triangular</a></li>
-                        <li><a class="dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'glitch.txt' %}">Glitch</a></li>
+                    <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-database me-2"></i>Datos
+                    </button>
+                    <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop3">
+                        <li><h6 class="dropdown-header"><i class="fas fa-shapes me-2"></i>Formas Básicas</h6></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'sinusoidal.txt' %}">
+                            <i class="fas fa-wave-square me-2"></i>Sinusoidal
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'square.txt' %}">
+                            <i class="fas fa-square me-2"></i>Square Wave
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'triangular.txt' %}">
+                            <i class="fas fa-play me-2"></i>Triangular
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'sawtooth.txt' %}">
+                            <i class="fas fa-chart-line me-2"></i>Sawtooth
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header"><i class="fas fa-chart-area me-2"></i>Tendencias</h6></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'growing.txt' %}">
+                            <i class="fas fa-arrow-up me-2"></i>Growing
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'decrease.txt' %}">
+                            <i class="fas fa-arrow-down me-2"></i>Decrease
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'step.txt' %}">
+                            <i class="fas fa-stairs me-2"></i>Step Function
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header"><i class="fas fa-atom me-2"></i>Fenómenos Físicos</h6></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'damped.txt' %}">
+                            <i class="fas fa-water me-2"></i>Damped Oscillation
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'beats.txt' %}">
+                            <i class="fas fa-signal me-2"></i>Beats
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'wave_packet.txt' %}">
+                            <i class="fas fa-waveform-path me-2"></i>Wave Packet
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header"><i class="fas fa-music me-2"></i>Señales Especiales</h6></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'chirp.txt' %}">
+                            <i class="fas fa-broadcast-tower me-2"></i>Chirp (Radar)
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'pulse.txt' %}">
+                            <i class="fas fa-heartbeat me-2"></i>Pulse Train
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'harmonic.txt' %}">
+                            <i class="fas fa-guitar me-2"></i>Harmonic Series
+                        </a></li>
+                        <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'glitch.txt' %}">
+                            <i class="fas fa-bolt me-2"></i>Glitch / Noise
+                        </a></li>
                     </ul>
                 </div>                    
-                <li class="nav-item"><a class="btn btn-dark text-white" href="{% url 'sonif1D:ayuda' %}">Ayuda</a></li>
+                <li class="nav-item">
+                    <a class="btn btn-dark text-white navbar-help-btn" href="{% url 'sonif1D:ayuda' %}">
+                        <i class="fas fa-question-circle me-2"></i>Ayuda
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -70,6 +136,38 @@
                 link.click();
             } else {
                 alert('No se encontró un audio disponible.');
+            }
+        });
+        
+        document.getElementById('downloadMarkers').addEventListener('click', function(event) {
+            event.preventDefault();
+            // Obtener los marcadores desde localStorage
+            var markersJson = localStorage.getItem('markers');
+            if (markersJson) {
+                var markers = JSON.parse(markersJson);
+                if (markers.length === 0) {
+                    alert('No hay marcadores para exportar.');
+                    return;
+                }
+                
+                // Crear CSV
+                var csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "Index,X,Y\n";
+                
+                markers.forEach(function(marker) {
+                    csvContent += marker.index + "," + marker.x + "," + marker.y + "\n";
+                });
+                
+                // Crear un enlace temporal y descargarlo
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "marcadores.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('No hay marcadores para exportar.');
             }
         });
     </script>
