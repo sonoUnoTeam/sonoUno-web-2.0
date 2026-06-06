@@ -41,3 +41,4 @@ sonounoweb/logs/
 # Database files
 sonounoweb/*.sqlite3
 sonounoweb/*.db
+.venv/
