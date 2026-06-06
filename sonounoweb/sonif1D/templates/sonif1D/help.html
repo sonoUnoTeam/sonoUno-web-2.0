@@ -1,0 +1,170 @@
+{% extends 'sonif1D/base.html' %}
+{% load static %}
+
+{% block title %}Ayuda — sonif1D{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'imagesonif/css/imagesonif-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'imagesonif/navbar_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+{% block main_media %}{% endblock main_media %}
+<div class="imagesonif-container">
+    <div class="container">
+        <!-- Header -->
+        <div class="imagesonif-header">
+            <h1 class="imagesonif-title">sonif2D — Guía y Ayuda</h1>
+            <p class="imagesonif-subtitle">Explora, visualiza y convierte tus series de datos en sonido de forma científica. Sigue esta guía paso a paso.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="imagesonif-card">
+                    <div class="imagesonif-card-header">
+                        <h2><i class="bi bi-question-circle me-2"></i>Guía de Uso Completa</h2>
+                    </div>
+                    <div class="imagesonif-card-body">
+
+                        <!-- Introducción -->
+                        <div class="imagesonif-info-panel mb-4">
+                            <div class="imagesonif-info-title">
+                                <i class="bi bi-info-circle me-2"></i>
+                                ¿Qué hace sonif2D?
+                            </div>
+                            <p>sonif2D forma parte del ecosistema <strong>sonoUnoWeb 2.0</strong> y transforma series de datos unidimensionales en representaciones tanto visuales como sonoras (sonificación).</p>
+                        </div>
+
+                        <!-- Pasos Rápidos -->
+                        <h4>Pasos rápidos para empezar</h4>
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-1-circle text-primary me-2"></i>
+                                Cargar datos
+                            </div>
+                            <p class="imagesonif-result-description">Usa <strong>Importar → Archivo csv/txt</strong> o arrastra tu archivo. Soportamos columnas estructuradas de tiempo/valor. Si no tienes datos propios, puedes seleccionar señales del menú "Ejemplos" divididas en: <em>Formas Básicas, Tendencias, Fenómenos Físicos</em> y <em>Señales Especiales</em> (como Chirp o Pulse Train).</p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-2-circle text-primary me-2"></i>
+                                Visualizar y configurar
+                            </div>
+                            <p class="imagesonif-result-description">Personaliza el título, las etiquetas de los ejes (Labels) X/Y, la paleta cromática de la curva y el estilo de línea desde el panel "Configuraciones → Gráfico". También puedes ocultar o mostrar las grillas de fondo (Grid X/Y).</p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-3-circle text-primary me-2"></i>
+                                Reproducir y marcar
+                            </div>
+                            <p class="imagesonif-result-description">Utiliza el reproductor para dar Play, Pausa o Stop. Puedes cambiar la velocidad de reproducción escalonada (desde <strong>0.25x</strong> hasta <strong>2x</strong>) y usar la barra de progreso arrastrable. Registra puntos críticos usando el botón <span class="badge bg-secondary">M+</span> o haciendo un clic sobre la línea del gráfico.</p>
+                        </div>
+
+                        <div class="imagesonif-result-item">
+                            <div class="imagesonif-result-title">
+                                <i class="bi bi-4-circle text-primary me-2"></i>
+                                Exportar resultados
+                            </div>
+                            <p class="imagesonif-result-description">Desde el menú <strong>Exportar</strong> podrás descargar de manera independiente: el Gráfico (.png), el Sonido generado (.wav) y los Marcadores de interés guardados (.csv).</p>
+                        </div>
+
+                        <!-- Nueva Sección: Comportamiento de Marcadores -->
+                        <h4 class="mt-4">Identificación Visual de Marcadores</h4>
+                        <p class="imagesonif-result-description">El lienzo gráfico discrimina el estado de la exploración en tiempo real mediante un código de colores estricto:</p>
+                        <div class="imagesonif-controls mb-4">
+                            <ul>
+                                <li><span class="badge bg-danger">🟢 Punto Rojo</span> Indica la posición exacta del rastreo del audio en el instante de tiempo en curso.</li>
+                                <li><span class="badge bg-primary">🔵 Puntos Azules</span> Representan los marcadores fijos ya guardados por el usuario.</li>
+                                <li><strong>Eliminación:</strong> Puedes remover el último marcador ingresado con el botón <span class="badge bg-secondary">M-</span> o limpiar todo el mapa con <em>Reset / Undo</em>.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Nueva Sección: Interacción Avanzada con Plotly -->
+                        <h4 class="mt-4">Herramientas Analíticas del Gráfico (Plotly)</h4>
+                        <p class="imagesonif-result-description">Al pasar el cursor por la esquina superior derecha del gráfico se activará la barra de herramientas interactiva (Modebar). Puedes utilizar:</p>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr class="table-dark">
+                                        <th>Herramienta</th>
+                                        <th>¿Qué hace? / ¿Cómo se usa?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Pan (Encuadre)</strong></td>
+                                        <td>Haz clic y arrastra para mover el lienzo libremente y explorar series de datos largas sin perder tu nivel de zoom.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Box Zoom</strong></td>
+                                        <td>Dibuja un rectángulo con el ratón sobre un área específica de la curva para ampliar con precisión matemática esas coordenadas.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Zoom In / Out</strong></td>
+                                        <td>Botones rápidos de incremento o decremento progresivo sobre el encuadre central actual.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Autoscale / Reset Axes</strong></td>
+                                        <td>El botón de rescate: devuelve instantáneamente el gráfico a su vista original mostrando el 100% de los datos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Hover Data & Spike Lines</strong></td>
+                                        <td>Al posar el cursor sobre cualquier punto, verás un tooltip dinámico con sus coordenadas exactas (X, Y) y líneas guía proyectadas a los ejes.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Consejos -->
+                        <h4 class="mt-4">Consejos Profesionales</h4>
+                        <div class="imagesonif-controls">
+                            <ul>
+                                <li><strong>Normalización:</strong> Si trabajas con archivos propios, asegúrate de estructurar bien las cabeceras de texto en tu archivo .csv antes de subirlo para un renderizado óptimo.</li>
+                                <li><strong>Capturas personalizadas:</strong> Realiza un Zoom a un fenómeno específico en el gráfico y utiliza el botón de descarga nativo de la barra de Plotly; la captura de imagen .png respetará exactamente el nivel de ampliación visual que definiste.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Preguntas Frecuentes Expandidas -->
+                        <h4 class="mt-4">Preguntas Frecuentes (FAQ)</h4>
+                        
+                        <div class="imagesonif-result-item mb-3">
+                            <div class="imagesonif-result-title"><i class="bi bi-question-circle-fill text-warning me-2"></i>¿Qué pasa si cierro la pestaña del navegador por accidente?</div>
+                            <p class="imagesonif-result-description">No te preocupes. La aplicación dispone de un sistema de autoguardado de sesión local. Al reabrir la herramienta en el mismo navegador, tus datos cargados y los marcadores que hayas fijado se restaurarán automáticamente para que no pierdas tu progreso.</p>
+                        </div>
+
+                        <div class="imagesonif-result-item mb-3">
+                            <div class="imagesonif-result-title"><i class="bi bi-question-circle-fill text-warning me-2"></i>¿Cómo puedo guardar los puntos de interés que descubro al escuchar?</div>
+                            <p class="imagesonif-result-description">Tienes dos opciones muy sencillas: puedes presionar el botón <strong>M+</strong> en el panel de control justo en el momento exacto en el que escuchas el sonido, o bien hacer un clic directo con el ratón sobre cualquier punto de la curva en el gráfico. Ambas acciones guardarán el marcador automáticamente.</p>
+                        </div>
+
+                        <div class="imagesonif-result-item mb-3">
+                            <div class="imagesonif-result-title"><i class="bi bi-question-circle-fill text-warning me-2"></i>¿Puedo descargar de forma independiente solo el audio o solo el gráfico?</div>
+                            <p class="imagesonif-result-description">Sí, totalmente. El menú de exportación está diseñado de manera segmentada[cite: 1]. Esto significa que puedes elegir descargar únicamente el archivo de sonido (.wav), el lienzo del gráfico como imagen (.png) o la lista de marcadores que registraste (.csv) según lo necesites[cite: 1].</p>
+                        </div>
+
+                        <div class="imagesonif-result-item mb-3">
+                            <div class="imagesonif-result-title"><i class="bi bi-question-circle-fill text-warning me-2"></i>¿Qué significan los puntos de color rojo y azul en la pantalla?</div>
+                            <p class="imagesonif-result-description">Es el código visual de seguimiento: el <strong>punto rojo</strong> se mueve dinámicamente mostrando el lugar exacto que se está reproduciendo en el audio en ese instante[cite: 1]. Los <strong>puntos azules</strong> son marcas fijas que tú has decidido guardar para destacar zonas importantes de tus datos[cite: 1].</p>
+                        </div>
+
+                        <div class="imagesonif-result-item mb-3">
+                            <div class="imagesonif-result-title"><i class="bi bi-question-circle-fill text-warning me-2"></i>¿Cómo regreso el gráfico a su tamaño original después de usar el zoom?</div>
+                            <p class="imagesonif-result-description">Si utilizaste la herramienta de ampliación y quieres restablecer la vista completa de los datos, solo debes pasar el cursor por la esquina superior derecha del gráfico y hacer clic en el botón de la barra de herramientas que se llama <strong>"Reset Axes"</strong> o <strong>"Autoscale"</strong>[cite: 1]. El lienzo volverá al encuadre inicial al instante[cite: 1].</p>
+                        </div>
+
+                        <!-- Botón Volver -->
+                        <div class="text-center mt-5">
+                            <a href="{% url 'sonif1D:index' %}" class="btn btn-primary btn-lg px-4">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Volver a la herramienta
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -49,6 +49,11 @@ def inicio(request):
 def ayuda(request):
     return render(request,"inicio.html")
 
+
+def ayuda_sonif1d(request):
+    """Renderiza la página de ayuda específica para sonif1D."""
+    return render(request, 'sonif1D/help.html')
+
 def sonido(request):
     return render(request, 'sonif1D/sonido.html')
 
