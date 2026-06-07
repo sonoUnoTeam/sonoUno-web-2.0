@@ -112,6 +112,12 @@ body {
     margin: 0 auto;
 }
 
+.app-version-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
 .app-button-large {
     display: block !important;
     background: rgba(255, 255, 255, 0.95) !important;
@@ -124,6 +130,91 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
     overflow: hidden !important;
     position: relative !important;
+}
+
+.app-button-version {
+    min-height: 100%;
+}
+
+.app-button-version .app-button-content {
+    padding: 18px 22px !important;
+}
+
+.app-button-version .app-button-header {
+    gap: 14px !important;
+}
+
+.app-button-version .app-icon-wrapper {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 10px !important;
+}
+
+.app-button-version .app-icon-wrapper i {
+    font-size: 1.35rem !important;
+}
+
+.app-button-version .app-button-title-group {
+    gap: 4px;
+}
+
+.app-button-version .app-version-badge {
+    padding: 3px 8px;
+    font-size: 0.68rem;
+}
+
+.app-button-version .app-button-title {
+    font-size: 1.35rem !important;
+}
+
+.app-button-version .app-button-desc {
+    font-size: 0.92rem !important;
+}
+
+.app-button-version .app-button-arrow {
+    width: 34px !important;
+    height: 34px !important;
+}
+
+.app-button-version-v1 {
+    box-shadow: 0 4px 20px rgba(0, 33, 71, 0.12) !important;
+}
+
+.app-button-version-v2 {
+    box-shadow: 0 4px 20px rgba(0, 89, 166, 0.12) !important;
+}
+
+.app-button-version-v1 .app-icon-wrapper {
+    background: #002147 !important;
+}
+
+.app-button-version-v2 .app-icon-wrapper {
+    background: #0059a6 !important;
+}
+
+.app-button-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.app-version-badge {
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.app-version-badge-v1 {
+    background: #002147;
+}
+
+.app-version-badge-v2 {
+    background: #0059a6;
 }
 
 .app-button-large:hover {
@@ -264,11 +355,31 @@ body {
     .apps-title {
         font-size: 1.8rem !important;
     }
+
+    .app-version-group {
+        grid-template-columns: 1fr;
+    }
     
     .app-button-content {
         flex-direction: column !important;
         text-align: center !important;
         gap: 20px !important;
+    }
+
+    .app-button-version .app-button-content {
+        padding: 16px 18px !important;
+    }
+
+    .app-button-version .app-button-header {
+        gap: 12px !important;
+    }
+
+    .app-button-version .app-button-title {
+        font-size: 1.2rem !important;
+    }
+
+    .app-button-version .app-button-desc {
+        font-size: 0.88rem !important;
     }
     
     .app-button-header {
@@ -302,9 +413,31 @@ body {
         gap: 15px;
         padding: 0 15px;
     }
+
+    .app-version-group {
+        gap: 15px;
+    }
     
     .app-button-content {
         padding: 20px !important;
+    }
+
+    .app-button-version .app-button-content {
+        padding: 14px 16px !important;
+    }
+
+    .app-button-version .app-icon-wrapper {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .app-button-version .app-icon-wrapper i {
+        font-size: 1.2rem !important;
+    }
+
+    .app-button-version .app-button-arrow {
+        width: 30px !important;
+        height: 30px !important;
     }
     
     .app-icon-wrapper {

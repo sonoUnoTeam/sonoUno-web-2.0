@@ -13,6 +13,8 @@ urlpatterns = [
     path("inicio", views.inicio, name="inicio"),
     # ex: /sonif1D/ayuda
     path("ayuda", views.ayuda, name="ayuda"),
+    # Página de ayuda específica para sonif1D
+    path("help/", views.ayuda_sonif1d, name="help"),
     # ex: /sonif1D/sonido
     path("sonido", views.sonido, name="sonido"),
     # ex: /sonif1D/grafico

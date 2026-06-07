@@ -49,6 +49,11 @@ def inicio(request):
 def ayuda(request):
     return render(request,"inicio.html")
 
+
+def ayuda_sonif1d(request):
+    """Renderiza la página de ayuda específica para sonif1D."""
+    return render(request, 'sonif1D/help.html')
+
 def sonido(request):
     return render(request, 'sonif1D/sonido.html')
 
@@ -347,9 +352,8 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
 
-    # Convertir el gráfico a una imagen en base64
-    img_bytes = fig.to_image(format="png")
-    grafico_base64 = base64.b64encode(img_bytes).decode('utf-8')
+    # La imagen PNG se genera en el navegador cuando el usuario la descarga.
+    grafico_base64 = ""
 
     # Establecer valores predeterminados si no se reciben parámetros
     return {

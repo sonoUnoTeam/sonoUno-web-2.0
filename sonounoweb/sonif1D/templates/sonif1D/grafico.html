@@ -9,6 +9,11 @@
 {% block content %}
 <!-- Contenido de la pagina: LADO DERECHO -->
 <div class="col-lg-4">
+    <div class="mb-3">
+        <a class="btn btn-outline-secondary w-100" href="{% url 'sonif1D:index' %}">
+            <i class="bi bi-arrow-left me-2"></i>Volver al inicio rápido
+        </a>
+    </div>
     <div class="card mb-4">
         {% include 'sonif1D/partials/config_dropdown.html' %}
 

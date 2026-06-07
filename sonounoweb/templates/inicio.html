@@ -57,21 +57,43 @@
                         </div>
                         
                         <div class="apps-button-grid">
-                            <a href="https://dev.sonouno.org.ar/es/"  class="app-button-large" data-app="sonif1d">
-                            <!-- <a href="{% url 'sonif1D:index' %}"  class="app-button-large" data-app="sonif1d"> -->
-                                <div class="app-button-content">
-                                    <div class="app-button-header">
-                                        <div class="app-icon-wrapper">
-                                            <i class="fas fa-chart-line"></i>
+                            <div class="app-version-group">
+                                <a href="https://dev.sonouno.org.ar/es/" class="app-button-large app-button-version app-button-version-v1" data-app="sonif1d-v1">
+                                    <div class="app-button-content">
+                                        <div class="app-button-header">
+                                            <div class="app-icon-wrapper">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div class="app-button-title-group">
+                                                <span class="app-version-badge app-version-badge-v1">V1</span>
+                                                <h3 class="app-button-title">Tablas</h3>
+                                            </div>
                                         </div>
-                                        <h3 class="app-button-title">Tablas</h3>
+                                        <p class="app-button-desc">Interacción de datos en tablas de dos columnas</p>
+                                        <div class="app-button-arrow">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
                                     </div>
-                                    <p class="app-button-desc">Interacción de datos en tablas de dos columnas </p>
-                                    <div class="app-button-arrow">
-                                        <i class="fas fa-chevron-right"></i>
+                                </a>
+
+                                <a href="{% url 'sonif1D:index' %}"  class="app-button-large app-button-version app-button-version-v2" data-app="sonif1d-v2">
+                                    <div class="app-button-content">
+                                        <div class="app-button-header">
+                                            <div class="app-icon-wrapper">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div class="app-button-title-group">
+                                                <span class="app-version-badge app-version-badge-v2">V2</span>
+                                                <h3 class="app-button-title">Tablas</h3>
+                                            </div>
+                                        </div>
+                                        <p class="app-button-desc">Nueva versión de la interacción de datos en tablas de dos columnas</p>
+                                        <div class="app-button-arrow">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
 
                             <a href="{% url 'muongraphy:index' %}" class="app-button-large" data-app="muongraphy">
                                 <div class="app-button-content">
