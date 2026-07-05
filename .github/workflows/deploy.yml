@@ -12,26 +12,19 @@ jobs:
     steps:
       - name: Pull latest changes
         run: |
-          cd /home/jcasado/webapp/sonoUno-web-2.0
-          git pull origin main
+          sudo -u jcasado sh -c "cd /home/jcasado/webapp/sonoUno-web-2.0 && git pull origin main"
 
       - name: Install dependencies
         run: |
-          source /home/jcasado/myenv/bin/activate
-          cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb
-          pip install -r requirements.txt
+          sudo -u jcasado sh -c "source /home/jcasado/myenv/bin/activate && cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb && pip install -r requirements.txt"
 
       - name: Run Database Migrations
         run: |
-          source /home/jcasado/myenv/bin/activate
-          cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb
-          python manage.py migrate --noinput
+          sudo -u jcasado sh -c "source /home/jcasado/myenv/bin/activate && cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb && python manage.py migrate --noinput"
 
       - name: Collect Static Files
         run: |
-          source /home/jcasado/myenv/bin/activate
-          cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb
-          python manage.py collectstatic --noinput
+          sudo -u jcasado sh -c "source /home/jcasado/myenv/bin/activate && cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb && python manage.py collectstatic --noinput"
 
       - name: Restart Apache Server
         run: |
