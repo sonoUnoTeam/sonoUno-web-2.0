@@ -177,7 +177,7 @@ def cargar_archivo(ruta_archivo):
         return None
 
 # Función para reducir la cantidad de puntos en los datos
-def reducir_puntos(data, max_points=300):
+def reducir_puntos(data, max_points=3000):
     """
     Reduce la cantidad de puntos de datos manteniendo la forma general de la señal.
     Si los datos tienen más puntos que max_points, hace un submuestreo uniforme.
@@ -671,7 +671,9 @@ class simpleSound(object):
             data_x, data_y, Status = normalize(data_x, data_y)
 
             rep = self.reproductor
-            sound_buffer = b''
+            
+            # 1. CREAMOS UNA LISTA VACÍA (MUCHO MÁS RÁPIDO QUE NP.APPEND)
+            sound_chunks = []
 
             # Recorremos los datos para generar las ondas
             logger.info(f"Iniciando generación de {data_x.size} muestras de audio...")
@@ -683,10 +685,11 @@ class simpleSound(object):
                 # Generamos la onda de la frecuencia calculada
                 f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
 
-                if x == init:
-                    sound_to_save = f.astype('int16')
-                else:
-                    sound_to_save = np.append(sound_to_save, f.astype('int16'))
+                # 2. AGREGAMOS EL FRAGMENTO A LA LISTA
+                sound_chunks.append(f.astype('int16'))
+
+            # 3. UNIMOS TODO DE UNA SOLA VEZ AL FINAL CON NUMPY
+            sound_to_save = np.concatenate(sound_chunks)
 
             logger.info(f"Generación de ondas completada. Total de muestras de audio: {sound_to_save.size}")
 

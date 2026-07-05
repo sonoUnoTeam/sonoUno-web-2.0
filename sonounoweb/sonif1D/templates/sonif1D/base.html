@@ -229,15 +229,16 @@
                     renderGrafico(convertirData(dataJsonDesdeStorage));
                 }
             }
-    
-            // Manejo del audio
+    // Manejo del audio
             if (audioBase64) {
-                localStorage.setItem('audio_base64', audioBase64);
+                // GUARDAMOS EN MEMORIA RAM (esquivando el límite de 5MB del LocalStorage)
+                window.audioDataActual = audioBase64; 
                 const audioSource = audioPlayer.querySelector('source');
                 audioSource.src = "data:audio/wav;base64," + audioBase64;
                 audioPlayer.load();
             } else {
-                const audioBase64DesdeStorage = localStorage.getItem('audio_base64');
+                // LEEMOS DESDE LA MEMORIA RAM
+                const audioBase64DesdeStorage = window.audioDataActual;
                 if (audioBase64DesdeStorage) {
                     const audioSource = audioPlayer.querySelector('source');
                     audioSource.src = "data:audio/wav;base64," + audioBase64DesdeStorage;
