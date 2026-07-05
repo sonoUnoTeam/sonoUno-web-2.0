@@ -142,19 +142,20 @@
         });
     
         document.getElementById('downloadAudio').addEventListener('click', function(event) {
-            event.preventDefault();
-            // Obtener la cadena base64 del audio desde localStorage
-            var audioBase64 = localStorage.getItem('audio_base64');
-            if (audioBase64) {
-                // Crear un enlace de descarga
-                var link = document.createElement('a'); // Crear un enlace de descarga
-                link.href = 'data:audio/wav;base64,' + audioBase64;
-                link.download = 'audio.wav';
-                link.click();
-            } else {
-                alert('No se encontró un audio disponible.');
-            }
-        });
+    event.preventDefault();
+    // LEER EL AUDIO DESDE LA VARIABLE GLOBAL EN LA MEMORIA RAM
+    var audioBase64 = window.audioDataActual; 
+    
+    if (audioBase64) {
+        // Crear un enlace de descarga
+        var link = document.createElement('a'); 
+        link.href = 'data:audio/wav;base64,' + audioBase64;
+        link.download = 'audio.wav';
+        link.click();
+    } else {
+        alert('No se encontró un audio disponible.');
+    }
+});
         
         document.getElementById('downloadMarkers').addEventListener('click', function(event) {
             event.preventDefault();
