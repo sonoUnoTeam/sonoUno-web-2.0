@@ -18,7 +18,8 @@ jobs:
       - name: Install dependencies
         run: |
           source /home/jcasado/myenv/bin/activate
-          pip install -r sonounoweb/requirements.txt
+          cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb
+          pip install -r requirements.txt
 
       - name: Run Database Migrations
         run: |
