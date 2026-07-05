@@ -1,0 +1,37 @@
+name: Django CD - Apache Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull latest changes
+        run: |
+          cd /home/jcasado/webapp/sonoUno-web-2.0
+          git pull origin main
+
+      - name: Install dependencies
+        run: |
+          source /home/jcasado/myenv/bin/activate
+          pip install -r sonounoweb/requirements.txt
+
+      - name: Run Database Migrations
+        run: |
+          source /home/jcasado/myenv/bin/activate
+          cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb
+          python manage.py migrate --noinput
+
+      - name: Collect Static Files
+        run: |
+          source /home/jcasado/myenv/bin/activate
+          cd /home/jcasado/webapp/sonoUno-web-2.0/sonounoweb
+          python manage.py collectstatic --noinput
+
+      - name: Restart Apache Server
+        run: |
+          sudo systemctl restart apache2
