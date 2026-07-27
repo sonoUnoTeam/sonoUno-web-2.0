@@ -25,4 +25,9 @@ urlpatterns = [
     path('grafico/<str:nombre_archivo>/', mostrar_grafico, name='mostrar_grafico'),
     
     path('import_archivo/', ImportarArchivoView.as_view(), name='importar_archivo'),
+#ex: /sonif1D/aplicar_filtro
+path('aplicar_filtro/', views.aplicar_filtro_ajax, name='aplicar_filtro'),
+
+# ex: /sonif1D/configurar_sonido
+path('configurar_sonido/', views.configurar_sonido_ajax, name='configurar_sonido'),
 ]

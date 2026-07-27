@@ -10,7 +10,8 @@ Created on Dec 12 2017
 import numpy as np
 
 #from data_export.data_export import DataExport
-
+# Importamos la función desde el archivo smooth.py
+from .smooth import savitzky_golay
 
 def normalize(data_x, data_y, init=0):
 
@@ -205,4 +206,27 @@ class PredefMathFunctions(object):
         except Exception as Error:
             #self._export_error_info.writeexception(Error)
             print(Error)
+            return x, y, False
+
+    def apply_smoothing(self, x, y, window_size=31, order=4):
+        """
+        Aplica el filtro de Savitzky-Golay a los datos 'y'. 
+        Retorna los datos suavizados o los originales si ocurre un error.
+        """
+        try:
+            # Aseguramos que window_size sea impar y mayor al orden del polinomio
+            window_size = int(window_size)
+            if window_size % 2 == 0:
+                window_size += 1
+            if window_size <= order + 2:
+                window_size = order + 3
+
+            new_y = savitzky_golay(y, window_size=window_size, order=order)
+            
+            # Normalizar el resultado para que el sonido no se sature
+            new_y = ((new_y - np.nanmin(new_y)) / (np.nanmax(new_y) - np.nanmin(new_y)))
+            
+            return x, new_y, True
+        except Exception as Error:
+            print(f"Error en el filtro de suavizado: {Error}")
             return x, y, False
