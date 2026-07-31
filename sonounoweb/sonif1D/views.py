@@ -33,7 +33,9 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from .logging_config import setup_sonif1D_logging
 #from .sonounolib.data_transform import predef_math_functions
-
+from django.http import JsonResponse
+from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
+import json
 matplotlib.use('Agg')
 
 # Configurar logger
@@ -149,6 +151,10 @@ class GraficoView(FormView):
         context = self.get_context_data(form=form)
         context.update(grafico_data)
         context['data_json'] = data_json
+        # Volvemos a generar el audio para que no se pierda al recargar el gráfico
+        audio_base64 = generar_auido_base64(data, self.request)
+        if audio_base64:
+            context['audio_base64'] = audio_base64
         return self.render_to_response(context)
 
     def form_invalid(self, form):
@@ -368,10 +374,21 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
     }
     
 # Función para generar el archivo de audio (en formato WAV) en base64
-def generar_auido_base64(data, request):
+def generar_auido_base64(data, request, waveform='sine', min_freq=500.0, max_freq=5000.0, logscale=False):
     try:
+        # --- RASTREADOR 2: Vemos si la función de audio recibe los datos ---
+        print("\n" + "="*40)
+        print("2. GENERADOR DE AUDIO INICIADO CON:")
+        print(f"Instrumento: {waveform} | Rango: {min_freq}Hz - {max_freq}Hz")
+        print("="*40 + "\n")
+        
         # Instancia el generador de sonido y genera el WAV en memoria
         sonido = simpleSound()
+        # --- NUEVO: Aplicamos las configuraciones elegidas por el usuario ---
+        sonido.reproductor.set_waveform(waveform)
+        sonido.reproductor.set_min_freq(float(min_freq))
+        sonido.reproductor.set_max_freq(float(max_freq))
+        sonido.reproductor.set_logscale(logscale)
         wav_data = sonido.generate_sound(data[:, 0], data[:, 1])
 
         if wav_data is None:
@@ -864,3 +881,95 @@ class simpleSound(object):
             output_file.writeframesraw(sound_buffer)
             print('Sound saved')
             #output_file.close()
+
+def aplicar_filtro_ajax(request):
+    if request.method == 'POST':
+        try:
+            # 1. Leer los datos enviados desde JavaScript
+            body = json.loads(request.body.decode('utf-8'))
+            data_json_str = body.get('data_json')
+            window_size = int(body.get('window_size', 31))
+            order = int(body.get('order', 4))
+
+            if not data_json_str:
+                return JsonResponse({'error': 'No se enviaron datos'}, status=400)
+
+            # 2. Convertir el string JSON a array de NumPy
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+
+            x = data[:, 0]
+            y = data[:, 1]
+
+            # 3. Aplicar el filtro de Savitzky-Golay
+            math_funcs = PredefMathFunctions()
+            x_new, y_new, status = math_funcs.apply_smoothing(x, y, window_size, order)
+
+            if not status:
+                return JsonResponse({'error': 'Fallo al aplicar el filtro matemático'}, status=500)
+
+            # 4. Volver a empaquetar los datos [X, Y]
+            new_data = np.column_stack((x_new, y_new))
+            
+            # 5. Generar el nuevo audio y los nuevos datos JSON
+            nuevo_audio_base64 = generar_auido_base64(new_data, request)
+            nuevo_data_json = numpy_to_json(new_data)
+            
+            # Devolvemos la respuesta exitosa
+            return JsonResponse({
+                'success': True,
+                'audio_base64': nuevo_audio_base64,
+                'data_json': nuevo_data_json
+            })
+
+        except Exception as e:
+            logger.error(f"Error en AJAX suavizado: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+def configurar_sonido_ajax(request):
+    if request.method == 'POST':
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            data_json_str = body.get('data_json')
+            
+            # Capturamos los parámetros del frontend
+            waveform = body.get('waveform', 'sine')
+            min_freq = float(body.get('min_freq', 500))
+            max_freq = float(body.get('max_freq', 5000))
+            logscale = body.get('logscale', False)
+# --- RASTREADOR 1: Vemos si JS envió bien los datos ---
+            print("\n" + "="*40)
+            print("1. AJAX RECIBIÓ LOS PARÁMETROS:")
+            print(f"Instrumento: {waveform} | Rango: {min_freq}Hz - {max_freq}Hz | Log: {logscale}")
+            print("="*40 + "\n")
+            if not data_json_str:
+                return JsonResponse({'error': 'No hay datos cargados'}, status=400)
+
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+            
+            # Generar nuevo audio enviándole los parámetros al reproductor
+            nuevo_audio_base64 = generar_auido_base64(
+                data, request, 
+                waveform=waveform, 
+                min_freq=min_freq, 
+                max_freq=max_freq, 
+                logscale=logscale
+            )
+            
+            if not nuevo_audio_base64:
+                return JsonResponse({'error': 'Fallo al generar el nuevo audio'}, status=500)
+
+            return JsonResponse({
+                'success': True,
+                'audio_base64': nuevo_audio_base64
+            })
+        except Exception as e:
+            logger.error(f"Error en AJAX sonido: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
