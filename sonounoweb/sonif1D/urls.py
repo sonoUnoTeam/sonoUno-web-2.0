@@ -1,33 +1,21 @@
 from django.urls import path
-
-from django.urls import path,include
-
 from . import views
-from .views import mostrar_grafico, GraficoView, ImportarArchivoView
+from .views import mostrar_grafico, ImportarArchivoView
 
 app_name = "sonif1D"
 urlpatterns = [
-    # ex: /sonif1D/
+    # Vista principal
+    path("", views.index, name="index"),
     path("index", views.index, name="index"),
-    # ex: /sonif1D/inicio
-    path("inicio", views.inicio, name="inicio"),
-    # ex: /sonif1D/ayuda
-    path("ayuda", views.ayuda, name="ayuda"),
-    # Página de ayuda específica para sonif1D
+    
+    # Ayuda
     path("help/", views.ayuda_sonif1d, name="help"),
-    # ex: /sonif1D/sonido
-    path("sonido", views.sonido, name="sonido"),
-    # ex: /sonif1D/grafico
-    path('grafico/', GraficoView.as_view(), name='grafico'),
-    # ex: /sonif1D/funciones_matematicas
-    path("funciones_matematicas", views.funciones_matematicas, name="funciones_matematicas"),
     
+    # Carga de datos y ejemplos
     path('grafico/<str:nombre_archivo>/', mostrar_grafico, name='mostrar_grafico'),
-    
     path('import_archivo/', ImportarArchivoView.as_view(), name='importar_archivo'),
-#ex: /sonif1D/aplicar_filtro
-path('aplicar_filtro/', views.aplicar_filtro_ajax, name='aplicar_filtro'),
-
-# ex: /sonif1D/configurar_sonido
-path('configurar_sonido/', views.configurar_sonido_ajax, name='configurar_sonido'),
+    
+    # Endpoints AJAX
+    path('aplicar_filtro/', views.aplicar_filtro_ajax, name='aplicar_filtro'),
+    path('configurar_sonido/', views.configurar_sonido_ajax, name='configurar_sonido'),
 ]

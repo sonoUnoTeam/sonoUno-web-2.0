@@ -524,3 +524,49 @@ input[type="radio"] {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
 }
+
+/* ========================================================= */
+/* ESTILOS PARA EL PANEL UNIFICADO DE PESTAÑAS (TABS)        */
+/* ========================================================= */
+.config-panel-card {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 33, 71, 0.08) !important;
+}
+
+.config-nav-pills .nav-link {
+    border-radius: 0.5rem;
+    color: #495057;
+    background: transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+.config-nav-pills .nav-link:hover {
+    background: #f1f5f9;
+    color: #0d6efd;
+    transform: translateY(-1px);
+}
+
+.config-nav-pills .nav-link.active {
+    background: #002147;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 33, 71, 0.25);
+}
+
+.config-nav-pills .nav-link.active i {
+    color: #ffffff !important;
+}
+
+.config-nav-pills .nav-link span {
+    font-size: 0.75rem;
+    letter-spacing: 0.2px;
+}
+
+.btn-xs {
+    padding: 0.15rem 0.35rem;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+}
+

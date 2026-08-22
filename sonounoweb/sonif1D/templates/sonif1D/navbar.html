@@ -168,12 +168,12 @@
                     return;
                 }
                 
-                // Crear CSV
+                // Crear CSV con número correlativo (1, 2, 3...)
                 var csvContent = "data:text/csv;charset=utf-8,";
                 csvContent += "Index,X,Y\n";
                 
-                markers.forEach(function(marker) {
-                    csvContent += marker.index + "," + marker.x + "," + marker.y + "\n";
+                markers.forEach(function(marker, idx) {
+                    csvContent += (idx + 1) + "," + marker.x + "," + marker.y + "\n";
                 });
                 
                 // Crear un enlace temporal y descargarlo

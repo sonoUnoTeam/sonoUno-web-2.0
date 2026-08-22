@@ -1,0 +1,113 @@
+<!-- GUÍA DE INICIO RÁPIDO -->
+<div class="card-body p-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h6 class="fw-bold mb-0 text-primary">
+            <i class="bi bi-lightbulb-fill text-warning me-1"></i> Guía de Inicio Rápido
+        </h6>
+        <span class="badge bg-light text-muted border">Ayuda</span>
+    </div>
+    
+    <!-- Accordion -->
+    <div class="accordion accordion-flush" id="guiaAccordion">
+        
+        <!-- Sección 1: Cargar datos -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading1">
+                <button class="accordion-button collapsed py-2 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                    <i class="bi bi-1-circle-fill text-primary me-2"></i>
+                    <strong>Cargar datos</strong>
+                </button>
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body small px-2 py-2">
+                    <ul class="mb-0 ps-3">
+                        <li><strong>Importar archivo:</strong> Menú superior → <em>Importar → Archivo csv/txt</em></li>
+                        <li><strong>Datos de ejemplo:</strong> Menú superior → <em>Ejemplos</em> (Sinusoidal, Square, etc.)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 2: Personalizar -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading2">
+                <button class="accordion-button collapsed py-2 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    <i class="bi bi-2-circle-fill text-success me-2"></i>
+                    <strong>Personalizar</strong>
+                </button>
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body small px-2 py-2">
+                    <ul class="mb-0 ps-3">
+                        <li><strong>Pestaña Gráfico:</strong> Ajusta título, etiquetas de ejes, colores, estilos de línea y cuadrícula en tiempo real.</li>
+                        <li><strong>Pestaña Sonido:</strong> Cambia el timbre (piano, flauta, etc.), rango de frecuencias y aplica suavizado de señal Savitzky-Golay.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 3: Interactuar -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading3">
+                <button class="accordion-button collapsed py-2 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    <i class="bi bi-3-circle-fill text-warning me-2"></i>
+                    <strong>Interactuar con el gráfico</strong>
+                </button>
+            </h2>
+            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body small px-2 py-2">
+                    <ul class="mb-1 ps-3">
+                        <li><strong>Zoom:</strong> Arrastra con el cursor sobre la gráfica para ampliar. Doble clic para restablecer.</li>
+                        <li><strong>Controles:</strong> Usa <em>Play</em>, <em>Pause</em>, <em>Stop</em> y control de volumen en la barra inferior.</li>
+                        <li><strong>Velocidad:</strong> Ajusta desde 0.25x hasta 2x según tu necesidad.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 4: Marcadores -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading4">
+                <button class="accordion-button collapsed py-2 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                    <i class="bi bi-4-circle-fill text-info me-2"></i>
+                    <strong>Trabajar con marcadores</strong>
+                </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body small px-2 py-2">
+                    <ul class="mb-1 ps-3">
+                        <li><strong>Agregar:</strong> Haz clic en cualquier punto de la línea o pulsa el botón <span class="badge bg-secondary">M+</span> durante la reproducción.</li>
+                        <li><strong>Ver y exportar:</strong> Ve a la pestaña <i class="bi bi-bookmark-fill text-info"></i> <em>Marcadores</em> para ver la lista de puntos o descargarlos en CSV.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 5: Exportar -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading5">
+                <button class="accordion-button collapsed py-2 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                    <i class="bi bi-5-circle-fill text-secondary me-2"></i>
+                    <strong>Exportar resultados</strong>
+                </button>
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body small px-2 py-2">
+                    <p class="mb-1"><strong>Menú superior Exportar:</strong></p>
+                    <ul class="mb-0 ps-3">
+                        <li><em>Gráfico:</em> Descarga la imagen en formato PNG</li>
+                        <li><em>Sonido:</em> Descarga el audio sintetizado en WAV</li>
+                        <li><em>Marcadores:</em> Descarga los puntos marcados en CSV</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tip destacado -->
+    <div class="alert alert-light border border-info small mt-3 mb-0" role="alert">
+        <i class="bi bi-info-circle-fill text-info"></i> <strong>Tip:</strong> 
+        Tus configuraciones y datos se conservan localmente. Usa <i class="bi bi-arrow-counterclockwise"></i> para restablecer o <i class="bi bi-backspace-fill"></i> para deshacer.
+    </div>
+</div>
