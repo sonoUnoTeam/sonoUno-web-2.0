@@ -489,6 +489,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
 
                     if (window.sonoUno1D) {
+                        if (typeof window.sonoUno1D.clearPeaks === 'function') {
+                            window.sonoUno1D.clearPeaks();
+                        }
                         const parsedData = window.sonoUno1D.convertirData(body.data_json);
                         window.sonoUno1D.renderGraficoWithMarkers(parsedData);
                     }
@@ -595,6 +598,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
 
                     if (window.sonoUno1D) {
+                        if (typeof window.sonoUno1D.clearPeaks === 'function') {
+                            window.sonoUno1D.clearPeaks();
+                        }
                         const parsedData = window.sonoUno1D.convertirData(body.data_json);
                         window.sonoUno1D.renderGraficoWithMarkers(parsedData);
                     }
@@ -696,6 +702,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
 
                     if (window.sonoUno1D) {
+                        if (typeof window.sonoUno1D.clearPeaks === 'function') {
+                            window.sonoUno1D.clearPeaks();
+                        }
                         const parsedData = window.sonoUno1D.convertirData(body.data_json);
                         window.sonoUno1D.renderGraficoWithMarkers(parsedData);
                     }
@@ -781,37 +790,25 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(({ status, body }) => {
                 if (status === 200 && body.success) {
-                    const graficoDiv = document.getElementById('grafico');
-                    if (graficoDiv && typeof Plotly !== 'undefined' && graficoDiv.data) {
-                        // Limpiar trazas anteriores de picos (índice 3 en adelante)
-                        while (graficoDiv.data.length > 3) {
-                            Plotly.deleteTraces(graficoDiv, graficoDiv.data.length - 1);
+                    if (body.cantidad > 0) {
+                        const picosData = {
+                            x: body.picos_x,
+                            y: body.picos_y,
+                            cantidad: body.cantidad
+                        };
+                        if (window.sonoUno1D && typeof window.sonoUno1D.setPeaks === 'function') {
+                            window.sonoUno1D.setPeaks(picosData);
                         }
-
-                        if (body.cantidad > 0) {
-                            const picosTrace = {
-                                x: body.picos_x,
-                                y: body.picos_y,
-                                mode: 'markers',
-                                marker: {
-                                    color: '#dc3545',
-                                    size: 11,
-                                    symbol: 'cross',
-                                    line: { color: '#842029', width: 2 }
-                                },
-                                name: 'Picos (' + body.cantidad + ')',
-                                type: 'scatter'
-                            };
-                            Plotly.addTraces(graficoDiv, picosTrace);
-
-                            const picosText = document.getElementById('picosFeedbackText');
-                            if (picosText) picosText.textContent = `Se detectaron ${body.cantidad} pico(s) en la señal.`;
-                            showFeedback('picosFeedback');
-                        } else {
-                            const picosText = document.getElementById('picosFeedbackText');
-                            if (picosText) picosText.textContent = 'No se detectaron picos con los parámetros actuales.';
-                            showFeedback('picosFeedback');
+                        const picosText = document.getElementById('picosFeedbackText');
+                        if (picosText) picosText.textContent = `Se detectaron ${body.cantidad} pico(s) en la señal.`;
+                        showFeedback('picosFeedback');
+                    } else {
+                        if (window.sonoUno1D && typeof window.sonoUno1D.clearPeaks === 'function') {
+                            window.sonoUno1D.clearPeaks();
                         }
+                        const picosText = document.getElementById('picosFeedbackText');
+                        if (picosText) picosText.textContent = 'No se detectaron picos con los parámetros actuales.';
+                        showFeedback('picosFeedback');
                     }
                 } else {
                     alert("Error al buscar picos: " + (body.error || 'Error desconocido'));

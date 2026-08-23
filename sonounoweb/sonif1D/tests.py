@@ -58,6 +58,11 @@ class Sonif1DViewRoutingTests(TestCase):
             self.assertContains(response, 'tab-sonido-btn')
             self.assertContains(response, 'tab-matematicas-btn')
             self.assertContains(response, 'tab-marcadores-btn')
+            # Verificación de API JavaScript para picos y persistencia
+            self.assertContains(response, 'setPeaks')
+            self.assertContains(response, 'clearPeaks')
+            self.assertContains(response, 'getPeaks')
+            self.assertContains(response, 'btnPicosAjax')
 
     def test_help_view_renders_correctly(self):
         """Verifica que la vista de ayuda cargue con status 200 y use la plantilla correspondiente."""
