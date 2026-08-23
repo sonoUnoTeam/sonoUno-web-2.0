@@ -6,37 +6,41 @@
 <!-- COLUMNA DERECHA: PANEL MODULAR DE PESTAÑAS (TABS) -->
 <div class="col-lg-4">
     <div class="card mb-4 shadow-sm border-0 config-panel-card">
-        <!-- HEADER DE PESTAÑAS DE NAVEGACIÓN -->
-        <div class="card-header bg-white border-bottom p-2">
-            <ul class="nav nav-pills nav-fill config-nav-pills gap-1" id="configTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active py-2 px-1 text-truncate" id="tab-guia-btn" data-bs-toggle="pill" data-bs-target="#tab-guia-pane" type="button" role="tab" aria-controls="tab-guia-pane" aria-selected="true" title="Guía de inicio rápido">
-                        <i class="bi bi-lightbulb-fill text-warning d-block fs-6 mb-1"></i>
-                        <span class="small fw-semibold">Guía</span>
+        <!-- HEADER DE PESTAÑAS DE NAVEGACIÓN (SCIENTIFIC WORKSTATION) -->
+        <div class="config-panel-header" id="configTabs" role="tablist">
+            <!-- 1. BARRA DE ONBOARDING / GUÍA DE INICIO (NIVEL SUPERIOR DESTACADO) -->
+            <button class="onboarding-guide-btn active mb-2" id="tab-guia-btn" data-bs-toggle="pill" data-bs-target="#tab-guia-pane" type="button" role="tab" aria-controls="tab-guia-pane" aria-selected="true" title="Guía de inicio rápido y tutorial">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-lightbulb-fill"></i>
+                    <span>Guía de Inicio Rápido</span>
+                </div>
+                <span class="guide-badge">Tutorial / Ayuda</span>
+            </button>
+
+            <!-- 2. SEGMENTED CONTROL BAR (4 PANELES DE CONFIGURACIÓN INTERACTIVA) -->
+            <ul class="segmented-control-container mb-0" role="presentation">
+                <li class="segmented-control-item" role="presentation">
+                    <button class="segmented-tab-btn" id="tab-grafico-btn" data-bs-toggle="pill" data-bs-target="#tab-grafico-pane" type="button" role="tab" aria-controls="tab-grafico-pane" aria-selected="false" title="Configuración visual del gráfico">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Visual</span>
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link py-2 px-1 text-truncate" id="tab-grafico-btn" data-bs-toggle="pill" data-bs-target="#tab-grafico-pane" type="button" role="tab" aria-controls="tab-grafico-pane" aria-selected="false" title="Configuración visual del gráfico">
-                        <i class="fas fa-palette text-primary d-block fs-6 mb-1"></i>
-                        <span class="small fw-semibold">Gráfico</span>
+                <li class="segmented-control-item" role="presentation">
+                    <button class="segmented-tab-btn" id="tab-sonido-btn" data-bs-toggle="pill" data-bs-target="#tab-sonido-pane" type="button" role="tab" aria-controls="tab-sonido-pane" aria-selected="false" title="Ajustes de sonido e instrumentos">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Audio</span>
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link py-2 px-1 text-truncate" id="tab-sonido-btn" data-bs-toggle="pill" data-bs-target="#tab-sonido-pane" type="button" role="tab" aria-controls="tab-sonido-pane" aria-selected="false" title="Ajustes de sonido e instrumentos">
-                        <i class="fas fa-music text-info d-block fs-6 mb-1"></i>
-                        <span class="small fw-semibold">Sonido</span>
+                <li class="segmented-control-item" role="presentation">
+                    <button class="segmented-tab-btn" id="tab-matematicas-btn" data-bs-toggle="pill" data-bs-target="#tab-matematicas-pane" type="button" role="tab" aria-controls="tab-matematicas-pane" aria-selected="false" title="Transformaciones matemáticas y filtros">
+                        <i class="fas fa-calculator"></i>
+                        <span>Math</span>
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link py-2 px-1 text-truncate" id="tab-matematicas-btn" data-bs-toggle="pill" data-bs-target="#tab-matematicas-pane" type="button" role="tab" aria-controls="tab-matematicas-pane" aria-selected="false" title="Funciones matemáticas avanzadas">
-                        <i class="fas fa-calculator text-secondary d-block fs-6 mb-1"></i>
-                        <span class="small fw-semibold">Matemáticas</span>
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link py-2 px-1 text-truncate" id="tab-marcadores-btn" data-bs-toggle="pill" data-bs-target="#tab-marcadores-pane" type="button" role="tab" aria-controls="tab-marcadores-pane" aria-selected="false" title="Gestión de marcadores de puntos">
-                        <i class="fas fa-map-marker-alt text-success d-block fs-6 mb-1"></i>
-                        <span class="small fw-semibold">Puntos</span>
+                <li class="segmented-control-item" role="presentation">
+                    <button class="segmented-tab-btn" id="tab-marcadores-btn" data-bs-toggle="pill" data-bs-target="#tab-marcadores-pane" type="button" role="tab" aria-controls="tab-marcadores-pane" aria-selected="false" title="Gestión de marcadores de puntos">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Puntos</span>
                     </button>
                 </li>
             </ul>
@@ -75,6 +79,54 @@
 <!-- LÓGICA JAVASCRIPT REACTIVA PARA EL PANEL UNIFICADO -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Sincronización robusta de tabs y paneles exclusivos
+    const allTabBtns = [
+        document.getElementById('tab-guia-btn'),
+        document.getElementById('tab-grafico-btn'),
+        document.getElementById('tab-sonido-btn'),
+        document.getElementById('tab-matematicas-btn'),
+        document.getElementById('tab-marcadores-btn')
+    ].filter(Boolean);
+
+    const allTabPanes = [
+        document.getElementById('tab-guia-pane'),
+        document.getElementById('tab-grafico-pane'),
+        document.getElementById('tab-sonido-pane'),
+        document.getElementById('tab-matematicas-pane'),
+        document.getElementById('tab-marcadores-pane')
+    ].filter(Boolean);
+
+    function activateTab(btn) {
+        if (!btn) return;
+        const targetSelector = btn.getAttribute('data-bs-target');
+        const targetPane = document.querySelector(targetSelector);
+
+        // Desactivar todos los botones
+        allTabBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+        });
+
+        // Ocultar todos los paneles
+        allTabPanes.forEach(p => {
+            p.classList.remove('show', 'active');
+        });
+
+        // Activar únicamente el botón y panel seleccionados
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        if (targetPane) {
+            targetPane.classList.add('show', 'active');
+        }
+    }
+
+    allTabBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            activateTab(this);
+        });
+    });
+
     // Helper para mostrar feedback temporal
     function showFeedback(elementId) {
         const fb = document.getElementById(elementId);
