@@ -25,7 +25,9 @@ from io import BytesIO, StringIO
 from scipy.io.wavfile import write
 from scipy import signal
 
-from .forms import ArchivoForm, ConfiguracionGraficoForm
+from django.core.exceptions import ValidationError
+from .forms import ArchivoForm
+from .validators import Sonif1DValidator
 from .sonounolib.data_export.data_export import DataExport
 from .sonounolib.data_import.data_import import DataImport
 from .sonounolib.data_transform.predef_math_functions import normalize
@@ -35,7 +37,6 @@ from .logging_config import setup_sonif1D_logging
 #from .sonounolib.data_transform import predef_math_functions
 from django.http import JsonResponse
 from .sonounolib.data_transform.predef_math_functions import PredefMathFunctions
-import json
 matplotlib.use('Agg')
 
 # Configurar logger
@@ -46,21 +47,11 @@ def index(request):
     return render(request, "sonif1D/index.html")
 
 def inicio(request):
-    return render(request,"inicio.html")
-
-def ayuda(request):
-    return render(request,"inicio.html")
-
+    return render(request, "inicio.html")
 
 def ayuda_sonif1d(request):
     """Renderiza la página de ayuda específica para sonif1D."""
     return render(request, 'sonif1D/help.html')
-
-def sonido(request):
-    return render(request, 'sonif1D/sonido.html')
-
-def funciones_matematicas(request):
-    return render(request, 'sonif1D/funciones_matematicas.html')
 
 # Función para mostrar un gráfico de un archivo cargado
 def mostrar_grafico(request, nombre_archivo):
@@ -88,78 +79,6 @@ def mostrar_grafico(request, nombre_archivo):
     }
     context.update(grafico_data)
     return render(request, 'sonif1D/index.html', context)
-
-# Vista para configurar y mostrar un gráfico
-class GraficoView(FormView):
-    template_name = 'sonif1D/grafico.html'
-    form_class = ConfiguracionGraficoForm
-    success_url = reverse_lazy('sonif1D:grafico')
-
-    def get_initial(self):
-        """
-        Retorna los valores iniciales para el formulario.
-        Esto asegura que los campos tengan valores por defecto apropiados.
-        """
-        initial = super().get_initial()
-        # Los valores por defecto ya están definidos en el form, 
-        # pero podemos sobreescribirlos aquí si es necesario
-        initial.update({
-            'name_grafic': 'Gráfico de Datos',
-            'name_eje_x': 'Eje X',
-            'name_eje_y': 'Eje Y',
-            'grilla': True,
-            'escala_grises': False,
-            'estilo_linea': 'solid',
-            'color_linea': 'blue'
-        })
-        return initial
-
-    def get_context_data(self, **kwargs):
-        """
-        Añade contexto adicional al template.
-        """
-        context = super().get_context_data(**kwargs)
-        return context
-
-    def form_valid(self, form):
-        # Procesar los datos del formulario
-        name_grafic = form.cleaned_data['name_grafic']
-        name_eje_x = form.cleaned_data['name_eje_x']
-        name_eje_y = form.cleaned_data['name_eje_y']
-        grilla = form.cleaned_data['grilla']
-        escala_grises = form.cleaned_data['escala_grises']
-        estilo_linea = form.cleaned_data['estilo_linea']
-        color_linea = form.cleaned_data['color_linea']
-
-        # Obtener los datos en json del gráfico
-        data_json = self.request.POST.get('data_json')
-
-        if not data_json:
-            messages.error(self.request, "No se encontraron datos para generar el gráfico.")
-            return self.render_to_response(self.get_context_data(form=form))
-
-        # Transformar los datos de json a numpy
-        data = json_to_numpy(data_json)
-        
-        if data is None:
-            messages.error(self.request, "Error al cargar los datos del gráfico.")
-            return self.render_to_response(self.get_context_data(form=form))
-
-        grafico_data = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, estilo_linea, color_linea)
-  
-        # Enviar la imagen y el audio en base64 a la plantilla
-        context = self.get_context_data(form=form)
-        context.update(grafico_data)
-        context['data_json'] = data_json
-        # Volvemos a generar el audio para que no se pierda al recargar el gráfico
-        audio_base64 = generar_auido_base64(data, self.request)
-        if audio_base64:
-            context['audio_base64'] = audio_base64
-        return self.render_to_response(context)
-
-    def form_invalid(self, form):
-        messages.error(self.request, "Error al validar el formulario.")
-        return self.render_to_response(self.get_context_data(form=form))
 
 # Función para cargar los datos desde un archivo .txt o .csv a un array de NumPy
 def cargar_archivo(ruta_archivo):
@@ -376,11 +295,7 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request, waveform='sine', min_freq=500.0, max_freq=5000.0, logscale=False):
     try:
-        # --- RASTREADOR 2: Vemos si la función de audio recibe los datos ---
-        print("\n" + "="*40)
-        print("2. GENERADOR DE AUDIO INICIADO CON:")
-        print(f"Instrumento: {waveform} | Rango: {min_freq}Hz - {max_freq}Hz")
-        print("="*40 + "\n")
+        logger.debug(f"Generador de audio iniciado: Instrumento={waveform}, Rango={min_freq}Hz-{max_freq}Hz, Logscale={logscale}")
         
         # Instancia el generador de sonido y genera el WAV en memoria
         sonido = simpleSound()
@@ -886,11 +801,12 @@ def aplicar_filtro_ajax(request):
     if request.method == 'POST':
         try:
             # 1. Leer los datos enviados desde JavaScript
-            body = json.loads(request.body.decode('utf-8'))
-            data_json_str = body.get('data_json')
-            window_size = int(body.get('window_size', 31))
-            order = int(body.get('order', 4))
+            try:
+                body = json.loads(request.body.decode('utf-8'))
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'error': 'JSON malformado'}, status=400)
 
+            data_json_str = body.get('data_json')
             if not data_json_str:
                 return JsonResponse({'error': 'No se enviaron datos'}, status=400)
 
@@ -899,20 +815,34 @@ def aplicar_filtro_ajax(request):
             if data is None:
                 return JsonResponse({'error': 'Datos inválidos'}, status=400)
 
+            # 3. Validar parámetros de filtro
+            try:
+                validated_params = Sonif1DValidator.validate_filtro_params(
+                    window_size=body.get('window_size', 31),
+                    order=body.get('order', 4),
+                    data_len=data.shape[0]
+                )
+            except ValidationError as ve:
+                err_msg = '; '.join(sum(ve.message_dict.values(), [])) if hasattr(ve, 'message_dict') else str(ve.message if hasattr(ve, 'message') else ve)
+                return JsonResponse({'error': err_msg, 'field_errors': ve.message_dict if hasattr(ve, 'message_dict') else {}}, status=400)
+
+            window_size = validated_params['window_size']
+            order = validated_params['order']
+
             x = data[:, 0]
             y = data[:, 1]
 
-            # 3. Aplicar el filtro de Savitzky-Golay
+            # 4. Aplicar el filtro de Savitzky-Golay
             math_funcs = PredefMathFunctions()
             x_new, y_new, status = math_funcs.apply_smoothing(x, y, window_size, order)
 
             if not status:
                 return JsonResponse({'error': 'Fallo al aplicar el filtro matemático'}, status=500)
 
-            # 4. Volver a empaquetar los datos [X, Y]
+            # 5. Volver a empaquetar los datos [X, Y]
             new_data = np.column_stack((x_new, y_new))
             
-            # 5. Generar el nuevo audio y los nuevos datos JSON
+            # 6. Generar el nuevo audio y los nuevos datos JSON
             nuevo_audio_base64 = generar_auido_base64(new_data, request)
             nuevo_data_json = numpy_to_json(new_data)
             
@@ -932,25 +862,37 @@ def aplicar_filtro_ajax(request):
 def configurar_sonido_ajax(request):
     if request.method == 'POST':
         try:
-            body = json.loads(request.body.decode('utf-8'))
+            try:
+                body = json.loads(request.body.decode('utf-8'))
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'error': 'JSON malformado'}, status=400)
+
             data_json_str = body.get('data_json')
-            
-            # Capturamos los parámetros del frontend
-            waveform = body.get('waveform', 'sine')
-            min_freq = float(body.get('min_freq', 500))
-            max_freq = float(body.get('max_freq', 5000))
-            logscale = body.get('logscale', False)
-# --- RASTREADOR 1: Vemos si JS envió bien los datos ---
-            print("\n" + "="*40)
-            print("1. AJAX RECIBIÓ LOS PARÁMETROS:")
-            print(f"Instrumento: {waveform} | Rango: {min_freq}Hz - {max_freq}Hz | Log: {logscale}")
-            print("="*40 + "\n")
             if not data_json_str:
                 return JsonResponse({'error': 'No hay datos cargados'}, status=400)
 
             data = json_to_numpy(data_json_str)
             if data is None:
                 return JsonResponse({'error': 'Datos inválidos'}, status=400)
+
+            # Validar parámetros de sonido
+            try:
+                validated_params = Sonif1DValidator.validate_sonido_params(
+                    waveform=body.get('waveform', 'sine'),
+                    min_freq=body.get('min_freq', 500),
+                    max_freq=body.get('max_freq', 5000),
+                    logscale=body.get('logscale', False)
+                )
+            except ValidationError as ve:
+                err_msg = '; '.join(sum(ve.message_dict.values(), [])) if hasattr(ve, 'message_dict') else str(ve.message if hasattr(ve, 'message') else ve)
+                return JsonResponse({'error': err_msg, 'field_errors': ve.message_dict if hasattr(ve, 'message_dict') else {}}, status=400)
+
+            waveform = validated_params['waveform']
+            min_freq = validated_params['min_freq']
+            max_freq = validated_params['max_freq']
+            logscale = validated_params['logscale']
+
+            logger.info(f"AJAX sonido validado: Waveform={waveform}, Min={min_freq}Hz, Max={max_freq}Hz, Log={logscale}")
             
             # Generar nuevo audio enviándole los parámetros al reproductor
             nuevo_audio_base64 = generar_auido_base64(
@@ -973,3 +915,165 @@ def configurar_sonido_ajax(request):
             return JsonResponse({'error': str(e)}, status=500)
             
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def aplicar_cuadratica_ajax(request):
+    if request.method == 'POST':
+        try:
+            try:
+                body = json.loads(request.body.decode('utf-8'))
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'error': 'JSON malformado'}, status=400)
+
+            data_json_str = body.get('data_json')
+            if not data_json_str:
+                return JsonResponse({'error': 'No hay datos cargados'}, status=400)
+
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+
+            # Validar coeficientes matemáticos
+            try:
+                validated_params = Sonif1DValidator.validate_cuadratica_params(
+                    coef_a=body.get('coef_a', 1.0),
+                    coef_b=body.get('coef_b', 0.0),
+                    coef_c=body.get('coef_c', 0.0)
+                )
+            except ValidationError as ve:
+                err_msg = '; '.join(sum(ve.message_dict.values(), [])) if hasattr(ve, 'message_dict') else str(ve.message if hasattr(ve, 'message') else ve)
+                return JsonResponse({'error': err_msg, 'field_errors': ve.message_dict if hasattr(ve, 'message_dict') else {}}, status=400)
+
+            a = validated_params['coef_a']
+            b = validated_params['coef_b']
+            c = validated_params['coef_c']
+            
+            # Aplicamos la función matemática cuadrática al eje Y (columna 1)
+            data[:, 1] = a * (data[:, 1] ** 2) + b * data[:, 1] + c
+            
+            nuevo_json = numpy_to_json(data)
+            
+            # Generamos el nuevo audio
+            nuevo_audio_base64 = generar_auido_base64(data, request)
+            
+            if not nuevo_audio_base64:
+                return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
+
+            return JsonResponse({
+                'success': True,
+                'data_json': nuevo_json,
+                'audio_base64': nuevo_audio_base64
+            })
+        except Exception as e:
+            logger.error(f"Error en AJAX cuadrática: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def buscar_picos_ajax(request):
+    if request.method == 'POST':
+        try:
+            try:
+                body = json.loads(request.body.decode('utf-8'))
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'error': 'JSON malformado'}, status=400)
+
+            data_json_str = body.get('data_json')
+            if not data_json_str:
+                return JsonResponse({'error': 'No hay datos cargados'}, status=400)
+
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+
+            # Validar parámetros para la búsqueda de picos
+            try:
+                validated_params = Sonif1DValidator.validate_picos_params(
+                    prominencia=body.get('prominencia', 0.1),
+                    distancia=body.get('distancia', 5)
+                )
+            except ValidationError as ve:
+                err_msg = '; '.join(sum(ve.message_dict.values(), [])) if hasattr(ve, 'message_dict') else str(ve.message if hasattr(ve, 'message') else ve)
+                return JsonResponse({'error': err_msg, 'field_errors': ve.message_dict if hasattr(ve, 'message_dict') else {}}, status=400)
+
+            prominencia = validated_params['prominencia']
+            distancia = validated_params['distancia']
+            
+            x = data[:, 0]
+            y = data[:, 1]
+            
+            # Buscar picos en el eje Y
+            picos_indices, _ = signal.find_peaks(y, prominence=prominencia, distance=distancia)
+            
+            # Extraer las coordenadas exactas de esos picos
+            picos_x = x[picos_indices].tolist()
+            picos_y = y[picos_indices].tolist()
+
+            return JsonResponse({
+                'success': True,
+                'picos_x': picos_x,
+                'picos_y': picos_y,
+                'cantidad': len(picos_indices)
+            })
+        except Exception as e:
+            logger.error(f"Error en AJAX picos: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def aplicar_logaritmica_ajax(request):
+    if request.method == 'POST':
+        try:
+            try:
+                body = json.loads(request.body.decode('utf-8'))
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'error': 'JSON malformado'}, status=400)
+
+            data_json_str = body.get('data_json')
+            if not data_json_str:
+                return JsonResponse({'error': 'No hay datos cargados'}, status=400)
+
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+
+            # Validar parámetros de función logarítmica
+            try:
+                validated_params = Sonif1DValidator.validate_logaritmica_params(
+                    coef_a=body.get('coef_a', 1.0),
+                    coef_c=body.get('coef_c', 1.0),
+                    coef_b=body.get('coef_b', 0.0)
+                )
+            except ValidationError as ve:
+                err_msg = '; '.join(sum(ve.message_dict.values(), [])) if hasattr(ve, 'message_dict') else str(ve.message if hasattr(ve, 'message') else ve)
+                return JsonResponse({'error': err_msg, 'field_errors': ve.message_dict if hasattr(ve, 'message_dict') else {}}, status=400)
+
+            a = validated_params['coef_a']
+            c = validated_params['coef_c']
+            b = validated_params['coef_b']
+            
+            # PROTECCIÓN DE DOMINIO: Aseguramos que (y + c) nunca sea <= 0
+            # Si el valor baja de 0, lo forzamos a ser 1e-9 (un número muy cercano a cero)
+            y_seguro = np.maximum(data[:, 1] + c, 1e-9)
+            
+            # Aplicamos el logaritmo natural (ln)
+            data[:, 1] = a * np.log(y_seguro) + b
+            
+            nuevo_json = numpy_to_json(data)
+            nuevo_audio_base64 = generar_auido_base64(data, request)
+            
+            if not nuevo_audio_base64:
+                return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
+
+            return JsonResponse({
+                'success': True,
+                'data_json': nuevo_json,
+                'audio_base64': nuevo_audio_base64
+            })
+        except Exception as e:
+            logger.error(f"Error en AJAX logarítmica: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

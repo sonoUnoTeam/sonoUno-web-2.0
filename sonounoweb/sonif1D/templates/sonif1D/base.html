@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS Personal -->
-    <link rel="stylesheet" href="{% static 'config_styles.css' %}">
     <!-- CSS Configuraciones -->
-    <link rel="stylesheet" href="{% static 'sonif1D/config_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'sonif1D/config_styles.css' %}?v=2.1">
     {% block extra_css %}{% endblock %}
     <!-- JavaScript -->
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
@@ -40,117 +38,116 @@
             <div class="col-lg-8">
                 <!-- Featured blog post-->
                 {% block main_media %}
-                <div class="card mb-4">
-                    <div class="card-body">
+                <div class="card mb-4 shadow-sm border-0 main-stage-card">
+                    <div class="card-body p-3 p-md-4">
 
-                        <!-- Gráfico -->
-                        <div id="grafico" style="width: 100%; height: 500px;"></div>
+                        <!-- Gráfico Plotly -->
+                        <div id="grafico" style="width: 100%; height: 500px;" class="rounded"></div>
                         
-                        <!-- Controles principales de reproducción -->
-                        <div class="row mb-3 mt-3">
-                            <!-- Botones de control -->
-                            <div class="col-md-6 mb-2">
-                                <div class="btn-group w-100" role="group">
-                                    <button class="btn btn-success" id="playBtn" type="button">
-                                        <i class="bi bi-play-fill"></i> Play
-                                    </button>
-                                    <button class="btn btn-warning" id="pauseBtn" type="button" style="display: none;">
-                                        <i class="bi bi-pause-fill"></i> Pause
-                                    </button>
-                                    <button class="btn btn-danger" id="stopBtn" type="button">
-                                        <i class="bi bi-stop-fill"></i> Stop
-                                    </button>
-                                    <button class="btn btn-secondary" id="audioResetBtn" type="button">
-                                        <i class="bi bi-arrow-clockwise"></i> Reset
-                                    </button>
+                        <!-- Consola de Transporte y Reproducción -->
+                        <div class="transport-console mt-3">
+                            <div class="row align-items-center mb-3 g-2">
+                                <!-- Botones de Transporte -->
+                                <div class="col-md-6">
+                                    <div class="btn-group w-100 transport-btn-group" role="group">
+                                        <button class="btn btn-transport-play" id="playBtn" type="button">
+                                            <i class="bi bi-play-fill fs-6"></i> Play
+                                        </button>
+                                        <button class="btn btn-transport-pause" id="pauseBtn" type="button" style="display: none;">
+                                            <i class="bi bi-pause-fill fs-6"></i> Pause
+                                        </button>
+                                        <button class="btn btn-transport-stop" id="stopBtn" type="button">
+                                            <i class="bi bi-stop-fill fs-6"></i> Stop
+                                        </button>
+                                        <button class="btn btn-transport-reset" id="audioResetBtn" type="button">
+                                            <i class="bi bi-arrow-clockwise fs-6"></i> Reset
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Controles de Volumen -->
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center gap-2 px-1">
+                                        <button class="btn btn-sm btn-outline-secondary" id="volumeDownBtn" type="button" title="Bajar volumen">
+                                            <i class="bi bi-volume-down"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" id="muteBtn" type="button" title="Silenciar/Activar sonido">
+                                            <i class="bi bi-volume-up" id="muteIcon"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" id="volumeUpBtn" type="button" title="Subir volumen">
+                                            <i class="bi bi-volume-up"></i>
+                                        </button>
+                                        <div class="flex-grow-1 mx-2">
+                                            <input type="range" id="volumeSlider" min="0" max="100" value="100" step="1" class="form-range">
+                                        </div>
+                                        <span class="badge bg-light text-dark border font-monospace" id="volumeDisplay" style="min-width: 45px;">100%</span>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <!-- Controles de volumen -->
-                            <div class="col-md-6 mb-2">
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm" id="volumeDownBtn" type="button" title="Bajar volumen">
-                                        <i class="bi bi-volume-down"></i>
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sm" id="muteBtn" type="button" title="Silenciar/Activar sonido">
-                                        <i class="bi bi-volume-up" id="muteIcon"></i>
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sm" id="volumeUpBtn" type="button" title="Subir volumen">
-                                        <i class="bi bi-volume-up"></i>
-                                    </button>
-                                    <div class="flex-grow-1 mx-2">
-                                        <input type="range" id="volumeSlider" min="0" max="100" value="100" step="1" class="form-range form-range-sm">
+                            <!-- Barra de Progreso y Tiempo -->
+                            <div class="row align-items-center mb-3 g-2">
+                                <div class="col-md-3">
+                                    <div class="text-center text-md-start">
+                                        <span class="badge bg-white text-primary border font-monospace p-2 w-100">
+                                            <i class="bi bi-clock me-1"></i> 
+                                            <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+                                        </span>
                                     </div>
-                                    <small class="text-muted text-nowrap fw-bold" id="volumeDisplay">100%</small>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <small class="text-muted fw-bold font-monospace" id="startTimeLabel">0:00</small>
+                                        <input type="range" id="progressBar" min="0" value="0" step="0.1" class="form-range flex-grow-1">
+                                        <small class="text-muted fw-bold font-monospace" id="endTimeLabel">0:00</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Barra de progreso y tiempo -->
-                        <div class="row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <small class="text-muted">
-                                        <i class="bi bi-clock text-primary"></i> 
-                                        <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
-                                    </small>
+                            
+                            <!-- Botones de Marcadores Rápidos y Velocidad -->
+                            <div class="row align-items-center g-2 pt-2 border-top">
+                                <div class="col-md-7">
+                                    <div class="btn-group w-100" role="group">
+                                        <button id="addMarkerButton" class="btn btn-sm btn-outline-primary fw-semibold" title="Agregar marcador en posición actual (M+)">
+                                            <i class="bi bi-bookmark-plus-fill"></i> M+
+                                        </button>
+                                        <button id="removeMarkerButton" class="btn btn-sm btn-outline-danger fw-semibold" title="Eliminar último marcador (M-)">
+                                            <i class="bi bi-bookmark-dash-fill"></i> M-
+                                        </button>
+                                        <button id="undoButton" class="btn btn-sm btn-outline-warning fw-semibold text-dark" title="Deshacer configuración">
+                                            <i class="bi bi-arrow-counterclockwise"></i> Undo
+                                        </button>
+                                        <button id="resetButton" class="btn btn-sm btn-outline-secondary fw-semibold" title="Reset completo">
+                                            <i class="bi bi-trash"></i> Reset
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="d-flex align-items-center justify-content-between gap-2">
+                                        <div class="d-flex align-items-center gap-1 flex-grow-1">
+                                            <small class="text-muted text-nowrap fw-semibold">Vel:</small>
+                                            <select class="form-select form-select-sm py-1" id="playbackSpeed">
+                                                <option value="0.25">0.25x</option>
+                                                <option value="0.5">0.5x</option>
+                                                <option value="0.75">0.75x</option>
+                                                <option value="1" selected>1.0x (Normal)</option>
+                                                <option value="1.25">1.25x</option>
+                                                <option value="1.5">1.5x</option>
+                                                <option value="2">2.0x</option>
+                                            </select>
+                                        </div>
+                                        <span class="badge" style="background: var(--sw-rose-bg); color: var(--sw-rose-text); border: 1px solid var(--sw-rose-border);">
+                                            Puntos: <span id="markerCount" class="fw-bold">0</span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
-                                <div class="d-flex align-items-center gap-2">
-                                    <small class="text-muted fw-bold" id="startTimeLabel">0:00</small>
-                                    <input type="range" id="progressBar" min="0" value="0" step="0.1" class="form-range flex-grow-1">
-                                    <small class="text-muted fw-bold" id="endTimeLabel">0:00</small>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Botones de marcadores -->
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <div class="btn-group w-100" role="group">
-                                    <button id="addMarkerButton" class="btn btn-outline-primary" title="Agregar marcador (M+)">
-                                        <i class="bi bi-bookmark-plus-fill"></i> M+
-                                    </button>
-                                    <button id="removeMarkerButton" class="btn btn-outline-danger" title="Eliminar último marcador (M-)">
-                                        <i class="bi bi-bookmark-dash-fill"></i> M-
-                                    </button>
-                                    <button id="undoButton" class="btn btn-outline-warning" title="Deshacer configuración">
-                                        <i class="bi bi-backspace-fill"></i> Undo
-                                    </button>
-                                    <button id="resetButton" class="btn btn-outline-secondary" title="Reset completo">
-                                        <i class="bi bi-arrow-counterclockwise"></i> Reset
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Reproductor de audio -->
-                        <audio id="audioPlayer" >
-                            <source id="audioSource" src="" type="audio/wav">
-                            Tu navegador no soporta la reproducción de audio.
-                        </audio>                                               
-
-                        <!-- Velocidad de reproducción -->
-                        <div class="row align-items-center mt-3">
-                            <div class="col-md-6">
-                                <label class="form-label mb-1" for="playbackSpeed">Velocidad de reproducción:</label>
-                                <select class="form-select form-select-sm" id="playbackSpeed">
-                                    <option value="0.25">0.25x</option>
-                                    <option value="0.5">0.5x</option>
-                                    <option value="0.75">0.75x</option>
-                                    <option value="1" selected>1x (Normal)</option>
-                                    <option value="1.25">1.25x</option>
-                                    <option value="1.5">1.5x</option>
-                                    <option value="2">2x</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label mb-1">&nbsp;</label>
-                                <div>
-                                    <span class="badge bg-info text-dark">Marcadores: <span id="markerCount">0</span></span>
-                                </div>
-                            </div>
+                            <!-- Elemento de Audio HTML5 -->
+                            <audio id="audioPlayer">
+                                <source id="audioSource" src="" type="audio/wav">
+                                Tu navegador no soporta la reproducción de audio.
+                            </audio>                                               
                         </div>
 
                     </div>
@@ -188,30 +185,30 @@
             const data_json = "{{ data_json|default:'' }}";
             const grafico_base64 = "{{ grafico_base64|default:'' }}";
 
-            //Configuracion del grafico
-            let name_grafic = "{{ name_grafic|default:'Grafico' }}";
-            let name_eje_x = "{{ name_eje_x|default:'Eje X' }}";
-            let name_eje_y = "{{ name_eje_y|default:'Eje Y' }}";
-            let grilla = "{{ grilla|default:'false' }}";
-            let escala_grises = "{{ escala_grises|default:'false' }}";
-            let estilo_linea = "{{ estilo_linea|default:'solid' }}";
-            let color_linea = "{{ color_linea|default:'blue' }}";;
+            // Configuracion del grafico desde Django si viene explícita
+            const djangoNameGrafic = "{{ name_grafic|default:'' }}";
+            const djangoNameEjeX = "{{ name_eje_x|default:'' }}";
+            const djangoNameEjeY = "{{ name_eje_y|default:'' }}";
+            const djangoGrilla = "{{ grilla|default:'' }}";
+            const djangoEscalaGrises = "{{ escala_grises|default:'' }}";
+            const djangoEstiloLinea = "{{ estilo_linea|default:'' }}";
+            const djangoColorLinea = "{{ color_linea|default:'' }}";
 
-            localStorage.setItem('name_grafic', name_grafic);
-            localStorage.setItem('name_eje_x', name_eje_x);
-            localStorage.setItem('name_eje_y', name_eje_y);
-            localStorage.setItem('grilla', grilla);
-            localStorage.setItem('escala_grises', escala_grises);
-            localStorage.setItem('estilo_linea', estilo_linea);
-            localStorage.setItem('color_linea', color_linea);
+            if (djangoNameGrafic) localStorage.setItem('name_grafic', djangoNameGrafic);
+            if (djangoNameEjeX) localStorage.setItem('name_eje_x', djangoNameEjeX);
+            if (djangoNameEjeY) localStorage.setItem('name_eje_y', djangoNameEjeY);
+            if (djangoGrilla) localStorage.setItem('grilla', djangoGrilla);
+            if (djangoEscalaGrises) localStorage.setItem('escala_grises', djangoEscalaGrises);
+            if (djangoEstiloLinea) localStorage.setItem('estilo_linea', djangoEstiloLinea);
+            if (djangoColorLinea) localStorage.setItem('color_linea', djangoColorLinea);
 
-            name_grafic = localStorage.getItem('name_grafic');
-            name_eje_x = localStorage.getItem('name_eje_x');
-            name_eje_y = localStorage.getItem('name_eje_y');
-            grilla = localStorage.getItem('grilla');
-            escala_grises = localStorage.getItem('escala_grises');
-            estilo_linea = localStorage.getItem('estilo_linea');
-            color_linea = localStorage.getItem('color_linea');
+            let name_grafic = localStorage.getItem('name_grafic') || 'Gráfico de Datos';
+            let name_eje_x = localStorage.getItem('name_eje_x') || 'Eje X';
+            let name_eje_y = localStorage.getItem('name_eje_y') || 'Eje Y';
+            let grilla = localStorage.getItem('grilla') || 'true';
+            let escala_grises = localStorage.getItem('escala_grises') || 'false';
+            let estilo_linea = localStorage.getItem('estilo_linea') || 'solid';
+            let color_linea = localStorage.getItem('color_linea') || 'blue';
     
             // Manejo del json del gráfico
             if (data_json) {
@@ -229,7 +226,7 @@
                     renderGrafico(convertirData(dataJsonDesdeStorage));
                 }
             }
-    // Manejo del audio
+            // Manejo del audio
             if (audioBase64) {
                 // GUARDAMOS EN MEMORIA RAM (esquivando el límite de 5MB del LocalStorage)
                 window.audioDataActual = audioBase64; 
@@ -468,6 +465,14 @@
                 if (markerCountElement) {
                     markerCountElement.textContent = markers.length;
                 }
+                const tabBadge = document.getElementById('tabMarkerBadge');
+                if (tabBadge) {
+                    tabBadge.textContent = markers.length + (markers.length === 1 ? ' punto' : ' puntos');
+                }
+                window.dispatchEvent(new CustomEvent('sonouno:markers-changed', { detail: { markers: markers } }));
+                if (window.sonoUno1D && typeof window.sonoUno1D.onMarkersChanged === 'function') {
+                    window.sonoUno1D.onMarkersChanged(markers);
+                }
             }
             
             // Agregar marcador en la posición actual del audio
@@ -584,10 +589,10 @@
             
             // Función para renderizar el gráfico con marcadores
             function renderGraficoWithMarkers(data) {
-                // Aplicar escala de grises si está seleccionada
-                if (escala_grises === 'true') {
-                    color_linea = 'gray';
-                }
+                const isGray = (escala_grises === 'true' || escala_grises === true || escala_grises === 'True');
+                const isGrid = (grilla === 'true' || grilla === true || grilla === 'True');
+                const currentLineColor = isGray ? 'gray' : color_linea;
+
                 // Traza de la línea
                 var trace1 = {
                     x: data.x,
@@ -595,7 +600,7 @@
                     mode: 'lines',
                     name: 'Gráfico',
                     line: {
-                        color: color_linea,
+                        color: currentLineColor,
                         dash: estilo_linea
                     }
                 };
@@ -628,19 +633,17 @@
                 // Diseño del gráfico
                 var layout = {
                     title: name_grafic,
-                    xaxis: {title: name_eje_x},
-                    yaxis: {title: name_eje_y},
+                    xaxis: {
+                        title: name_eje_x,
+                        showgrid: isGrid
+                    },
+                    yaxis: {
+                        title: name_eje_y,
+                        showgrid: isGrid
+                    },
                     showlegend: false,
-                    template: escala_grises === 'true' ? 'plotly_white' : 'plotly'
+                    template: isGray ? 'plotly_white' : 'plotly'
                 };
-                // Mostrar la grilla si está seleccionada
-                if (grilla === 'True') {
-                    layout.xaxis.showgrid = true;
-                    layout.yaxis.showgrid = true;
-                }else{
-                    layout.xaxis.showgrid = false;
-                    layout.yaxis.showgrid = false;
-                }
 
                 // Renderizar el gráfico con tres trazas: línea, marca móvil y marcadores fijos
                 Plotly.newPlot('grafico', [trace1, trace2, trace3], layout).then(function() {
@@ -730,6 +733,72 @@
                 });
                 return { x, y };
             }
+
+            // Exponer API global de sonoUno1D para componentes y pestañas
+            window.sonoUno1D = {
+                getConfig: function() {
+                    return {
+                        name_grafic: localStorage.getItem('name_grafic') || 'Gráfico de Datos',
+                        name_eje_x: localStorage.getItem('name_eje_x') || 'Eje X',
+                        name_eje_y: localStorage.getItem('name_eje_y') || 'Eje Y',
+                        grilla: localStorage.getItem('grilla') === 'true' || localStorage.getItem('grilla') === true,
+                        escala_grises: localStorage.getItem('escala_grises') === 'true' || localStorage.getItem('escala_grises') === true,
+                        estilo_linea: localStorage.getItem('estilo_linea') || 'solid',
+                        color_linea: localStorage.getItem('color_linea') || 'blue'
+                    };
+                },
+                setConfig: function(newCfg) {
+                    if (newCfg.name_grafic !== undefined) {
+                        localStorage.setItem('name_grafic', newCfg.name_grafic);
+                        name_grafic = newCfg.name_grafic;
+                    }
+                    if (newCfg.name_eje_x !== undefined) {
+                        localStorage.setItem('name_eje_x', newCfg.name_eje_x);
+                        name_eje_x = newCfg.name_eje_x;
+                    }
+                    if (newCfg.name_eje_y !== undefined) {
+                        localStorage.setItem('name_eje_y', newCfg.name_eje_y);
+                        name_eje_y = newCfg.name_eje_y;
+                    }
+                    if (newCfg.grilla !== undefined) {
+                        localStorage.setItem('grilla', newCfg.grilla);
+                        grilla = String(newCfg.grilla);
+                    }
+                    if (newCfg.escala_grises !== undefined) {
+                        localStorage.setItem('escala_grises', newCfg.escala_grises);
+                        escala_grises = String(newCfg.escala_grises);
+                    }
+                    if (newCfg.estilo_linea !== undefined) {
+                        localStorage.setItem('estilo_linea', newCfg.estilo_linea);
+                        estilo_linea = newCfg.estilo_linea;
+                    }
+                    if (newCfg.color_linea !== undefined) {
+                        localStorage.setItem('color_linea', newCfg.color_linea);
+                        color_linea = newCfg.color_linea;
+                    }
+
+                    const dataJson = localStorage.getItem('data_json');
+                    if (dataJson) {
+                        renderGraficoWithMarkers(convertirData(dataJson));
+                    }
+                },
+                convertirData: convertirData,
+                renderGrafico: renderGrafico,
+                renderGraficoWithMarkers: renderGraficoWithMarkers,
+                getMarkers: function() { return markers; },
+                setMarkers: function(newMarkers) {
+                    markers = newMarkers;
+                    saveMarkers();
+                    const dataJson = localStorage.getItem('data_json');
+                    if (dataJson) {
+                        renderGraficoWithMarkers(convertirData(dataJson));
+                    }
+                },
+                onMarkersChanged: null
+            };
+
+            // Notificar estado inicial de marcadores
+            updateMarkerCount();
         });
     </script>
 

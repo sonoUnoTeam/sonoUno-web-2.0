@@ -1,0 +1,119 @@
+<!-- GUÍA DE INICIO RÁPIDO (WORKSTATION ONBOARDING) -->
+<div class="card-body p-3">
+    <div class="section-header-badge">
+        <h6 class="text-dark d-flex align-items-center gap-2">
+            <i class="bi bi-lightbulb-fill text-warning"></i>
+            <span>Guía de Inicio Rápido</span>
+        </h6>
+        <span class="sw-badge-tag" style="background: var(--sw-amber-bg); color: var(--sw-amber-text); border: 1px solid var(--sw-amber-border);">
+            Paso a Paso
+        </span>
+    </div>
+    
+    <!-- Acordeón Onboarding -->
+    <div class="accordion onboarding-accordion" id="guiaAccordion">
+        
+        <!-- Paso 1: Cargar datos -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading1">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                    <span class="onboarding-step-num onboarding-step-1">1</span>
+                    <span>Cargar datos científicos</span>
+                </button>
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body">
+                    <ul class="mb-0 ps-3">
+                        <li class="mb-1"><strong>Importar archivo:</strong> Menú superior → <em>Importar → Archivo csv/txt</em>.</li>
+                        <li><strong>Datos de prueba:</strong> Menú superior → <em>Ejemplos</em> (Sinusoidal, Square, Beats, etc.).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 2: Personalizar -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    <span class="onboarding-step-num onboarding-step-2">2</span>
+                    <span>Personalizar Visual y Audio</span>
+                </button>
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body">
+                    <ul class="mb-0 ps-3">
+                        <li class="mb-1"><strong>Visual:</strong> Configura títulos, ejes, colores, trazo y cuadrícula en tiempo real.</li>
+                        <li><strong>Audio:</strong> Elige el timbre (piano, flauta, sintetizador), rango Hz y aplica suavizado Savitzky-Golay.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 3: Interactuar -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    <span class="onboarding-step-num onboarding-step-3">3</span>
+                    <span>Interactuar con la gráfica</span>
+                </button>
+            </h2>
+            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body">
+                    <ul class="mb-0 ps-3">
+                        <li class="mb-1"><strong>Zoom dinámico:</strong> Arrastra con el cursor sobre la curva. Doble clic para restablecer la vista.</li>
+                        <li class="mb-1"><strong>Consola de Transporte:</strong> Usa <em>Play</em>, <em>Pause</em>, <em>Stop</em> y el deslizador de volumen.</li>
+                        <li><strong>Velocidad:</strong> Modula la cadencia de 0.25x a 2.0x.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 4: Marcadores -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                    <span class="onboarding-step-num onboarding-step-4">4</span>
+                    <span>Marcar puntos de interés</span>
+                </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body">
+                    <ul class="mb-0 ps-3">
+                        <li class="mb-1"><strong>Anotar:</strong> Clic en cualquier coordenada del trazo o pulsa <span class="badge bg-secondary">M+</span> durante la reproducción.</li>
+                        <li><strong>Gestionar:</strong> Abre la pestaña <em>Puntos</em> para inspeccionar la tabla o descargar CSV.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 5: Exportar -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                    <span class="onboarding-step-num onboarding-step-5">5</span>
+                    <span>Exportar resultados</span>
+                </button>
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#guiaAccordion">
+                <div class="accordion-body">
+                    <ul class="mb-0 ps-3">
+                        <li class="mb-1"><strong>Gráfico:</strong> Imagen de alta resolución en PNG.</li>
+                        <li class="mb-1"><strong>Sonido:</strong> Audio sintetizado en formato WAV.</li>
+                        <li><strong>Marcadores:</strong> Puntos y coordenadas exportados en CSV.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tip destacado -->
+    <div class="sw-subcard mt-3 mb-0" style="background: var(--sw-amber-bg); border-color: var(--sw-amber-border);">
+        <div class="d-flex align-items-start gap-2">
+            <i class="bi bi-info-circle-fill text-warning mt-1"></i>
+            <div class="small" style="color: var(--sw-amber-text);">
+                <strong>Persistencia Local:</strong> Tus ajustes y marcadores se guardan automáticamente en tu sesión de navegador.
+            </div>
+        </div>
+    </div>
+</div>
