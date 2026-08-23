@@ -25,7 +25,7 @@ from io import BytesIO, StringIO
 from scipy.io.wavfile import write
 from scipy import signal
 
-from .forms import ArchivoForm, ConfiguracionGraficoForm
+from .forms import ArchivoForm
 from .sonounolib.data_export.data_export import DataExport
 from .sonounolib.data_import.data_import import DataImport
 from .sonounolib.data_transform.predef_math_functions import normalize
@@ -46,21 +46,11 @@ def index(request):
     return render(request, "sonif1D/index.html")
 
 def inicio(request):
-    return render(request,"inicio.html")
-
-def ayuda(request):
-    return render(request,"inicio.html")
-
+    return render(request, "inicio.html")
 
 def ayuda_sonif1d(request):
     """Renderiza la página de ayuda específica para sonif1D."""
     return render(request, 'sonif1D/help.html')
-
-def sonido(request):
-    return render(request, 'sonif1D/sonido.html')
-
-def funciones_matematicas(request):
-    return render(request, 'sonif1D/funciones_matematicas.html')
 
 # Función para mostrar un gráfico de un archivo cargado
 def mostrar_grafico(request, nombre_archivo):
@@ -88,78 +78,6 @@ def mostrar_grafico(request, nombre_archivo):
     }
     context.update(grafico_data)
     return render(request, 'sonif1D/index.html', context)
-
-# Vista para configurar y mostrar un gráfico
-class GraficoView(FormView):
-    template_name = 'sonif1D/grafico.html'
-    form_class = ConfiguracionGraficoForm
-    success_url = reverse_lazy('sonif1D:grafico')
-
-    def get_initial(self):
-        """
-        Retorna los valores iniciales para el formulario.
-        Esto asegura que los campos tengan valores por defecto apropiados.
-        """
-        initial = super().get_initial()
-        # Los valores por defecto ya están definidos en el form, 
-        # pero podemos sobreescribirlos aquí si es necesario
-        initial.update({
-            'name_grafic': 'Gráfico de Datos',
-            'name_eje_x': 'Eje X',
-            'name_eje_y': 'Eje Y',
-            'grilla': True,
-            'escala_grises': False,
-            'estilo_linea': 'solid',
-            'color_linea': 'blue'
-        })
-        return initial
-
-    def get_context_data(self, **kwargs):
-        """
-        Añade contexto adicional al template.
-        """
-        context = super().get_context_data(**kwargs)
-        return context
-
-    def form_valid(self, form):
-        # Procesar los datos del formulario
-        name_grafic = form.cleaned_data['name_grafic']
-        name_eje_x = form.cleaned_data['name_eje_x']
-        name_eje_y = form.cleaned_data['name_eje_y']
-        grilla = form.cleaned_data['grilla']
-        escala_grises = form.cleaned_data['escala_grises']
-        estilo_linea = form.cleaned_data['estilo_linea']
-        color_linea = form.cleaned_data['color_linea']
-
-        # Obtener los datos en json del gráfico
-        data_json = self.request.POST.get('data_json')
-
-        if not data_json:
-            messages.error(self.request, "No se encontraron datos para generar el gráfico.")
-            return self.render_to_response(self.get_context_data(form=form))
-
-        # Transformar los datos de json a numpy
-        data = json_to_numpy(data_json)
-        
-        if data is None:
-            messages.error(self.request, "Error al cargar los datos del gráfico.")
-            return self.render_to_response(self.get_context_data(form=form))
-
-        grafico_data = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, estilo_linea, color_linea)
-  
-        # Enviar la imagen y el audio en base64 a la plantilla
-        context = self.get_context_data(form=form)
-        context.update(grafico_data)
-        context['data_json'] = data_json
-        # Volvemos a generar el audio para que no se pierda al recargar el gráfico
-        audio_base64 = generar_auido_base64(data, self.request)
-        if audio_base64:
-            context['audio_base64'] = audio_base64
-        return self.render_to_response(context)
-
-    def form_invalid(self, form):
-        messages.error(self.request, "Error al validar el formulario.")
-        return self.render_to_response(self.get_context_data(form=form))
 
 # Función para cargar los datos desde un archivo .txt o .csv a un array de NumPy
 def cargar_archivo(ruta_archivo):

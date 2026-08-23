@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS Personal -->
-    <link rel="stylesheet" href="{% static 'config_styles.css' %}">
     <!-- CSS Configuraciones -->
     <link rel="stylesheet" href="{% static 'sonif1D/config_styles.css' %}">
     {% block extra_css %}{% endblock %}
@@ -188,30 +186,30 @@
             const data_json = "{{ data_json|default:'' }}";
             const grafico_base64 = "{{ grafico_base64|default:'' }}";
 
-            //Configuracion del grafico
-            let name_grafic = "{{ name_grafic|default:'Grafico' }}";
-            let name_eje_x = "{{ name_eje_x|default:'Eje X' }}";
-            let name_eje_y = "{{ name_eje_y|default:'Eje Y' }}";
-            let grilla = "{{ grilla|default:'false' }}";
-            let escala_grises = "{{ escala_grises|default:'false' }}";
-            let estilo_linea = "{{ estilo_linea|default:'solid' }}";
-            let color_linea = "{{ color_linea|default:'blue' }}";;
+            // Configuracion del grafico desde Django si viene explícita
+            const djangoNameGrafic = "{{ name_grafic|default:'' }}";
+            const djangoNameEjeX = "{{ name_eje_x|default:'' }}";
+            const djangoNameEjeY = "{{ name_eje_y|default:'' }}";
+            const djangoGrilla = "{{ grilla|default:'' }}";
+            const djangoEscalaGrises = "{{ escala_grises|default:'' }}";
+            const djangoEstiloLinea = "{{ estilo_linea|default:'' }}";
+            const djangoColorLinea = "{{ color_linea|default:'' }}";
 
-            localStorage.setItem('name_grafic', name_grafic);
-            localStorage.setItem('name_eje_x', name_eje_x);
-            localStorage.setItem('name_eje_y', name_eje_y);
-            localStorage.setItem('grilla', grilla);
-            localStorage.setItem('escala_grises', escala_grises);
-            localStorage.setItem('estilo_linea', estilo_linea);
-            localStorage.setItem('color_linea', color_linea);
+            if (djangoNameGrafic) localStorage.setItem('name_grafic', djangoNameGrafic);
+            if (djangoNameEjeX) localStorage.setItem('name_eje_x', djangoNameEjeX);
+            if (djangoNameEjeY) localStorage.setItem('name_eje_y', djangoNameEjeY);
+            if (djangoGrilla) localStorage.setItem('grilla', djangoGrilla);
+            if (djangoEscalaGrises) localStorage.setItem('escala_grises', djangoEscalaGrises);
+            if (djangoEstiloLinea) localStorage.setItem('estilo_linea', djangoEstiloLinea);
+            if (djangoColorLinea) localStorage.setItem('color_linea', djangoColorLinea);
 
-            name_grafic = localStorage.getItem('name_grafic');
-            name_eje_x = localStorage.getItem('name_eje_x');
-            name_eje_y = localStorage.getItem('name_eje_y');
-            grilla = localStorage.getItem('grilla');
-            escala_grises = localStorage.getItem('escala_grises');
-            estilo_linea = localStorage.getItem('estilo_linea');
-            color_linea = localStorage.getItem('color_linea');
+            let name_grafic = localStorage.getItem('name_grafic') || 'Gráfico de Datos';
+            let name_eje_x = localStorage.getItem('name_eje_x') || 'Eje X';
+            let name_eje_y = localStorage.getItem('name_eje_y') || 'Eje Y';
+            let grilla = localStorage.getItem('grilla') || 'true';
+            let escala_grises = localStorage.getItem('escala_grises') || 'false';
+            let estilo_linea = localStorage.getItem('estilo_linea') || 'solid';
+            let color_linea = localStorage.getItem('color_linea') || 'blue';
     
             // Manejo del json del gráfico
             if (data_json) {
@@ -229,7 +227,7 @@
                     renderGrafico(convertirData(dataJsonDesdeStorage));
                 }
             }
-    // Manejo del audio
+            // Manejo del audio
             if (audioBase64) {
                 // GUARDAMOS EN MEMORIA RAM (esquivando el límite de 5MB del LocalStorage)
                 window.audioDataActual = audioBase64; 
@@ -468,6 +466,14 @@
                 if (markerCountElement) {
                     markerCountElement.textContent = markers.length;
                 }
+                const tabBadge = document.getElementById('tabMarkerBadge');
+                if (tabBadge) {
+                    tabBadge.textContent = markers.length + (markers.length === 1 ? ' punto' : ' puntos');
+                }
+                window.dispatchEvent(new CustomEvent('sonouno:markers-changed', { detail: { markers: markers } }));
+                if (window.sonoUno1D && typeof window.sonoUno1D.onMarkersChanged === 'function') {
+                    window.sonoUno1D.onMarkersChanged(markers);
+                }
             }
             
             // Agregar marcador en la posición actual del audio
@@ -584,10 +590,10 @@
             
             // Función para renderizar el gráfico con marcadores
             function renderGraficoWithMarkers(data) {
-                // Aplicar escala de grises si está seleccionada
-                if (escala_grises === 'true') {
-                    color_linea = 'gray';
-                }
+                const isGray = (escala_grises === 'true' || escala_grises === true || escala_grises === 'True');
+                const isGrid = (grilla === 'true' || grilla === true || grilla === 'True');
+                const currentLineColor = isGray ? 'gray' : color_linea;
+
                 // Traza de la línea
                 var trace1 = {
                     x: data.x,
@@ -595,7 +601,7 @@
                     mode: 'lines',
                     name: 'Gráfico',
                     line: {
-                        color: color_linea,
+                        color: currentLineColor,
                         dash: estilo_linea
                     }
                 };
@@ -628,19 +634,17 @@
                 // Diseño del gráfico
                 var layout = {
                     title: name_grafic,
-                    xaxis: {title: name_eje_x},
-                    yaxis: {title: name_eje_y},
+                    xaxis: {
+                        title: name_eje_x,
+                        showgrid: isGrid
+                    },
+                    yaxis: {
+                        title: name_eje_y,
+                        showgrid: isGrid
+                    },
                     showlegend: false,
-                    template: escala_grises === 'true' ? 'plotly_white' : 'plotly'
+                    template: isGray ? 'plotly_white' : 'plotly'
                 };
-                // Mostrar la grilla si está seleccionada
-                if (grilla === 'True') {
-                    layout.xaxis.showgrid = true;
-                    layout.yaxis.showgrid = true;
-                }else{
-                    layout.xaxis.showgrid = false;
-                    layout.yaxis.showgrid = false;
-                }
 
                 // Renderizar el gráfico con tres trazas: línea, marca móvil y marcadores fijos
                 Plotly.newPlot('grafico', [trace1, trace2, trace3], layout).then(function() {
@@ -730,6 +734,72 @@
                 });
                 return { x, y };
             }
+
+            // Exponer API global de sonoUno1D para componentes y pestañas
+            window.sonoUno1D = {
+                getConfig: function() {
+                    return {
+                        name_grafic: localStorage.getItem('name_grafic') || 'Gráfico de Datos',
+                        name_eje_x: localStorage.getItem('name_eje_x') || 'Eje X',
+                        name_eje_y: localStorage.getItem('name_eje_y') || 'Eje Y',
+                        grilla: localStorage.getItem('grilla') === 'true' || localStorage.getItem('grilla') === true,
+                        escala_grises: localStorage.getItem('escala_grises') === 'true' || localStorage.getItem('escala_grises') === true,
+                        estilo_linea: localStorage.getItem('estilo_linea') || 'solid',
+                        color_linea: localStorage.getItem('color_linea') || 'blue'
+                    };
+                },
+                setConfig: function(newCfg) {
+                    if (newCfg.name_grafic !== undefined) {
+                        localStorage.setItem('name_grafic', newCfg.name_grafic);
+                        name_grafic = newCfg.name_grafic;
+                    }
+                    if (newCfg.name_eje_x !== undefined) {
+                        localStorage.setItem('name_eje_x', newCfg.name_eje_x);
+                        name_eje_x = newCfg.name_eje_x;
+                    }
+                    if (newCfg.name_eje_y !== undefined) {
+                        localStorage.setItem('name_eje_y', newCfg.name_eje_y);
+                        name_eje_y = newCfg.name_eje_y;
+                    }
+                    if (newCfg.grilla !== undefined) {
+                        localStorage.setItem('grilla', newCfg.grilla);
+                        grilla = String(newCfg.grilla);
+                    }
+                    if (newCfg.escala_grises !== undefined) {
+                        localStorage.setItem('escala_grises', newCfg.escala_grises);
+                        escala_grises = String(newCfg.escala_grises);
+                    }
+                    if (newCfg.estilo_linea !== undefined) {
+                        localStorage.setItem('estilo_linea', newCfg.estilo_linea);
+                        estilo_linea = newCfg.estilo_linea;
+                    }
+                    if (newCfg.color_linea !== undefined) {
+                        localStorage.setItem('color_linea', newCfg.color_linea);
+                        color_linea = newCfg.color_linea;
+                    }
+
+                    const dataJson = localStorage.getItem('data_json');
+                    if (dataJson) {
+                        renderGraficoWithMarkers(convertirData(dataJson));
+                    }
+                },
+                convertirData: convertirData,
+                renderGrafico: renderGrafico,
+                renderGraficoWithMarkers: renderGraficoWithMarkers,
+                getMarkers: function() { return markers; },
+                setMarkers: function(newMarkers) {
+                    markers = newMarkers;
+                    saveMarkers();
+                    const dataJson = localStorage.getItem('data_json');
+                    if (dataJson) {
+                        renderGraficoWithMarkers(convertirData(dataJson));
+                    }
+                },
+                onMarkersChanged: null
+            };
+
+            // Notificar estado inicial de marcadores
+            updateMarkerCount();
         });
     </script>
 

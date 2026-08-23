@@ -42,3 +42,6 @@ sonounoweb/logs/
 sonounoweb/*.sqlite3
 sonounoweb/*.db
 .venv/
+
+# Markdown files
+*.md
