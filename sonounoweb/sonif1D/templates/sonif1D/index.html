@@ -76,7 +76,7 @@
     </div>
 </div>
 
-<!-- LÓGICA JAVASCRIPT REACTIVA PARA EL PANEL UNIFICADO -->
+<!-- LÓGICA JAVASCRIPT REACTIVA CON VALIDACIONES PARA EL PANEL DE PESTAÑAS -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Sincronización robusta de tabs y paneles exclusivos
@@ -128,13 +128,61 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Helper para mostrar feedback temporal
-    function showFeedback(elementId) {
+    function showFeedback(elementId, text) {
         const fb = document.getElementById(elementId);
         if (fb) {
+            if (text) {
+                const textElem = fb.querySelector('span');
+                if (textElem) textElem.textContent = text;
+            }
             fb.style.display = 'block';
-            setTimeout(() => { fb.style.display = 'none'; }, 3000);
+            setTimeout(() => { fb.style.display = 'none'; }, 4000);
         }
     }
+
+    // ==========================================================
+    // SISTEMA DE VALIDACIÓN REACTIVA EN TIEMPO REAL
+    // ==========================================================
+    function setFieldValidation(inputElem, isValid, message, feedbackElemId) {
+        if (!inputElem) return;
+        if (isValid) {
+            inputElem.classList.remove('is-invalid');
+            inputElem.classList.add('is-valid');
+        } else {
+            inputElem.classList.remove('is-valid');
+            inputElem.classList.add('is-invalid');
+            if (feedbackElemId) {
+                const fb = document.getElementById(feedbackElemId);
+                if (fb && message) fb.textContent = message;
+            }
+        }
+    }
+
+    function clearFieldValidation(inputElem) {
+        if (!inputElem) return;
+        inputElem.classList.remove('is-invalid', 'is-valid');
+    }
+
+    function clearFormValidation(formId) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+        form.querySelectorAll('.is-invalid, .is-valid').forEach(el => {
+            el.classList.remove('is-invalid', 'is-valid');
+        });
+    }
+
+    // Limpiar estados de validación cuando el usuario escribe o cambia un valor
+    ['formVisualConfig', 'formSonidoConfig', 'formSuavizadoConfig', 'formCuadratica', 'formLogaritmica', 'formPicos'].forEach(formId => {
+        const form = document.getElementById(formId);
+        if (form) {
+            form.addEventListener('input', function(e) {
+                clearFieldValidation(e.target);
+            });
+            form.addEventListener('change', function(e) {
+                clearFieldValidation(e.target);
+            });
+        }
+    });
 
     // ==========================================================
     // 1. GESTIÓN DE CONFIGURACIÓN VISUAL (PLOTLY) EN TIEMPO REAL
@@ -171,10 +219,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function aplicarCambiosVisuales() {
         if (!window.sonoUno1D) return;
+
+        let hasError = false;
+        const titleVal = inputNameGrafic ? inputNameGrafic.value.trim() : '';
+        const ejeXVal = inputNameEjeX ? inputNameEjeX.value.trim() : '';
+        const ejeYVal = inputNameEjeY ? inputNameEjeY.value.trim() : '';
+
+        // Validaciones de longitud
+        if (titleVal.length > 100) {
+            setFieldValidation(inputNameGrafic, false, 'El título no puede exceder 100 caracteres.', 'val_msg_name_grafic');
+            hasError = true;
+        } else if (inputNameGrafic) {
+            setFieldValidation(inputNameGrafic, true);
+        }
+
+        if (ejeXVal.length > 50) {
+            setFieldValidation(inputNameEjeX, false, 'La etiqueta Eje X no puede exceder 50 caracteres.', 'val_msg_eje_x');
+            hasError = true;
+        } else if (inputNameEjeX) {
+            setFieldValidation(inputNameEjeX, true);
+        }
+
+        if (ejeYVal.length > 50) {
+            setFieldValidation(inputNameEjeY, false, 'La etiqueta Eje Y no puede exceder 50 caracteres.', 'val_msg_eje_y');
+            hasError = true;
+        } else if (inputNameEjeY) {
+            setFieldValidation(inputNameEjeY, true);
+        }
+
+        if (hasError) return;
+
         const newCfg = {
-            name_grafic: inputNameGrafic ? inputNameGrafic.value.trim() || 'Gráfico de Datos' : 'Gráfico de Datos',
-            name_eje_x: inputNameEjeX ? inputNameEjeX.value.trim() || 'Eje X' : 'Eje X',
-            name_eje_y: inputNameEjeY ? inputNameEjeY.value.trim() || 'Eje Y' : 'Eje Y',
+            name_grafic: titleVal || 'Gráfico de Datos',
+            name_eje_x: ejeXVal || 'Eje X',
+            name_eje_y: ejeYVal || 'Eje Y',
             estilo_linea: selectEstiloLinea ? selectEstiloLinea.value : 'solid',
             color_linea: selectColorLinea ? selectColorLinea.value : 'blue',
             grilla: checkGrilla ? checkGrilla.checked : true,
@@ -190,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (btnRestablecerVisual) {
         btnRestablecerVisual.addEventListener('click', function() {
+            clearFormValidation('formVisualConfig');
             if (inputNameGrafic) inputNameGrafic.value = 'Gráfico de Datos';
             if (inputNameEjeX) inputNameEjeX.value = 'Eje X';
             if (inputNameEjeY) inputNameEjeY.value = 'Eje Y';
@@ -208,10 +287,53 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnSonido) {
         btnSonido.addEventListener('click', function(event) {
             event.preventDefault();
-            const instrumento = document.getElementById('instrumento') ? document.getElementById('instrumento').value : 'sine';
-            const minFreq = document.getElementById('min_freq') ? document.getElementById('min_freq').value : 500;
-            const maxFreq = document.getElementById('max_freq') ? document.getElementById('max_freq').value : 5000;
-            const logscale = document.getElementById('logscale') ? document.getElementById('logscale').checked : false;
+            clearFormValidation('formSonidoConfig');
+
+            const instrumentoInput = document.getElementById('instrumento');
+            const minFreqInput = document.getElementById('min_freq');
+            const maxFreqInput = document.getElementById('max_freq');
+            const logscaleInput = document.getElementById('logscale');
+
+            const instrumento = instrumentoInput ? instrumentoInput.value : 'sine';
+            const minFreq = minFreqInput ? parseFloat(minFreqInput.value) : 500;
+            const maxFreq = maxFreqInput ? parseFloat(maxFreqInput.value) : 5000;
+            const logscale = logscaleInput ? logscaleInput.checked : false;
+
+            // Validación en el cliente
+            let hasError = false;
+            let firstInvalid = null;
+
+            if (isNaN(minFreq) || minFreq < 20 || minFreq > 20000) {
+                setFieldValidation(minFreqInput, false, 'La frecuencia mínima debe estar entre 20 Hz y 20,000 Hz.', 'val_msg_min_freq');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = minFreqInput;
+            } else {
+                setFieldValidation(minFreqInput, true);
+            }
+
+            if (isNaN(maxFreq) || maxFreq < 20 || maxFreq > 20000) {
+                setFieldValidation(maxFreqInput, false, 'La frecuencia máxima debe estar entre 20 Hz y 20,000 Hz.', 'val_msg_max_freq');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = maxFreqInput;
+            } else {
+                setFieldValidation(maxFreqInput, true);
+            }
+
+            if (!hasError && minFreq >= maxFreq) {
+                setFieldValidation(minFreqInput, false, 'La frecuencia mínima debe ser estrictamente menor que la máxima.', 'val_msg_min_freq');
+                setFieldValidation(maxFreqInput, false, 'La frecuencia máxima debe ser mayor que la mínima.', 'val_msg_max_freq');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = minFreqInput;
+            } else if (!hasError && (maxFreq - minFreq) < 10) {
+                setFieldValidation(maxFreqInput, false, 'La diferencia entre frecuencias debe ser de al menos 10 Hz.', 'val_msg_max_freq');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = maxFreqInput;
+            }
+
+            if (hasError) {
+                if (firstInvalid) firstInvalid.focus();
+                return;
+            }
 
             const datosAEnviar = localStorage.getItem('data_json');
             if (!datosAEnviar) {
@@ -237,23 +359,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     logscale: logscale
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.audioDataActual = data.audio_base64;
+            .then(response => {
+                return response.json().then(data => ({ status: response.status, body: data }));
+            })
+            .then(({ status, body }) => {
+                if (status === 200 && body.success) {
+                    window.audioDataActual = body.audio_base64;
                     const audioPlayer = document.getElementById('audioPlayer');
                     if (audioPlayer) {
                         const audioSource = audioPlayer.querySelector('source');
                         if (audioSource) {
-                            audioSource.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioSource.src = "data:audio/wav;base64," + body.audio_base64;
                         } else {
-                            audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioPlayer.src = "data:audio/wav;base64," + body.audio_base64;
                         }
                         audioPlayer.load();
                     }
-                    showFeedback('sonidoFeedback');
+                    showFeedback('sonidoFeedback', 'Sonido sintetizado correctamente');
                 } else {
-                    alert("Error al compilar sonido: " + (data.error || 'Error desconocido'));
+                    const errMsg = body.error || 'Error desconocido al configurar sonido';
+                    if (body.field_errors) {
+                        if (body.field_errors.min_freq) setFieldValidation(minFreqInput, false, body.field_errors.min_freq[0] || body.field_errors.min_freq, 'val_msg_min_freq');
+                        if (body.field_errors.max_freq) setFieldValidation(maxFreqInput, false, body.field_errors.max_freq[0] || body.field_errors.max_freq, 'val_msg_max_freq');
+                        if (body.field_errors.waveform) setFieldValidation(instrumentoInput, false, body.field_errors.waveform[0] || body.field_errors.waveform, 'val_msg_instrumento');
+                    }
+                    alert("Error al compilar sonido: " + errMsg);
                 }
             })
             .catch(error => {
@@ -274,8 +404,48 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnSuavizar) {
         btnSuavizar.addEventListener('click', function(event) {
             event.preventDefault();
-            const windowSize = document.getElementById('window_size') ? document.getElementById('window_size').value : 31;
-            const order = document.getElementById('order') ? document.getElementById('order').value : 4;
+            clearFormValidation('formSuavizadoConfig');
+
+            const windowSizeInput = document.getElementById('window_size');
+            const orderInput = document.getElementById('order');
+
+            const windowSize = windowSizeInput ? parseInt(windowSizeInput.value, 10) : 31;
+            const order = orderInput ? parseInt(orderInput.value, 10) : 4;
+
+            // Validación en el cliente
+            let hasError = false;
+            let firstInvalid = null;
+
+            if (isNaN(windowSize) || windowSize < 3 || windowSize > 1001) {
+                setFieldValidation(windowSizeInput, false, 'El tamaño de ventana debe estar entre 3 y 1001.', 'val_msg_window_size');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = windowSizeInput;
+            } else if (windowSize % 2 === 0) {
+                setFieldValidation(windowSizeInput, false, 'El tamaño de ventana debe ser un número impar (ej: 5, 11, 31).', 'val_msg_window_size');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = windowSizeInput;
+            } else {
+                setFieldValidation(windowSizeInput, true);
+            }
+
+            if (isNaN(order) || order < 1 || order > 10) {
+                setFieldValidation(orderInput, false, 'El orden del polinomio debe estar entre 1 y 10.', 'val_msg_order');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = orderInput;
+            } else {
+                setFieldValidation(orderInput, true);
+            }
+
+            if (!hasError && windowSize < (order + 2)) {
+                setFieldValidation(windowSizeInput, false, `La ventana (${windowSize}) debe ser al menos ${order + 2} para orden ${order}.`, 'val_msg_window_size');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = windowSizeInput;
+            }
+
+            if (hasError) {
+                if (firstInvalid) firstInvalid.focus();
+                return;
+            }
 
             const datosAEnviar = localStorage.getItem('data_json');
             if (!datosAEnviar) {
@@ -295,34 +465,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     data_json: datosAEnviar,
-                    window_size: parseInt(windowSize),
-                    order: parseInt(order)
+                    window_size: windowSize,
+                    order: order
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    localStorage.setItem('data_json', data.data_json);
-                    window.audioDataActual = data.audio_base64;
+            .then(response => {
+                return response.json().then(data => ({ status: response.status, body: data }));
+            })
+            .then(({ status, body }) => {
+                if (status === 200 && body.success) {
+                    localStorage.setItem('data_json', body.data_json);
+                    window.audioDataActual = body.audio_base64;
 
                     const audioPlayer = document.getElementById('audioPlayer');
                     if (audioPlayer) {
                         const audioSource = audioPlayer.querySelector('source');
                         if (audioSource) {
-                            audioSource.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioSource.src = "data:audio/wav;base64," + body.audio_base64;
                         } else {
-                            audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioPlayer.src = "data:audio/wav;base64," + body.audio_base64;
                         }
                         audioPlayer.load();
                     }
 
                     if (window.sonoUno1D) {
-                        const parsedData = window.sonoUno1D.convertirData(data.data_json);
+                        const parsedData = window.sonoUno1D.convertirData(body.data_json);
                         window.sonoUno1D.renderGraficoWithMarkers(parsedData);
                     }
-                    showFeedback('matematicaFeedback');
+                    showFeedback('matematicaFeedback', 'Señal filtrada correctamente');
                 } else {
-                    alert("Error al aplicar filtro: " + (data.error || 'Error desconocido'));
+                    const errMsg = body.error || 'Error desconocido al aplicar filtro';
+                    if (body.field_errors) {
+                        if (body.field_errors.window_size) setFieldValidation(windowSizeInput, false, body.field_errors.window_size[0] || body.field_errors.window_size, 'val_msg_window_size');
+                        if (body.field_errors.order) setFieldValidation(orderInput, false, body.field_errors.order[0] || body.field_errors.order, 'val_msg_order');
+                    }
+                    alert("Error al aplicar filtro: " + errMsg);
                 }
             })
             .catch(error => {
@@ -343,9 +520,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnCuadratica) {
         btnCuadratica.addEventListener('click', function(event) {
             event.preventDefault();
-            const coefA = document.getElementById('coef_a') ? document.getElementById('coef_a').value : 1;
-            const coefB = document.getElementById('coef_b') ? document.getElementById('coef_b').value : 0;
-            const coefC = document.getElementById('coef_c') ? document.getElementById('coef_c').value : 0;
+            clearFormValidation('formCuadratica');
+
+            const coefAInput = document.getElementById('coef_a');
+            const coefBInput = document.getElementById('coef_b');
+            const coefCInput = document.getElementById('coef_c');
+
+            const coefA = coefAInput ? parseFloat(coefAInput.value) : 1;
+            const coefB = coefBInput ? parseFloat(coefBInput.value) : 0;
+            const coefC = coefCInput ? parseFloat(coefCInput.value) : 0;
+
+            let hasError = false;
+            let firstInvalid = null;
+
+            [
+                { input: coefAInput, val: coefA, id: 'val_msg_coef_a', name: 'a' },
+                { input: coefBInput, val: coefB, id: 'val_msg_coef_b', name: 'b' },
+                { input: coefCInput, val: coefC, id: 'val_msg_coef_c', name: 'c' }
+            ].forEach(item => {
+                if (item.input && (isNaN(item.val) || !isFinite(item.val) || Math.abs(item.val) > 1e6)) {
+                    setFieldValidation(item.input, false, `El coeficiente ${item.name} debe ser un número real finito.`, item.id);
+                    hasError = true;
+                    if (!firstInvalid) firstInvalid = item.input;
+                } else if (item.input) {
+                    setFieldValidation(item.input, true);
+                }
+            });
+
+            if (hasError) {
+                if (firstInvalid) firstInvalid.focus();
+                return;
+            }
 
             const datosAEnviar = localStorage.getItem('data_json');
             if (!datosAEnviar) {
@@ -365,35 +570,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     data_json: datosAEnviar,
-                    coef_a: parseFloat(coefA),
-                    coef_b: parseFloat(coefB),
-                    coef_c: parseFloat(coefC)
+                    coef_a: coefA,
+                    coef_b: coefB,
+                    coef_c: coefC
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    localStorage.setItem('data_json', data.data_json);
-                    window.audioDataActual = data.audio_base64;
+            .then(response => {
+                return response.json().then(data => ({ status: response.status, body: data }));
+            })
+            .then(({ status, body }) => {
+                if (status === 200 && body.success) {
+                    localStorage.setItem('data_json', body.data_json);
+                    window.audioDataActual = body.audio_base64;
 
                     const audioPlayer = document.getElementById('audioPlayer');
                     if (audioPlayer) {
                         const audioSource = audioPlayer.querySelector('source');
                         if (audioSource) {
-                            audioSource.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioSource.src = "data:audio/wav;base64," + body.audio_base64;
                         } else {
-                            audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioPlayer.src = "data:audio/wav;base64," + body.audio_base64;
                         }
                         audioPlayer.load();
                     }
 
                     if (window.sonoUno1D) {
-                        const parsedData = window.sonoUno1D.convertirData(data.data_json);
+                        const parsedData = window.sonoUno1D.convertirData(body.data_json);
                         window.sonoUno1D.renderGraficoWithMarkers(parsedData);
                     }
-                    showFeedback('cuadraticaFeedback');
+                    showFeedback('cuadraticaFeedback', 'Función cuadrática aplicada con éxito');
                 } else {
-                    alert("Error al aplicar función cuadrática: " + (data.error || 'Error desconocido'));
+                    alert("Error al aplicar función cuadrática: " + (body.error || 'Error desconocido'));
                 }
             })
             .catch(error => {
@@ -414,9 +621,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnLogaritmica) {
         btnLogaritmica.addEventListener('click', function(event) {
             event.preventDefault();
-            const logA = document.getElementById('log_a') ? document.getElementById('log_a').value : 1;
-            const logC = document.getElementById('log_c') ? document.getElementById('log_c').value : 1;
-            const logB = document.getElementById('log_b') ? document.getElementById('log_b').value : 0;
+            clearFormValidation('formLogaritmica');
+
+            const logAInput = document.getElementById('log_a');
+            const logCInput = document.getElementById('log_c');
+            const logBInput = document.getElementById('log_b');
+
+            const logA = logAInput ? parseFloat(logAInput.value) : 1;
+            const logC = logCInput ? parseFloat(logCInput.value) : 1;
+            const logB = logBInput ? parseFloat(logBInput.value) : 0;
+
+            let hasError = false;
+            let firstInvalid = null;
+
+            [
+                { input: logAInput, val: logA, id: 'val_msg_log_a', name: 'a' },
+                { input: logCInput, val: logC, id: 'val_msg_log_c', name: 'c' },
+                { input: logBInput, val: logB, id: 'val_msg_log_b', name: 'b' }
+            ].forEach(item => {
+                if (item.input && (isNaN(item.val) || !isFinite(item.val) || Math.abs(item.val) > 1e6)) {
+                    setFieldValidation(item.input, false, `El parámetro ${item.name} debe ser un número real finito.`, item.id);
+                    hasError = true;
+                    if (!firstInvalid) firstInvalid = item.input;
+                } else if (item.input) {
+                    setFieldValidation(item.input, true);
+                }
+            });
+
+            if (hasError) {
+                if (firstInvalid) firstInvalid.focus();
+                return;
+            }
 
             const datosAEnviar = localStorage.getItem('data_json');
             if (!datosAEnviar) {
@@ -436,35 +671,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     data_json: datosAEnviar,
-                    coef_a: parseFloat(logA),
-                    coef_c: parseFloat(logC),
-                    coef_b: parseFloat(logB)
+                    coef_a: logA,
+                    coef_c: logC,
+                    coef_b: logB
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    localStorage.setItem('data_json', data.data_json);
-                    window.audioDataActual = data.audio_base64;
+            .then(response => {
+                return response.json().then(data => ({ status: response.status, body: data }));
+            })
+            .then(({ status, body }) => {
+                if (status === 200 && body.success) {
+                    localStorage.setItem('data_json', body.data_json);
+                    window.audioDataActual = body.audio_base64;
 
                     const audioPlayer = document.getElementById('audioPlayer');
                     if (audioPlayer) {
                         const audioSource = audioPlayer.querySelector('source');
                         if (audioSource) {
-                            audioSource.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioSource.src = "data:audio/wav;base64," + body.audio_base64;
                         } else {
-                            audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                            audioPlayer.src = "data:audio/wav;base64," + body.audio_base64;
                         }
                         audioPlayer.load();
                     }
 
                     if (window.sonoUno1D) {
-                        const parsedData = window.sonoUno1D.convertirData(data.data_json);
+                        const parsedData = window.sonoUno1D.convertirData(body.data_json);
                         window.sonoUno1D.renderGraficoWithMarkers(parsedData);
                     }
-                    showFeedback('logaritmicaFeedback');
+                    showFeedback('logaritmicaFeedback', 'Función logarítmica aplicada con éxito');
                 } else {
-                    alert("Error al aplicar función logarítmica: " + (data.error || 'Error desconocido'));
+                    alert("Error al aplicar función logarítmica: " + (body.error || 'Error desconocido'));
                 }
             })
             .catch(error => {
@@ -485,8 +722,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnPicos) {
         btnPicos.addEventListener('click', function(event) {
             event.preventDefault();
-            const prominencia = document.getElementById('prominencia') ? document.getElementById('prominencia').value : 0.1;
-            const distancia = document.getElementById('distancia') ? document.getElementById('distancia').value : 5;
+            clearFormValidation('formPicos');
+
+            const prominenciaInput = document.getElementById('prominencia');
+            const distanciaInput = document.getElementById('distancia');
+
+            const prominencia = prominenciaInput ? parseFloat(prominenciaInput.value) : 0.1;
+            const distancia = distanciaInput ? parseInt(distanciaInput.value, 10) : 5;
+
+            let hasError = false;
+            let firstInvalid = null;
+
+            if (isNaN(prominencia) || prominencia < 0.0001 || prominencia > 100000) {
+                setFieldValidation(prominenciaInput, false, 'La prominencia debe ser un valor positivo (ej: 0.1).', 'val_msg_prominencia');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = prominenciaInput;
+            } else {
+                setFieldValidation(prominenciaInput, true);
+            }
+
+            if (isNaN(distancia) || distancia < 1 || distancia > 10000) {
+                setFieldValidation(distanciaInput, false, 'La distancia mínima debe ser un entero mayor o igual a 1.', 'val_msg_distancia');
+                hasError = true;
+                if (!firstInvalid) firstInvalid = distanciaInput;
+            } else {
+                setFieldValidation(distanciaInput, true);
+            }
+
+            if (hasError) {
+                if (firstInvalid) firstInvalid.focus();
+                return;
+            }
 
             const datosAEnviar = localStorage.getItem('data_json');
             if (!datosAEnviar) {
@@ -506,13 +772,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     data_json: datosAEnviar,
-                    prominencia: parseFloat(prominencia),
-                    distancia: parseInt(distancia)
+                    prominencia: prominencia,
+                    distancia: distancia
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
+            .then(response => {
+                return response.json().then(data => ({ status: response.status, body: data }));
+            })
+            .then(({ status, body }) => {
+                if (status === 200 && body.success) {
                     const graficoDiv = document.getElementById('grafico');
                     if (graficoDiv && typeof Plotly !== 'undefined' && graficoDiv.data) {
                         // Limpiar trazas anteriores de picos (índice 3 en adelante)
@@ -520,10 +788,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             Plotly.deleteTraces(graficoDiv, graficoDiv.data.length - 1);
                         }
 
-                        if (data.cantidad > 0) {
+                        if (body.cantidad > 0) {
                             const picosTrace = {
-                                x: data.picos_x,
-                                y: data.picos_y,
+                                x: body.picos_x,
+                                y: body.picos_y,
                                 mode: 'markers',
                                 marker: {
                                     color: '#dc3545',
@@ -531,13 +799,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                     symbol: 'cross',
                                     line: { color: '#842029', width: 2 }
                                 },
-                                name: 'Picos (' + data.cantidad + ')',
+                                name: 'Picos (' + body.cantidad + ')',
                                 type: 'scatter'
                             };
                             Plotly.addTraces(graficoDiv, picosTrace);
 
                             const picosText = document.getElementById('picosFeedbackText');
-                            if (picosText) picosText.textContent = `Se detectaron ${data.cantidad} pico(s) en la señal.`;
+                            if (picosText) picosText.textContent = `Se detectaron ${body.cantidad} pico(s) en la señal.`;
                             showFeedback('picosFeedback');
                         } else {
                             const picosText = document.getElementById('picosFeedbackText');
@@ -546,7 +814,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 } else {
-                    alert("Error al buscar picos: " + (data.error || 'Error desconocido'));
+                    alert("Error al buscar picos: " + (body.error || 'Error desconocido'));
                 }
             })
             .catch(error => {
@@ -572,7 +840,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderMarkersTable(markers) {
         if (!markersTableBody || !noMarkersMsg || !markersTable) return;
         
-        // Si no viene array, intentar leer desde window.sonoUno1D o localStorage
         if (!markers || !Array.isArray(markers)) {
             if (window.sonoUno1D && typeof window.sonoUno1D.getMarkers === 'function') {
                 markers = window.sonoUno1D.getMarkers();
@@ -586,12 +853,17 @@ document.addEventListener('DOMContentLoaded', function() {
             markersTable.classList.add('d-none');
             noMarkersMsg.classList.remove('d-none');
             markersTableBody.innerHTML = '';
+            const badge = document.getElementById('tabMarkerBadge');
+            if (badge) badge.textContent = '0 puntos';
             return;
         }
 
         noMarkersMsg.classList.add('d-none');
         markersTable.classList.remove('d-none');
         markersTableBody.innerHTML = '';
+
+        const badge = document.getElementById('tabMarkerBadge');
+        if (badge) badge.textContent = `${markers.length} punto(s)`;
 
         markers.forEach((m, idx) => {
             const tr = document.createElement('tr');
@@ -614,7 +886,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Eventos para eliminar marcador individual
         document.querySelectorAll('.btn-delete-single-marker').forEach(btn => {
             btn.addEventListener('click', function() {
-                const markerIndex = parseInt(this.getAttribute('data-index'));
+                const markerIndex = parseInt(this.getAttribute('data-index'), 10);
                 if (window.sonoUno1D) {
                     const currentMarkers = window.sonoUno1D.getMarkers();
                     currentMarkers.splice(markerIndex, 1);

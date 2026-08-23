@@ -8,99 +8,113 @@
     </div>
 
     <!-- 1. FUNCIÓN CUADRÁTICA -->
-    <div class="sw-subcard mb-3">
-        <div class="d-flex align-items-center justify-content-between mb-1">
-            <span class="fw-bold small text-dark d-flex align-items-center gap-1">
-                <i class="fas fa-superscript text-success"></i> Cuadrática
-            </span>
-            <span class="formula-tag">y' = a·y² + b·y + c</span>
-        </div>
-        <p class="text-muted small mb-2" style="font-size: 0.75rem;">
-            Transformación polinómica de segundo grado sobre el eje Y.
-        </p>
-        <div class="row g-2 mb-2">
-            <div class="col-4">
-                <label for="coef_a" class="form-label sw-label mb-0" style="font-size: 0.72rem;">a (y²):</label>
-                <input type="number" id="coef_a" class="form-control form-control-sm" value="1" step="0.1">
+    <form id="formCuadratica" novalidate onsubmit="return false;">
+        <div class="sw-subcard mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+                <span class="fw-bold small text-dark d-flex align-items-center gap-1">
+                    <i class="fas fa-superscript text-success"></i> Cuadrática
+                </span>
+                <span class="formula-tag">y' = a·y² + b·y + c</span>
             </div>
-            <div class="col-4">
-                <label for="coef_b" class="form-label sw-label mb-0" style="font-size: 0.72rem;">b (y):</label>
-                <input type="number" id="coef_b" class="form-control form-control-sm" value="0" step="0.1">
+            <p class="text-muted small mb-2" style="font-size: 0.75rem;">
+                Transformación polinómica de segundo grado sobre el eje Y.
+            </p>
+            <div class="row g-2 mb-2">
+                <div class="col-4">
+                    <label for="coef_a" class="form-label sw-label mb-0" style="font-size: 0.72rem;">a (y²):</label>
+                    <input type="number" id="coef_a" class="form-control form-control-sm" value="1" step="any" required>
+                    <div class="invalid-feedback" id="val_msg_coef_a">Número requerido.</div>
+                </div>
+                <div class="col-4">
+                    <label for="coef_b" class="form-label sw-label mb-0" style="font-size: 0.72rem;">b (y):</label>
+                    <input type="number" id="coef_b" class="form-control form-control-sm" value="0" step="any" required>
+                    <div class="invalid-feedback" id="val_msg_coef_b">Número requerido.</div>
+                </div>
+                <div class="col-4">
+                    <label for="coef_c" class="form-label sw-label mb-0" style="font-size: 0.72rem;">c (cte):</label>
+                    <input type="number" id="coef_c" class="form-control form-control-sm" value="0" step="any" required>
+                    <div class="invalid-feedback" id="val_msg_coef_c">Número requerido.</div>
+                </div>
             </div>
-            <div class="col-4">
-                <label for="coef_c" class="form-label sw-label mb-0" style="font-size: 0.72rem;">c (cte):</label>
-                <input type="number" id="coef_c" class="form-control form-control-sm" value="0" step="0.1">
+            <button type="button" id="btnCuadraticaAjax" class="btn btn-outline-success btn-sm w-100 fw-semibold">
+                <i class="fas fa-square-root-alt me-1"></i> Aplicar Cuadrática
+            </button>
+            <div id="cuadraticaFeedback" class="alert alert-success small py-2 px-2 mt-2 mb-0 text-center rounded" style="display: none;">
+                <i class="fas fa-check-circle me-1"></i> <span id="cuadraticaFeedbackText">Función cuadrática aplicada con éxito</span>
             </div>
         </div>
-        <button type="button" id="btnCuadraticaAjax" class="btn btn-outline-success btn-sm w-100 fw-semibold">
-            <i class="fas fa-square-root-alt me-1"></i> Aplicar Cuadrática
-        </button>
-        <div id="cuadraticaFeedback" class="alert alert-success small py-2 px-2 mt-2 mb-0 text-center rounded" style="display: none;">
-            <i class="fas fa-check-circle me-1"></i> Función cuadrática aplicada con éxito
-        </div>
-    </div>
+    </form>
 
     <!-- 2. FUNCIÓN LOGARÍTMICA -->
-    <div class="sw-subcard mb-3">
-        <div class="d-flex align-items-center justify-content-between mb-1">
-            <span class="fw-bold small text-dark d-flex align-items-center gap-1">
-                <i class="fas fa-compress-arrows-alt text-primary"></i> Logarítmica
-            </span>
-            <span class="formula-tag">y' = a·ln(y + c) + b</span>
-        </div>
-        <p class="text-muted small mb-2" style="font-size: 0.75rem;">
-            Compresión de rango con protección de dominio positivo.
-        </p>
-        <div class="row g-2 mb-2">
-            <div class="col-4">
-                <label for="log_a" class="form-label sw-label mb-0" title="Multiplicador" style="font-size: 0.72rem;">a (mult):</label>
-                <input type="number" id="log_a" class="form-control form-control-sm" value="1" step="0.1">
+    <form id="formLogaritmica" novalidate onsubmit="return false;">
+        <div class="sw-subcard mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+                <span class="fw-bold small text-dark d-flex align-items-center gap-1">
+                    <i class="fas fa-compress-arrows-alt text-primary"></i> Logarítmica
+                </span>
+                <span class="formula-tag">y' = a·ln(y + c) + b</span>
             </div>
-            <div class="col-4">
-                <label for="log_c" class="form-label sw-label mb-0" title="Desplazamiento" style="font-size: 0.72rem;">c (offset):</label>
-                <input type="number" id="log_c" class="form-control form-control-sm" value="1" step="0.1">
+            <p class="text-muted small mb-2" style="font-size: 0.75rem;">
+                Compresión de rango con protección de dominio positivo.
+            </p>
+            <div class="row g-2 mb-2">
+                <div class="col-4">
+                    <label for="log_a" class="form-label sw-label mb-0" title="Multiplicador" style="font-size: 0.72rem;">a (mult):</label>
+                    <input type="number" id="log_a" class="form-control form-control-sm" value="1" step="any" required>
+                    <div class="invalid-feedback" id="val_msg_log_a">Número requerido.</div>
+                </div>
+                <div class="col-4">
+                    <label for="log_c" class="form-label sw-label mb-0" title="Desplazamiento" style="font-size: 0.72rem;">c (offset):</label>
+                    <input type="number" id="log_c" class="form-control form-control-sm" value="1" step="any" required>
+                    <div class="invalid-feedback" id="val_msg_log_c">Número requerido.</div>
+                </div>
+                <div class="col-4">
+                    <label for="log_b" class="form-label sw-label mb-0" title="Constante" style="font-size: 0.72rem;">b (cte):</label>
+                    <input type="number" id="log_b" class="form-control form-control-sm" value="0" step="any" required>
+                    <div class="invalid-feedback" id="val_msg_log_b">Número requerido.</div>
+                </div>
             </div>
-            <div class="col-4">
-                <label for="log_b" class="form-label sw-label mb-0" title="Constante" style="font-size: 0.72rem;">b (cte):</label>
-                <input type="number" id="log_b" class="form-control form-control-sm" value="0" step="0.1">
+            <button type="button" id="btnLogaritmicaAjax" class="btn btn-outline-primary btn-sm w-100 fw-semibold">
+                <i class="fas fa-wave-square me-1"></i> Aplicar Logaritmo
+            </button>
+            <div id="logaritmicaFeedback" class="alert alert-primary small py-2 px-2 mt-2 mb-0 text-center rounded" style="display: none;">
+                <i class="fas fa-check-circle me-1"></i> <span id="logaritmicaFeedbackText">Función logarítmica aplicada con éxito</span>
             </div>
         </div>
-        <button type="button" id="btnLogaritmicaAjax" class="btn btn-outline-primary btn-sm w-100 fw-semibold">
-            <i class="fas fa-wave-square me-1"></i> Aplicar Logaritmo
-        </button>
-        <div id="logaritmicaFeedback" class="alert alert-primary small py-2 px-2 mt-2 mb-0 text-center rounded" style="display: none;">
-            <i class="fas fa-check-circle me-1"></i> Función logarítmica aplicada con éxito
-        </div>
-    </div>
+    </form>
 
     <!-- 3. BUSCADOR DE PICOS (PEAK FINDER) -->
-    <div class="sw-subcard mb-0">
-        <div class="d-flex align-items-center justify-content-between mb-1">
-            <span class="fw-bold small text-dark d-flex align-items-center gap-1">
-                <i class="fas fa-mountain text-danger"></i> Buscador de Picos
-            </span>
-            <span class="sw-badge-tag" style="background: var(--sw-rose-bg); color: var(--sw-rose-text); border: 1px solid var(--sw-rose-border);">
-                Peak Finder
-            </span>
-        </div>
-        <p class="text-muted small mb-2" style="font-size: 0.75rem;">
-            Detección automática de máximos locales en la señal.
-        </p>
-        <div class="row g-2 mb-2">
-            <div class="col-6">
-                <label for="prominencia" class="form-label sw-label mb-0" title="Altura mínima respecto a su base" style="font-size: 0.72rem;">Prominencia:</label>
-                <input type="number" id="prominencia" class="form-control form-control-sm" value="0.1" step="0.05">
+    <form id="formPicos" novalidate onsubmit="return false;">
+        <div class="sw-subcard mb-0">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+                <span class="fw-bold small text-dark d-flex align-items-center gap-1">
+                    <i class="fas fa-mountain text-danger"></i> Buscador de Picos
+                </span>
+                <span class="sw-badge-tag" style="background: var(--sw-rose-bg); color: var(--sw-rose-text); border: 1px solid var(--sw-rose-border);">
+                    Peak Finder
+                </span>
             </div>
-            <div class="col-6">
-                <label for="distancia" class="form-label sw-label mb-0" title="Separación mínima entre picos" style="font-size: 0.72rem;">Distancia mín:</label>
-                <input type="number" id="distancia" class="form-control form-control-sm" value="5" step="1" min="1">
+            <p class="text-muted small mb-2" style="font-size: 0.75rem;">
+                Detección automática de máximos locales en la señal.
+            </p>
+            <div class="row g-2 mb-2">
+                <div class="col-6">
+                    <label for="prominencia" class="form-label sw-label mb-0" title="Altura mínima respecto a su base" style="font-size: 0.72rem;">Prominencia:</label>
+                    <input type="number" id="prominencia" class="form-control form-control-sm" value="0.1" min="0.0001" max="100000" step="0.01" required>
+                    <div class="invalid-feedback" id="val_msg_prominencia">Valor > 0 (ej: 0.1).</div>
+                </div>
+                <div class="col-6">
+                    <label for="distancia" class="form-label sw-label mb-0" title="Separación mínima entre picos" style="font-size: 0.72rem;">Distancia mín:</label>
+                    <input type="number" id="distancia" class="form-control form-control-sm" value="5" min="1" max="10000" step="1" required>
+                    <div class="invalid-feedback" id="val_msg_distancia">Entero &ge; 1.</div>
+                </div>
+            </div>
+            <button type="button" id="btnPicosAjax" class="btn btn-outline-danger btn-sm w-100 fw-semibold">
+                <i class="fas fa-search-location me-1"></i> Encontrar Picos
+            </button>
+            <div id="picosFeedback" class="alert alert-danger small py-2 px-2 mt-2 mb-0 text-center rounded" style="display: none;">
+                <i class="fas fa-info-circle me-1"></i> <span id="picosFeedbackText"></span>
             </div>
         </div>
-        <button type="button" id="btnPicosAjax" class="btn btn-outline-danger btn-sm w-100 fw-semibold">
-            <i class="fas fa-search-location me-1"></i> Encontrar Picos
-        </button>
-        <div id="picosFeedback" class="alert alert-danger small py-2 px-2 mt-2 mb-0 text-center rounded" style="display: none;">
-            <i class="fas fa-info-circle me-1"></i> <span id="picosFeedbackText"></span>
-        </div>
-    </div>
+    </form>
 </div>

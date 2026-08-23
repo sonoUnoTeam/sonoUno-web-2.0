@@ -1,9 +1,26 @@
+# -*- coding: utf-8 -*-
 import base64
 import json
 import numpy as np
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.exceptions import ValidationError
+
+from .validators import (
+    Sonif1DValidator,
+    ALLOWED_WAVEFORMS,
+    ALLOWED_LINE_STYLES,
+    ALLOWED_LINE_COLORS
+)
+from .forms import (
+    ConfiguracionGraficoForm,
+    ConfiguracionSonidoForm,
+    FiltroSuavizadoForm,
+    FuncionCuadraticaForm,
+    FuncionLogaritmicaForm,
+    BuscadorPicosForm
+)
 
 
 class Sonif1DBlackBoxTestHelper:
@@ -72,6 +89,156 @@ class Sonif1DViewRoutingTests(TestCase):
         self.assertTemplateUsed(response, 'sonif1D/index.html')
 
 
+class Sonif1DValidatorUnitTests(TestCase):
+    """Pruebas unitarias para Sonif1DValidator en todos los parámetros de las pestañas."""
+
+    def test_validate_sonido_params_valid(self):
+        """Verifica que parámetros válidos de sonido pasen correctamente."""
+        res = Sonif1DValidator.validate_sonido_params('flute', 300, 4000, True)
+        self.assertEqual(res['waveform'], 'flute')
+        self.assertEqual(res['min_freq'], 300.0)
+        self.assertEqual(res['max_freq'], 4000.0)
+        self.assertTrue(res['logscale'])
+
+    def test_validate_sonido_params_invalid_waveform(self):
+        """Verifica que un instrumento inválido lance ValidationError."""
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_sonido_params(waveform='guitarra_invalida')
+        self.assertIn('waveform', ctx.exception.message_dict)
+
+    def test_validate_sonido_params_invalid_frequency_ranges(self):
+        """Verifica que frecuencias fuera de límites lancen ValidationError."""
+        # Frecuencia mínima por debajo de 20 Hz
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_sonido_params(min_freq=5, max_freq=5000)
+        self.assertIn('min_freq', ctx.exception.message_dict)
+
+        # Frecuencia máxima por encima de 20000 Hz
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_sonido_params(min_freq=500, max_freq=25000)
+        self.assertIn('max_freq', ctx.exception.message_dict)
+
+        # min_freq mayor que max_freq
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_sonido_params(min_freq=5000, max_freq=1000)
+        self.assertIn('min_freq', ctx.exception.message_dict)
+
+    def test_validate_filtro_params_valid(self):
+        """Verifica que parámetros válidos de suavizado pasen correctamente."""
+        res = Sonif1DValidator.validate_filtro_params(window_size=31, order=4, data_len=100)
+        self.assertEqual(res['window_size'], 31)
+        self.assertEqual(res['order'], 4)
+
+    def test_validate_filtro_params_even_window(self):
+        """Verifica que un tamaño de ventana par sea rechazado."""
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_filtro_params(window_size=30, order=4)
+        self.assertIn('window_size', ctx.exception.message_dict)
+
+    def test_validate_filtro_params_window_order_incompatibility(self):
+        """Verifica que ventana menor que orden + 2 sea rechazada."""
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_filtro_params(window_size=5, order=5)
+        self.assertIn('window_size', ctx.exception.message_dict)
+
+    def test_validate_filtro_params_window_exceeds_data_length(self):
+        """Verifica que una ventana mayor al dataset sea rechazada."""
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_filtro_params(window_size=51, order=4, data_len=20)
+        self.assertIn('window_size', ctx.exception.message_dict)
+
+    def test_validate_cuadratica_params_valid_and_invalid(self):
+        """Verifica validación de coeficientes cuadráticos."""
+        res = Sonif1DValidator.validate_cuadratica_params(2.5, -1.0, 0.5)
+        self.assertEqual(res['coef_a'], 2.5)
+        self.assertEqual(res['coef_b'], -1.0)
+        self.assertEqual(res['coef_c'], 0.5)
+
+        # No numérico
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_cuadratica_params(coef_a="invalido", coef_b=0, coef_c=0)
+        self.assertIn('coef_a', ctx.exception.message_dict)
+
+    def test_validate_logaritmica_params_valid_and_invalid(self):
+        """Verifica validación de coeficientes logarítmicos."""
+        res = Sonif1DValidator.validate_logaritmica_params(1.0, 2.0, -0.5)
+        self.assertEqual(res['coef_a'], 1.0)
+        self.assertEqual(res['coef_c'], 2.0)
+        self.assertEqual(res['coef_b'], -0.5)
+
+        # Infinito o NaN
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_logaritmica_params(coef_a=float('inf'), coef_c=1, coef_b=0)
+        self.assertIn('coef_a', ctx.exception.message_dict)
+
+    def test_validate_picos_params_valid_and_invalid(self):
+        """Verifica validación de parámetros para el buscador de picos."""
+        res = Sonif1DValidator.validate_picos_params(prominencia=0.25, distancia=10)
+        self.assertEqual(res['prominencia'], 0.25)
+        self.assertEqual(res['distancia'], 10)
+
+        # Prominencia menor a cero
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_picos_params(prominencia=-0.1, distancia=5)
+        self.assertIn('prominencia', ctx.exception.message_dict)
+
+        # Distancia menor a 1
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_picos_params(prominencia=0.1, distancia=0)
+        self.assertIn('distancia', ctx.exception.message_dict)
+
+    def test_validate_visual_params_valid_and_invalid(self):
+        """Verifica validación de configuración visual del gráfico."""
+        res = Sonif1DValidator.validate_visual_params(
+            name_grafic="Mi Gráfico",
+            name_eje_x="Tiempo",
+            name_eje_y="Voltaje",
+            estilo_linea="dot",
+            color_linea="red"
+        )
+        self.assertEqual(res['name_grafic'], "Mi Gráfico")
+        self.assertEqual(res['color_linea'], "red")
+
+        # Título excesivamente largo (> 100 caracteres)
+        long_title = "A" * 105
+        with self.assertRaises(ValidationError) as ctx:
+            Sonif1DValidator.validate_visual_params(name_grafic=long_title)
+        self.assertIn('name_grafic', ctx.exception.message_dict)
+
+
+class Sonif1DFormsUnitTests(TestCase):
+    """Pruebas unitarias para formularios Django en sonif1D."""
+
+    def test_configuracion_sonido_form_valid(self):
+        form = ConfiguracionSonidoForm(data={
+            'instrumento': 'piano',
+            'min_freq': 440,
+            'max_freq': 4400,
+            'logscale': True
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_configuracion_sonido_form_invalid_crossover(self):
+        form = ConfiguracionSonidoForm(data={
+            'instrumento': 'piano',
+            'min_freq': 5000,
+            'max_freq': 2000,
+            'logscale': False
+        })
+        self.assertFalse(form.is_valid())
+        self.assertIn('min_freq', form.errors)
+
+    def test_filtro_suavizado_form_even_window(self):
+        form = FiltroSuavizadoForm(data={'window_size': 20, 'order': 3})
+        self.assertFalse(form.is_valid())
+        self.assertIn('window_size', form.errors)
+
+    def test_buscador_picos_form_negative_dist(self):
+        form = BuscadorPicosForm(data={'prominencia': 0.1, 'distancia': -5})
+        self.assertFalse(form.is_valid())
+        self.assertIn('distancia', form.errors)
+
+
 class Sonif1DAjaxEndpointsTests(TestCase):
     """Pruebas de caja negra sobre endpoints AJAX de procesamiento numérico y síntesis sonora."""
 
@@ -100,6 +267,26 @@ class Sonif1DAjaxEndpointsTests(TestCase):
             data = response.json()
             self.assertTrue(data.get('success'))
             Sonif1DBlackBoxTestHelper.assert_valid_wav_base64(self, data.get('audio_base64'))
+
+    def test_configurar_sonido_validation_error_min_greater_than_max(self):
+        """Verifica que min_freq >= max_freq retorne 400 Bad Request con error descriptivo."""
+        sample_data = [[0.0, 0.1], [1.0, 0.5]]
+        payload = {
+            'data_json': json.dumps(sample_data),
+            'waveform': 'sine',
+            'min_freq': 6000,
+            'max_freq': 2000,
+            'logscale': False
+        }
+        response = self.client.post(
+            reverse('sonif1D:configurar_sonido'),
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+        self.assertIn('field_errors', data)
 
     def test_configurar_sonido_logscale(self):
         """Verifica la síntesis sonora con escala logarítmica habilitada."""
@@ -146,6 +333,23 @@ class Sonif1DAjaxEndpointsTests(TestCase):
         self.assertEqual(len(filtered_data), len(sample_data))
         Sonif1DBlackBoxTestHelper.assert_valid_wav_base64(self, data.get('audio_base64'))
 
+    def test_aplicar_filtro_even_window_returns_400(self):
+        """Verifica que enviar una ventana par retorne 400 Bad Request."""
+        sample_data = [[0.0, 1.0], [1.0, 2.0], [2.0, 3.0], [3.0, 4.0], [4.0, 5.0], [5.0, 6.0], [6.0, 7.0]]
+        payload = {
+            'data_json': json.dumps(sample_data),
+            'window_size': 4,
+            'order': 2
+        }
+        response = self.client.post(
+            reverse('sonif1D:aplicar_filtro'),
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
     def test_aplicar_cuadratica_black_box(self):
         """Verifica que la transformación cuadrática y' = a*y^2 + b*y + c devuelva las salidas esperadas."""
         sample_data = [[0.0, 2.0], [1.0, 3.0], [2.0, 4.0]]
@@ -172,6 +376,22 @@ class Sonif1DAjaxEndpointsTests(TestCase):
         # y' = 2*(4^2) + 1*(4) + 3 = 32 + 4 + 3 = 39.0
         self.assertAlmostEqual(res_data[2][1], 39.0)
         Sonif1DBlackBoxTestHelper.assert_valid_wav_base64(self, data.get('audio_base64'))
+
+    def test_aplicar_cuadratica_invalid_coef_returns_400(self):
+        """Verifica que coeficientes no numéricos retornen 400 Bad Request."""
+        sample_data = [[0.0, 2.0], [1.0, 3.0]]
+        payload = {
+            'data_json': json.dumps(sample_data),
+            'coef_a': "no_es_numero",
+            'coef_b': 1.0,
+            'coef_c': 0.0
+        }
+        response = self.client.post(
+            reverse('sonif1D:aplicar_cuadratica'),
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
 
     def test_aplicar_logaritmica_domain_protection(self):
         """Verifica la transformación logarítmica y la protección ante valores de dominio no positivos."""
@@ -220,6 +440,21 @@ class Sonif1DAjaxEndpointsTests(TestCase):
         self.assertEqual(data.get('cantidad'), 2)
         self.assertEqual(len(data.get('picos_x')), 2)
         self.assertEqual(len(data.get('picos_y')), 2)
+
+    def test_buscar_picos_invalid_distance_returns_400(self):
+        """Verifica que distancia inválida (< 1) retorne 400 Bad Request."""
+        sample_data = [[0.0, 1.0], [1.0, 5.0], [2.0, 1.0]]
+        payload = {
+            'data_json': json.dumps(sample_data),
+            'prominencia': 0.5,
+            'distancia': 0
+        }
+        response = self.client.post(
+            reverse('sonif1D:buscar_picos'),
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
 
 
 class Sonif1DFileImportTests(TestCase):

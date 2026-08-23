@@ -7,14 +7,15 @@
         </h6>
     </div>
 
-    <form id="formVisualConfig" onsubmit="return false;">
+    <form id="formVisualConfig" novalidate onsubmit="return false;">
         <!-- Título y Ejes -->
         <div class="sw-subcard">
             <div class="mb-2">
                 <label for="cfg_name_grafic" class="form-label sw-label">
                     <i class="fas fa-heading text-secondary me-1"></i> Título del Gráfico:
                 </label>
-                <input type="text" id="cfg_name_grafic" class="form-control form-control-sm" value="Gráfico de Datos" placeholder="Ej: Curva de Luz">
+                <input type="text" id="cfg_name_grafic" class="form-control form-control-sm" value="Gráfico de Datos" placeholder="Ej: Curva de Luz" maxlength="100">
+                <div class="invalid-feedback" id="val_msg_name_grafic">El título no puede exceder 100 caracteres.</div>
             </div>
 
             <div class="row g-2">
@@ -22,13 +23,15 @@
                     <label for="cfg_name_eje_x" class="form-label sw-label">
                         <i class="fas fa-arrows-alt-h text-secondary me-1"></i> Eje X:
                     </label>
-                    <input type="text" id="cfg_name_eje_x" class="form-control form-control-sm" value="Eje X" placeholder="Tiempo (s)">
+                    <input type="text" id="cfg_name_eje_x" class="form-control form-control-sm" value="Eje X" placeholder="Tiempo (s)" maxlength="50">
+                    <div class="invalid-feedback" id="val_msg_eje_x">Máximo 50 caracteres.</div>
                 </div>
                 <div class="col-6">
                     <label for="cfg_name_eje_y" class="form-label sw-label">
                         <i class="fas fa-arrows-alt-v text-secondary me-1"></i> Eje Y:
                     </label>
-                    <input type="text" id="cfg_name_eje_y" class="form-control form-control-sm" value="Eje Y" placeholder="Amplitud">
+                    <input type="text" id="cfg_name_eje_y" class="form-control form-control-sm" value="Eje Y" placeholder="Amplitud" maxlength="50">
+                    <div class="invalid-feedback" id="val_msg_eje_y">Máximo 50 caracteres.</div>
                 </div>
             </div>
         </div>
