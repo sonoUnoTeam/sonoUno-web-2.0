@@ -176,8 +176,9 @@
             const addMarkerButton = document.getElementById('addMarkerButton');
             const removeMarkerButton = document.getElementById('removeMarkerButton');
             
-            // Array para almacenar los marcadores
+            // Array para almacenar los marcadores y picos
             let markers = [];
+            let peaks = null;
             let previousVolume = 1.0;
             
             // Obtener valores del contexto Django
@@ -214,9 +215,11 @@
             if (data_json) {
                 // Si hay datos del gráfico, los guarda en localStorage y los muestra
                 localStorage.setItem('data_json', data_json);
-                // Limpiar marcadores al cargar nuevos datos
+                // Limpiar marcadores y picos al cargar nuevos datos
                 localStorage.removeItem('markers');
                 markers = [];
+                localStorage.removeItem('peaks');
+                peaks = null;
                 renderGrafico(convertirData(data_json)); // Convierte y muestra los datos
             } else {
                 // Si no hay datos del gráfico, intenta cargarlos desde localStorage
@@ -440,7 +443,9 @@
                 localStorage.removeItem('audio_base64');
                 localStorage.removeItem('data_json');
                 localStorage.removeItem('markers');
+                localStorage.removeItem('peaks');
                 markers = [];
+                peaks = null;
                 window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
             });
             
@@ -448,7 +453,11 @@
             function loadMarkers() {
                 const savedMarkers = localStorage.getItem('markers');
                 if (savedMarkers) {
-                    markers = JSON.parse(savedMarkers);
+                    try {
+                        markers = JSON.parse(savedMarkers);
+                    } catch (e) {
+                        markers = [];
+                    }
                     updateMarkerCount();
                 }
             }
@@ -457,6 +466,29 @@
             function saveMarkers() {
                 localStorage.setItem('markers', JSON.stringify(markers));
                 updateMarkerCount();
+            }
+
+            // Cargar picos guardados desde localStorage
+            function loadPeaks() {
+                const savedPeaks = localStorage.getItem('peaks');
+                if (savedPeaks) {
+                    try {
+                        peaks = JSON.parse(savedPeaks);
+                    } catch (e) {
+                        peaks = null;
+                    }
+                } else {
+                    peaks = null;
+                }
+            }
+
+            // Guardar picos en localStorage
+            function savePeaks() {
+                if (peaks && peaks.x && Array.isArray(peaks.x) && peaks.x.length > 0) {
+                    localStorage.setItem('peaks', JSON.stringify(peaks));
+                } else {
+                    localStorage.removeItem('peaks');
+                }
             }
             
             // Actualizar contador de marcadores
@@ -492,7 +524,7 @@
                         markers.push({ x: markerX, y: markerY, index: currentIndex });
                         saveMarkers();
                         
-                        // Actualizar el gráfico con los marcadores
+                        // Actualizar el gráfico con los marcadores y picos
                         renderGraficoWithMarkers(data);
                     } else {
                         alert('Por favor, carga un archivo de audio primero.');
@@ -543,9 +575,11 @@
                         estilo_linea = 'solid';
                         color_linea = 'blue';
                         
-                        // Limpiar marcadores
+                        // Limpiar marcadores y picos
                         localStorage.removeItem('markers');
                         markers = [];
+                        localStorage.removeItem('peaks');
+                        peaks = null;
                         updateMarkerCount();
                         
                         // Reiniciar controles de audio
@@ -584,6 +618,7 @@
             // Función para renderizar el gráfico
             function renderGrafico(data) {
                 loadMarkers(); // Cargar marcadores guardados
+                loadPeaks(); // Cargar picos guardados
                 renderGraficoWithMarkers(data);
             }
             
@@ -629,6 +664,29 @@
                     },
                     name: 'Marcadores'
                 };
+
+                var traces = [trace1, trace2, trace3];
+
+                // Traza de picos encontrados (Peak Finder)
+                if (peaks && peaks.x && Array.isArray(peaks.x) && peaks.x.length > 0) {
+                    var trace4 = {
+                        x: peaks.x,
+                        y: peaks.y,
+                        mode: 'markers',
+                        marker: {
+                            color: '#dc3545',
+                            size: 11,
+                            symbol: 'cross',
+                            line: {
+                                color: '#842029',
+                                width: 2
+                            }
+                        },
+                        name: 'Picos (' + (peaks.cantidad || peaks.x.length) + ')',
+                        type: 'scatter'
+                    };
+                    traces.push(trace4);
+                }
                 
                 // Diseño del gráfico
                 var layout = {
@@ -645,8 +703,8 @@
                     template: isGray ? 'plotly_white' : 'plotly'
                 };
 
-                // Renderizar el gráfico con tres trazas: línea, marca móvil y marcadores fijos
-                Plotly.newPlot('grafico', [trace1, trace2, trace3], layout).then(function() {
+                // Renderizar el gráfico con las trazas correspondientes
+                Plotly.newPlot('grafico', traces, layout).then(function() {
                     // Después de renderizar, capturar la imagen actualizada
                     updateGraficoImage();
                 });
@@ -789,6 +847,23 @@
                 setMarkers: function(newMarkers) {
                     markers = newMarkers;
                     saveMarkers();
+                    const dataJson = localStorage.getItem('data_json');
+                    if (dataJson) {
+                        renderGraficoWithMarkers(convertirData(dataJson));
+                    }
+                },
+                getPeaks: function() { return peaks; },
+                setPeaks: function(newPeaks) {
+                    peaks = newPeaks;
+                    savePeaks();
+                    const dataJson = localStorage.getItem('data_json');
+                    if (dataJson) {
+                        renderGraficoWithMarkers(convertirData(dataJson));
+                    }
+                },
+                clearPeaks: function() {
+                    peaks = null;
+                    localStorage.removeItem('peaks');
                     const dataJson = localStorage.getItem('data_json');
                     if (dataJson) {
                         renderGraficoWithMarkers(convertirData(dataJson));
