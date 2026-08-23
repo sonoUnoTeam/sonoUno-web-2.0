@@ -29,6 +29,7 @@ urlpatterns = [
     path('muongraphy/', include('muongraphy.urls')), # Incluye las urls de la app moungraphy
     path('lhc/', include('lhc.urls')), # Incluye las urls de la app lhc
     path('imagesonif/', include('imagesonif.urls')), # Incluye las urls de la app imagesonif
+    path('aplicar_cuadratica/', views.aplicar_cuadratica_ajax, name='aplicar_cuadratica'),
     ] 
 
 # Agrega las URLs para servir archivos estáticos y multimedia

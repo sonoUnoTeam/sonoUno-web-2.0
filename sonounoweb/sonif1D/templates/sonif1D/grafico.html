@@ -83,7 +83,9 @@
                 </div>
 
                 <input type="hidden" name="data_json" id="data_json">
-
+                <input type="hidden" name="waveform" id="hidden_waveform">
+                <input type="hidden" name="min_freq" id="hidden_min_freq">
+                <input type="hidden" name="max_freq" id="hidden_max_freq">
                 <div class="d-grid gap-2 mt-2">
                     <button class="btn btn-primary btn-lg" type="submit" onclick="setBase64Data()">
                         <i class="fas fa-save"></i> Aplicar Visualización
@@ -124,7 +126,86 @@
                     </div>
                 </div>
             </div>
-
+<!-- Función Cuadrática -->
+            <div class="card border-light mb-3">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="fas fa-subscript text-success"></i> Función Cuadrática</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted mb-2">Transformación: <strong>y' = a·y² + b·y + c</strong></p>
+                    <div class="row g-2 mb-2">
+                        <div class="col-4">
+                            <label for="coef_a" class="form-label small fw-bold">a (y²):</label>
+                            <input type="number" id="coef_a" class="form-control form-control-sm" value="1" step="0.1">
+                        </div>
+                        <div class="col-4">
+                            <label for="coef_b" class="form-label small fw-bold">b (y):</label>
+                            <input type="number" id="coef_b" class="form-control form-control-sm" value="0" step="0.1">
+                        </div>
+                        <div class="col-4">
+                            <label for="coef_c" class="form-label small fw-bold">c (cte):</label>
+                            <input type="number" id="coef_c" class="form-control form-control-sm" value="0" step="0.1">
+                        </div>
+                    </div>
+                    <div class="d-grid mt-2">
+                        <button type="button" id="btnCuadraticaAjax" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-calculator"></i> Aplicar Función
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Función Logarítmica -->
+            <div class="card border-light mb-3">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="fas fa-compress-arrows-alt text-primary"></i> Función Logarítmica</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted mb-2">Transformación: <strong>y' = a·ln(y + c) + b</strong></p>
+                    <div class="row g-2 mb-2">
+                        <div class="col-4">
+                            <label for="log_a" class="form-label small fw-bold" title="Multiplicador">a (mult):</label>
+                            <input type="number" id="log_a" class="form-control form-control-sm" value="1" step="0.1">
+                        </div>
+                        <div class="col-4">
+                            <label for="log_c" class="form-label small fw-bold" title="Desplazamiento para evitar log(0)">c (adentro):</label>
+                            <input type="number" id="log_c" class="form-control form-control-sm" value="1" step="0.1">
+                        </div>
+                        <div class="col-4">
+                            <label for="log_b" class="form-label small fw-bold" title="Elevación final">b (afuera):</label>
+                            <input type="number" id="log_b" class="form-control form-control-sm" value="0" step="0.1">
+                        </div>
+                    </div>
+                    <div class="d-grid mt-2">
+                        <button type="button" id="btnLogaritmicaAjax" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-calculator"></i> Aplicar Logaritmo
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Buscador de Picos -->
+            <div class="card border-light mb-3">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="fas fa-mountain text-danger"></i> Buscador de Picos</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted mb-2">Señala los máximos locales en el gráfico.</p>
+                    <div class="row g-2 mb-2">
+                        <div class="col-6">
+                            <label for="prominencia" class="form-label small fw-bold" title="Altura mínima del pico respecto a su base">Prominencia:</label>
+                            <input type="number" id="prominencia" class="form-control form-control-sm" value="0.1" step="0.05">
+                        </div>
+                        <div class="col-6">
+                            <label for="distancia" class="form-label small fw-bold" title="Separación mínima entre dos picos">Distancia mín:</label>
+                            <input type="number" id="distancia" class="form-control form-control-sm" value="5" step="1">
+                        </div>
+                    </div>
+                    <div class="d-grid mt-2">
+                        <button type="button" id="btnPicosAjax" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-search-location"></i> Encontrar Picos
+                        </button>
+                    </div>
+                </div>
+            </div>
             <!-- Sonido -->
             <div class="card border-light mb-3">
                 <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-music text-info"></i> Ajustes de Sonido</h6></div>
@@ -166,17 +247,42 @@
 </div>
 <script>
   function setBase64Data() {
-      const dataJsonInput = document.getElementById('data_json');
+      // 1. Asegurar los datos matemáticos
+      let dataJsonInput = document.getElementById('data_json');
       if (!dataJsonInput.value) {
           dataJsonInput.value = localStorage.getItem('data_json');
       }
+      
+      // 2. Leer qué sonido tiene el usuario en la interfaz
+      const wave = document.getElementById('instrumento').value;
+      const minF = document.getElementById('min_freq').value;
+      const maxF = document.getElementById('max_freq').value;
+
+      // 3. Guardarlos en la memoria local para restaurar la interfaz luego de la recarga
+      localStorage.setItem('saved_wave', wave);
+      localStorage.setItem('saved_min', minF);
+      localStorage.setItem('saved_max', maxF);
+
+      // 4. Inyectarlos en los inputs ocultos para que viajen a Django
+      document.getElementById('hidden_waveform').value = wave;
+      document.getElementById('hidden_min_freq').value = minF;
+      document.getElementById('hidden_max_freq').value = maxF;
+      
       const btnSubmit = document.querySelector('button[type="submit"]');
-      if (btnSubmit) btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Guardando...';
+      if (btnSubmit) btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Procesando...';
   }
 
   document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. LÓGICA DE SUAVIZADO
+    // RESTAURAR ESTADO VISUAL DEL SONIDO AL RECARGAR LA PÁGINA
+    const savedWaveform = localStorage.getItem('saved_wave');
+    if (savedWaveform) {
+        document.getElementById('instrumento').value = savedWaveform;
+        document.getElementById('min_freq').value = localStorage.getItem('saved_min');
+        document.getElementById('max_freq').value = localStorage.getItem('saved_max');
+    }
+
+        // 1. LÓGICA DE SUAVIZADO
     const btnSuavizar = document.getElementById('btnSuavizarAjax');
     if (btnSuavizar) {
         btnSuavizar.addEventListener('click', function(event) {
@@ -278,5 +384,199 @@
         });
     }
   });
+  // ==========================================
+    // 3. LÓGICA DE FUNCIÓN CUADRÁTICA
+    // ==========================================
+    const btnCuadratica = document.getElementById('btnCuadraticaAjax');
+    if (btnCuadratica) {
+        btnCuadratica.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            const dataJsonInput = document.getElementById('data_json');
+            const coefA = document.getElementById('coef_a').value;
+            const coefB = document.getElementById('coef_b').value;
+            const coefC = document.getElementById('coef_c').value;
+
+            let datosAEnviar = dataJsonInput.value || localStorage.getItem('data_json');
+            if (!datosAEnviar && typeof dataJson !== 'undefined') datosAEnviar = dataJson;
+
+            if (!datosAEnviar) {
+                alert('No hay datos cargados para transformar.');
+                return;
+            }
+
+            const textoOriginal = btnCuadratica.innerHTML;
+            btnCuadratica.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Calculando...';
+            btnCuadratica.disabled = true;
+
+            fetch("{% url 'sonif1D:aplicar_cuadratica' %}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                body: JSON.stringify({ 
+                    data_json: datosAEnviar, 
+                    coef_a: parseFloat(coefA),
+                    coef_b: parseFloat(coefB),
+                    coef_c: parseFloat(coefC)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    dataJsonInput.value = data.data_json;
+                    localStorage.setItem('data_json', data.data_json);
+                    window.audioDataActual = data.audio_base64;
+                 
+
+                    const audioPlayer = document.querySelector('audio'); 
+                    if (audioPlayer) {
+                        audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                        audioPlayer.load();
+                    }
+
+                    const dataParsed = JSON.parse(data.data_json);
+                    const graficoDiv = document.getElementById('grafico');
+                    if (graficoDiv && typeof Plotly !== 'undefined') {
+                        Plotly.restyle(graficoDiv, {
+                            x: [dataParsed.map(row => row[0])],
+                            y: [dataParsed.map(row => row[1])]
+                        }, [0]);
+                    }
+                } else {
+                    alert("Error matemático: " + data.error);
+                }
+            })
+            .catch(error => console.error("Error AJAX:", error))
+            .finally(() => { btnCuadratica.innerHTML = textoOriginal; btnCuadratica.disabled = false; });
+        });
+    }
+    // ==========================================
+    // 4. LÓGICA DEL BUSCADOR DE PICOS
+    // ==========================================
+    const btnPicos = document.getElementById('btnPicosAjax');
+    if (btnPicos) {
+        btnPicos.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            const dataJsonInput = document.getElementById('data_json');
+            const prominencia = document.getElementById('prominencia').value;
+            const distancia = document.getElementById('distancia').value;
+
+            let datosAEnviar = dataJsonInput.value || localStorage.getItem('data_json');
+            if (!datosAEnviar && typeof dataJson !== 'undefined') datosAEnviar = dataJson;
+
+            if (!datosAEnviar) {
+                alert('No hay datos cargados.');
+                return;
+            }
+
+            const textoOriginal = btnPicos.innerHTML;
+            btnPicos.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Buscando...';
+            btnPicos.disabled = true;
+
+            fetch("{% url 'sonif1D:buscar_picos' %}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                body: JSON.stringify({ 
+                    data_json: datosAEnviar, 
+                    prominencia: parseFloat(prominencia),
+                    distancia: parseInt(distancia)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const graficoDiv = document.getElementById('grafico');
+                    if (graficoDiv && typeof Plotly !== 'undefined') {
+                        
+                        // 1. Limpiamos picos viejos si el usuario vuelve a presionar el botón
+                        while(graficoDiv.data.length > 1) {
+                            Plotly.deleteTraces(graficoDiv, 1);
+                        }
+
+                        // 2. Dibujamos los picos nuevos sobre el gráfico
+                        if (data.cantidad > 0) {
+                            const picosTrace = {
+                                x: data.picos_x,
+                                y: data.picos_y,
+                                mode: 'markers',
+                                marker: { color: 'red', size: 10, symbol: 'cross' },
+                                name: 'Picos (' + data.cantidad + ')',
+                                type: 'scatter'
+                            };
+                            Plotly.addTraces(graficoDiv, picosTrace);
+                            
+                        } else {
+                            alert("No se encontraron picos. Probá reduciendo la 'Prominencia'.");
+                        }
+                    }
+                } else {
+                    alert("Error al buscar picos: " + data.error);
+                }
+            })
+            .catch(error => console.error("Error AJAX picos:", error))
+            .finally(() => { btnPicos.innerHTML = textoOriginal; btnPicos.disabled = false; });
+        });
+    }
+    // ==========================================
+    // 5. LÓGICA DE FUNCIÓN LOGARÍTMICA
+    // ==========================================
+    const btnLogaritmica = document.getElementById('btnLogaritmicaAjax');
+    if (btnLogaritmica) {
+        btnLogaritmica.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            const dataJsonInput = document.getElementById('data_json');
+            const coefA = document.getElementById('log_a').value;
+            const coefC = document.getElementById('log_c').value;
+            const coefB = document.getElementById('log_b').value;
+
+            let datosAEnviar = dataJsonInput.value || localStorage.getItem('data_json');
+            if (!datosAEnviar && typeof dataJson !== 'undefined') datosAEnviar = dataJson;
+
+            if (!datosAEnviar) {
+                alert('No hay datos cargados para transformar.');
+                return;
+            }
+
+            const textoOriginal = btnLogaritmica.innerHTML;
+            btnLogaritmica.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Calculando...';
+            btnLogaritmica.disabled = true;
+
+            fetch("{% url 'sonif1D:aplicar_logaritmica' %}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                body: JSON.stringify({ 
+                    data_json: datosAEnviar, 
+                    coef_a: parseFloat(coefA),
+                    coef_c: parseFloat(coefC),
+                    coef_b: parseFloat(coefB)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    dataJsonInput.value = data.data_json;
+                    localStorage.setItem('data_json', data.data_json);
+                    window.audioDataActual = data.audio_base64;
+                   
+                    const audioPlayer = document.querySelector('audio'); 
+                    if (audioPlayer) {
+                        audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                        audioPlayer.load();
+                    }
+
+                    const dataParsed = JSON.parse(data.data_json);
+                    const graficoDiv = document.getElementById('grafico');
+                    if (graficoDiv && typeof Plotly !== 'undefined') {
+                        Plotly.restyle(graficoDiv, {
+                            x: [dataParsed.map(row => row[0])],
+                            y: [dataParsed.map(row => row[1])]
+                        }, [0]);
+                    }
+                } else {
+                    alert("Error matemático: " + data.error);
+                }
+            })
+            .catch(error => console.error("Error AJAX:", error))
+            .finally(() => { btnLogaritmica.innerHTML = textoOriginal; btnLogaritmica.disabled = false; });
+        });
+    }
 </script>
 {% endblock %}
