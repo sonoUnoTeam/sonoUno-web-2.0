@@ -18,4 +18,7 @@ urlpatterns = [
     # Endpoints AJAX
     path('aplicar_filtro/', views.aplicar_filtro_ajax, name='aplicar_filtro'),
     path('configurar_sonido/', views.configurar_sonido_ajax, name='configurar_sonido'),
-]
+    path('aplicar_cuadratica/', views.aplicar_cuadratica_ajax, name='aplicar_cuadratica'),
+    path('buscar_picos/', views.buscar_picos_ajax, name='buscar_picos'),
+    path('aplicar_logaritmica/', views.aplicar_logaritmica_ajax, name='aplicar_logaritmica'),
+]

@@ -294,11 +294,7 @@ def generar_grafico(data, name_grafic=False, name_eje_x=False, name_eje_y=False,
 # Función para generar el archivo de audio (en formato WAV) en base64
 def generar_auido_base64(data, request, waveform='sine', min_freq=500.0, max_freq=5000.0, logscale=False):
     try:
-        # --- RASTREADOR 2: Vemos si la función de audio recibe los datos ---
-        print("\n" + "="*40)
-        print("2. GENERADOR DE AUDIO INICIADO CON:")
-        print(f"Instrumento: {waveform} | Rango: {min_freq}Hz - {max_freq}Hz")
-        print("="*40 + "\n")
+        logger.debug(f"Generador de audio iniciado: Instrumento={waveform}, Rango={min_freq}Hz-{max_freq}Hz, Logscale={logscale}")
         
         # Instancia el generador de sonido y genera el WAV en memoria
         sonido = simpleSound()
@@ -858,11 +854,8 @@ def configurar_sonido_ajax(request):
             min_freq = float(body.get('min_freq', 500))
             max_freq = float(body.get('max_freq', 5000))
             logscale = body.get('logscale', False)
-# --- RASTREADOR 1: Vemos si JS envió bien los datos ---
-            print("\n" + "="*40)
-            print("1. AJAX RECIBIÓ LOS PARÁMETROS:")
-            print(f"Instrumento: {waveform} | Rango: {min_freq}Hz - {max_freq}Hz | Log: {logscale}")
-            print("="*40 + "\n")
+
+            logger.info(f"AJAX sonido recibido: Waveform={waveform}, Min={min_freq}Hz, Max={max_freq}Hz, Log={logscale}")
             if not data_json_str:
                 return JsonResponse({'error': 'No hay datos cargados'}, status=400)
 
@@ -891,3 +884,127 @@ def configurar_sonido_ajax(request):
             return JsonResponse({'error': str(e)}, status=500)
             
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def aplicar_cuadratica_ajax(request):
+    if request.method == 'POST':
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            data_json_str = body.get('data_json')
+            
+            # Capturamos los coeficientes matemáticos
+            a = float(body.get('coef_a', 1.0))
+            b = float(body.get('coef_b', 0.0))
+            c = float(body.get('coef_c', 0.0))
+
+            if not data_json_str:
+                return JsonResponse({'error': 'No hay datos cargados'}, status=400)
+
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+            
+            # Aplicamos la función matemática cuadrática al eje Y (columna 1)
+            data[:, 1] = a * (data[:, 1] ** 2) + b * data[:, 1] + c
+            
+            nuevo_json = numpy_to_json(data)
+            
+            # Generamos el nuevo audio
+            nuevo_audio_base64 = generar_auido_base64(data, request)
+            
+            if not nuevo_audio_base64:
+                return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
+
+            return JsonResponse({
+                'success': True,
+                'data_json': nuevo_json,
+                'audio_base64': nuevo_audio_base64
+            })
+        except Exception as e:
+            logger.error(f"Error en AJAX cuadrática: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def buscar_picos_ajax(request):
+    if request.method == 'POST':
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            data_json_str = body.get('data_json')
+            
+            # Parámetros para calibrar la búsqueda de picos
+            prominencia = float(body.get('prominencia', 0.1))
+            distancia = int(body.get('distancia', 5))
+
+            if not data_json_str:
+                return JsonResponse({'error': 'No hay datos cargados'}, status=400)
+
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+            
+            x = data[:, 0]
+            y = data[:, 1]
+            
+            # Buscar picos en el eje Y
+            picos_indices, _ = signal.find_peaks(y, prominence=prominencia, distance=distancia)
+            
+            # Extraer las coordenadas exactas de esos picos
+            picos_x = x[picos_indices].tolist()
+            picos_y = y[picos_indices].tolist()
+
+            return JsonResponse({
+                'success': True,
+                'picos_x': picos_x,
+                'picos_y': picos_y,
+                'cantidad': len(picos_indices)
+            })
+        except Exception as e:
+            logger.error(f"Error en AJAX picos: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def aplicar_logaritmica_ajax(request):
+    if request.method == 'POST':
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            data_json_str = body.get('data_json')
+            
+            # y' = a * ln(y + c) + b
+            a = float(body.get('coef_a', 1.0))
+            c = float(body.get('coef_c', 1.0)) # Offset interno para evitar log(0)
+            b = float(body.get('coef_b', 0.0))
+
+            if not data_json_str:
+                return JsonResponse({'error': 'No hay datos cargados'}, status=400)
+
+            data = json_to_numpy(data_json_str)
+            if data is None:
+                return JsonResponse({'error': 'Datos inválidos'}, status=400)
+            
+            # PROTECCIÓN DE DOMINIO: Aseguramos que (y + c) nunca sea <= 0
+            # Si el valor baja de 0, lo forzamos a ser 1e-9 (un número muy cercano a cero)
+            y_seguro = np.maximum(data[:, 1] + c, 1e-9)
+            
+            # Aplicamos el logaritmo natural (ln)
+            data[:, 1] = a * np.log(y_seguro) + b
+            
+            nuevo_json = numpy_to_json(data)
+            nuevo_audio_base64 = generar_auido_base64(data, request)
+            
+            if not nuevo_audio_base64:
+                return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
+
+            return JsonResponse({
+                'success': True,
+                'data_json': nuevo_json,
+                'audio_base64': nuevo_audio_base64
+            })
+        except Exception as e:
+            logger.error(f"Error en AJAX logarítmica: {e}", exc_info=True)
+            return JsonResponse({'error': str(e)}, status=500)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

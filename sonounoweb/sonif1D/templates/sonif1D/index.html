@@ -285,6 +285,230 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ==========================================================
+    // 3.1 GESTIÓN DE FUNCIÓN CUADRÁTICA (AJAX)
+    // ==========================================================
+    const btnCuadratica = document.getElementById('btnCuadraticaAjax');
+    if (btnCuadratica) {
+        btnCuadratica.addEventListener('click', function(event) {
+            event.preventDefault();
+            const coefA = document.getElementById('coef_a') ? document.getElementById('coef_a').value : 1;
+            const coefB = document.getElementById('coef_b') ? document.getElementById('coef_b').value : 0;
+            const coefC = document.getElementById('coef_c') ? document.getElementById('coef_c').value : 0;
+
+            const datosAEnviar = localStorage.getItem('data_json');
+            if (!datosAEnviar) {
+                alert('No hay datos cargados para transformar.');
+                return;
+            }
+
+            const textoOriginal = btnCuadratica.innerHTML;
+            btnCuadratica.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Calculando...';
+            btnCuadratica.disabled = true;
+
+            fetch("{% url 'sonif1D:aplicar_cuadratica' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    data_json: datosAEnviar,
+                    coef_a: parseFloat(coefA),
+                    coef_b: parseFloat(coefB),
+                    coef_c: parseFloat(coefC)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem('data_json', data.data_json);
+                    window.audioDataActual = data.audio_base64;
+
+                    const audioPlayer = document.getElementById('audioPlayer');
+                    if (audioPlayer) {
+                        const audioSource = audioPlayer.querySelector('source');
+                        if (audioSource) {
+                            audioSource.src = "data:audio/wav;base64," + data.audio_base64;
+                        } else {
+                            audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                        }
+                        audioPlayer.load();
+                    }
+
+                    if (window.sonoUno1D) {
+                        const parsedData = window.sonoUno1D.convertirData(data.data_json);
+                        window.sonoUno1D.renderGraficoWithMarkers(parsedData);
+                    }
+                    showFeedback('cuadraticaFeedback');
+                } else {
+                    alert("Error al aplicar función cuadrática: " + (data.error || 'Error desconocido'));
+                }
+            })
+            .catch(error => {
+                console.error("Error AJAX cuadrática:", error);
+                alert("Error de conexión al aplicar función cuadrática.");
+            })
+            .finally(() => {
+                btnCuadratica.innerHTML = textoOriginal;
+                btnCuadratica.disabled = false;
+            });
+        });
+    }
+
+    // ==========================================================
+    // 3.2 GESTIÓN DE FUNCIÓN LOGARÍTMICA (AJAX)
+    // ==========================================================
+    const btnLogaritmica = document.getElementById('btnLogaritmicaAjax');
+    if (btnLogaritmica) {
+        btnLogaritmica.addEventListener('click', function(event) {
+            event.preventDefault();
+            const logA = document.getElementById('log_a') ? document.getElementById('log_a').value : 1;
+            const logC = document.getElementById('log_c') ? document.getElementById('log_c').value : 1;
+            const logB = document.getElementById('log_b') ? document.getElementById('log_b').value : 0;
+
+            const datosAEnviar = localStorage.getItem('data_json');
+            if (!datosAEnviar) {
+                alert('No hay datos cargados para transformar.');
+                return;
+            }
+
+            const textoOriginal = btnLogaritmica.innerHTML;
+            btnLogaritmica.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Calculando...';
+            btnLogaritmica.disabled = true;
+
+            fetch("{% url 'sonif1D:aplicar_logaritmica' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    data_json: datosAEnviar,
+                    coef_a: parseFloat(logA),
+                    coef_c: parseFloat(logC),
+                    coef_b: parseFloat(logB)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem('data_json', data.data_json);
+                    window.audioDataActual = data.audio_base64;
+
+                    const audioPlayer = document.getElementById('audioPlayer');
+                    if (audioPlayer) {
+                        const audioSource = audioPlayer.querySelector('source');
+                        if (audioSource) {
+                            audioSource.src = "data:audio/wav;base64," + data.audio_base64;
+                        } else {
+                            audioPlayer.src = "data:audio/wav;base64," + data.audio_base64;
+                        }
+                        audioPlayer.load();
+                    }
+
+                    if (window.sonoUno1D) {
+                        const parsedData = window.sonoUno1D.convertirData(data.data_json);
+                        window.sonoUno1D.renderGraficoWithMarkers(parsedData);
+                    }
+                    showFeedback('logaritmicaFeedback');
+                } else {
+                    alert("Error al aplicar función logarítmica: " + (data.error || 'Error desconocido'));
+                }
+            })
+            .catch(error => {
+                console.error("Error AJAX logarítmica:", error);
+                alert("Error de conexión al aplicar función logarítmica.");
+            })
+            .finally(() => {
+                btnLogaritmica.innerHTML = textoOriginal;
+                btnLogaritmica.disabled = false;
+            });
+        });
+    }
+
+    // ==========================================================
+    // 3.3 GESTIÓN DEL BUSCADOR DE PICOS (AJAX)
+    // ==========================================================
+    const btnPicos = document.getElementById('btnPicosAjax');
+    if (btnPicos) {
+        btnPicos.addEventListener('click', function(event) {
+            event.preventDefault();
+            const prominencia = document.getElementById('prominencia') ? document.getElementById('prominencia').value : 0.1;
+            const distancia = document.getElementById('distancia') ? document.getElementById('distancia').value : 5;
+
+            const datosAEnviar = localStorage.getItem('data_json');
+            if (!datosAEnviar) {
+                alert('No hay datos cargados para buscar picos.');
+                return;
+            }
+
+            const textoOriginal = btnPicos.innerHTML;
+            btnPicos.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Buscando...';
+            btnPicos.disabled = true;
+
+            fetch("{% url 'sonif1D:buscar_picos' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    data_json: datosAEnviar,
+                    prominencia: parseFloat(prominencia),
+                    distancia: parseInt(distancia)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const graficoDiv = document.getElementById('grafico');
+                    if (graficoDiv && typeof Plotly !== 'undefined' && graficoDiv.data) {
+                        // Limpiar trazas anteriores de picos (índice 3 en adelante)
+                        while (graficoDiv.data.length > 3) {
+                            Plotly.deleteTraces(graficoDiv, graficoDiv.data.length - 1);
+                        }
+
+                        if (data.cantidad > 0) {
+                            const picosTrace = {
+                                x: data.picos_x,
+                                y: data.picos_y,
+                                mode: 'markers',
+                                marker: {
+                                    color: '#dc3545',
+                                    size: 11,
+                                    symbol: 'cross',
+                                    line: { color: '#842029', width: 2 }
+                                },
+                                name: 'Picos (' + data.cantidad + ')',
+                                type: 'scatter'
+                            };
+                            Plotly.addTraces(graficoDiv, picosTrace);
+
+                            const picosText = document.getElementById('picosFeedbackText');
+                            if (picosText) picosText.textContent = `Se detectaron ${data.cantidad} pico(s) en la señal.`;
+                            showFeedback('picosFeedback');
+                        } else {
+                            const picosText = document.getElementById('picosFeedbackText');
+                            if (picosText) picosText.textContent = 'No se detectaron picos con los parámetros actuales.';
+                            showFeedback('picosFeedback');
+                        }
+                    }
+                } else {
+                    alert("Error al buscar picos: " + (data.error || 'Error desconocido'));
+                }
+            })
+            .catch(error => {
+                console.error("Error AJAX picos:", error);
+                alert("Error de conexión al buscar picos.");
+            })
+            .finally(() => {
+                btnPicos.innerHTML = textoOriginal;
+                btnPicos.disabled = false;
+            });
+        });
+    }
+
+    // ==========================================================
     // 4. GESTIÓN DE TABLA Y MARCADORES EN TIEMPO REAL
     // ==========================================================
     const markersTable = document.getElementById('markersTable');
