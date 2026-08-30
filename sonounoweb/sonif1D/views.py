@@ -596,47 +596,48 @@ class simpleSound(object):
             print(e)
             
 
-    # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
+   # Función para generar el sonido en formato WAV en memoria (sin guardarlo)
     def generate_sound(self, data_x, data_y, init=0):
         try:
             # Normalizar datos
             data_x, data_y, Status = normalize(data_x, data_y)
-
             rep = self.reproductor
             
-            # 1. CREAMOS UNA LISTA VACÍA (MUCHO MÁS RÁPIDO QUE NP.APPEND)
+            # 1. Ajuste dinámico de velocidad (Arpegio rápido)
+            puntos = data_x.size - init
+            # Apuntamos a que el audio dure unos 6 segundos en total
+            tiempo_por_punto = 6.0 / puntos if puntos > 0 else 0.1
+            # Evitamos que sea ridículamente rápido o muy lento (entre 30ms y 200ms)
+            tiempo_por_punto = max(0.03, min(tiempo_por_punto, 0.2)) 
+            
+            rep.set_time_base(tiempo_por_punto)
+            
+            # 2. Activamos el modo continuo para que la frecuencia resbale (Glissando suave)
+            rep.set_continuous()
+
             sound_chunks = []
-
-            # Recorremos los datos para generar las ondas
-            logger.info(f"Iniciando generación de {data_x.size} muestras de audio...")
+            
+            logger.info(f"Generando {puntos} notas a {tiempo_por_punto:.3f}s por nota...")
             for x in range(init, data_x.size):
-                # Calculamos la frecuencia basándonos en data_y
                 freq = (rep.max_freq - rep.min_freq) * data_y[x] + rep.min_freq
+                
+                # generate_waveform recupera el ADSR propio (el golpe del piano o soplido de flauta)
+                onda = rep.generate_waveform(freq, delta_t=1)
                 self.env = rep._adsr_envelope()
-
-                # Generamos la onda de la frecuencia calculada
-                f = self.env * rep.volume * 2**15 * rep.generate_waveform(freq, delta_t=1)
-
-                # 2. AGREGAMOS EL FRAGMENTO A LA LISTA
+                
+                # Ensamblamos la nota
+                f = self.env * rep.volume * 2**15 * onda
                 sound_chunks.append(f.astype('int16'))
 
-            # 3. UNIMOS TODO DE UNA SOLA VEZ AL FINAL CON NUMPY
+            # 3. Unimos todo de golpe
             sound_to_save = np.concatenate(sound_chunks)
 
-            logger.info(f"Generación de ondas completada. Total de muestras de audio: {sound_to_save.size}")
-
-            # Creamos un archivo WAV en memoria usando BytesIO
             output_wave = io.BytesIO()
             write(output_wave, rep.f_s, sound_to_save)
-
-            # Devolvemos el archivo WAV en formato de bytes
-            wav_bytes = output_wave.getvalue()
-            logger.info(f"=== Audio WAV generado exitosamente. Tamaño: {len(wav_bytes)} bytes ===")
-            return wav_bytes
+            return output_wave.getvalue()
 
         except Exception as e:
             logger.error(f"Error al generar el sonido: {e}", exc_info=True)
-            print(f"Error al generar el sonido: {e}")
             return None
 
 
@@ -801,12 +802,16 @@ def aplicar_filtro_ajax(request):
     if request.method == 'POST':
         try:
             # 1. Leer los datos enviados desde JavaScript
-            try:
-                body = json.loads(request.body.decode('utf-8'))
-            except (json.JSONDecodeError, UnicodeDecodeError):
-                return JsonResponse({'error': 'JSON malformado'}, status=400)
-
+            body = json.loads(request.body.decode('utf-8'))
             data_json_str = body.get('data_json')
+            window_size = int(body.get('window_size', 31))
+            order = int(body.get('order', 4))
+            
+            # Capturamos las variables de sonido
+            waveform = body.get('waveform', 'sine')
+            min_freq = float(body.get('min_freq', 500))
+            max_freq = float(body.get('max_freq', 5000))
+            
             if not data_json_str:
                 return JsonResponse({'error': 'No se enviaron datos'}, status=400)
 
@@ -842,8 +847,15 @@ def aplicar_filtro_ajax(request):
             # 5. Volver a empaquetar los datos [X, Y]
             new_data = np.column_stack((x_new, y_new))
             
-            # 6. Generar el nuevo audio y los nuevos datos JSON
-            nuevo_audio_base64 = generar_auido_base64(new_data, request)
+            # 5. Generar el nuevo audio y los nuevos datos JSON
+            # Le pasamos las variables al generador de audio para que 
+            # genere el sonido con las configuraciones elegidas por el usuario
+            nuevo_audio_base64 = generar_auido_base64(
+                new_data, request,
+                waveform=waveform,
+                min_freq=min_freq,
+                max_freq=max_freq
+            )
             nuevo_data_json = numpy_to_json(new_data)
             
             # Devolvemos la respuesta exitosa
@@ -926,6 +938,16 @@ def aplicar_cuadratica_ajax(request):
                 return JsonResponse({'error': 'JSON malformado'}, status=400)
 
             data_json_str = body.get('data_json')
+            
+            # Capturamos los coeficientes matemáticos
+            a = float(body.get('coef_a', 1.0))
+            b = float(body.get('coef_b', 0.0))
+            c = float(body.get('coef_c', 0.0))
+            
+            # Capturamos las variables de sonido
+            waveform = body.get('waveform', 'sine')
+            min_freq = float(body.get('min_freq', 500))
+            max_freq = float(body.get('max_freq', 5000))
             if not data_json_str:
                 return JsonResponse({'error': 'No hay datos cargados'}, status=400)
 
@@ -954,7 +976,9 @@ def aplicar_cuadratica_ajax(request):
             nuevo_json = numpy_to_json(data)
             
             # Generamos el nuevo audio
-            nuevo_audio_base64 = generar_auido_base64(data, request)
+            nuevo_audio_base64 = generar_auido_base64(data, request,waveform=waveform,
+                min_freq=min_freq,
+                max_freq=max_freq)
             
             if not nuevo_audio_base64:
                 return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
@@ -1032,6 +1056,16 @@ def aplicar_logaritmica_ajax(request):
                 return JsonResponse({'error': 'JSON malformado'}, status=400)
 
             data_json_str = body.get('data_json')
+            
+            # y' = a * ln(y + c) + b
+            a = float(body.get('coef_a', 1.0))
+            c = float(body.get('coef_c', 1.0)) # Offset interno para evitar log(0)
+            b = float(body.get('coef_b', 0.0))
+            
+            # Capturamos las variables de sonido
+            waveform = body.get('waveform', 'sine')
+            min_freq = float(body.get('min_freq', 500))
+            max_freq = float(body.get('max_freq', 5000))
             if not data_json_str:
                 return JsonResponse({'error': 'No hay datos cargados'}, status=400)
 
@@ -1062,7 +1096,9 @@ def aplicar_logaritmica_ajax(request):
             data[:, 1] = a * np.log(y_seguro) + b
             
             nuevo_json = numpy_to_json(data)
-            nuevo_audio_base64 = generar_auido_base64(data, request)
+            nuevo_audio_base64 = generar_auido_base64(data, request, waveform=waveform,
+                min_freq=min_freq,
+                max_freq=max_freq)
             
             if not nuevo_audio_base64:
                 return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
@@ -1076,4 +1112,4 @@ def aplicar_logaritmica_ajax(request):
             logger.error(f"Error en AJAX logarítmica: {e}", exc_info=True)
             return JsonResponse({'error': str(e)}, status=500)
             
-    return JsonResponse({'error': 'Método no permitido'}, status=405)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
