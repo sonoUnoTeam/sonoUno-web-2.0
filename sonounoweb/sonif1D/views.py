@@ -26,7 +26,7 @@ from scipy.io.wavfile import write
 from scipy import signal
 
 from django.core.exceptions import ValidationError
-from .forms import ArchivoForm
+from .forms import ArchivoForm, ConfiguracionGraficoForm
 from .validators import Sonif1DValidator
 from .sonounolib.data_export.data_export import DataExport
 from .sonounolib.data_import.data_import import DataImport
@@ -52,6 +52,7 @@ def inicio(request):
 def ayuda_sonif1d(request):
     """Renderiza la página de ayuda específica para sonif1D."""
     return render(request, 'sonif1D/help.html')
+
 
 # Función para mostrar un gráfico de un archivo cargado
 def mostrar_grafico(request, nombre_archivo):
@@ -80,6 +81,73 @@ def mostrar_grafico(request, nombre_archivo):
     context.update(grafico_data)
     return render(request, 'sonif1D/index.html', context)
 
+# Vista para configurar y mostrar un gráfico
+class GraficoView(FormView):
+    template_name = 'sonif1D/index.html'  # <-- Modificado para usar el index modular
+    form_class = ConfiguracionGraficoForm
+    success_url = reverse_lazy('sonif1D:grafico')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial.update({
+            'name_grafic': 'Gráfico de Datos',
+            'name_eje_x': 'Eje X',
+            'name_eje_y': 'Eje Y',
+            'grilla': True,
+            'escala_grises': False,
+            'estilo_linea': 'solid',
+            'color_linea': 'blue'
+        })
+        return initial
+
+    def form_valid(self, form):
+        name_grafic = form.cleaned_data['name_grafic']
+        name_eje_x = form.cleaned_data['name_eje_x']
+        name_eje_y = form.cleaned_data['name_eje_y']
+        grilla = form.cleaned_data['grilla']
+        escala_grises = form.cleaned_data['escala_grises']
+        estilo_linea = form.cleaned_data['estilo_linea']
+        color_linea = form.cleaned_data['color_linea']
+        
+        data_json = self.request.POST.get('data_json')
+        waveform = self.request.POST.get('waveform') or 'sine'
+        
+        min_freq_str = self.request.POST.get('min_freq')
+        min_freq = float(min_freq_str) if min_freq_str else 500.0
+        
+        max_freq_str = self.request.POST.get('max_freq')
+        max_freq = float(max_freq_str) if max_freq_str else 5000.0
+
+        if not data_json:
+            messages.error(self.request, "No se encontraron datos para generar el gráfico.")
+            return self.render_to_response(self.get_context_data(form=form))
+        
+        data = json_to_numpy(data_json)
+        
+        if data is None:
+            messages.error(self.request, "Error al cargar los datos del gráfico.")
+            return self.render_to_response(self.get_context_data(form=form))
+
+        grafico_data = generar_grafico(data, name_grafic, name_eje_x, name_eje_y, grilla, escala_grises, estilo_linea, color_linea)
+  
+        context = self.get_context_data(form=form)
+        context.update(grafico_data)
+        context['data_json'] = data_json
+
+        audio_base64 = generar_auido_base64(
+            data, self.request,
+            waveform=waveform,
+            min_freq=min_freq,
+            max_freq=max_freq
+        )
+        if audio_base64:
+            context['audio_base64'] = audio_base64
+            
+        return self.render_to_response(context)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Error al validar el formulario.")
+        return self.render_to_response(self.get_context_data(form=form))
 # Función para cargar los datos desde un archivo .txt o .csv a un array de NumPy
 def cargar_archivo(ruta_archivo):
     try:
@@ -1076,4 +1144,4 @@ def aplicar_logaritmica_ajax(request):
             logger.error(f"Error en AJAX logarítmica: {e}", exc_info=True)
             return JsonResponse({'error': str(e)}, status=500)
             
-    return JsonResponse({'error': 'Método no permitido'}, status=405)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
