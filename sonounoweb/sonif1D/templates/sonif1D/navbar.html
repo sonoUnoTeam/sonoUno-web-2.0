@@ -141,21 +141,260 @@
             });
         });
     
-        document.getElementById('downloadAudio').addEventListener('click', function(event) {
-    event.preventDefault();
-    // LEER EL AUDIO DESDE LA VARIABLE GLOBAL EN LA MEMORIA RAM
-    var audioBase64 = window.audioDataActual; 
-    
-    if (audioBase64) {
-        // Crear un enlace de descarga
-        var link = document.createElement('a'); 
-        link.href = 'data:audio/wav;base64,' + audioBase64;
-        link.download = 'audio.wav';
-        link.click();
-    } else {
-        alert('No se encontró un audio disponible.');
-    }
-});
+        // ===== DESCARGA DE AUDIO CON VELOCIDAD AJUSTADA =====
+        function base64ToArrayBuffer(base64) {
+            var binaryString = window.atob(base64);
+            var len = binaryString.length;
+            var bytes = new Uint8Array(len);
+            for (var i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function processWsola(inputChannel, sampleRate, speed) {
+            if (Math.abs(speed - 1.0) < 0.001) return inputChannel;
+            
+            var winSize = 2048;
+            var hopSyn = 512;
+            var hopAna = Math.max(1, Math.round(hopSyn * speed));
+            var maxDelta = 256;
+            
+            var numInputSamples = inputChannel.length;
+            if (numInputSamples < winSize + maxDelta) {
+                return inputChannel;
+            }
+            
+            var numOutputSamples = Math.floor(numInputSamples / speed);
+            var output = new Float32Array(numOutputSamples);
+            var weightSum = new Float32Array(numOutputSamples);
+            
+            // Ventana de Hann
+            var window = new Float32Array(winSize);
+            for (var i = 0; i < winSize; i++) {
+                window[i] = 0.5 * (1 - Math.cos((2 * Math.PI * i) / (winSize - 1)));
+            }
+            
+            var outPos = 0;
+            var inPos = 0;
+            var prevInPos = 0;
+            var frameIndex = 0;
+            
+            while (outPos + winSize <= numOutputSamples && inPos + winSize + maxDelta <= numInputSamples) {
+                var bestOffset = 0;
+                
+                if (frameIndex > 0) {
+                    var maxCorr = -Infinity;
+                    var naturalPos = prevInPos + hopSyn;
+                    
+                    if (naturalPos + winSize <= numInputSamples) {
+                        var energy1 = 0;
+                        for (var i = 0; i < winSize; i += 2) {
+                            var s1 = inputChannel[naturalPos + i];
+                            energy1 += s1 * s1;
+                        }
+                        var normA = Math.sqrt(energy1) + 1e-6;
+                        
+                        for (var delta = -maxDelta; delta <= maxDelta; delta += 2) {
+                            var candPos = inPos + delta;
+                            if (candPos < 0 || candPos + winSize > numInputSamples) continue;
+                            
+                            var corr = 0;
+                            var energy2 = 0;
+                            for (var j = 0; j < winSize; j += 2) {
+                                var sA = inputChannel[naturalPos + j];
+                                var sB = inputChannel[candPos + j];
+                                corr += sA * sB;
+                                energy2 += sB * sB;
+                            }
+                            
+                            var score = corr / (normA * Math.sqrt(energy2) + 1e-6);
+                            if (score > maxCorr) {
+                                maxCorr = score;
+                                bestOffset = delta;
+                            }
+                        }
+                    }
+                }
+                
+                var finalInPos = Math.max(0, Math.min(numInputSamples - winSize, inPos + bestOffset));
+                prevInPos = finalInPos;
+                
+                for (var k = 0; k < winSize; k++) {
+                    var outIdx = outPos + k;
+                    if (outIdx < numOutputSamples) {
+                        var w = window[k];
+                        output[outIdx] += inputChannel[finalInPos + k] * w;
+                        weightSum[outIdx] += w;
+                    }
+                }
+                
+                outPos += hopSyn;
+                inPos += hopAna;
+                frameIndex++;
+            }
+            
+            // Normalizar por pesos acumulados
+            for (var n = 0; n < numOutputSamples; n++) {
+                if (weightSum[n] > 1e-4) {
+                    output[n] /= weightSum[n];
+                }
+            }
+            
+            return output;
+        }
+
+        function encodeWAVFromChannels(channels, sampleRate) {
+            var numChannels = channels.length;
+            var numSamples = channels[0].length;
+            var bytesPerSample = 2; // 16-bit PCM
+            var blockAlign = numChannels * bytesPerSample;
+            var byteRate = sampleRate * blockAlign;
+            var dataSize = numSamples * blockAlign;
+            var buffer = new ArrayBuffer(44 + dataSize);
+            var view = new DataView(buffer);
+            
+            function writeString(offset, str) {
+                for (var i = 0; i < str.length; i++) {
+                    view.setUint8(offset + i, str.charCodeAt(i));
+                }
+            }
+            
+            // Encabezado RIFF
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + dataSize, true);
+            writeString(8, 'WAVE');
+            
+            // Subchunk 'fmt '
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);           // PCM
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, 16, true);          // 16 bits
+            
+            // Subchunk 'data'
+            writeString(36, 'data');
+            view.setUint32(40, dataSize, true);
+            
+            var offset = 44;
+            for (var i = 0; i < numSamples; i++) {
+                for (var ch = 0; ch < numChannels; ch++) {
+                    var sample = channels[ch][i];
+                    if (sample < -1) sample = -1;
+                    if (sample > 1) sample = 1;
+                    var intSample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+                    view.setInt16(offset, Math.round(intSample), true);
+                    offset += 2;
+                }
+            }
+            
+            return buffer;
+        }
+
+        function triggerDirectDownload(audioBase64) {
+            var link = document.createElement('a');
+            link.href = 'data:audio/wav;base64,' + audioBase64;
+            link.download = 'audio.wav';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        document.getElementById('downloadAudio').addEventListener('click', async function(event) {
+            event.preventDefault();
+            var audioBase64 = window.audioDataActual;
+            
+            if (!audioBase64) {
+                var audioPlayerElem = document.getElementById('audioPlayer');
+                if (audioPlayerElem) {
+                    var sourceElem = audioPlayerElem.querySelector('source');
+                    var src = (sourceElem && sourceElem.src) || audioPlayerElem.src;
+                    if (src && src.startsWith('data:audio/wav;base64,')) {
+                        audioBase64 = src.replace('data:audio/wav;base64,', '');
+                    }
+                }
+            }
+            
+            if (!audioBase64) {
+                alert('No se encontró un audio disponible.');
+                return;
+            }
+
+            // Obtener velocidad actual seleccionada
+            var speed = 1.0;
+            var speedSelect = document.getElementById('playbackSpeed');
+            var audioPlayer = document.getElementById('audioPlayer');
+            
+            if (speedSelect && speedSelect.value && !isNaN(parseFloat(speedSelect.value))) {
+                speed = parseFloat(speedSelect.value);
+            } else if (audioPlayer && !isNaN(audioPlayer.playbackRate) && audioPlayer.playbackRate > 0) {
+                speed = audioPlayer.playbackRate;
+            }
+
+            // Si la velocidad es 1.0x (normal), descargar directamente
+            if (Math.abs(speed - 1.0) < 0.001) {
+                triggerDirectDownload(audioBase64);
+                return;
+            }
+
+            // Si la velocidad es modificada, procesar el audio con WSOLA (Web Audio API)
+            var downloadAudioBtn = document.getElementById('downloadAudio');
+            var originalBtnHtml = downloadAudioBtn ? downloadAudioBtn.innerHTML : null;
+
+            try {
+                if (downloadAudioBtn) {
+                    downloadAudioBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Exportando (' + speed + 'x)...';
+                }
+
+                var AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtxClass) {
+                    // Si el navegador no soporta AudioContext, fallback directo
+                    triggerDirectDownload(audioBase64);
+                    return;
+                }
+
+                var audioCtx = new AudioCtxClass();
+                var arrayBuffer = base64ToArrayBuffer(audioBase64);
+                var decodedBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                
+                var numChannels = decodedBuffer.numberOfChannels;
+                var sampleRate = decodedBuffer.sampleRate;
+                var processedChannels = [];
+                
+                for (var ch = 0; ch < numChannels; ch++) {
+                    var inputChannel = decodedBuffer.getChannelData(ch);
+                    var stretched = processWsola(inputChannel, sampleRate, speed);
+                    processedChannels.push(stretched);
+                }
+                
+                var wavBuffer = encodeWAVFromChannels(processedChannels, sampleRate);
+                var blob = new Blob([wavBuffer], { type: 'audio/wav' });
+                var blobUrl = URL.createObjectURL(blob);
+                
+                var link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = 'audio.wav';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                setTimeout(function() {
+                    URL.revokeObjectURL(blobUrl);
+                }, 5000);
+
+            } catch (err) {
+                console.error("Error al procesar velocidad de audio para descarga:", err);
+                // Fallback al audio original
+                triggerDirectDownload(audioBase64);
+            } finally {
+                if (downloadAudioBtn && originalBtnHtml) {
+                    downloadAudioBtn.innerHTML = originalBtnHtml;
+                }
+            }
+        });
         
         document.getElementById('downloadMarkers').addEventListener('click', function(event) {
             event.preventDefault();
