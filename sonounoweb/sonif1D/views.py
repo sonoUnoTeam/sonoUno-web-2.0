@@ -53,6 +53,7 @@ def ayuda_sonif1d(request):
     """Renderiza la página de ayuda específica para sonif1D."""
     return render(request, 'sonif1D/help.html')
 
+
 # Función para mostrar un gráfico de un archivo cargado
 def mostrar_grafico(request, nombre_archivo):
     # Inicio de mostrar_grafico
@@ -79,6 +80,7 @@ def mostrar_grafico(request, nombre_archivo):
     }
     context.update(grafico_data)
     return render(request, 'sonif1D/index.html', context)
+
 
 # Función para cargar los datos desde un archivo .txt o .csv a un array de NumPy
 def cargar_archivo(ruta_archivo):
@@ -1076,4 +1078,4 @@ def aplicar_logaritmica_ajax(request):
             logger.error(f"Error en AJAX logarítmica: {e}", exc_info=True)
             return JsonResponse({'error': str(e)}, status=500)
             
-    return JsonResponse({'error': 'Método no permitido'}, status=405)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

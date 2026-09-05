@@ -58,6 +58,10 @@ class Sonif1DViewRoutingTests(TestCase):
             self.assertContains(response, 'tab-sonido-btn')
             self.assertContains(response, 'tab-matematicas-btn')
             self.assertContains(response, 'tab-marcadores-btn')
+            # Controles de audio, selector de velocidad y botones de exportación
+            self.assertContains(response, 'id="playbackSpeed"')
+            self.assertContains(response, 'id="downloadAudio"')
+            self.assertContains(response, 'id="audioPlayer"')
             # Verificación de API JavaScript para picos y persistencia
             self.assertContains(response, 'setPeaks')
             self.assertContains(response, 'clearPeaks')
