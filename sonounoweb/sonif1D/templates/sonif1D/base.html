@@ -40,8 +40,9 @@
                 {% block main_media %}
                 <div class="card mb-4 shadow-sm border-0 main-stage-card">
                     <div class="card-body p-3 p-md-4">
-
-                        <!-- Gráfico Plotly -->
+                    
+                       
+                    <!-- Gráfico Plotly -->
                         <div id="grafico" style="width: 100%; height: 500px;" class="rounded"></div>
                         
                         <!-- Consola de Transporte y Reproducción -->
@@ -211,41 +212,56 @@
             let estilo_linea = localStorage.getItem('estilo_linea') || 'solid';
             let color_linea = localStorage.getItem('color_linea') || 'blue';
     
-            // Manejo del json del gráfico
+            // ===== MANEJO DE DATOS Y GRÁFICO =====
             if (data_json) {
-                // Si hay datos del gráfico, los guarda en localStorage y los muestra
-                localStorage.setItem('data_json', data_json);
-                // Limpiar marcadores y picos al cargar nuevos datos
-                localStorage.removeItem('markers');
+                // 1. Venimos de cargar un archivo nuevo (el servidor nos mandó datos)
+                sessionStorage.setItem('data_json', data_json);
+                sessionStorage.removeItem('markers');
                 markers = [];
-                localStorage.removeItem('peaks');
+                sessionStorage.removeItem('peaks');
                 peaks = null;
-                renderGrafico(convertirData(data_json)); // Convierte y muestra los datos
+                renderGrafico(convertirData(data_json)); 
             } else {
-                // Si no hay datos del gráfico, intenta cargarlos desde localStorage
-                const dataJsonDesdeStorage = localStorage.getItem('data_json');
-                if (dataJsonDesdeStorage) {
-                    // Si hay datos del gráfico en localStorage, los muestra
-                    renderGrafico(convertirData(dataJsonDesdeStorage));
-                }
-            }
-            // Manejo del audio
-            if (audioBase64) {
-                // GUARDAMOS EN MEMORIA RAM (esquivando el límite de 5MB del LocalStorage)
-                window.audioDataActual = audioBase64; 
-                const audioSource = audioPlayer.querySelector('source');
-                audioSource.src = "data:audio/wav;base64," + audioBase64;
-                audioPlayer.load();
-            } else {
-                // LEEMOS DESDE LA MEMORIA RAM
-                const audioBase64DesdeStorage = window.audioDataActual;
-                if (audioBase64DesdeStorage) {
-                    const audioSource = audioPlayer.querySelector('source');
-                    audioSource.src = "data:audio/wav;base64," + audioBase64DesdeStorage;
-                    audioPlayer.load();
+                // 2. Entramos a la página desde cero o cambiamos de pantalla
+                // Limpiamos los datos de la sesión anterior
+                sessionStorage.removeItem('data_json');
+                sessionStorage.removeItem('audio_base64');
+                sessionStorage.removeItem('grafico_base64');
+                sessionStorage.removeItem('markers');
+                sessionStorage.removeItem('peaks');
+                window.parsedGraphData = null;
+                markers = [];
+                peaks = null;
+
+                // En lugar del gráfico viejo, mostramos un cartel para que importen datos
+                const graficoDiv = document.getElementById('grafico');
+                if (graficoDiv) {
+                    graficoDiv.innerHTML = `
+                        <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                            <div class="text-center">
+                                <i class="bi bi-bar-chart" style="font-size: 3rem;"></i>
+                                <h6 class="mt-3">No hay datos cargados en esta sesión.</h6>
+                                <p class="small">Utiliza el menú "Importar" para comenzar.</p>
+                            </div>
+                        </div>`;
                 }
             }
 
+            // ===== MANEJO DE AUDIO =====
+            if (audioBase64) {
+                // GUARDAMOS EN MEMORIA RAM (esquivando el límite de 5MB del sessionStorage)
+                window.audioDataActual = audioBase64; 
+                const audioSource = audioPlayer.querySelector('source');
+                if (audioSource) {
+                    audioSource.src = "data:audio/wav;base64," + audioBase64;
+                    audioPlayer.load();
+                }
+            } else {
+                // Si la pantalla está limpia, nos aseguramos de que el audio viejo no suene
+                window.audioDataActual = null;
+                const audioSource = audioPlayer.querySelector('source');
+                if (audioSource) audioSource.src = "";
+            }
             // Manejo del grafico base64
             if (grafico_base64) {
                 localStorage.setItem('grafico_base64', grafico_base64);
@@ -751,36 +767,57 @@
                 }
             }
             
-            // Función para actualizar la marca móvil en el gráfico
+           // Variable global para no saturar la memoria y el procesador
+            window.parsedGraphData = null;
+
+            // Función para convertir y guardar en caché
+            function convertirData(data) {
+                if (!data) return null;
+                const dataArray = typeof data === 'string' ? JSON.parse(data) : data;
+                const x = [];
+                const y = [];
+                dataArray.forEach(item => {
+                    x.push(item[0]);
+                    y.push(item[1]);
+                });
+                window.parsedGraphData = { x, y };
+                return window.parsedGraphData;
+            }
+
+            // Función optimizada para sincronizar la marca móvil
             function updateGrafico(currentTime, totalTime) {
-                const dataJsonDesdeStorage = localStorage.getItem('data_json');
-                if (dataJsonDesdeStorage) {
-                    const data = convertirData(dataJsonDesdeStorage);
-                    if (data && Array.isArray(data.x) && Array.isArray(data.y) && data.x.length === data.y.length) {
-                        let currentIndex;
-                        if (currentTime === 0) {
-                            currentIndex = 0;
-                        } else {
-                            currentIndex = Math.floor((currentTime / totalTime) * data.x.length);
-                        }
-                        // Actualizar solo la marca móvil (traza índice 1)
-                        const update = {
-                            x: [[data.x[currentIndex]]], // Doble corchete para actualizar correctamente
-                            y: [[data.y[currentIndex]]], // Doble corchete para actualizar correctamente
-                        };
-                        Plotly.restyle('grafico', update, [1]); // Actualiza la segunda traza (índice 1 - marca móvil)
+                let data = window.parsedGraphData;
+                
+                // Si la caché está vacía, buscamos los datos
+                if (!data) {
+                    const currentDataJson = sessionStorage.getItem('data_json') || document.getElementById('data_json_hidden')?.value;
+                    if (!currentDataJson) return;
+                    data = convertirData(currentDataJson);
+                }
+
+                if (data && data.x && data.x.length > 0) {
+                    let currentIndex = 0;
+                    
+                    // Asegurarnos de que el tiempo es un número válido
+                    if (totalTime > 0 && !isNaN(totalTime) && !isNaN(currentTime)) {
+                        // CÁLCULO EXACTO: fracción del tiempo multiplicada por el total de puntos
+                        const fraction = currentTime / totalTime;
+                        currentIndex = Math.floor(fraction * data.x.length);
                         
-                        // Mantener los marcadores fijos (traza índice 2)
-                        const markersUpdate = {
-                            x: [markers.map(m => m.x)],
-                            y: [markers.map(m => m.y)]
-                        };
-                        Plotly.restyle('grafico', markersUpdate, [2]); // Actualiza la tercera traza (índice 2 - marcadores)
+                        // Protección para no salirnos del array de datos
+                        if (currentIndex >= data.x.length) currentIndex = data.x.length - 1;
                     }
+                    
+                    // Actualizar SOLO la traza roja (índice 1). 
+                    const update = {
+                        x: [[data.x[currentIndex]]], 
+                        y: [[data.y[currentIndex]]]  
+                    };
+                    Plotly.restyle('grafico', update, [1]).catch(e => console.log("Esperando gráfico..."));
                 }
             }
             
-            // Función para convertir una cadeja json en un objeto con propiedades x e y
+            // Función para convertir una cadena json en un objeto con propiedades x e y
             function convertirData(data) {
                 dataArray = JSON.parse(data);
                 const x = [];
