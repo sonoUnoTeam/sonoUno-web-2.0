@@ -181,7 +181,15 @@
             let markers = [];
             let peaks = null;
             let previousVolume = 1.0;
-            
+
+            // Caché de los datos parseados para no reprocesar el JSON en cada actualización
+            window.parsedGraphData = null;
+
+            // Los datos de sesión (data_json, markers, peaks, grafico_base64) viven en sessionStorage.
+            // Eliminamos copias heredadas en localStorage de versiones anteriores para que no reaparezcan.
+            ['data_json', 'markers', 'peaks', 'grafico_base64', 'audio_base64', 'saved_wave', 'saved_min', 'saved_max']
+                .forEach(key => localStorage.removeItem(key));
+
             // Obtener valores del contexto Django
             const audioBase64 = "{{ audio_base64|default:'' }}";
             const data_json = "{{ data_json|default:'' }}";
@@ -264,7 +272,7 @@
             }
             // Manejo del grafico base64
             if (grafico_base64) {
-                localStorage.setItem('grafico_base64', grafico_base64);
+                sessionStorage.setItem('grafico_base64', grafico_base64);
             }
     
             // ===== FUNCIONES DE CONTROL DE AUDIO =====
@@ -455,19 +463,19 @@
             
             // Botón de reset para borrar los datos del gráfico y el audio
             document.getElementById('resetButton').addEventListener('click', function() {
-                localStorage.removeItem('grafico_base64');
-                localStorage.removeItem('audio_base64');
-                localStorage.removeItem('data_json');
-                localStorage.removeItem('markers');
-                localStorage.removeItem('peaks');
+                sessionStorage.removeItem('grafico_base64');
+                sessionStorage.removeItem('audio_base64');
+                sessionStorage.removeItem('data_json');
+                sessionStorage.removeItem('markers');
+                sessionStorage.removeItem('peaks');
                 markers = [];
                 peaks = null;
                 window.location.href = "{% url 'sonif1D:index' %}"; // Redirige a la página de inicio
             });
             
-            // Cargar marcadores guardados desde localStorage
+            // Cargar marcadores guardados desde sessionStorage
             function loadMarkers() {
-                const savedMarkers = localStorage.getItem('markers');
+                const savedMarkers = sessionStorage.getItem('markers');
                 if (savedMarkers) {
                     try {
                         markers = JSON.parse(savedMarkers);
@@ -478,15 +486,15 @@
                 }
             }
             
-            // Guardar marcadores en localStorage
+            // Guardar marcadores en sessionStorage
             function saveMarkers() {
-                localStorage.setItem('markers', JSON.stringify(markers));
+                sessionStorage.setItem('markers', JSON.stringify(markers));
                 updateMarkerCount();
             }
 
-            // Cargar picos guardados desde localStorage
+            // Cargar picos guardados desde sessionStorage
             function loadPeaks() {
-                const savedPeaks = localStorage.getItem('peaks');
+                const savedPeaks = sessionStorage.getItem('peaks');
                 if (savedPeaks) {
                     try {
                         peaks = JSON.parse(savedPeaks);
@@ -498,12 +506,12 @@
                 }
             }
 
-            // Guardar picos en localStorage
+            // Guardar picos en sessionStorage
             function savePeaks() {
                 if (peaks && peaks.x && Array.isArray(peaks.x) && peaks.x.length > 0) {
-                    localStorage.setItem('peaks', JSON.stringify(peaks));
+                    sessionStorage.setItem('peaks', JSON.stringify(peaks));
                 } else {
-                    localStorage.removeItem('peaks');
+                    sessionStorage.removeItem('peaks');
                 }
             }
             
@@ -525,7 +533,7 @@
             
             // Agregar marcador en la posición actual del audio
             addMarkerButton.addEventListener('click', function() {
-                const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                const dataJsonDesdeStorage = sessionStorage.getItem('data_json');
                 if (dataJsonDesdeStorage) {
                     const data = convertirData(dataJsonDesdeStorage);
                     const audioDuration = audioPlayer.duration || 0;
@@ -556,7 +564,7 @@
                     markers.pop();
                     saveMarkers();
                     
-                    const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                    const dataJsonDesdeStorage = sessionStorage.getItem('data_json');
                     if (dataJsonDesdeStorage) {
                         const data = convertirData(dataJsonDesdeStorage);
                         renderGraficoWithMarkers(data);
@@ -592,9 +600,9 @@
                         color_linea = 'blue';
                         
                         // Limpiar marcadores y picos
-                        localStorage.removeItem('markers');
+                        sessionStorage.removeItem('markers');
                         markers = [];
-                        localStorage.removeItem('peaks');
+                        sessionStorage.removeItem('peaks');
                         peaks = null;
                         updateMarkerCount();
                         
@@ -622,7 +630,7 @@
                         }
                         
                         // Recargar el gráfico con configuraciones por defecto
-                        const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                        const dataJsonDesdeStorage = sessionStorage.getItem('data_json');
                         if (dataJsonDesdeStorage) {
                             const data = convertirData(dataJsonDesdeStorage);
                             renderGraficoWithMarkers(data);
@@ -741,7 +749,7 @@
                             saveMarkers();
                             
                             // Actualizar el gráfico
-                            const dataJsonDesdeStorage = localStorage.getItem('data_json');
+                            const dataJsonDesdeStorage = sessionStorage.getItem('data_json');
                             if (dataJsonDesdeStorage) {
                                 const dataGraph = convertirData(dataJsonDesdeStorage);
                                 renderGraficoWithMarkers(dataGraph);
@@ -751,7 +759,7 @@
                 });
             }
             
-            // Función para actualizar la imagen del gráfico en localStorage
+            // Función para actualizar la imagen del gráfico en sessionStorage
             function updateGraficoImage() {
                 const graficoDiv = document.getElementById('grafico');
                 if (graficoDiv) {
@@ -762,15 +770,12 @@
                     }).then(function(dataUrl) {
                         // Extraer solo el base64 (sin el prefijo data:image/png;base64,)
                         const base64Image = dataUrl.split(',')[1];
-                        localStorage.setItem('grafico_base64', base64Image);
+                        sessionStorage.setItem('grafico_base64', base64Image);
                     });
                 }
             }
             
-           // Variable global para no saturar la memoria y el procesador
-            window.parsedGraphData = null;
-
-            // Función para convertir y guardar en caché
+            // Función para convertir y guardar en caché (window.parsedGraphData)
             function convertirData(data) {
                 if (!data) return null;
                 const dataArray = typeof data === 'string' ? JSON.parse(data) : data;
@@ -790,7 +795,7 @@
                 
                 // Si la caché está vacía, buscamos los datos
                 if (!data) {
-                    const currentDataJson = sessionStorage.getItem('data_json') || document.getElementById('data_json_hidden')?.value;
+                    const currentDataJson = sessionStorage.getItem('data_json');
                     if (!currentDataJson) return;
                     data = convertirData(currentDataJson);
                 }
@@ -815,18 +820,6 @@
                     };
                     Plotly.restyle('grafico', update, [1]).catch(e => console.log("Esperando gráfico..."));
                 }
-            }
-            
-            // Función para convertir una cadena json en un objeto con propiedades x e y
-            function convertirData(data) {
-                dataArray = JSON.parse(data);
-                const x = [];
-                const y = [];
-                dataArray.forEach(item => {
-                    x.push(item[0]);
-                    y.push(item[1]);
-                });
-                return { x, y };
             }
 
             // Exponer API global de sonoUno1D para componentes y pestañas
@@ -872,7 +865,7 @@
                         color_linea = newCfg.color_linea;
                     }
 
-                    const dataJson = localStorage.getItem('data_json');
+                    const dataJson = sessionStorage.getItem('data_json');
                     if (dataJson) {
                         renderGraficoWithMarkers(convertirData(dataJson));
                     }
@@ -884,7 +877,7 @@
                 setMarkers: function(newMarkers) {
                     markers = newMarkers;
                     saveMarkers();
-                    const dataJson = localStorage.getItem('data_json');
+                    const dataJson = sessionStorage.getItem('data_json');
                     if (dataJson) {
                         renderGraficoWithMarkers(convertirData(dataJson));
                     }
@@ -893,15 +886,15 @@
                 setPeaks: function(newPeaks) {
                     peaks = newPeaks;
                     savePeaks();
-                    const dataJson = localStorage.getItem('data_json');
+                    const dataJson = sessionStorage.getItem('data_json');
                     if (dataJson) {
                         renderGraficoWithMarkers(convertirData(dataJson));
                     }
                 },
                 clearPeaks: function() {
                     peaks = null;
-                    localStorage.removeItem('peaks');
-                    const dataJson = localStorage.getItem('data_json');
+                    sessionStorage.removeItem('peaks');
+                    const dataJson = sessionStorage.getItem('data_json');
                     if (dataJson) {
                         renderGraficoWithMarkers(convertirData(dataJson));
                     }

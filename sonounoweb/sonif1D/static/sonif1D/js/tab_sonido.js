@@ -58,16 +58,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const datosAEnviar = localStorage.getItem('data_json');
+            const datosAEnviar = sessionStorage.getItem('data_json');
             if (!datosAEnviar) {
                 alert('No hay datos cargados para sonorizar. Carga un ejemplo o importa un archivo.');
                 return;
             }
 
             // Persistir parámetros de sonido para que otros módulos puedan utilizarlos
-            localStorage.setItem('saved_wave', instrumento);
-            localStorage.setItem('saved_min', String(minFreq));
-            localStorage.setItem('saved_max', String(maxFreq));
+            sessionStorage.setItem('saved_wave', instrumento);
+            sessionStorage.setItem('saved_min', String(minFreq));
+            sessionStorage.setItem('saved_max', String(maxFreq));
 
             const textoOriginal = btnSonido.innerHTML;
             btnSonido.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Compilando...';
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const datosAEnviar = localStorage.getItem('data_json');
+            const datosAEnviar = sessionStorage.getItem('data_json');
             if (!datosAEnviar) {
                 alert('No hay datos cargados para suavizar.');
                 return;
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(({ status, body }) => {
                 if (status === 200 && body.success) {
-                    localStorage.setItem('data_json', body.data_json);
+                    sessionStorage.setItem('data_json', body.data_json);
                     window.audioDataActual = body.audio_base64;
 
                     const audioPlayer = document.getElementById('audioPlayer') || document.querySelector('audio');

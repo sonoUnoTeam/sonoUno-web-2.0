@@ -927,42 +927,64 @@ def configurar_sonido_ajax(request):
 def aplicar_cuadratica_ajax(request):
     if request.method == 'POST':
         try:
-            body = json.loads(request.body.decode('utf-8'))
+            try:
+                body = json.loads(request.body.decode('utf-8'))
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'error': 'JSON malformado'}, status=400)
+
             data_json_str = body.get('data_json')
             if not data_json_str:
                 return JsonResponse({'error': 'No hay datos cargados'}, status=400)
-
-            # --> CAPTURAR VARIABLES DE SONIDO <--
-            waveform = body.get('waveform', 'sine')
-            min_freq = float(body.get('min_freq', 500))
-            max_freq = float(body.get('max_freq', 5000))
 
             data = json_to_numpy(data_json_str)
             if data is None:
                 return JsonResponse({'error': 'Datos inválidos'}, status=400)
 
-            a = float(body.get('coef_a', 1.0))
-            b = float(body.get('coef_b', 0.0))
-            c = float(body.get('coef_c', 0.0))
+            # Validar coeficientes matemáticos y parámetros de sonido
+            try:
+                validated_params = Sonif1DValidator.validate_cuadratica_params(
+                    coef_a=body.get('coef_a', 1.0),
+                    coef_b=body.get('coef_b', 0.0),
+                    coef_c=body.get('coef_c', 0.0)
+                )
+                sonido_params = Sonif1DValidator.validate_sonido_params(
+                    waveform=body.get('waveform', 'sine'),
+                    min_freq=body.get('min_freq', 500),
+                    max_freq=body.get('max_freq', 5000)
+                )
+            except ValidationError as ve:
+                err_msg = '; '.join(sum(ve.message_dict.values(), [])) if hasattr(ve, 'message_dict') else str(ve.message if hasattr(ve, 'message') else ve)
+                return JsonResponse({'error': err_msg, 'field_errors': ve.message_dict if hasattr(ve, 'message_dict') else {}}, status=400)
+
+            a = validated_params['coef_a']
+            b = validated_params['coef_b']
+            c = validated_params['coef_c']
             
-            # Aplicar matemática
+            # Aplicamos la función matemática cuadrática al eje Y (columna 1)
             data[:, 1] = a * (data[:, 1] ** 2) + b * data[:, 1] + c
-             # Generamos el nuevo audio
+            
             nuevo_json = numpy_to_json(data)
             
-            # --> PASAR VARIABLES AL GENERADOR <--
+            # Generamos el nuevo audio conservando la configuración de sonido actual
             nuevo_audio_base64 = generar_auido_base64(
-                data, request, waveform=waveform, min_freq=min_freq, max_freq=max_freq
+                data, request,
+                waveform=sonido_params['waveform'],
+                min_freq=sonido_params['min_freq'],
+                max_freq=sonido_params['max_freq']
             )
             
             if not nuevo_audio_base64:
-                return JsonResponse({'error': 'Fallo al generar el audio'}, status=500)
+                return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
 
-            return JsonResponse({'success': True, 'data_json': nuevo_json, 'audio_base64': nuevo_audio_base64})
+            return JsonResponse({
+                'success': True,
+                'data_json': nuevo_json,
+                'audio_base64': nuevo_audio_base64
+            })
         except Exception as e:
-            logger.error(f"Error en cuadrática: {e}", exc_info=True)
+            logger.error(f"Error en AJAX cuadrática: {e}", exc_info=True)
             return JsonResponse({'error': str(e)}, status=500)
-        
+            
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
@@ -1021,41 +1043,64 @@ def buscar_picos_ajax(request):
 def aplicar_logaritmica_ajax(request):
     if request.method == 'POST':
         try:
-            body = json.loads(request.body.decode('utf-8'))
+            try:
+                body = json.loads(request.body.decode('utf-8'))
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'error': 'JSON malformado'}, status=400)
+
             data_json_str = body.get('data_json')
             if not data_json_str:
                 return JsonResponse({'error': 'No hay datos cargados'}, status=400)
-
-            # --> CAPTURAR VARIABLES DE SONIDO <--
-            waveform = body.get('waveform', 'sine')
-            min_freq = float(body.get('min_freq', 500))
-            max_freq = float(body.get('max_freq', 5000))
 
             data = json_to_numpy(data_json_str)
             if data is None:
                 return JsonResponse({'error': 'Datos inválidos'}, status=400)
 
-            a = float(body.get('coef_a', 1.0))
-            c = float(body.get('coef_c', 1.0))
-            b = float(body.get('coef_b', 0.0))
-            
-            # Aplicar matemática
-            y_seguro = np.maximum(data[:, 1] + c, 1e-9)
-             # Aplicamos el logaritmo natural (ln)
-            data[:, 1] = a * np.log(y_seguro) + b
+            # Validar parámetros de función logarítmica y de sonido
+            try:
+                validated_params = Sonif1DValidator.validate_logaritmica_params(
+                    coef_a=body.get('coef_a', 1.0),
+                    coef_c=body.get('coef_c', 1.0),
+                    coef_b=body.get('coef_b', 0.0)
+                )
+                sonido_params = Sonif1DValidator.validate_sonido_params(
+                    waveform=body.get('waveform', 'sine'),
+                    min_freq=body.get('min_freq', 500),
+                    max_freq=body.get('max_freq', 5000)
+                )
+            except ValidationError as ve:
+                err_msg = '; '.join(sum(ve.message_dict.values(), [])) if hasattr(ve, 'message_dict') else str(ve.message if hasattr(ve, 'message') else ve)
+                return JsonResponse({'error': err_msg, 'field_errors': ve.message_dict if hasattr(ve, 'message_dict') else {}}, status=400)
 
+            a = validated_params['coef_a']
+            c = validated_params['coef_c']
+            b = validated_params['coef_b']
+            
+            # PROTECCIÓN DE DOMINIO: Aseguramos que (y + c) nunca sea <= 0
+            # Si el valor baja de 0, lo forzamos a ser 1e-9 (un número muy cercano a cero)
+            y_seguro = np.maximum(data[:, 1] + c, 1e-9)
+            
+            # Aplicamos el logaritmo natural (ln)
+            data[:, 1] = a * np.log(y_seguro) + b
+            
             nuevo_json = numpy_to_json(data)
-            # --> PASAR VARIABLES AL GENERADOR <--
             nuevo_audio_base64 = generar_auido_base64(
-                data, request, waveform=waveform, min_freq=min_freq, max_freq=max_freq
+                data, request,
+                waveform=sonido_params['waveform'],
+                min_freq=sonido_params['min_freq'],
+                max_freq=sonido_params['max_freq']
             )
             
             if not nuevo_audio_base64:
-                return JsonResponse({'error': 'Fallo al generar el audio'}, status=500)
+                return JsonResponse({'error': 'Fallo al generar el audio transformado'}, status=500)
 
-            return JsonResponse({'success': True, 'data_json': nuevo_json, 'audio_base64': nuevo_audio_base64})
+            return JsonResponse({
+                'success': True,
+                'data_json': nuevo_json,
+                'audio_base64': nuevo_audio_base64
+            })
         except Exception as e:
-            logger.error(f"Error en logarítmica: {e}", exc_info=True)
+            logger.error(f"Error en AJAX logarítmica: {e}", exc_info=True)
             return JsonResponse({'error': str(e)}, status=500)
-        
+            
     return JsonResponse({'error': 'Método no permitido'}, status=405)

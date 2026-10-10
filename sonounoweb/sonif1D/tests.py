@@ -402,6 +402,26 @@ class Sonif1DAjaxEndpointsTests(TestCase):
         )
         self.assertEqual(response.status_code, 400)
 
+    def test_transformaciones_invalid_sonido_params_return_400(self):
+        """Verifica que instrumento o frecuencias inválidas en transformaciones retornen 400."""
+        sample_data = [[0.0, 2.0], [1.0, 3.0]]
+        invalid_cases = [
+            {'waveform': 'no_existe'},
+            {'min_freq': 'abc'},
+            {'min_freq': 5000, 'max_freq': 500},
+        ]
+        for url_name in ('sonif1D:aplicar_cuadratica', 'sonif1D:aplicar_logaritmica'):
+            for sonido in invalid_cases:
+                with self.subTest(url=url_name, sonido=sonido):
+                    payload = {'data_json': json.dumps(sample_data), **sonido}
+                    response = self.client.post(
+                        reverse(url_name),
+                        data=json.dumps(payload),
+                        content_type='application/json'
+                    )
+                    self.assertEqual(response.status_code, 400)
+                    self.assertIn('error', response.json())
+
     def test_aplicar_logaritmica_domain_protection(self):
         """Verifica la transformación logarítmica y la protección ante valores de dominio no positivos."""
         sample_data = [[0.0, 1.0], [1.0, 2.0], [2.0, -0.99], [3.0, -10.0]]

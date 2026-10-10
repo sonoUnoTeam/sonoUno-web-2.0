@@ -3,6 +3,15 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Parámetros de sonido guardados por tab_sonido.js, para conservar el instrumento al transformar
+    function getSonidoParams() {
+        return {
+            waveform: sessionStorage.getItem('saved_wave') || 'sine',
+            min_freq: parseFloat(sessionStorage.getItem('saved_min')) || 500,
+            max_freq: parseFloat(sessionStorage.getItem('saved_max')) || 5000
+        };
+    }
+
     // ==========================================================
     // 1. GESTIÓN DE FUNCIÓN CUADRÁTICA (AJAX)
     // ==========================================================
@@ -42,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const datosAEnviar = localStorage.getItem('data_json');
+            const datosAEnviar = sessionStorage.getItem('data_json');
             if (!datosAEnviar) {
                 alert('No hay datos cargados para transformar.');
                 return;
@@ -64,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     data_json: datosAEnviar,
                     coef_a: coefA,
                     coef_b: coefB,
-                    coef_c: coefC
+                    coef_c: coefC,
+                    ...getSonidoParams()
                 })
             })
             .then(response => {
@@ -72,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(({ status, body }) => {
                 if (status === 200 && body.success) {
-                    localStorage.setItem('data_json', body.data_json);
+                    sessionStorage.setItem('data_json', body.data_json);
                     window.audioDataActual = body.audio_base64;
 
                     const audioPlayer = document.getElementById('audioPlayer') || document.querySelector('audio');
@@ -148,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const datosAEnviar = localStorage.getItem('data_json');
+            const datosAEnviar = sessionStorage.getItem('data_json');
             if (!datosAEnviar) {
                 alert('No hay datos cargados para transformar.');
                 return;
@@ -170,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     data_json: datosAEnviar,
                     coef_a: logA,
                     coef_c: logC,
-                    coef_b: logB
+                    coef_b: logB,
+                    ...getSonidoParams()
                 })
             })
             .then(response => {
@@ -178,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(({ status, body }) => {
                 if (status === 200 && body.success) {
-                    localStorage.setItem('data_json', body.data_json);
+                    sessionStorage.setItem('data_json', body.data_json);
                     window.audioDataActual = body.audio_base64;
 
                     const audioPlayer = document.getElementById('audioPlayer') || document.querySelector('audio');
@@ -254,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const datosAEnviar = localStorage.getItem('data_json');
+            const datosAEnviar = sessionStorage.getItem('data_json');
             if (!datosAEnviar) {
                 alert('No hay datos cargados para buscar picos.');
                 return;

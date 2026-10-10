@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (window.sonoUno1D && typeof window.sonoUno1D.getMarkers === 'function') {
                 markers = window.sonoUno1D.getMarkers();
             } else {
-                const stored = localStorage.getItem('markers');
+                const stored = sessionStorage.getItem('markers');
                 markers = stored ? JSON.parse(stored) : [];
             }
         }
@@ -64,10 +64,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     currentMarkers.splice(markerIndex, 1);
                     window.sonoUno1D.setMarkers(currentMarkers);
                 } else {
-                    const stored = localStorage.getItem('markers');
+                    const stored = sessionStorage.getItem('markers');
                     const currentMarkers = stored ? JSON.parse(stored) : [];
                     currentMarkers.splice(markerIndex, 1);
-                    localStorage.setItem('markers', JSON.stringify(currentMarkers));
+                    sessionStorage.setItem('markers', JSON.stringify(currentMarkers));
                     renderMarkersTable(currentMarkers);
                 }
             });
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.sonoUno1D.setMarkers([]);
                 }
             } else {
-                localStorage.setItem('markers', JSON.stringify([]));
+                sessionStorage.setItem('markers', JSON.stringify([]));
                 renderMarkersTable([]);
             }
         });

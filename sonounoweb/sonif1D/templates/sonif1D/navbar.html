@@ -113,7 +113,7 @@
             event.preventDefault();
             const graficoDiv = document.getElementById('grafico');
             if (!graficoDiv || typeof Plotly === 'undefined') {
-                var graficoBase64 = localStorage.getItem('grafico_base64');
+                var graficoBase64 = sessionStorage.getItem('grafico_base64');
                 if (graficoBase64) {
                     var link = document.createElement('a');
                     link.href = 'data:image/png;base64,' + graficoBase64;
@@ -135,7 +135,7 @@
                 link.href = dataUrl;
                 link.download = 'grafico.png';
                 link.click();
-                localStorage.setItem('grafico_base64', dataUrl.split(',')[1]);
+                sessionStorage.setItem('grafico_base64', dataUrl.split(',')[1]);
             }).catch(function() {
                 alert('No se pudo generar la imagen del gráfico.');
             });
@@ -398,8 +398,8 @@
         
         document.getElementById('downloadMarkers').addEventListener('click', function(event) {
             event.preventDefault();
-            // Obtener los marcadores desde localStorage
-            var markersJson = localStorage.getItem('markers');
+            // Obtener los marcadores desde sessionStorage
+            var markersJson = sessionStorage.getItem('markers');
             if (markersJson) {
                 var markers = JSON.parse(markersJson);
                 if (markers.length === 0) {
