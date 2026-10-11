@@ -25,6 +25,26 @@ def cleanup_temp_files(file_paths):
         if os.path.exists(path):
             os.remove(path)
 
+# Ganancia de salida aplicada a todo el audio (notas y bip). Iguala el nivel de
+# la grabación de la versión de escritorio original (Example_5), medido ~2,08x
+# más fuerte que la síntesis con amplitud 2000.
+OUTPUT_GAIN = 2.08
+
+# Pico máximo permitido al escribir WAV de 16 bits; deja margen bajo 32767
+MAX_INT16_PEAK = int(np.iinfo(np.int16).max * 0.9)
+
+def limit_amplitude(sound_array, max_peak=MAX_INT16_PEAK):
+    """
+    Escala el sonido solo si su pico supera max_peak. Los acordes se forman
+    sumando senoidales, así que con muchos canales activos el pico excede el
+    rango int16 y, sin esto, la conversión desborda y distorsiona el audio.
+    """
+    sound_array = np.asarray(sound_array, dtype=np.float64)
+    peak = np.max(np.abs(sound_array)) if sound_array.size else 0
+    if peak > max_peak:
+        sound_array = sound_array * (max_peak / peak)
+    return sound_array
+
 def process_sound_array(sound_array):
     """Convert numpy array to temporary WAV file for MoviePy"""
     # Usar directorio temp del proyecto en lugar del sistema
@@ -36,7 +56,7 @@ def process_sound_array(sound_array):
         wavfile.write(
             tmp_file.name,
             rate=44100,
-            data=sound_array.astype(np.int16)
+            data=limit_amplitude(np.asarray(sound_array, dtype=np.float64) * OUTPUT_GAIN).astype(np.int16)
         )
         return tmp_file.name
 
@@ -100,6 +120,8 @@ def process_files(path, target_filename, ext='txt', plot_flag=False):
         # Plot ax5
         count = 0
         count1 = 0
+        px_ax1, py_ax1, px_ax2, py_ax2, px_ax3, py_ax3 = [], [], [], [], [], []
+        px_ax4, py_ax4, px_ax5, py_ax5, px_ax6, py_ax6 = [], [], [], [], [], []
         sound_ax5 = []
         sound_ax6 = []
         sound_ax3 = []
@@ -227,99 +249,27 @@ def process_files(path, target_filename, ext='txt', plot_flag=False):
             
         list_colors = ['tab:red', 'tab:orange', 'yellow', 'tab:olive', 'tab:green', 
                     'tab:cyan', 'tab:blue', 'tab:purple']
-        
-        # play bip of the beggining
-    
-        #play the part on the left
 
-        count = 0
-        for px in px_ax1:
-            if px == 32:
-                color_index = int((px-1)/4)
-            else:
-                color_index = int(px/4)
-            ax1.plot(px,py_ax1[count],color=list_colors[color_index], marker='o', linestyle='')
-            fig1 = plot_to_temp_file(fig)
-            all_image_paths.append(fig1)
-            count = count + 1
+        # Un eje sin canales activos suena como silencio en lugar de un WAV vacío
+        sound_ax1, sound_ax2, sound_ax3, sound_ax4, sound_ax5, sound_ax6 = [
+            sound if len(sound) else sd.get_silence(1)
+            for sound in (sound_ax1, sound_ax2, sound_ax3, sound_ax4, sound_ax5, sound_ax6)
+        ]
 
-        count = 0
-        ax1.plot(px_ax1,py_ax1,color='k', marker='o', linestyle='')
-        for px in px_ax3:
-            if px == 16:
-                color_index = int((px-1)/2)
-            else:
-                color_index = int(px/2)
-            ax3.plot(px,py_ax3[count],color=list_colors[color_index], marker='o', linestyle='')
-            fig2 = plot_to_temp_file(fig)
-            all_image_paths.append(fig2)
-            count = count + 1
+        def highlight_axis(ax, px_list, py_list, channels_per_color):
+            """
+            Colorea los puntos del eje que suena y guarda una única imagen para
+            todo su acorde; luego lo marca en negro como ya reproducido.
+            """
+            last_px = channels_per_color * len(list_colors)
+            for px, py in zip(px_list, py_list):
+                color_index = int((px - 1) / channels_per_color) if px == last_px else int(px / channels_per_color)
+                ax.plot(px, py, color=list_colors[color_index], marker='o', linestyle='')
+            image_path = plot_to_temp_file(fig)
+            all_image_paths.append(image_path)
+            ax.plot(px_list, py_list, color='k', marker='o', linestyle='')
+            return image_path
 
-        count = 0
-        ax3.plot(px_ax3,py_ax3,color='k', marker='o', linestyle='')
-        for px in px_ax5:
-            if px == 32:
-                color_index = int((px-1)/4)
-            else:
-                color_index = int(px/4)
-            ax5.plot(px,py_ax5[count],color=list_colors[color_index], marker='o', linestyle='')
-            fig3 = plot_to_temp_file(fig)
-            all_image_paths.append(fig3)
-
-            count = count + 1
-
-        ax5.plot(px_ax5,py_ax5,color='k', marker='o', linestyle='')
-        fig4 = plot_to_temp_file(fig)
-        all_image_paths.append(fig4)
-        
-        # play bip of the beggining
-        
-        #silence
-        
-        #play the part on the right
-
-        count = 0
-        for px in px_ax2:
-            if px == 32:
-                color_index = int((px-1)/4)
-            else:
-                color_index = int(px/4)
-            ax2.plot(px,py_ax2[count],color=list_colors[color_index], marker='o', linestyle='')
-            fig5 = plot_to_temp_file(fig)
-            all_image_paths.append(fig5)
-            count = count + 1
-
-        count = 0
-        ax2.plot(px_ax2,py_ax2,color='k', marker='o', linestyle='')
-        for px in px_ax4:
-            if px == 16:
-                color_index = int((px-1)/2)
-            else:
-                color_index = int(px/2)
-            ax4.plot(px,py_ax4[count],color=list_colors[color_index], marker='o', linestyle='')
-            fig6 = plot_to_temp_file(fig)
-            all_image_paths.append(fig6)
-            count = count + 1
-
-        count = 0
-        ax4.plot(px_ax4,py_ax4,color='k', marker='o', linestyle='')
-        for px in px_ax6:
-            if px == 32:
-                color_index = int((px-1)/4)
-            else:
-                color_index = int(px/4)
-            ax6.plot(px,py_ax6[count],color=list_colors[color_index], marker='o', linestyle='')
-            fig7 = plot_to_temp_file(fig)
-            all_image_paths.append(fig7)
-            count = count + 1
-
-        ax6.plot(px_ax6,py_ax6,color='k', marker='o', linestyle='')
-        fig8 = plot_to_temp_file(fig)
-        all_image_paths.append(fig8)
-
-        
-        # Imagen inicial ya está agregada: fig0
-        
         # Generar archivos de sonido
         bip_path = process_sound_array(bip)
         sound_ax1_path = process_sound_array(sound_ax1)
@@ -328,33 +278,40 @@ def process_files(path, target_filename, ext='txt', plot_flag=False):
         sound_ax4_path = process_sound_array(sound_ax4)
         sound_ax5_path = process_sound_array(sound_ax5)
         sound_ax6_path = process_sound_array(sound_ax6)
-        
-        # Obtener las últimas imágenes de cada bucle para el video
-        # Estas son las que se usaban originalmente para el video
-        video_image_paths = []
-        video_image_paths.append(all_image_paths[0])  # fig0 - imagen inicial
-        
-        # Necesitamos encontrar las imágenes específicas que se usaban para el video
-        # Por simplicidad, vamos a usar solo las primeras 9 imágenes o las que tenemos
-        video_images_needed = min(9, len(all_image_paths))
-        video_image_paths = all_image_paths[:video_images_needed]
-        
-        # Crear sonidos para coincidir con el número de imágenes de video
-        sound_paths_base = [
-            bip_path,
-            sound_ax1_path,
-            sound_ax2_path,
-            sound_ax3_path,
-            bip_path,
-            sound_ax4_path,
-            sound_ax5_path,
-            sound_ax6_path,
-            bip_path
-        ]
-        
-        # Ajustar sonidos al número de imágenes de video
-        sounds_paths = sound_paths_base[:len(video_image_paths)]
-        
+
+        # Cada imagen del video se empareja con el sonido que se escucha mientras
+        # se muestra: bip inicial, parte izquierda (ax1, ax3, ax5), bip, parte
+        # derecha (ax2, ax4, ax6) y cierre. La vista agrega silencios al primer
+        # clip, al del medio y reemplaza el último por silencio.
+        video_image_paths = [fig0]
+        sounds_paths = [bip_path]
+        for ax, px_list, py_list, channels_per_color, sound_path in (
+            (ax1, px_ax1, py_ax1, 4, sound_ax1_path),
+            (ax3, px_ax3, py_ax3, 2, sound_ax3_path),
+            (ax5, px_ax5, py_ax5, 4, sound_ax5_path),
+        ):
+            video_image_paths.append(highlight_axis(ax, px_list, py_list, channels_per_color))
+            sounds_paths.append(sound_path)
+
+        left_done = plot_to_temp_file(fig)
+        all_image_paths.append(left_done)
+        video_image_paths.append(left_done)
+        sounds_paths.append(bip_path)
+
+        for ax, px_list, py_list, channels_per_color, sound_path in (
+            (ax2, px_ax2, py_ax2, 4, sound_ax2_path),
+            (ax4, px_ax4, py_ax4, 2, sound_ax4_path),
+            (ax6, px_ax6, py_ax6, 4, sound_ax6_path),
+        ):
+            video_image_paths.append(highlight_axis(ax, px_list, py_list, channels_per_color))
+            sounds_paths.append(sound_path)
+
+        final_image = plot_to_temp_file(fig)
+        all_image_paths.append(final_image)
+        video_image_paths.append(final_image)
+        sounds_paths.append(bip_path)
+        plt.close(fig)
+
         # Retornar: imágenes para video, sonidos para video, y TODAS las imágenes para limpieza
         return video_image_paths, sounds_paths, all_image_paths
     else:
