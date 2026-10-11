@@ -17,13 +17,26 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.templatetags.static import static as static_url
 from django.urls import include, path
+from django.views.generic import RedirectView
 
 from sonif1D import views
 
 
+class FaviconRedirectView(RedirectView):
+    # Temporal y resuelta por request: la URL con hash cambia con cada collectstatic y
+    # calcularla al importar falla con el storage de manifiesto si aún no se ejecutó
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        return static_url('favicon.ico')
+
+
 urlpatterns = [
     path("", views.inicio, name='inicio'),
+    # Navegadores y buscadores piden /favicon.ico en la raíz aunque la página declare otro ícono
+    path('favicon.ico', FaviconRedirectView.as_view()),
     path('admin/', admin.site.urls),  
     path("sonif1D/", include("sonif1D.urls")), # Incluye las urls de la app sonif1D
     path('muongraphy/', include('muongraphy.urls')), # Incluye las urls de la app moungraphy

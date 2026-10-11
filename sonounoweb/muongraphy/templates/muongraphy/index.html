@@ -1,32 +1,116 @@
 {% extends 'muongraphy/base.html' %}
 {% load static %}
-{% block title %}Contenido de SonoUno{% endblock %}
+{% block title %}{% if current_example %}{{ current_example.label }} · {% endif %}Muongrafía · sonoUno web{% endblock %}
 
 
 {% block content %}
-<!-- Contenido de la pagina: LADO DERECHO - GUIA DE INICIO RAPIDO-->
-<div class="col-lg-4">
-    <div class="card mb-4">
+<!-- Columna principal: reproductor o selección de ejemplo -->
+<div class="col-lg-8">
+    {% if video_base64 %}
+    <section class="card muon-card" aria-labelledby="player-title">
+        <div class="card-header">
+            <h1 id="player-title" class="h5 card-title mb-0">
+                <i class="bi bi-play-circle" aria-hidden="true"></i> Muongrafía · {{ current_example.label }}
+            </h1>
+        </div>
         <div class="card-body">
-            <div class="row">
-                    <div class="list-unstyled">
-                    <h4 class="text-center">Guía de inicio rápido</h4>
-                    <p class="text-center">
-                        En la zona superior de la página encontrarás botones que te permitirán cargar y descargar datos y acceder al manual.
-                    </p>      
-                    <p class="text-center">
-                        Puedes modificar los valores del sonido y gráfico en “Configuraciones -> Sonido / Gráfico / Funciones matemáticas”.
-                    </p>  
-                    <p class="text-center">
-                        Puedes hacer zoom haciendo click y arrastrando sobre la sección que quieras focalizar.
-                    </p>   
-                    <p class="text-center">
-                        Los botones "M+" y “M-” te permitirán añadir y eliminar marcadores. Los botones Play/Pausa y Stop te ayudarán con la reproducción y “Reset” reinicia el gráfico.
-                    </p>     
-                        
+            <div class="muon-video-frame">
+                <video id="videoPlayer" class="muon-video" preload="auto" playsinline aria-describedby="video-description">
+                    <source src="data:video/mp4;base64,{{ video_base64 }}" type="video/mp4">
+                    Tu navegador no puede reproducir este video.
+                </video>
+            </div>
+            <p id="video-description" class="visually-hidden">
+                Seis gráficos con la carga por canal del detector de muones. Mientras suena cada acorde se resaltan en color los canales que lo forman.
+            </p>
+
+            <!-- Controles de reproducción -->
+            <div class="muon-controls" role="group" aria-label="Controles de reproducción">
+                <div class="muon-controls-buttons">
+                    <button type="button" id="playPauseButton" class="btn btn-primary">
+                        <i class="bi bi-play-fill" aria-hidden="true"></i>
+                        <span class="muon-button-text">Reproducir</span>
+                    </button>
+                    <button type="button" id="stopButton" class="btn btn-outline-secondary">
+                        <i class="bi bi-stop-fill" aria-hidden="true"></i> Detener
+                    </button>
+                </div>
+
+                <div class="muon-volume">
+                    <button type="button" id="muteButton" class="btn btn-outline-secondary" aria-pressed="false" aria-label="Silenciar">
+                        <i class="bi bi-volume-up-fill" aria-hidden="true"></i>
+                    </button>
+                    <label for="volumeControl" class="form-label mb-0">Volumen</label>
+                    <input type="range" id="volumeControl" class="form-range" min="0" max="1" step="0.1" value="1" aria-valuetext="100 %">
+                </div>
+
+                <div class="muon-progress">
+                    <span class="muon-time" aria-hidden="true">
+                        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                    </span>
+                    <label for="progressBar" class="visually-hidden">Posición de reproducción</label>
+                    <input type="range" id="progressBar" class="form-range" min="0" max="0" value="0" step="0.5" aria-valuetext="0:00 de 0:00">
                 </div>
             </div>
         </div>
-    </div>
+        <div class="card-footer muon-card-footer">
+            <h2 class="h6 mb-2">Otros ejemplos</h2>
+            {% include 'muongraphy/examples_nav.html' %}
+        </div>
+    </section>
+    {% else %}
+    <section class="card muon-card" aria-labelledby="empty-title">
+        <div class="card-header">
+            <h1 id="empty-title" class="h5 card-title mb-0">
+                <i class="bi bi-info-circle" aria-hidden="true"></i> Muongrafía
+            </h1>
+        </div>
+        <div class="card-body text-center muon-empty">
+            <i class="bi bi-collection-play muon-empty-icon" aria-hidden="true"></i>
+            <p class="lead mb-2">Elige un ejemplo para generar el video con sonido.</p>
+            <p class="text-muted mb-4">También están en el menú <strong>Ejemplos</strong> de la barra superior.</p>
+            {% include 'muongraphy/examples_nav.html' %}
+        </div>
+    </section>
+    {% endif %}
 </div>
+
+<!-- Columna lateral: cómo leer y escuchar el video -->
+<aside class="col-lg-4" aria-labelledby="info-title">
+    <div class="card muon-card">
+        <div class="card-header">
+            <h2 id="info-title" class="h5 card-title mb-0">
+                <i class="bi bi-info-circle" aria-hidden="true"></i> Cómo leer el video
+            </h2>
+        </div>
+        <div class="card-body muon-info">
+            <h3 class="h6"><i class="bi bi-grid-3x2-gap" aria-hidden="true"></i> Qué muestra</h3>
+            <p class="small">
+                Seis gráficos con la carga registrada en cada canal del detector. La columna izquierda corresponde al eje X y la derecha al eje Y; de arriba abajo, los planos superior, medio e inferior. Los planos superior e inferior tienen 32 canales y el medio, 16.
+            </p>
+
+            <h3 class="h6"><i class="bi bi-music-note-beamed" aria-hidden="true"></i> Cómo suena</h3>
+            <ul class="small">
+                <li>Cada canal con señal suena como una nota: cuanto más alto el canal, más aguda la nota.</li>
+                <li>Cada gráfico suena como un acorde de un segundo y sus canales se resaltan en color mientras suena.</li>
+                <li>La intensidad de la carga no cambia el sonido: solo importa si el canal registró señal.</li>
+            </ul>
+
+            <h3 class="h6"><i class="bi bi-list-ol" aria-hidden="true"></i> Orden de reproducción</h3>
+            <ol class="small">
+                <li>Bip de inicio.</li>
+                <li>Eje X: planos superior, medio e inferior.</li>
+                <li>Bip de separación.</li>
+                <li>Eje Y: planos superior, medio e inferior.</li>
+            </ol>
+
+            <h3 class="h6"><i class="bi bi-keyboard" aria-hidden="true"></i> Controles</h3>
+            <ul class="small mb-0">
+                <li><strong>Reproducir / Pausar</strong> y <strong>Detener</strong>, que vuelve al inicio.</li>
+                <li>En la barra de posición, las flechas del teclado avanzan o retroceden medio segundo.</li>
+                <li>Volumen y botón para silenciar.</li>
+            </ul>
+        </div>
+    </div>
+</aside>
 {% endblock %}

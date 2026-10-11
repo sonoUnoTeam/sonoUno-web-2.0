@@ -1,40 +1,34 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sonoUno web</title>
 
+    <!-- Favicon: -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" sizes="48x48">
+    <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
+
     <!-- Bootstrap: -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome Icons: -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- CSS Personal: -->
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Homepage CSS: -->
     <link rel="stylesheet" href="{% static 'homepage.css' %}">
-
-    <!-- Java Script y popper: -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Homepage JavaScript: -->
-    <script src="{% static 'homepage.js' %}"></script>
 </head>
 <body>
     <div class="homepage-container">
         <!-- Header Section -->
-        <div class="header-section">
+        <header class="header-section">
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-8 text-center">
                         <div class="brand-wrapper">
-                            <img src="{% static '/sonoUno.jpg' %}" class="brand-logo" alt="logo de sonoUno">
+                            <img src="{% static 'sonoUno.jpg' %}" class="brand-logo" alt="logo de sonoUno">
                             <div class="brand-info">
                                 <h1 class="brand-title">SonoUno</h1>
                                 <p class="brand-tagline">Software de sonorización de datos astronómicos</p>
@@ -44,10 +38,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
 
         <!-- Applications Menu -->
-        <div class="apps-menu-section">
+        <main class="apps-menu-section">
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10">
@@ -62,16 +56,16 @@
                                     <div class="app-button-content">
                                         <div class="app-button-header">
                                             <div class="app-icon-wrapper">
-                                                <i class="fas fa-chart-line"></i>
+                                                <i class="fas fa-chart-line" aria-hidden="true"></i>
                                             </div>
                                             <div class="app-button-title-group">
-                                                <span class="app-version-badge app-version-badge-v1">V1</span>
+                                                <span class="app-version-badge app-version-badge-v1">Clásica</span>
                                                 <h3 class="app-button-title">Tablas</h3>
                                             </div>
                                         </div>
-                                        <p class="app-button-desc">Interacción de datos en tablas de dos columnas</p>
+                                        <p class="app-button-desc">Interacción de datos en tablas de dos columnas <span class="app-external-note">(sitio externo)</span></p>
                                         <div class="app-button-arrow">
-                                            <i class="fas fa-chevron-right"></i>
+                                            <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </a>
@@ -80,16 +74,16 @@
                                     <div class="app-button-content">
                                         <div class="app-button-header">
                                             <div class="app-icon-wrapper">
-                                                <i class="fas fa-chart-line"></i>
+                                                <i class="fas fa-chart-line" aria-hidden="true"></i>
                                             </div>
                                             <div class="app-button-title-group">
-                                                <span class="app-version-badge app-version-badge-v2">V2</span>
+                                                <span class="app-version-badge app-version-badge-v2">Nueva</span>
                                                 <h3 class="app-button-title">Tablas</h3>
                                             </div>
                                         </div>
                                         <p class="app-button-desc">Nueva versión de la interacción de datos en tablas de dos columnas</p>
                                         <div class="app-button-arrow">
-                                            <i class="fas fa-chevron-right"></i>
+                                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </a>
@@ -99,13 +93,13 @@
                                 <div class="app-button-content">
                                     <div class="app-button-header">
                                         <div class="app-icon-wrapper">
-                                            <i class="fas fa-mountain"></i>
+                                            <i class="fas fa-mountain" aria-hidden="true"></i>
                                         </div>
                                         <h3 class="app-button-title">Muongrafía</h3>
                                     </div>
                                     <p class="app-button-desc">Visualización y análisis de datos de muongrafía</p>
                                     <div class="app-button-arrow">
-                                        <i class="fas fa-chevron-right"></i>
+                                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </a>
@@ -114,13 +108,13 @@
                                 <div class="app-button-content">
                                     <div class="app-button-header">
                                         <div class="app-icon-wrapper">
-                                            <i class="fas fa-atom"></i>
+                                            <i class="fas fa-atom" aria-hidden="true"></i>
                                         </div>
                                         <h3 class="app-button-title">LHC</h3>
                                     </div>
                                     <p class="app-button-desc">Análisis de datos LHC</p>
                                     <div class="app-button-arrow">
-                                        <i class="fas fa-chevron-right"></i>
+                                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </a>
@@ -129,13 +123,13 @@
                                 <div class="app-button-content">
                                     <div class="app-button-header">
                                         <div class="app-icon-wrapper">
-                                            <i class="fas fa-image"></i>
+                                            <i class="fas fa-image" aria-hidden="true"></i>
                                         </div>
                                         <h3 class="app-button-title">ImageSonif</h3>
                                     </div>
                                     <p class="app-button-desc">Sonificación de imágenes con visualización en tiempo real</p>
                                     <div class="app-button-arrow">
-                                        <i class="fas fa-chevron-right"></i>
+                                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </a>
@@ -144,7 +138,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 </body>
 </html>
