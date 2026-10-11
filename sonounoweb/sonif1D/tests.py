@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
+import re
 import json
 import numpy as np
 from django.test import TestCase, Client
@@ -631,3 +632,31 @@ class FaviconTests(TestCase):
                 html = self.client.get(url).content.decode('utf-8')
                 self.assertIn('rel="icon"', html)
                 self.assertIn('rel="apple-touch-icon"', html)
+
+
+class HomepageTests(TestCase):
+    """Portada: estructura accesible y enlaces a cada app."""
+
+    def setUp(self):
+        self.html = self.client.get('/').content.decode('utf-8')
+
+    def test_landmarks_and_language(self):
+        self.assertIn('<html lang="es">', self.html)
+        self.assertIn('<header class="header-section">', self.html)
+        self.assertIn('<main class="apps-menu-section">', self.html)
+
+    def test_links_to_every_app(self):
+        for url in [reverse('sonif1D:index'), reverse('muongraphy:index'),
+                    reverse('lhc:index'), reverse('imagesonif:index')]:
+            with self.subTest(url=url):
+                self.assertIn(f'href="{url}"', self.html)
+
+    def test_external_classic_version_is_announced(self):
+        self.assertIn('href="https://dev.sonouno.org.ar/es/"', self.html)
+        self.assertIn('(sitio externo)', self.html)
+
+    def test_decorative_icons_are_hidden_from_screen_readers(self):
+        icons = re.findall(r'<i class="fas [^"]+"[^>]*>', self.html)
+        self.assertTrue(icons)
+        for icon in icons:
+            self.assertIn('aria-hidden="true"', icon)

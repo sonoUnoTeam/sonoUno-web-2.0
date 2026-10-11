@@ -6,11 +6,23 @@ import os
 import datetime
 import glob
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 from django.conf import settings
 from utils.muongraphy_lib.data_import.data_import import DataImportColumns
 from utils.muongraphy_lib.sound_module import sonification as sd
 from scipy.io import wavfile
 import numpy as np
+
+# Figura cuadrada y nítida (960x960 px): el video se ve a ~330 px de ancho en un celular,
+# así que el texto se dimensiona para seguir legible a esa escala.
+FIGURE_SIZE_IN = (6.4, 6.4)
+FIGURE_DPI = 150
+SUPTITLE_FONTSIZE = 18
+AXIS_TITLE_FONTSIZE = 16
+AXIS_LABEL_FONTSIZE = 15
+TICK_FONTSIZE = 14
+# Orden de los ejes: columna izquierda = eje X, derecha = eje Y; filas = planos del detector
+AXIS_TITLES = ('Superior · X', 'Superior · Y', 'Medio · X', 'Medio · Y', 'Inferior · X', 'Inferior · Y')
 
 def plot_to_temp_file(fig):
     # Create temporary file 
@@ -82,7 +94,9 @@ def process_files(path, target_filename, ext='txt', plot_flag=False):
     i = 1
     # Loop to walk the directory and sonify each data file
     now = datetime.datetime.now()
-    fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6)) = plt.subplots(3, 2)
+    fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6)) = plt.subplots(
+        3, 2, figsize=FIGURE_SIZE_IN, dpi=FIGURE_DPI, layout='constrained'
+    )
     count_wf = 0
     
     # Lista para recopilar TODOS los archivos de imagen generados
@@ -93,19 +107,15 @@ def process_files(path, target_filename, ext='txt', plot_flag=False):
         file, status, msg = open_csv.set_arrayfromfile(file_path, ext)
         
         if plot_flag:
-            fig.suptitle(os.path.basename(target_filename[:-4]))
-            ax1.cla()
-            ax2.cla()
-            ax3.cla()
-            ax4.cla()
-            ax5.cla()
-            ax6.cla()
-            ax1.set_xlabel('channel')
-            ax2.set_xlabel('channel')
-            ax3.set_xlabel('channel')
-            ax4.set_xlabel('channel')
-            ax5.set_xlabel('channel')
-            ax6.set_xlabel('channel')
+            fig.suptitle(os.path.basename(target_filename[:-4]), fontsize=SUPTITLE_FONTSIZE)
+            for ax, title in zip((ax1, ax2, ax3, ax4, ax5, ax6), AXIS_TITLES):
+                ax.cla()
+                ax.set_title(title, fontsize=AXIS_TITLE_FONTSIZE)
+                ax.tick_params(labelsize=TICK_FONTSIZE)
+                ax.yaxis.set_major_locator(MaxNLocator(nbins=3))
+            # La etiqueta del eje solo en la fila inferior, para no repetirla seis veces
+            ax5.set_xlabel('canal', fontsize=AXIS_LABEL_FONTSIZE)
+            ax6.set_xlabel('canal', fontsize=AXIS_LABEL_FONTSIZE)
             
             ax1.plot((file.iloc[1:,0].astype(float)), (file.iloc[1:,1].astype(float)), 'bo')
             ax2.plot((file.iloc[1:,0].astype(float)), (file.iloc[1:,2].astype(float)), 'bo')
@@ -264,7 +274,9 @@ def process_files(path, target_filename, ext='txt', plot_flag=False):
             last_px = channels_per_color * len(list_colors)
             for px, py in zip(px_list, py_list):
                 color_index = int((px - 1) / channels_per_color) if px == last_px else int(px / channels_per_color)
-                ax.plot(px, py, color=list_colors[color_index], marker='o', linestyle='')
+                # Borde oscuro: el amarillo y el naranja casi no contrastan con el fondo blanco
+                ax.plot(px, py, color=list_colors[color_index], marker='o', linestyle='',
+                        markeredgecolor='#333333', markeredgewidth=1.2)
             image_path = plot_to_temp_file(fig)
             all_image_paths.append(image_path)
             ax.plot(px_list, py_list, color='k', marker='o', linestyle='')

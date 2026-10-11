@@ -2,9 +2,9 @@
 
 /* Reset and Base Styles */
 body {
-    background: #bdc3c7 !important;
-    background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7) !important;
-    background: linear-gradient(to right, #2c3e50, #bdc3c7) !important;
+    /* Degradado entre dos tonos oscuros: el texto claro mantiene contraste AA en todo el ancho */
+    background: #0f1f33 !important;
+    background: linear-gradient(135deg, #0f1f33, #1d3557) !important;
     margin: 0 !important;
     padding: 0 !important;
     min-height: 100vh !important;
@@ -318,138 +318,164 @@ body {
     transition: color 0.3s ease !important;
 }
 
-/* Animations */
-@keyframes ripple {
-    to {
-        transform: scale(2);
-        opacity: 0;
+.app-external-note {
+    white-space: nowrap;
+}
+
+/* Foco visible para navegación con teclado, claro sobre el fondo oscuro y sobre las tarjetas */
+.app-button-large:focus-visible {
+    outline: 3px solid #ffd166 !important;
+    outline-offset: 4px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brand-logo,
+    .app-button-large,
+    .app-button-large::before,
+    .app-icon-wrapper,
+    .app-button-arrow,
+    .app-button-arrow i {
+        transition: none !important;
     }
-}
 
-.homepage-fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
-}
+    .brand-logo:hover,
+    .app-button-large:hover,
+    .app-button-large:hover .app-icon-wrapper,
+    .app-button-large:hover .app-button-arrow {
+        transform: none !important;
+    }
 
-.homepage-fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+    .app-button-large::before {
+        display: none;
+    }
 }
 
 /* Responsive Design */
+/* En pantallas angostas cada tarjeta es una fila compacta: ícono | título y descripción | flecha */
 @media (max-width: 768px) {
+    .header-section {
+        padding: 32px 0 28px;
+    }
+
     .brand-wrapper {
         flex-direction: column;
-        gap: 25px;
+        gap: 16px;
     }
-    
+
+    .brand-logo {
+        width: 120px !important;
+    }
+
     .brand-info {
         text-align: center;
     }
-    
+
     .brand-title {
-        font-size: 2.5rem !important;
+        font-size: 2.2rem !important;
     }
-    
+
+    .apps-menu-section {
+        padding: 28px 0;
+        align-items: flex-start;
+    }
+
+    .apps-title-wrapper {
+        margin-bottom: 24px;
+    }
+
     .apps-title {
-        font-size: 1.8rem !important;
+        font-size: 1.6rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .apps-button-grid,
+    .app-version-group {
+        gap: 12px;
     }
 
     .app-version-group {
         grid-template-columns: 1fr;
     }
-    
-    .app-button-content {
-        flex-direction: column !important;
-        text-align: center !important;
-        gap: 20px !important;
-    }
 
+    .app-button-content,
     .app-button-version .app-button-content {
-        padding: 16px 18px !important;
-    }
-
-    .app-button-version .app-button-header {
-        gap: 12px !important;
-    }
-
-    .app-button-version .app-button-title {
-        font-size: 1.2rem !important;
-    }
-
-    .app-button-version .app-button-desc {
-        font-size: 0.88rem !important;
-    }
-    
-    .app-button-header {
-        flex-direction: column !important;
-        gap: 15px !important;
-    }
-    
-    .app-button-desc {
-        padding-left: 0 !important;
-    }
-    
-    .app-button-arrow {
-        align-self: center !important;
-    }
-}
-
-@media (max-width: 576px) {
-    .header-section {
-        padding: 40px 0 30px;
-    }
-    
-    .brand-logo {
-        width: 140px !important;
-    }
-    
-    .brand-title {
-        font-size: 2rem !important;
-    }
-    
-    .apps-button-grid {
-        gap: 15px;
-        padding: 0 15px;
-    }
-
-    .app-version-group {
-        gap: 15px;
-    }
-    
-    .app-button-content {
-        padding: 20px !important;
-    }
-
-    .app-button-version .app-button-content {
+        display: grid !important;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        column-gap: 14px;
+        row-gap: 2px;
+        align-items: center !important;
         padding: 14px 16px !important;
+        text-align: left !important;
     }
 
+    /* El encabezado se disuelve para que ícono y título se ubiquen en la grilla de la tarjeta */
+    .app-button-header,
+    .app-button-version .app-button-header {
+        display: contents !important;
+    }
+
+    .app-icon-wrapper,
     .app-button-version .app-icon-wrapper {
-        width: 42px !important;
-        height: 42px !important;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 10px !important;
     }
 
+    .app-icon-wrapper i,
     .app-button-version .app-icon-wrapper i {
         font-size: 1.2rem !important;
     }
 
+    .app-button-title,
+    .app-button-title-group {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .app-button-title-group {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .app-button-title,
+    .app-button-version .app-button-title {
+        font-size: 1.2rem !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .app-button-desc,
+    .app-button-version .app-button-desc {
+        grid-column: 2;
+        grid-row: 2;
+        padding-left: 0 !important;
+        font-size: 0.9rem !important;
+        line-height: 1.35 !important;
+    }
+
+    .app-button-arrow,
     .app-button-version .app-button-arrow {
-        width: 30px !important;
-        height: 30px !important;
+        grid-column: 3;
+        grid-row: 1 / span 2;
+        width: 32px !important;
+        height: 32px !important;
     }
-    
-    .app-icon-wrapper {
-        width: 50px !important;
-        height: 50px !important;
+}
+
+@media (max-width: 576px) {
+    .apps-button-grid {
+        padding: 0 4px;
     }
-    
-    .app-icon-wrapper i {
-        font-size: 1.5rem !important;
+
+    .brand-tagline {
+        font-size: 1.05rem !important;
     }
-    
-    .app-button-title {
-        font-size: 1.5rem !important;
+
+    .brand-description,
+    .apps-subtitle {
+        font-size: 0.95rem !important;
     }
 }

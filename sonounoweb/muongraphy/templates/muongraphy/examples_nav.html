@@ -1,0 +1,14 @@
+<!-- Lista de ejemplos; marca el actual con aria-current -->
+<nav aria-label="Ejemplos disponibles">
+    <ul class="muon-examples list-unstyled">
+        {% for example in examples %}
+        <li>
+            {% if current_example.file_name == example.file_name %}
+            <a class="btn btn-primary muon-example-link" href="{% url 'muongraphy:grafico' example.file_name %}" aria-current="page">{{ example.label }}</a>
+            {% else %}
+            <a class="btn btn-outline-primary muon-example-link" href="{% url 'muongraphy:grafico' example.file_name %}">{{ example.label }}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</nav>

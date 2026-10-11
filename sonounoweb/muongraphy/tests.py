@@ -1,7 +1,9 @@
 import os
+from unittest import mock
 
 import numpy as np
 from django.test import SimpleTestCase
+from django.urls import reverse
 from scipy.io import wavfile
 
 from utils.muongraphy_lib.muon_bash import (
@@ -121,3 +123,65 @@ class ProcessFilesSyncTests(SimpleTestCase):
 
     def test_missing_file_returns_none(self):
         self.assertEqual(process_files(SAMPLE_DIR, 'no_existe.csv', 'csv', True), (None, None, None))
+
+
+class MuongraphyViewTests(SimpleTestCase):
+    def test_index_shows_example_picker_without_player(self):
+        response = self.client.get(reverse('muongraphy:index'))
+        html = response.content.decode('utf-8')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn('id="videoPlayer"', html)
+        self.assertIn('Elige un ejemplo', html)
+        for number in range(1, 6):
+            url = reverse('muongraphy:grafico', args=[f'Example_{number}.csv'])
+            self.assertIn(f'href="{url}"', html)
+
+    def test_grafico_renders_accessible_player_and_marks_current_example(self):
+        response = self.client.get(reverse('muongraphy:grafico', args=['Example_1.csv']))
+        html = response.content.decode('utf-8')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context['video_base64'])
+        self.assertIn('playsinline', html)
+        self.assertIn('<label for="progressBar"', html)
+        self.assertIn('<label for="volumeControl"', html)
+        self.assertIn('aria-current="page">Ejemplo 1</a>', html)
+        self.assertIn('Muongrafía · Ejemplo 1', html)
+
+    def test_unknown_file_is_rejected_before_touching_the_filesystem(self):
+        with mock.patch('muongraphy.views.process_files') as process:
+            response = self.client.get(reverse('muongraphy:grafico', args=['no_existe.csv']))
+        html = response.content.decode('utf-8')
+
+        process.assert_not_called()
+        self.assertEqual(response.status_code, 404)
+        self.assertNotIn('id="videoPlayer"', html)
+        self.assertIn('El ejemplo solicitado no existe.', html)
+        self.assertIn('Elige un ejemplo', html)
+
+    def test_path_traversal_is_rejected(self):
+        # El conversor <str:...> bloquea "/", pero no "\\", que en Windows separa rutas
+        for name in ['..%5C..%5C..%5Cmanage.py', '..%5Csettings.py', 'Example_1.csv%5C..%5C..%5Cviews.py', '..']:
+            with self.subTest(name=name), mock.patch('muongraphy.views.process_files') as process:
+                response = self.client.get(f'/muongraphy/grafico/{name}/')
+                self.assertEqual(response.status_code, 404)
+                process.assert_not_called()
+
+    def test_generation_error_is_not_shown_to_user_and_temp_files_are_cleaned(self):
+        with (
+            mock.patch('muongraphy.views.process_files', return_value=(['img.png'], ['snd.wav'], ['img.png', 'extra.png'])),
+            mock.patch('muongraphy.views.create_video_from_paths', side_effect=RuntimeError('detalle interno de ruta secreta')),
+            mock.patch('muongraphy.views.cleanup_temp_audio') as cleanup_audio,
+            mock.patch('muongraphy.views.cleanup_temp_files') as cleanup_images,
+            self.assertLogs('muongraphy.views', level='ERROR'),
+        ):
+            response = self.client.get(reverse('muongraphy:grafico', args=['Example_1.csv']))
+        html = response.content.decode('utf-8')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn('detalle interno', html)
+        self.assertNotIn('secreta', html)
+        self.assertIn('No se pudo crear el video.', html)
+        cleanup_audio.assert_called_once_with(['snd.wav'])
+        cleanup_images.assert_called_once_with(['img.png', 'extra.png'])
