@@ -613,3 +613,21 @@ class Sonif1DErrorHandlingTests(TestCase):
                 content_type='application/json'
             )
             self.assertEqual(response.status_code, 400, f"Endpoint {ep} debió retornar 400 con data_json corrupto")
+
+
+class FaviconTests(TestCase):
+    """El favicon se declara en todos los layouts y /favicon.ico redirige al estático."""
+
+    def test_favicon_root_redirects_to_static_file(self):
+        response = self.client.get('/favicon.ico')
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('favicon', response['Location'])
+        self.assertTrue(response['Location'].endswith('.ico'))
+
+    def test_layouts_declare_favicon(self):
+        urls = ['/', reverse('sonif1D:index'), '/lhc/', '/imagesonif/', '/muongraphy/index']
+        for url in urls:
+            with self.subTest(url=url):
+                html = self.client.get(url).content.decode('utf-8')
+                self.assertIn('rel="icon"', html)
+                self.assertIn('rel="apple-touch-icon"', html)
