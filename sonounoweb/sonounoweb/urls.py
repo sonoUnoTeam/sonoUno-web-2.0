@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.templatetags.static import static as static_url
 from django.urls import include, path
 from django.views.generic import RedirectView
-
+from django.urls import path, include
 from sonif1D import views
 
 
@@ -42,6 +42,7 @@ urlpatterns = [
     path('muongraphy/', include('muongraphy.urls')), # Incluye las urls de la app moungraphy
     path('lhc/', include('lhc.urls')), # Incluye las urls de la app lhc
     path('imagesonif/', include('imagesonif.urls')), # Incluye las urls de la app imagesonif
+    path('i18n/', include('django.conf.urls.i18n')), # Incluye las urls para cambiar el idioma
     ] 
 
 # Agrega las URLs para servir archivos estáticos y multimedia

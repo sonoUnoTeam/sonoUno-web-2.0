@@ -1,0 +1,1051 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-23 14:40-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: CAROLINA PÉREZ GARCÍA <perezgarciacarolinaa@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\lhc\templates\lhc\message.html:7 .\lhc\templates\lhc\message.html:9
+#: .\muongraphy\templates\muongraphy\message.html:7
+#: .\muongraphy\templates\muongraphy\message.html:9
+#: .\sonif1D\templates\sonif1D\message.html:8
+#: .\sonif1D\templates\sonif1D\message.html:10
+msgid "Message:"
+msgstr "Mensaje"
+
+#: .\sonif1D\templates\sonif1D\base.html:60
+msgid "Reproducir"
+msgstr "Play"
+
+#: .\sonif1D\templates\sonif1D\base.html:63
+msgid "Pausar"
+msgstr "Pause"
+
+#: .\sonif1D\templates\sonif1D\base.html:66
+msgid "Detener"
+msgstr "Stop"
+
+#: .\sonif1D\templates\sonif1D\base.html:69
+#: .\sonif1D\templates\sonif1D\base.html:127
+msgid "Reiniciar"
+msgstr "Reset"
+
+#: .\sonif1D\templates\sonif1D\base.html:77
+msgid "Bajar volumen"
+msgstr "Down Volume"
+
+#: .\sonif1D\templates\sonif1D\base.html:80
+msgid "Silenciar/Activar sonido"
+msgstr "Silence/Play Sound"
+
+#: .\sonif1D\templates\sonif1D\base.html:83
+msgid "Subir volumen"
+msgstr "Up Volume"
+
+#: .\sonif1D\templates\sonif1D\base.html:117
+msgid "Agregar marcador en posición actual (M+)"
+msgstr "Add marker at current position"
+
+#: .\sonif1D\templates\sonif1D\base.html:120
+msgid "Eliminar último marcador (M-)"
+msgstr "Delete last marker"
+
+#: .\sonif1D\templates\sonif1D\base.html:123
+msgid "Deshacer configuración"
+msgstr "Undo last configuration"
+
+#: .\sonif1D\templates\sonif1D\base.html:124
+msgid "Deshacer"
+msgstr "Undo"
+
+#: .\sonif1D\templates\sonif1D\base.html:126
+msgid "Reset completo"
+msgstr "Complete Reset"
+
+#: .\sonif1D\templates\sonif1D\base.html:155
+msgid "Tu navegador no soporta la reproducción de audio."
+msgstr "Your browser does not support audio playback"
+
+#: .\sonif1D\templates\sonif1D\base.html:220
+msgid "Gráfico de Datos"
+msgstr "Data Graphic"
+
+#: .\sonif1D\templates\sonif1D\base.html:221
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:25
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:27
+msgid "Eje X"
+msgstr "X-axis"
+
+#: .\sonif1D\templates\sonif1D\base.html:222
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:32
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:28
+msgid "Eje Y"
+msgstr "Y-axis"
+
+#: .\sonif1D\templates\sonif1D\base.html:256
+msgid "No hay datos cargados en esta sesión."
+msgstr "No data has been loaded in this session."
+
+#: .\sonif1D\templates\sonif1D\base.html:257
+msgid "Utiliza el menú \"Importar\" para comenzar."
+msgstr "Use the \"Import\" menu to get started."
+
+#: .\sonif1D\templates\sonif1D\base.html:292
+msgid "Error al reproducir el audio:"
+msgstr "Error playing audio:"
+
+#: .\sonif1D\templates\sonif1D\base.html:559
+msgid "Por favor, carga un archivo de audio primero."
+msgstr "Please upload an audio file first."
+
+#: .\sonif1D\templates\sonif1D\base.html:562
+msgid "Por favor, carga datos del gráfico primero."
+msgstr "Please load the chart data first."
+
+#: .\sonif1D\templates\sonif1D\base.html:578
+msgid "No hay marcadores para eliminar."
+msgstr "There are no markers to delete."
+
+#: .\sonif1D\templates\sonif1D\base.html:588
+msgid ""
+"¿Limpiar todas las configuraciones y marcadores? Se mantendrán los datos del "
+"gráfico."
+msgstr "Clear all settings and markers? Chart data will be preserved."
+
+#: .\sonif1D\templates\sonif1D\help.html:17
+msgid "sonif2D — Guía y Ayuda"
+msgstr "sonif2D — Guide and Help"
+
+#: .\sonif1D\templates\sonif1D\help.html:18
+msgid ""
+"Explora, visualiza y convierte tus series de datos en sonido de forma "
+"científica. Sigue esta guía paso a paso."
+msgstr ""
+"Explore, visualize, and convert your data series into sound in a scientific "
+"way. Follow this step-by-step guide."
+
+#: .\sonif1D\templates\sonif1D\help.html:25
+msgid "Guía de Uso Completa"
+msgstr "Complete User Guide"
+
+#: .\sonif1D\templates\sonif1D\help.html:33
+msgid "¿Qué hace sonif2D?"
+msgstr "What does sonif2D do?"
+
+#: .\sonif1D\templates\sonif1D\help.html:35
+msgid ""
+"sonif2D forma parte del ecosistema <strong>sonoUnoWeb 2.0</strong> y "
+"transforma series de datos unidimensionales en representaciones tanto "
+"visuales como sonoras (sonificación)."
+msgstr ""
+"sonif2D is part of the <strong>sonoUnoWeb 2.0</strong> ecosystem and "
+"transforms one-dimensional data series into both visual and auditory "
+"representations (sonification)."
+
+#: .\sonif1D\templates\sonif1D\help.html:39
+msgid "Pasos rápidos para empezar"
+msgstr "Quick Steps to Start"
+
+#: .\sonif1D\templates\sonif1D\help.html:43
+msgid "Cargar datos"
+msgstr "Load Data"
+
+#: .\sonif1D\templates\sonif1D\help.html:45
+msgid ""
+"Usa <strong>Importar → Archivo csv/txt</strong> o arrastra tu archivo. "
+"Soportamos columnas estructuradas de tiempo/valor. Si no tienes datos "
+"propios, puedes seleccionar señales del menú \"Ejemplos\"."
+msgstr ""
+"Use <strong>Import → CSV/TXT file</strong> or drag and drop your file. We "
+"support structured time/value columns. If you don't have your own data, you "
+"can select signals from the menu \"Examples\"."
+
+#: .\sonif1D\templates\sonif1D\help.html:51
+msgid "Visualizar y configurar"
+msgstr "View and configure"
+
+#: .\sonif1D\templates\sonif1D\help.html:53
+msgid ""
+"Personaliza el título, las etiquetas de los ejes (Labels) X/Y, la paleta "
+"cromática de la curva y el estilo de línea desde el panel \"Configuraciones "
+"→ Gráfico\". También puedes ocultar o mostrar las grillas de fondo (Grid X/"
+"Y)."
+msgstr ""
+"Customize the title, the X/Y axis labels, the color palette for the "
+"curve,and the line style from the \"Settings → Chart\" panel. You can also "
+"hide or show the background grids (Grid X/Y)."
+
+#: .\sonif1D\templates\sonif1D\help.html:59
+msgid "Reproducir y marcar"
+msgstr "Play and Mark"
+
+#: .\sonif1D\templates\sonif1D\help.html:61
+msgid ""
+"Utiliza el reproductor para dar Play, Pausa o Stop. Puedes cambiar la "
+"velocidad de reproducción escalonada (desde <strong>0.25x</strong> hasta "
+"<strong>2x</strong>) y usar la barra de progreso arrastrable. Registra "
+"puntos críticos usando el botón <span class=\"badge bg-secondary\">M+</span> "
+"o haciendo un clic sobre la línea del gráfico."
+msgstr ""
+"Use the player to Play, Pause, or Stop. You can adjust the playback speed in "
+"increments (from <strong>0.25x</strong> to <strong>2x</strong>) and use the "
+"draggable progress bar. Mark critical points using the <span class=\"badge "
+"bg-secondary\">M+</span> button or by clicking on the graph line."
+
+#: .\sonif1D\templates\sonif1D\help.html:67
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:95
+msgid "Exportar resultados"
+msgstr "Export Results"
+
+#: .\sonif1D\templates\sonif1D\help.html:69
+msgid ""
+"Desde el menú <strong>Exportar</strong> podrás descargar de manera "
+"independiente: el Gráfico (.png), el Sonido generado (.wav) y los Marcadores "
+"de interés guardados (.csv)."
+msgstr ""
+"From the <strong>Export</strong> menu, you can download the following items "
+"separately:the graph (.png), the generated sound (.wav), and the saved "
+"markers of interest (.csv)."
+
+#: .\sonif1D\templates\sonif1D\help.html:73
+msgid "Identificación Visual de Marcadores"
+msgstr "Visual Identification of Markers"
+
+#: .\sonif1D\templates\sonif1D\help.html:74
+msgid ""
+"El lienzo gráfico discrimina el estado de la exploración en tiempo real "
+"mediante un código de colores estricto:"
+msgstr ""
+"The graphical canvas distinguishes the status of the exploration in real "
+"timeusing a strict color-coding system:"
+
+#: .\sonif1D\templates\sonif1D\help.html:77
+msgid "Puntos Rojos"
+msgstr "Red Points"
+
+#: .\sonif1D\templates\sonif1D\help.html:77
+msgid ""
+"Indica la posición exacta del rastreo del audio en el instante de tiempo en "
+"curso."
+msgstr ""
+"Indicates the exact position of the audio playback at the current point in "
+"time."
+
+#: .\sonif1D\templates\sonif1D\help.html:78
+msgid "Puntos Azules"
+msgstr "Blue Points"
+
+#: .\sonif1D\templates\sonif1D\help.html:78
+msgid "Representan los marcadores fijos ya guardados por el usuario."
+msgstr "They represent the fixed markers already saved by the user."
+
+#: .\sonif1D\templates\sonif1D\help.html:79
+msgid "Eliminación:"
+msgstr "Elimination"
+
+#: .\sonif1D\templates\sonif1D\help.html:79
+msgid ""
+"Puedes remover el último marcador ingresado con el botón <span class=\\"
+"\"badge bg-secondary\\\">M-</span> o limpiar todo el mapa con <em>Reset / "
+"Undo</em>."
+msgstr ""
+"You can remove the last added marker using the <span class=\"badge bg-"
+"secondary\">M-</span> button,or clear the entire map using <em>Reset / Undo</"
+"em>."
+
+#: .\sonif1D\templates\sonif1D\help.html:84
+msgid "Herramientas Analíticas del Gráfico (Plotly)"
+msgstr "Analytical Plotting Tools (Plotly)"
+
+#: .\sonif1D\templates\sonif1D\help.html:85
+msgid ""
+"Al pasar el cursor por la esquina superior derecha del gráfico se activará "
+"la barra de herramientas interactiva (Modebar). Puedes utilizar:"
+msgstr ""
+"Hovering the cursor over the top-right corner of the chart will activate the "
+"interactive toolbar (Modebar). You can use:"
+
+#: .\sonif1D\templates\sonif1D\help.html:90
+msgid "Herramienta"
+msgstr "Tool"
+
+#: .\sonif1D\templates\sonif1D\help.html:91
+msgid "¿Qué hace? / ¿Cómo se usa?"
+msgstr "What does it do? / How is it used?"
+
+#: .\sonif1D\templates\sonif1D\help.html:97
+msgid ""
+"Haz clic y arrastra para mover el lienzo libremente y explorar series de "
+"datos largas sin perder tu nivel de zoom."
+msgstr ""
+"Click and drag to move the canvas freely and explore long data series "
+"without losing your zoom level."
+
+#: .\sonif1D\templates\sonif1D\help.html:101
+msgid ""
+"Dibuja un rectángulo con el ratón sobre un área específica de la curva para "
+"ampliar con precisión matemática esas coordenadas."
+msgstr ""
+"Draw a rectangle with the mouse over a specific area of ​​the curve to zoom in "
+"on those coordinates with mathematical precision."
+
+#: .\sonif1D\templates\sonif1D\help.html:105
+msgid ""
+"Botones rápidos de incremento o decremento progresivo sobre el encuadre "
+"central actual."
+msgstr ""
+"Quick buttons for incremental or decremental adjustment of the current "
+"central framing."
+
+#: .\sonif1D\templates\sonif1D\help.html:109
+#, python-format
+msgid ""
+"El botón de rescate: devuelve instantáneamente el gráfico a su vista "
+"original mostrando el 100%% de los datos."
+msgstr ""
+"The reset button: instantly returns the chart to its original view, showing "
+"100%% of the data."
+
+#: .\sonif1D\templates\sonif1D\help.html:113
+msgid ""
+"Al posar el cursor sobre cualquier punto, verás un tooltip dinámico con sus "
+"coordenadas exactas (X, Y) y líneas guía proyectadas a los ejes."
+msgstr ""
+"When you hover the cursor over any point, you will see a dynamic tooltipwith "
+"its exact coordinates (X, Y) and guide lines projected onto the axes."
+
+#: .\sonif1D\templates\sonif1D\help.html:120
+msgid "Consejos Profesionales"
+msgstr "Professional Advice"
+
+#: .\sonif1D\templates\sonif1D\help.html:123
+msgid "Normalización:"
+msgstr "Standardization:"
+
+#: .\sonif1D\templates\sonif1D\help.html:123
+msgid ""
+"Si trabajas con archivos propios, asegúrate de estructurar bien las "
+"cabeceras de texto en tu archivo .csv antes de subirlo para un renderizado "
+"óptimo."
+msgstr ""
+"If you are working with your own files, ensure that the text headers in "
+"your .csv fileare well-structured before uploading, for optimal rendering."
+
+#: .\sonif1D\templates\sonif1D\help.html:124
+msgid "Capturas personalizadas:"
+msgstr "Custom screenshots:"
+
+#: .\sonif1D\templates\sonif1D\help.html:124
+msgid ""
+"Realiza un Zoom a un fenómeno específico en el gráfico y utiliza el botón de "
+"descarga nativo de la barra de Plotly; la captura de imagen .png respetará "
+"exactamente el nivel de ampliación visual que definiste."
+msgstr ""
+"Zoom in on a specific phenomenon in the chart and use the native download "
+"button on the Plotly toolbar;the resulting .png image capture will precisely "
+"reflect the level of visual magnification you defined."
+
+#: .\sonif1D\templates\sonif1D\help.html:129
+msgid "Preguntas Frecuentes (FAQ)"
+msgstr "Frequently Asked Questions (FAQ)"
+
+#: .\sonif1D\templates\sonif1D\help.html:132
+msgid "¿Qué pasa si cierro la pestaña del navegador por accidente?"
+msgstr "What happens if I close the browser tab by accident?"
+
+#: .\sonif1D\templates\sonif1D\help.html:133
+msgid ""
+"No te preocupes. La aplicación dispone de un sistema de autoguardado de "
+"sesión local. Al reabrir la herramienta en el mismo navegador, tus datos "
+"cargados y los marcadores que hayas fijado se restaurarán automáticamente "
+"para que no pierdas tu progreso."
+msgstr ""
+"Don't worry. The application features a local session auto-save system.When "
+"you reopen the tool in the same browser, your loaded data and any bookmarks "
+"you’ve setwill be automatically restored, ensuring you don't lose your "
+"progress."
+
+#: .\sonif1D\templates\sonif1D\help.html:137
+msgid "¿Cómo puedo guardar los puntos de interés que descubro al escuchar?"
+msgstr "How can I save the points of interest that I discover while listening?"
+
+#: .\sonif1D\templates\sonif1D\help.html:138
+msgid ""
+"Tienes dos opciones muy sencillas: puedes presionar el botón <strong>M+</"
+"strong> en el panel de control justo en el momento exacto en el que escuchas "
+"el sonido, o bien hacer un clic directo con el ratón sobre cualquier punto "
+"de la curva en el gráfico. Ambas acciones guardarán el marcador "
+"automáticamente."
+msgstr ""
+"You have two very simple options: you can press the <strong>M+</strong> "
+"buttonon the control panel at the exact moment you hear the sound, or you "
+"can simply click with your mouseanywhere on the curve in the graph. Both "
+"actions will automatically save the marker."
+
+#: .\sonif1D\templates\sonif1D\help.html:142
+msgid ""
+"¿Puedo descargar de forma independiente solo el audio o solo el gráfico?"
+msgstr "Can I independently download just the audio or just the graphic?"
+
+#: .\sonif1D\templates\sonif1D\help.html:143
+msgid ""
+"Sí, totalmente. El menú de exportación está diseñado de manera segmentada. "
+"Esto significa que puedes elegir descargar únicamente el archivo de sonido "
+"(.wav), el lienzo del gráfico como imagen (.png) o la lista de marcadores "
+"que registraste (.csv) según lo necesites."
+msgstr ""
+"Yes, absolutely. The export menu is designed in a segmented way. This means "
+"you can choose to download only the sound file (.wav), the chart canvas as "
+"an image (.png), or the list of markers you recorded (.csv), depending on "
+"your needs."
+
+#: .\sonif1D\templates\sonif1D\help.html:147
+msgid "¿Qué significan los puntos de color rojo y azul en la pantalla?"
+msgstr "What do the red and blue dots on the screen mean?"
+
+#: .\sonif1D\templates\sonif1D\help.html:148
+msgid ""
+"Es el código visual de seguimiento: el <strong>punto rojo</strong> se mueve "
+"dinámicamente mostrando el lugar exacto que se está reproduciendo en el "
+"audio en ese instante. Los <strong>puntos azules</strong> son marcas fijas "
+"que tú has decidido guardar para destacar zonas importantes de tus datos."
+msgstr ""
+"It is the visual tracking code: the <strong>red dot</strong> moves "
+"dynamically, showing the exact point in the audio that is playing at any "
+"given moment. The <strong>blue dots</strong> are fixed markers that you have "
+"chosen to save in order to highlight important areas within your data"
+
+#: .\sonif1D\templates\sonif1D\help.html:152
+msgid "¿Cómo regreso el gráfico a su tamaño original después de usar el zoom?"
+msgstr "How do I return the chart to its original size after using the zoom?"
+
+#: .\sonif1D\templates\sonif1D\help.html:153
+msgid ""
+"Si utilizaste la herramienta de ampliación y quieres restablecer la vista "
+"completa de los datos, solo debes pasar el cursor por la esquina superior "
+"derecha del gráfico y hacer clic en el botón de la barra de herramientas que "
+"se llama <strong>\"Reset Axes\"</strong> o <strong>\"Autoscale\"</strong>."
+msgstr ""
+"If you used the zoom tool and want to restore the full view of the data, "
+"simply hover your cursor over the top-right corner of the chart and click "
+"the button on the toolbar labeled <strong>\"Reset Axes\"</strong> o "
+"<strong>\"Autoscale\"</strong>"
+
+#: .\sonif1D\templates\sonif1D\help.html:153
+msgid "El lienzo volverá al encuadre inicial al instante."
+msgstr ""
+
+#: .\sonif1D\templates\sonif1D\help.html:160
+msgid "Volver a la herramienta"
+msgstr "Back to Tool"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:11
+msgid "Volver al panel de sonif1D"
+msgstr "Return to the sonif1D panel"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:20
+msgid "Importar Datos"
+msgstr "Import Data"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:21
+msgid "Carga tu archivo de datos para comenzar a trabajar"
+msgstr "Upload your data file to start working"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:27
+msgid "Formato de archivo requerido"
+msgstr "Required file format"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:31
+msgid "Dos columnas (X, Y)"
+msgstr "Two Columns (X, Y)"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:32
+msgid "Coma, tabulación o espacios"
+msgstr "Comma, tab, or spaces"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:41
+msgid "Ejemplo de formato"
+msgstr "Format Example"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:69
+msgid "Archivos CSV y TXT con datos en dos columnas"
+msgstr "CSV and TXT files with data in two columns"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:76
+msgid "¿Qué sucede después de cargar?"
+msgstr "What happens after loading?"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:79
+msgid "Se validará el formato del archivo"
+msgstr "The file format will be validated."
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:80
+msgid "Se generará automáticamente el gráfico"
+msgstr "The chart will be generated automatically."
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:81
+msgid "Se creará el archivo de audio"
+msgstr "The audio file will be created."
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:82
+msgid "Podrás acceder a las configuraciones"
+msgstr "You will be able to access the settings."
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:89
+msgid "Cargar y Procesar Archivo"
+msgstr "Upload and Process File"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:98
+msgid "¿No tienes datos?"
+msgstr "Don't you have data?"
+
+#: .\sonif1D\templates\sonif1D\import_archivo.html:101
+msgid "Puedes descargar archivos de ejemplo desde el menú principal"
+msgstr "You can download sample files from the main menu."
+
+#: .\sonif1D\templates\sonif1D\index.html:16
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:7
+msgid "Guía de Inicio Rápido"
+msgstr "Quick Start Guide"
+
+#: .\sonif1D\templates\sonif1D\index.html:18
+msgid "Tutorial / Ayuda"
+msgstr "Tutorial / Help"
+
+#: .\sonif1D\templates\sonif1D\index.html:26
+msgid "Visual"
+msgstr "Visual"
+
+#: .\sonif1D\templates\sonif1D\index.html:32
+msgid "Audio"
+msgstr "Audio"
+
+#: .\sonif1D\templates\sonif1D\index.html:38
+msgid "Matematica"
+msgstr "Math"
+
+#: .\sonif1D\templates\sonif1D\index.html:44
+msgid "Puntos"
+msgstr "Points"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:15
+msgid "Seleccionar idioma"
+msgstr "Select Language"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:30
+msgid "Importar"
+msgstr "Import"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:34
+msgid "Archivo csv/txt"
+msgstr "CSV/TXT File"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:37
+msgid "Archivo .WAV"
+msgstr ".WAV File"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:40
+msgid "Marcadores .CSV"
+msgstr ".CSV Bookmarks"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:46
+msgid "Exportar"
+msgstr "Export"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:50
+msgid "Gráfico"
+msgstr "Chart"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:53
+msgid "Sonido"
+msgstr "Sound"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:56
+msgid "Marcadores"
+msgstr "Bookmarks"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:62
+msgid "Ejemplos"
+msgstr "Examples"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:65
+msgid "Formas Básicas"
+msgstr "Basic Shapes"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:67
+msgid "Sinusoidal"
+msgstr "Sinusoidal"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:70
+msgid "Onda cuadrada"
+msgstr "Square wave"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:73
+msgid "Triangular"
+msgstr "Triangular"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:76
+msgid "Diente de sierra"
+msgstr "Sawtooth"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:79
+msgid "Tendencias"
+msgstr "Tendencies"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:81
+msgid "Creciente"
+msgstr "Increasing"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:84
+msgid "Decreciente"
+msgstr "Decreasing"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:87
+msgid "Función escalón"
+msgstr "Step function"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:92
+msgid "Oscilación amortiguada"
+msgstr "Damped oscillation"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:95
+msgid "Batidos"
+msgstr "Beats"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:103
+msgid "Barrido (Radar)"
+msgstr "Sweep (Radar)"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:106
+msgid "Tren de pulsos"
+msgstr "Pulse train"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:109
+msgid "Serie armónica"
+msgstr "Harmonic series"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:112
+msgid "Glitch / ruido"
+msgstr "Glitch / noise"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:118
+msgid "Ayuda"
+msgstr "Help"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:140
+msgid "No se encontró una imagen disponible."
+msgstr "No available image was found."
+
+#: .\sonif1D\templates\sonif1D\navbar.html:155
+msgid "No se pudo generar la imagen del gráfico."
+msgstr "The chart image could not be generated."
+
+#: .\sonif1D\templates\sonif1D\navbar.html:337
+msgid "No se encontró un audio disponible."
+msgstr "No audio was found available"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:404
+msgid "Error al procesar velocidad de audio para descarga:"
+msgstr "Error processing audio speed for download:"
+
+#: .\sonif1D\templates\sonif1D\navbar.html:421
+#: .\sonif1D\templates\sonif1D\navbar.html:442
+msgid "No hay marcadores para exportar."
+msgstr "There are no bookmarks to export."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:7
+msgid "Configuración de gráfico"
+msgstr "Chart settings"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:16
+msgid "Título del Gráfico"
+msgstr "Chart Title"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:19
+msgid "El título no puede exceder 100 caracteres."
+msgstr "The title cannot exceed 100 characters."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:28
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:35
+msgid "Máximo 50 caracteres."
+msgstr "Maximum 50 characters."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:45
+msgid "Trazo"
+msgstr "Streak"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:48
+msgid "Sólido"
+msgstr "Solid"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:49
+msgid "Punteado"
+msgstr "Points"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:50
+msgid "Guion"
+msgstr "Hyphen"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:51
+msgid "Guion Largo"
+msgstr "Long Hyphen"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:52
+msgid "Guion-Punto"
+msgstr "Hyphen Period"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:57
+msgid "Color"
+msgstr "Colour"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:60
+msgid "Azul"
+msgstr "Blue"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:61
+msgid "Rojo"
+msgstr "Red"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:62
+msgid "Verde"
+msgstr "Green"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:63
+msgid "Púrpura"
+msgstr "Purple"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:64
+msgid "Naranja"
+msgstr "Orange"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:65
+msgid "Negro"
+msgstr "Black"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:66
+msgid "Amarillo"
+msgstr "Yellow"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:77
+msgid "Cuadrícula y grilla"
+msgstr "Grid and lattice"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:83
+msgid "Alto contraste / Escala de grises"
+msgstr "High contrast / Grayscale"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:91
+msgid "Aplicar al Gráfico"
+msgstr "Apply to Chart"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:94
+msgid "Restablecer Valores"
+msgstr "Reset Values"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_grafico.html:99
+msgid "Visualización actualizada en tiempo real"
+msgstr "Real-time updated visualization"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:10
+msgid "Paso a Paso"
+msgstr "Step by Step"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:22
+msgid "Cargar datos científicos"
+msgstr "Load scientific data"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:28
+msgid ""
+"<strong>Importar archivo:</strong> Menú superior → <em>Importar → Archivo "
+"csv/txt</em>."
+msgstr ""
+"<strong>Import file:</strong> Top menu → <em>Import → File csv/txt</em>."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:29
+msgid ""
+"<strong>Datos de prueba:</strong> Menú superior → <em>Ejemplos</em> "
+"(Sinusoidal, Square, Beats, etc.)."
+msgstr ""
+"<strong>Test data:</strong> Top menu → <em>Examples</em>(Sine wave, Square "
+"wave, Beats, etc.)."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:40
+msgid "Personalizar Visual y Audio"
+msgstr "Customize Visuals and Audio"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:46
+msgid ""
+"<strong>Visual:</strong> Configura títulos, ejes, colores, trazo y "
+"cuadrícula en tiempo real."
+msgstr ""
+"<strong>Visual:</strong> Configure titles, axes, colors, stroke, and grid in "
+"real time."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:47
+msgid ""
+"<strong>Audio:</strong> Elige el timbre (piano, flauta, sintetizador), rango "
+"Hz y aplica suavizado Savitzky-Golay."
+msgstr ""
+"<strong>Audio:</strong> Choose the timbre (piano, flute, synthesizer), "
+"frequency range (Hz), and apply Savitzky-Golay smoothing."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:58
+msgid "Interactuar con la gráfica"
+msgstr "Interact with the graph"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:64
+msgid ""
+"<strong>Zoom dinámico:</strong> Arrastra con el cursor sobre la curva. Doble "
+"clic para restablecer la vista."
+msgstr ""
+"<strong>Dynamic zoom:</strong> Drag with the cursor over the curve. Double-"
+"click to reset the view."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:65
+msgid ""
+"<strong>Consola de Transporte:</strong> Usa <em>Play</em>, <em>Pause</em>, "
+"<em>Stop</em> y el deslizador de volumen."
+msgstr ""
+"<strong>Transport Console:</strong> Use <em>Play</em>, <um>Pause</em>, "
+"<em>Stop</em> and the volume slider."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:66
+msgid "<strong>Velocidad:</strong> Modula la cadencia de 0.25x a 2.0x."
+msgstr "<strong>Speed:</strong> Adjusts the pace from 0.25x to 2.0x."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:77
+msgid "Marcar puntos de interés"
+msgstr "Mark points of interest"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:83
+msgid ""
+"<strong>Anotar:</strong> Clic en cualquier coordenada del trazo o pulsa "
+"<span class=\"badge bg-secondary\">M+</span> durante la reproducción."
+msgstr ""
+"<strong>Add a note:</strong> Click on any coordinate along the path or press "
+"<span class=\"badge bg-secondary\">M+</span> during playback."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:84
+msgid ""
+"<strong>Gestionar:</strong> Abre la pestaña <em>Puntos</em> para "
+"inspeccionar la tabla o descargar CSV."
+msgstr ""
+"<strong>Manage:</strong> Open the <em>Points</em> tab to inspect the table "
+"or download a CSV."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:101
+msgid "<strong>Gráfico:</strong> Imagen de alta resolución en PNG."
+msgstr "<strong>Graphic:</strong> High-resolution image in PNG format."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:102
+msgid "<strong>Sonido:</strong> Audio sintetizado en formato WAV."
+msgstr "<strong>Sound:</strong> Synthesized audio in WAV format."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:103
+msgid "<strong>Marcadores:</strong> Puntos y coordenadas exportados en CSV."
+msgstr "<strong>Markers:</strong> Points and coordinates exported in CSV."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_guia.html:116
+msgid ""
+"<strong>Persistencia Local:</strong> Tus ajustes y marcadores se guardan "
+"automáticamente en tu sesión de navegador."
+msgstr ""
+"<strong>Local Persistence:</strong> Your settings and bookmarks are saved "
+"automatically within your browser session."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:8
+msgid "Marcadores de Puntos"
+msgstr "Bookmarks"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:20
+#, fuzzy
+#| msgid "No hay marcadores para exportar."
+msgid "No hay marcadores anotados."
+msgstr "There are no bookmarks to export."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:21
+msgid "Haz clic en la gráfica o pulsa"
+msgstr "Click on the graph or press"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:29
+msgid "Acción"
+msgstr "Accion"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:42
+msgid "Descargar Marcadores (.CSV)"
+msgstr "Download .CSV Bookmarks"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_marcadores.html:45
+msgid "Eliminar Todos los Marcadores"
+msgstr "Delete all markers"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:8
+msgid "Funciones Matemáticas"
+msgstr "Math Functions"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:20
+msgid "Cuadrática"
+msgstr "Quadratic"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:25
+msgid "Transformación polinómica de segundo grado sobre el eje Y."
+msgstr "Second-degree polynomial transformation along the Y-axis."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:31
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:36
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:41
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:69
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:74
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:79
+msgid "Requerido."
+msgstr "Requested."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:45
+msgid "Aplicar Cuadrática"
+msgstr "Apply Quadratic"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:48
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:86
+msgid "Función aplicada"
+msgstr "Applied function"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:58
+msgid "Logarítmica"
+msgstr "Logarithmic"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:63
+msgid "Compresión de rango con protección de dominio positivo."
+msgstr "Range compression with positive-domain protection."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:83
+msgid "Aplicar Logaritmo"
+msgstr "Apply logarithm"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:96
+msgid "Buscador de Picos"
+msgstr "Peak Finder"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:103
+msgid "Detección automática de máximos locales en la señal."
+msgstr "Automatic detection of local maxima in the signal."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:109
+msgid "Valor > 0"
+msgstr "Value > 0"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:114
+msgid "Entero &ge; 1"
+msgstr "Integer &ge; 1"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:118
+msgid "Encontrar Picos"
+msgstr "Finding Peaks"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_matematicas.html:121
+msgid "Picos encontrados"
+msgstr "Peaks encountered"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:9
+msgid "Configuración de sonido"
+msgstr "Sound settings"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:18
+msgid "Timbre / Instrumento"
+msgstr "Timbre / Instrument"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:21
+msgid "Seno Pura (Onda Pura)"
+msgstr "Pure Sine (Pure Wave)"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:22
+msgid "Synthwave (Sintetizador)"
+msgstr "Synthwave"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:23
+msgid "Flauta"
+msgstr "Flute"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:24
+msgid "Piano"
+msgstr "Piano"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:25
+msgid "Celesta"
+msgstr "Celesta"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:26
+msgid "Órgano de tubos"
+msgstr "Pipe organ"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:28
+msgid "Selecciona un instrumento válido."
+msgstr "Select a valid instrument."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:35
+msgid "Mín (Hz)"
+msgstr "Mín (Hz)"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:38
+msgid "Mín: 20 Hz a 20,000 Hz."
+msgstr "Mín: 20 Hz a 20,000 Hz."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:42
+msgid "Máx (Hz)"
+msgstr "Máx (Hz)"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:45
+msgid "Máx: 20 Hz a 20,000 Hz."
+msgstr ""
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:53
+msgid "Frecuencia Logarítmica"
+msgstr "Logarithmic Frequency"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:61
+msgid "Compilar y Aplicar Sonido"
+msgstr "Compile and Apply Sound"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:66
+msgid "Sonido sintetizado correctamente"
+msgstr "Sound synthesized correctly"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:74
+msgid "Suavizado de Señal"
+msgstr "Signal Smoothing"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:84
+msgid "Número impar &ge; 3."
+msgstr "Odd number &ge; 3."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:89
+msgid "Entero entre 1 y 10."
+msgstr "An integer between 1 and 10."
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:93
+msgid "Aplicar Filtro Suavizado"
+msgstr "Apply Smoothing Filter"
+
+#: .\sonif1D\templates\sonif1D\partials\tab_sonido.html:98
+msgid "Señal filtrada correctamente"
+msgstr "Signal filtered correctly"
+
+#: .\sonounoweb\settings.py:49
+msgid "Español"
+msgstr "Spanish"
+
+#: .\sonounoweb\settings.py:50
+msgid "English"
+msgstr "Inglés"

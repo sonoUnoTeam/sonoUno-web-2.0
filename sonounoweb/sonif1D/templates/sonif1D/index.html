@@ -1,5 +1,6 @@
 {% extends 'sonif1D/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}sonoUno Web - Sonificación 1D{% endblock %}
 
 {% block content %}
@@ -12,9 +13,9 @@
             <button class="onboarding-guide-btn active mb-2" id="tab-guia-btn" data-bs-toggle="pill" data-bs-target="#tab-guia-pane" type="button" role="tab" aria-controls="tab-guia-pane" aria-selected="true" title="Guía de inicio rápido y tutorial">
                 <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-lightbulb-fill"></i>
-                    <span>Guía de Inicio Rápido</span>
+                    <span>{% trans "Guía de Inicio Rápido" %}</span>
                 </div>
-                <span class="guide-badge">Tutorial / Ayuda</span>
+                <span class="guide-badge">{% trans "Tutorial / Ayuda" %}</span>
             </button>
 
             <!-- 2. SEGMENTED CONTROL BAR (4 PANELES DE CONFIGURACIÓN INTERACTIVA) -->
@@ -22,25 +23,25 @@
                 <li class="segmented-control-item" role="presentation">
                     <button class="segmented-tab-btn" id="tab-grafico-btn" data-bs-toggle="pill" data-bs-target="#tab-grafico-pane" type="button" role="tab" aria-controls="tab-grafico-pane" aria-selected="false" title="Configuración visual del gráfico">
                         <i class="fas fa-chart-line"></i>
-                        <span>Visual</span>
+                        <span>{% trans "Visual" %}</span>
                     </button>
                 </li>
                 <li class="segmented-control-item" role="presentation">
                     <button class="segmented-tab-btn" id="tab-sonido-btn" data-bs-toggle="pill" data-bs-target="#tab-sonido-pane" type="button" role="tab" aria-controls="tab-sonido-pane" aria-selected="false" title="Ajustes de sonido e instrumentos">
                         <i class="fas fa-sliders-h"></i>
-                        <span>Audio</span>
+                        <span>{% trans "Audio" %}</span>
                     </button>
                 </li>
                 <li class="segmented-control-item" role="presentation">
                     <button class="segmented-tab-btn" id="tab-matematicas-btn" data-bs-toggle="pill" data-bs-target="#tab-matematicas-pane" type="button" role="tab" aria-controls="tab-matematicas-pane" aria-selected="false" title="Transformaciones matemáticas y filtros">
                         <i class="fas fa-calculator"></i>
-                        <span>Math</span>
+                        <span>{% trans "Matematica" %}</span>
                     </button>
                 </li>
                 <li class="segmented-control-item" role="presentation">
                     <button class="segmented-tab-btn" id="tab-marcadores-btn" data-bs-toggle="pill" data-bs-target="#tab-marcadores-pane" type="button" role="tab" aria-controls="tab-marcadores-pane" aria-selected="false" title="Gestión de marcadores de puntos">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Puntos</span>
+                        <span>{% trans "Puntos" %}</span>
                     </button>
                 </li>
             </ul>

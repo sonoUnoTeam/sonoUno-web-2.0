@@ -1,4 +1,6 @@
- <!-- BARRA DE NAVEGACIÓN -->
+{% load static %}
+{% load i18n %}
+<!-- BARRA DE NAVEGACIÓN -->
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="{% url 'inicio' %}">
@@ -7,77 +9,104 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center ms-2">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="">
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    
+    <div class="language-switcher d-flex align-items-center gap-1" role="group" aria-label="{% trans 'Seleccionar idioma' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-translate me-1 text-white-50" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
+            <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
+        </svg>
+        
+        {% for language in languages %}
+            <button type="submit"
+                    name="language"
+                    value="{{ language.code }}"
+                    class="btn btn-sm language-btn {% if language.code == LANGUAGE_CODE %}active{% endif %}"
+                    lang="{{ language.code }}"
+                    aria-label="{{ language.name_local|capfirst }}"
+                    title="{{ language.name_local|capfirst }}"
+                    {% if language.code == LANGUAGE_CODE %}aria-current="true"{% endif %}>
+                {{ language.code|upper }}
+            </button>
+        {% endfor %}
+    </div>
+</form>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Botones de la barra de navegación -->
                 <div class="btn-group" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-file-import me-2"></i>Importar
+                        <i class="fas fa-file-import me-2"></i>{% trans "Importar" %}
                     </button>
                     <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop1">
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:importar_archivo' %}">
-                            <i class="fas fa-file-csv me-2"></i>Archivo csv/txt
+                            <i class="fas fa-file-csv me-2"></i>{% trans "Archivo csv/txt" %}
                         </a></li>
                          <!-- <li><a class="dropdown-item navbar-dropdown-item" href="">
-                            <i class="fas fa-file-audio me-2"></i>Archivo .WAV
+                            <i class="fas fa-file-audio me-2"></i>{% trans "Archivo .WAV" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="">
-                            <i class="fas fa-map-marker-alt me-2"></i>Marcadores .CSV
+                            <i class="fas fa-map-marker-alt me-2"></i>{% trans "Marcadores .CSV" %}
                         </a></li>  -->
                     </ul>
                 </div>
                 <div class="btn-group" role="group">
                     <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-download me-2"></i>Exportar
+                        <i class="fas fa-download me-2"></i>{% trans "Exportar" %}
                     </button>
                     <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop2">
                         <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadImage">
-                            <i class="fas fa-chart-line me-2"></i>Gráfico
+                            <i class="fas fa-chart-line me-2"></i>{% trans "Gráfico" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadAudio">
-                            <i class="fas fa-volume-up me-2"></i>Sonido
+                            <i class="fas fa-volume-up me-2"></i>{% trans "Sonido" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="#" id="downloadMarkers">
-                            <i class="fas fa-bookmark me-2"></i>Marcadores
+                            <i class="fas fa-bookmark me-2"></i>{% trans "Marcadores" %}
                         </a></li>
                     </ul>                    
                 </div>
                 <div class="btn-group" role="group">
                     <button id="btnGroupDrop3" type="button" class="btn btn-dark dropdown-toggle text-white navbar-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-database me-2"></i>Ejemplos
+                        <i class="fas fa-database me-2"></i>{% trans "Ejemplos" %}
                     </button>
                     <ul class="dropdown-menu navbar-dropdown-menu" aria-labelledby="btnGroupDrop3">
-                        <li><h6 class="dropdown-header"><i class="fas fa-shapes me-2"></i>Formas Básicas</h6></li>
+                        <li><h6 class="dropdown-header"><i class="fas fa-shapes me-2"></i>{% trans "Formas Básicas" %}</h6></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'sinusoidal.txt' %}">
-                            <i class="fas fa-wave-square me-2"></i>Sinusoidal
+                            <i class="fas fa-wave-square me-2"></i>{% trans "Sinusoidal" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'square.txt' %}">
-                            <i class="fas fa-square me-2"></i>Onda cuadrada
+                            <i class="fas fa-square me-2"></i>{% trans "Onda cuadrada" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'triangular.txt' %}">
-                            <i class="fas fa-play me-2"></i>Triangular
+                            <i class="fas fa-play me-2"></i>{% trans "Triangular" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'sawtooth.txt' %}">
-                            <i class="fas fa-chart-line me-2"></i>Diente de sierra
+                            <i class="fas fa-chart-line me-2"></i>{% trans "Diente de sierra" %}
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><h6 class="dropdown-header"><i class="fas fa-chart-area me-2"></i>Tendencias</h6></li>
+                        <li><h6 class="dropdown-header"><i class="fas fa-chart-area me-2"></i>{% trans "Tendencias" %}</h6></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'growing.txt' %}">
-                            <i class="fas fa-arrow-up me-2"></i>Creciente
+                            <i class="fas fa-arrow-up me-2"></i>{% trans "Creciente" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'decrease.txt' %}">
-                            <i class="fas fa-arrow-down me-2"></i>Decreciente
+                            <i class="fas fa-arrow-down me-2"></i>{% trans "Decreciente" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'step.txt' %}">
-                            <i class="fas fa-stairs me-2"></i>Función escalón
+                            <i class="fas fa-stairs me-2"></i>{% trans "Función escalón" %}
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><h6 class="dropdown-header"><i class="fas fa-atom me-2"></i>Fenómenos Físicos</h6></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'damped.txt' %}">
-                            <i class="fas fa-water me-2"></i>Oscilación amortiguada
+                            <i class="fas fa-water me-2"></i>{% trans "Oscilación amortiguada" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'beats.txt' %}">
-                            <i class="fas fa-signal me-2"></i>Batidos
+                            <i class="fas fa-signal me-2"></i>{% trans "Batidos" %}
                         </a></li>
                         <!-- <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'wave_packet.txt' %}">
                             <i class="fas fa-waveform-path me-2"></i>Wave Packet
@@ -85,22 +114,22 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><h6 class="dropdown-header"><i class="fas fa-music me-2"></i>Señales Especiales</h6></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'chirp.txt' %}">
-                            <i class="fas fa-broadcast-tower me-2"></i>Barrido (Radar)
+                            <i class="fas fa-broadcast-tower me-2"></i>{% trans "Barrido (Radar)" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'pulse.txt' %}">
-                            <i class="fas fa-heartbeat me-2"></i>Tren de pulsos
+                            <i class="fas fa-heartbeat me-2"></i>{% trans "Tren de pulsos" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'harmonic.txt' %}">
-                            <i class="fas fa-guitar me-2"></i>Serie armónica
+                            <i class="fas fa-guitar me-2"></i>{% trans "Serie armónica" %}
                         </a></li>
                         <li><a class="dropdown-item navbar-dropdown-item" href="{% url 'sonif1D:mostrar_grafico' 'glitch.txt' %}">
-                            <i class="fas fa-bolt me-2"></i>Glitch / ruido
+                            <i class="fas fa-bolt me-2"></i>{% trans "Glitch / ruido" %}
                         </a></li>
                     </ul>
                 </div>                    
                 <li class="nav-item">
                     <a class="btn btn-dark text-white navbar-help-btn" href="{% url 'sonif1D:help' %}">
-                        <i class="fas fa-question-circle me-2"></i>Ayuda
+                        <i class="fas fa-question-circle me-2"></i>{% trans "Ayuda" %}
                     </a>
                 </li>
             </ul>
@@ -122,7 +151,7 @@
                     return;
                 }
 
-                alert('No se encontró una imagen disponible.');
+                alert('{% trans "No se encontró una imagen disponible." %}');
                 return;
             }
 
@@ -137,7 +166,7 @@
                 link.click();
                 sessionStorage.setItem('grafico_base64', dataUrl.split(',')[1]);
             }).catch(function() {
-                alert('No se pudo generar la imagen del gráfico.');
+                alert('{% trans "No se pudo generar la imagen del gráfico." %}');
             });
         });
     
@@ -319,7 +348,7 @@
             }
             
             if (!audioBase64) {
-                alert('No se encontró un audio disponible.');
+                alert('{% trans "No se encontró un audio disponible." %}');
                 return;
             }
 
@@ -386,7 +415,7 @@
                 }, 5000);
 
             } catch (err) {
-                console.error("Error al procesar velocidad de audio para descarga:", err);
+                console.error('{% trans "Error al procesar velocidad de audio para descarga:" %}', err);
                 // Fallback al audio original
                 triggerDirectDownload(audioBase64);
             } finally {
@@ -403,7 +432,7 @@
             if (markersJson) {
                 var markers = JSON.parse(markersJson);
                 if (markers.length === 0) {
-                    alert('No hay marcadores para exportar.');
+                    alert('{% trans "No hay marcadores para exportar." %}');
                     return;
                 }
                 
@@ -424,8 +453,44 @@
                 link.click();
                 document.body.removeChild(link);
             } else {
-                alert('No hay marcadores para exportar.');
+                alert('{% trans "No hay marcadores para exportar." %}');
             }
         });
     </script>
 </nav>
+<style>
+    .navbar .language-switcher {
+        padding: 0.25rem 0.4rem;
+        border-radius: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar .language-btn {
+        padding: 0.2rem 0.65rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85) !important;
+        background-color: transparent !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease;
+    }
+
+    .navbar .language-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
+        border-color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    .navbar .language-btn.active {
+        background-color: #0d6efd !important;
+        color: #ffffff !important;
+        border-color: #0d6efd !important;
+    }
+
+    .navbar .language-btn:focus-visible {
+        outline: 2px solid #6ea8fe;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.4);
+    }
+</style>

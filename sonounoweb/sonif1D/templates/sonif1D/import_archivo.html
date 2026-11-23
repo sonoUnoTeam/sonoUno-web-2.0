@@ -1,5 +1,6 @@
 {% extends 'sonif1D/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <!-- Contenido de la página: LADO DERECHO -->
@@ -7,7 +8,7 @@
     <div class="card mb-4">
         <div class="card-header bg-white border-bottom p-2">
             <a href="{% url 'sonif1D:index' %}" class="btn btn-outline-secondary btn-sm w-100">
-                <i class="fas fa-arrow-left me-1"></i> Volver al panel de sonif1D
+                <i class="fas fa-arrow-left me-1"></i> {% trans "Volver al panel de sonif1D" %}
             </a>
         </div>
 
@@ -16,19 +17,19 @@
             <div class="row">
                 <div class="text-center mb-4">
                     <i class="fas fa-upload fa-3x text-primary mb-3"></i>
-                    <h4 class="text-primary">Importar Datos</h4>
-                    <p class="text-muted">Carga tu archivo de datos para comenzar a trabajar</p>
+                    <h4 class="text-primary">{% trans "Importar Datos" %}</h4>
+                    <p class="text-muted">{% trans "Carga tu archivo de datos para comenzar a trabajar" %}</p>
                 </div>
                 
                 <!-- Información de formato -->
                 <div class="alert alert-info" role="alert">
                     <h6 class="alert-heading">
-                        <i class="fas fa-info-circle"></i> Formato de archivo requerido
+                        <i class="fas fa-info-circle"></i> {% trans "Formato de archivo requerido" %}
                     </h6>
                     <ul class="mb-0">
                         <li><strong>Formatos soportados:</strong> .CSV y .TXT</li>
-                        <li><strong>Estructura:</strong> Dos columnas (X, Y)</li>
-                        <li><strong>Separadores:</strong> Coma, tabulación o espacios</li>
+                        <li><strong>Estructura:</strong> {% trans "Dos columnas (X, Y)" %}</li>
+                        <li><strong>Separadores:</strong> {% trans "Coma, tabulación o espacios" %}</li>
                         <li><strong>Codificación:</strong> UTF-8</li>
                     </ul>
                 </div>
@@ -37,7 +38,7 @@
                 <div class="card border-light mb-3">
                     <div class="card-header bg-light">
                         <h6 class="mb-0">
-                            <i class="fas fa-eye"></i> Ejemplo de formato
+                            <i class="fas fa-eye"></i> {% trans "Ejemplo de formato" %}
                         </h6>
                     </div>
                     <div class="card-body">
@@ -65,27 +66,27 @@
                                required>
                         <div class="form-text">
                             <i class="fas fa-check-circle text-success"></i> 
-                            Archivos CSV y TXT con datos en dos columnas
+                            {% trans "Archivos CSV y TXT con datos en dos columnas" %}
                         </div>
                     </div>
 
                     <!-- Pasos siguientes -->
                     <div class="alert alert-secondary" role="alert">
                         <h6 class="alert-heading">
-                            <i class="fas fa-list-ol"></i> ¿Qué sucede después de cargar?
+                            <i class="fas fa-list-ol"></i> {% trans "¿Qué sucede después de cargar?" %}
                         </h6>
                         <ol class="mb-0">
-                            <li>Se validará el formato del archivo</li>
-                            <li>Se generará automáticamente el gráfico</li>
-                            <li>Se creará el archivo de audio</li>
-                            <li>Podrás acceder a las configuraciones</li>
+                            <li>{% trans "Se validará el formato del archivo" %}</li>
+                            <li>{% trans "Se generará automáticamente el gráfico" %}</li>
+                            <li>{% trans "Se creará el archivo de audio" %}</li>
+                            <li>{% trans "Podrás acceder a las configuraciones" %}</li>
                         </ol>
                     </div>
                     
                     <!-- Botón de carga -->
                     <div class="d-grid gap-2 mt-4">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-upload"></i> Cargar y Procesar Archivo
+                            <i class="fas fa-upload"></i> {% trans "Cargar y Procesar Archivo" %}
                         </button>
                     </div>
                 </form>
@@ -94,10 +95,10 @@
                 <div class="mt-4 text-center">
                     <hr>
                     <h6 class="text-muted">
-                        <i class="fas fa-download"></i> ¿No tienes datos?
+                        <i class="fas fa-download"></i> {% trans "¿No tienes datos?" %}
                     </h6>
                     <p class="text-muted small">
-                        Puedes descargar archivos de ejemplo desde el menú principal
+                        {% trans "Puedes descargar archivos de ejemplo desde el menú principal" %}
                     </p>
                 </div>
             </div>

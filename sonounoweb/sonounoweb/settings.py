@@ -14,6 +14,7 @@ from pathlib import Path
 from django.conf.urls.static import static
 import os
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
 
 # Configuración para modo headless en servidores sin dispositivos gráficos/audio
 # Esto debe ir ANTES de cualquier importación de matplotlib o pygame
@@ -39,6 +40,22 @@ ALLOWED_HOSTS = ['sonounoapp.um.edu.ar', '127.0.0.1']
 #Habilita el uso de messages
 MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
 
+# Flags de internacionalización
+USE_I18N = True
+USE_L10N = True
+
+# Idiomas soportados
+LANGUAGES = [
+    ('es', _('Español')),
+    ('en', _('English')),
+]
+
+LANGUAGE_CODE = 'es'  # Idioma por defecto
+
+# 3. Ruta donde se guardarán los archivos de traducción
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -59,6 +76,7 @@ MIDDLEWARE = [
     #Para archivos estáticos en producción
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -124,7 +142,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
+LANGUAGES = [
+    ('es', 'Español'),
+    ('en', 'English'),
+]
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
