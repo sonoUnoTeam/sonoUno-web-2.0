@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 14:40-0300\n"
+"POT-Creation-Date: 2026-11-23 20:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CAROLINA PÉREZ GARCÍA <perezgarciacarolinaa@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -541,128 +541,128 @@ msgstr "Math"
 msgid "Puntos"
 msgstr "Points"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:15
+#: .\sonif1D\templates\sonif1D\navbar.html:20 .\templates\inicio.html:36
 msgid "Seleccionar idioma"
 msgstr "Select Language"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:30
+#: .\sonif1D\templates\sonif1D\navbar.html:45
 msgid "Importar"
 msgstr "Import"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:34
+#: .\sonif1D\templates\sonif1D\navbar.html:49
 msgid "Archivo csv/txt"
 msgstr "CSV/TXT File"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:37
+#: .\sonif1D\templates\sonif1D\navbar.html:52
 msgid "Archivo .WAV"
 msgstr ".WAV File"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:40
+#: .\sonif1D\templates\sonif1D\navbar.html:55
 msgid "Marcadores .CSV"
 msgstr ".CSV Bookmarks"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:46
+#: .\sonif1D\templates\sonif1D\navbar.html:61
 msgid "Exportar"
 msgstr "Export"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:50
+#: .\sonif1D\templates\sonif1D\navbar.html:65
 msgid "Gráfico"
 msgstr "Chart"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:53
+#: .\sonif1D\templates\sonif1D\navbar.html:68
 msgid "Sonido"
 msgstr "Sound"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:56
+#: .\sonif1D\templates\sonif1D\navbar.html:71
 msgid "Marcadores"
 msgstr "Bookmarks"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:62
+#: .\sonif1D\templates\sonif1D\navbar.html:77
 msgid "Ejemplos"
 msgstr "Examples"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:65
+#: .\sonif1D\templates\sonif1D\navbar.html:80
 msgid "Formas Básicas"
 msgstr "Basic Shapes"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:67
+#: .\sonif1D\templates\sonif1D\navbar.html:82
 msgid "Sinusoidal"
 msgstr "Sinusoidal"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:70
+#: .\sonif1D\templates\sonif1D\navbar.html:85
 msgid "Onda cuadrada"
 msgstr "Square wave"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:73
+#: .\sonif1D\templates\sonif1D\navbar.html:88
 msgid "Triangular"
 msgstr "Triangular"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:76
+#: .\sonif1D\templates\sonif1D\navbar.html:91
 msgid "Diente de sierra"
 msgstr "Sawtooth"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:79
+#: .\sonif1D\templates\sonif1D\navbar.html:94
 msgid "Tendencias"
 msgstr "Tendencies"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:81
+#: .\sonif1D\templates\sonif1D\navbar.html:96
 msgid "Creciente"
 msgstr "Increasing"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:84
+#: .\sonif1D\templates\sonif1D\navbar.html:99
 msgid "Decreciente"
 msgstr "Decreasing"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:87
+#: .\sonif1D\templates\sonif1D\navbar.html:102
 msgid "Función escalón"
 msgstr "Step function"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:92
+#: .\sonif1D\templates\sonif1D\navbar.html:107
 msgid "Oscilación amortiguada"
 msgstr "Damped oscillation"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:95
+#: .\sonif1D\templates\sonif1D\navbar.html:110
 msgid "Batidos"
 msgstr "Beats"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:103
+#: .\sonif1D\templates\sonif1D\navbar.html:118
 msgid "Barrido (Radar)"
 msgstr "Sweep (Radar)"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:106
+#: .\sonif1D\templates\sonif1D\navbar.html:121
 msgid "Tren de pulsos"
 msgstr "Pulse train"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:109
+#: .\sonif1D\templates\sonif1D\navbar.html:124
 msgid "Serie armónica"
 msgstr "Harmonic series"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:112
+#: .\sonif1D\templates\sonif1D\navbar.html:127
 msgid "Glitch / ruido"
 msgstr "Glitch / noise"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:118
+#: .\sonif1D\templates\sonif1D\navbar.html:133
 msgid "Ayuda"
 msgstr "Help"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:140
+#: .\sonif1D\templates\sonif1D\navbar.html:155
 msgid "No se encontró una imagen disponible."
 msgstr "No available image was found."
 
-#: .\sonif1D\templates\sonif1D\navbar.html:155
+#: .\sonif1D\templates\sonif1D\navbar.html:170
 msgid "No se pudo generar la imagen del gráfico."
 msgstr "The chart image could not be generated."
 
-#: .\sonif1D\templates\sonif1D\navbar.html:337
+#: .\sonif1D\templates\sonif1D\navbar.html:352
 msgid "No se encontró un audio disponible."
 msgstr "No audio was found available"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:404
+#: .\sonif1D\templates\sonif1D\navbar.html:419
 msgid "Error al procesar velocidad de audio para descarga:"
 msgstr "Error processing audio speed for download:"
 
-#: .\sonif1D\templates\sonif1D\navbar.html:421
-#: .\sonif1D\templates\sonif1D\navbar.html:442
+#: .\sonif1D\templates\sonif1D\navbar.html:436
+#: .\sonif1D\templates\sonif1D\navbar.html:457
 msgid "No hay marcadores para exportar."
 msgstr "There are no bookmarks to export."
 
@@ -1049,3 +1049,67 @@ msgstr "Spanish"
 #: .\sonounoweb\settings.py:50
 msgid "English"
 msgstr "Inglés"
+
+#: .\templates\inicio.html:64
+msgid "SonoUno"
+msgstr "SonoUno"
+
+#: .\templates\inicio.html:65
+msgid "Software de sonorización de datos astronómicos"
+msgstr "Software for the sonification of astronomical data"
+
+#: .\templates\inicio.html:66
+msgid "Explora datos científicos visualmente y mediante sonorización"
+msgstr "Explore scientific data visually and through sonification."
+
+#: .\templates\inicio.html:80
+msgid "Selecciona una aplicación"
+msgstr "Select an application"
+
+#: .\templates\inicio.html:81
+msgid "Elige la herramienta que necesites para tu análisis"
+msgstr "Choose the tool you need for your analysis"
+
+#: .\templates\inicio.html:93
+msgid "Clásica"
+msgstr "Classic"
+
+#: .\templates\inicio.html:94 .\templates\inicio.html:112
+msgid "Tablas"
+msgstr "Data Tables"
+
+#: .\templates\inicio.html:97
+msgid "Interacción de datos en tablas de dos columnas"
+msgstr "Data interaction in two-column tables"
+
+#: .\templates\inicio.html:111
+msgid "Nueva"
+msgstr "New"
+
+#: .\templates\inicio.html:115
+msgid "Nueva versión de la interacción de datos en tablas de dos columnas"
+msgstr "New version of data interaction in two-column tables"
+
+#: .\templates\inicio.html:129
+msgid "Muongrafía"
+msgstr "Muongraphy"
+
+#: .\templates\inicio.html:131
+msgid "Visualización y análisis de datos de muongrafía"
+msgstr "Visualization and analysis of muongraphy data"
+
+#: .\templates\inicio.html:144
+msgid "LHC"
+msgstr "LHC"
+
+#: .\templates\inicio.html:146
+msgid "Análisis de datos LHC"
+msgstr "LHC data analysis"
+
+#: .\templates\inicio.html:159
+msgid "ImageSonif"
+msgstr "ImageSonif"
+
+#: .\templates\inicio.html:161
+msgid "Sonificación de imágenes con visualización en tiempo real"
+msgstr "Real-time updated visualization"

@@ -23,22 +23,53 @@
 <body>
     <div class="homepage-container">
         <!-- Header Section -->
-        <header class="header-section">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-lg-8 text-center">
-                        <div class="brand-wrapper">
-                            <img src="{% static 'sonoUno.jpg' %}" class="brand-logo" alt="logo de sonoUno">
-                            <div class="brand-info">
-                                <h1 class="brand-title">SonoUno</h1>
-                                <p class="brand-tagline">Software de sonorización de datos astronómicos</p>
-                                <p class="brand-description">Explora datos científicos visualmente y mediante sonorización</p>
-                            </div>
-                        </div>
+        <header class="header-section position-relative">
+    <!-- SELECTOR DE IDIOMA ARRIBA A LA DERECHA -->
+    <div class="homepage-lang-wrapper">
+        <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center m-0">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            
+            <div class="homepage-lang-switcher d-flex align-items-center gap-1" role="group" aria-label="{% trans 'Seleccionar idioma' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-translate mx-1" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
+                    <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
+                </svg>
+                
+                {% for language in languages %}
+                    <button type="submit"
+                            name="language"
+                            value="{{ language.code }}"
+                            class="btn btn-sm homepage-lang-btn {% if language.code == LANGUAGE_CODE %}active{% endif %}"
+                            lang="{{ language.code }}"
+                            aria-label="{{ language.name_local|capfirst }}"
+                            title="{{ language.name_local|capfirst }}"
+                            {% if language.code == LANGUAGE_CODE %}aria-current="true"{% endif %}>
+                        {{ language.code|upper }}
+                    </button>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8 text-center">
+                <div class="brand-wrapper">
+                    <img src="{% static 'sonoUno.jpg' %}" class="brand-logo" alt="logo de sonoUno">
+                    <div class="brand-info">
+                        <h1 class="brand-title">{% trans "SonoUno" %}</h1>
+                        <p class="brand-tagline">{% trans "Software de sonorización de datos astronómicos" %}</p>
+                        <p class="brand-description">{% trans "Explora datos científicos visualmente y mediante sonorización" %}</p>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </div>
+</header>
 
         <!-- Applications Menu -->
         <main class="apps-menu-section">
@@ -46,8 +77,8 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10">
                         <div class="apps-title-wrapper">
-                            <h2 class="apps-title">Selecciona una aplicación</h2>
-                            <div class="apps-subtitle">Elige la herramienta que necesites para tu análisis</div>
+                            <h2 class="apps-title">{% trans "Selecciona una aplicación" %}</h2>
+                            <div class="apps-subtitle">{% trans "Elige la herramienta que necesites para tu análisis" %}</div>
                         </div>
                         
                         <div class="apps-button-grid">
@@ -59,11 +90,11 @@
                                                 <i class="fas fa-chart-line" aria-hidden="true"></i>
                                             </div>
                                             <div class="app-button-title-group">
-                                                <span class="app-version-badge app-version-badge-v1">Clásica</span>
-                                                <h3 class="app-button-title">Tablas</h3>
+                                                <span class="app-version-badge app-version-badge-v1">{% trans "Clásica" %}</span>
+                                                <h3 class="app-button-title">{% trans "Tablas" %}</h3>
                                             </div>
                                         </div>
-                                        <p class="app-button-desc">Interacción de datos en tablas de dos columnas <span class="app-external-note">(sitio externo)</span></p>
+                                        <p class="app-button-desc">{% trans "Interacción de datos en tablas de dos columnas" %} <span class="app-external-note">(sitio externo)</span></p>
                                         <div class="app-button-arrow">
                                             <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                                         </div>
@@ -77,11 +108,11 @@
                                                 <i class="fas fa-chart-line" aria-hidden="true"></i>
                                             </div>
                                             <div class="app-button-title-group">
-                                                <span class="app-version-badge app-version-badge-v2">Nueva</span>
-                                                <h3 class="app-button-title">Tablas</h3>
+                                                <span class="app-version-badge app-version-badge-v2">{% trans "Nueva" %}</span>
+                                                <h3 class="app-button-title">{% trans "Tablas" %}</h3>
                                             </div>
                                         </div>
-                                        <p class="app-button-desc">Nueva versión de la interacción de datos en tablas de dos columnas</p>
+                                        <p class="app-button-desc">{% trans "Nueva versión de la interacción de datos en tablas de dos columnas" %}</p>
                                         <div class="app-button-arrow">
                                             <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                         </div>
@@ -95,9 +126,9 @@
                                         <div class="app-icon-wrapper">
                                             <i class="fas fa-mountain" aria-hidden="true"></i>
                                         </div>
-                                        <h3 class="app-button-title">Muongrafía</h3>
+                                        <h3 class="app-button-title">{% trans "Muongrafía" %}</h3>
                                     </div>
-                                    <p class="app-button-desc">Visualización y análisis de datos de muongrafía</p>
+                                    <p class="app-button-desc">{% trans "Visualización y análisis de datos de muongrafía" %}</p>
                                     <div class="app-button-arrow">
                                         <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                     </div>
@@ -110,9 +141,9 @@
                                         <div class="app-icon-wrapper">
                                             <i class="fas fa-atom" aria-hidden="true"></i>
                                         </div>
-                                        <h3 class="app-button-title">LHC</h3>
+                                        <h3 class="app-button-title">{% trans "LHC" %}</h3>
                                     </div>
-                                    <p class="app-button-desc">Análisis de datos LHC</p>
+                                    <p class="app-button-desc">{% trans "Análisis de datos LHC" %}</p>
                                     <div class="app-button-arrow">
                                         <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                     </div>
@@ -125,9 +156,9 @@
                                         <div class="app-icon-wrapper">
                                             <i class="fas fa-image" aria-hidden="true"></i>
                                         </div>
-                                        <h3 class="app-button-title">ImageSonif</h3>
+                                        <h3 class="app-button-title">{% trans "ImageSonif" %}</h3>
                                     </div>
-                                    <p class="app-button-desc">Sonificación de imágenes con visualización en tiempo real</p>
+                                    <p class="app-button-desc">{% trans "Sonificación de imágenes con visualización en tiempo real" %}</p>
                                     <div class="app-button-arrow">
                                         <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                     </div>
