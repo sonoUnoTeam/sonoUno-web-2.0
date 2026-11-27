@@ -1,6 +1,6 @@
 {% load static %}
 {% load custom_filters %}
-
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -57,16 +57,16 @@
                                 <div class="col-md-6">
                                     <div class="btn-group w-100 transport-btn-group" role="group">
                                         <button class="btn btn-transport-play" id="playBtn" type="button">
-                                            <i class="bi bi-play-fill fs-6"></i> Play
+                                            <i class="bi bi-play-fill fs-6"></i> {% trans 'Reproducir' %}
                                         </button>
                                         <button class="btn btn-transport-pause" id="pauseBtn" type="button" style="display: none;">
-                                            <i class="bi bi-pause-fill fs-6"></i> Pause
+                                            <i class="bi bi-pause-fill fs-6"></i> {% trans 'Pausar' %}
                                         </button>
                                         <button class="btn btn-transport-stop" id="stopBtn" type="button">
-                                            <i class="bi bi-stop-fill fs-6"></i> Stop
+                                            <i class="bi bi-stop-fill fs-6"></i> {% trans 'Detener' %}
                                         </button>
                                         <button class="btn btn-transport-reset" id="audioResetBtn" type="button">
-                                            <i class="bi bi-arrow-clockwise fs-6"></i> Reset
+                                            <i class="bi bi-arrow-clockwise fs-6"></i> {% trans 'Reiniciar' %}
                                         </button>
                                     </div>
                                 </div>
@@ -74,13 +74,13 @@
                                 <!-- Controles de Volumen -->
                                 <div class="col-md-6">
                                     <div class="d-flex align-items-center gap-2 px-1">
-                                        <button class="btn btn-sm btn-outline-secondary" id="volumeDownBtn" type="button" title="Bajar volumen">
+                                        <button class="btn btn-sm btn-outline-secondary" id="volumeDownBtn" type="button" title="{% trans 'Bajar volumen' %}">
                                             <i class="bi bi-volume-down"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-secondary" id="muteBtn" type="button" title="Silenciar/Activar sonido">
+                                        <button class="btn btn-sm btn-outline-secondary" id="muteBtn" type="button" title="{% trans 'Silenciar/Activar sonido' %}">
                                             <i class="bi bi-volume-up" id="muteIcon"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-secondary" id="volumeUpBtn" type="button" title="Subir volumen">
+                                        <button class="btn btn-sm btn-outline-secondary" id="volumeUpBtn" type="button" title="{% trans 'Subir volumen' %}">
                                             <i class="bi bi-volume-up"></i>
                                         </button>
                                         <div class="flex-grow-1 mx-2">
@@ -114,17 +114,17 @@
                             <div class="row align-items-center g-2 pt-2 border-top">
                                 <div class="col-md-7">
                                     <div class="btn-group w-100" role="group">
-                                        <button id="addMarkerButton" class="btn btn-sm btn-outline-primary fw-semibold" title="Agregar marcador en posición actual (M+)">
+                                        <button id="addMarkerButton" class="btn btn-sm btn-outline-primary fw-semibold" title="{% trans 'Agregar marcador en posición actual (M+)' %}">
                                             <i class="bi bi-bookmark-plus-fill"></i> M+
                                         </button>
-                                        <button id="removeMarkerButton" class="btn btn-sm btn-outline-danger fw-semibold" title="Eliminar último marcador (M-)">
+                                        <button id="removeMarkerButton" class="btn btn-sm btn-outline-danger fw-semibold" title="{% trans 'Eliminar último marcador (M-)' %}">
                                             <i class="bi bi-bookmark-dash-fill"></i> M-
                                         </button>
-                                        <button id="undoButton" class="btn btn-sm btn-outline-warning fw-semibold text-dark" title="Deshacer configuración">
-                                            <i class="bi bi-arrow-counterclockwise"></i> Undo
+                                        <button id="undoButton" class="btn btn-sm btn-outline-warning fw-semibold text-dark" title="{% trans 'Deshacer configuración' %}">
+                                            <i class="bi bi-arrow-counterclockwise"></i> {% trans 'Deshacer' %}
                                         </button>
-                                        <button id="resetButton" class="btn btn-sm btn-outline-secondary fw-semibold" title="Reset completo">
-                                            <i class="bi bi-trash"></i> Reset
+                                        <button id="resetButton" class="btn btn-sm btn-outline-secondary fw-semibold" title="{% trans 'Reset completo' %}">
+                                            <i class="bi bi-trash"></i> {% trans 'Reiniciar' %}
                                         </button>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                             <!-- Elemento de Audio HTML5 -->
                             <audio id="audioPlayer">
                                 <source id="audioSource" src="" type="audio/wav">
-                                Tu navegador no soporta la reproducción de audio.
+                                {% trans 'Tu navegador no soporta la reproducción de audio.' %}
                             </audio>                                               
                         </div>
 
@@ -217,9 +217,9 @@
             if (djangoEstiloLinea) localStorage.setItem('estilo_linea', djangoEstiloLinea);
             if (djangoColorLinea) localStorage.setItem('color_linea', djangoColorLinea);
 
-            let name_grafic = localStorage.getItem('name_grafic') || 'Gráfico de Datos';
-            let name_eje_x = localStorage.getItem('name_eje_x') || 'Eje X';
-            let name_eje_y = localStorage.getItem('name_eje_y') || 'Eje Y';
+            let name_grafic = localStorage.getItem('name_grafic') || '{% trans "Gráfico de Datos" %}';
+            let name_eje_x = localStorage.getItem('name_eje_x') || '{% trans "Eje X" %}';
+            let name_eje_y = localStorage.getItem('name_eje_y') || '{% trans "Eje Y" %}';
             let grilla = localStorage.getItem('grilla') || 'true';
             let escala_grises = localStorage.getItem('escala_grises') || 'false';
             let estilo_linea = localStorage.getItem('estilo_linea') || 'solid';
@@ -253,8 +253,8 @@
                         <div class="d-flex align-items-center justify-content-center h-100 text-muted">
                             <div class="text-center">
                                 <i class="bi bi-bar-chart" style="font-size: 3rem;"></i>
-                                <h6 class="mt-3">No hay datos cargados en esta sesión.</h6>
-                                <p class="small">Utiliza el menú "Importar" para comenzar.</p>
+                                <h6 class="mt-3">{% trans 'No hay datos cargados en esta sesión.' %}</h6>
+                                <p class="small">{% trans 'Utiliza el menú "Importar" para comenzar.' %}</p>
                             </div>
                         </div>`;
                 }
@@ -289,7 +289,7 @@
                         playBtn.style.display = 'none';
                         pauseBtn.style.display = 'inline-block';
                     }).catch((error) => {
-                        alert("Error al reproducir el audio: " + error.message);
+                        alert("{% trans 'Error al reproducir el audio:' %} " + error.message);
                     });
                 }
             });
@@ -556,10 +556,10 @@
                         // Actualizar el gráfico con los marcadores y picos
                         renderGraficoWithMarkers(data);
                     } else {
-                        alert('Por favor, carga un archivo de audio primero.');
+                        alert('{% trans "Por favor, carga un archivo de audio primero." %}');
                     }
                 } else {
-                    alert('Por favor, carga datos del gráfico primero.');
+                    alert('{% trans "Por favor, carga datos del gráfico primero." %}');
                 }
             });
             
@@ -575,7 +575,7 @@
                         renderGraficoWithMarkers(data);
                     }
                 } else {
-                    alert('No hay marcadores para eliminar.');
+                    alert('{% trans "No hay marcadores para eliminar." %}');
                 }
             });
 
@@ -585,7 +585,7 @@
             const undoButton = document.getElementById('undoButton');
             if (undoButton) {
                 undoButton.addEventListener('click', function() {
-                    if (confirm('¿Limpiar todas las configuraciones y marcadores? Se mantendrán los datos del gráfico.')) {
+                    if (confirm('{% trans "¿Limpiar todas las configuraciones y marcadores? Se mantendrán los datos del gráfico." %}')) {
                         // Restablecer configuración inicial del gráfico 
                         localStorage.setItem('name_grafic', 'Gráfico');
                         localStorage.setItem('name_eje_x', 'Eje X');

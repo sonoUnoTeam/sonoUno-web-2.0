@@ -26,7 +26,68 @@ body {
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+/* Posicionamiento arriba a la derecha en la portada */
+.homepage-lang-wrapper {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    z-index: 10;
+}
 
+/* Contenedor translúcido integrado con el azul pizarra del header */
+.homepage-lang-switcher {
+    padding: 0.3rem 0.45rem;
+    border-radius: 0.6rem;
+    background-color: rgba(15, 28, 46, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.homepage-lang-switcher svg {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Botones de idioma con variables de Bootstrap sobrescritas */
+.homepage-lang-btn {
+    --bs-btn-padding-y: 0.25rem;
+    --bs-btn-padding-x: 0.7rem;
+    --bs-btn-font-size: 0.8rem;
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: rgba(255, 255, 255, 0.85);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: rgba(255, 255, 255, 0.2);
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0.15);
+    --bs-btn-hover-border-color: rgba(255, 255, 255, 0.45);
+    border-radius: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+/* Estado activo en azul brillante como las etiquetas "NUEVA" de las tarjetas */
+.homepage-lang-btn.active {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 2px 6px rgba(13, 110, 253, 0.45);
+}
+
+/* Foco visible para navegación con tecla Tab */
+.homepage-lang-btn:focus-visible {
+    outline: 2px solid #6ea8fe;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.45);
+}
+
+/* Ajuste responsivo para pantallas muy chicas (celulares) */
+@media (max-width: 576px) {
+    .homepage-lang-wrapper {
+        position: static;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.75rem 1rem 0;
+    }
+}
 .brand-wrapper {
     display: flex;
     align-items: center;
